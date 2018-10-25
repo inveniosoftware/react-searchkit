@@ -9,7 +9,7 @@ const mapDispatchToProps = dispatch => ({
 
 export const SearchBar = connect(
   state => ({
-    currentQueryString: state.query.currentQueryString,
+    queryString: state.query.queryString,
   }),
   mapDispatchToProps
 )(SearchBarComponent);

@@ -16,12 +16,14 @@ export const execute = query => {
 
     let apiConfig = { ...getState().apiConfig };
     let searchApi = getState().searchApi;
+    let queryState = getState().query;
     searchApi
-      .search(query, apiConfig)
-      .then(data => {
+      .search(queryState, apiConfig)
+      .then(response => {
+        let data = searchApi.serialize(response.data);
         dispatch({
           type: RESULTS_FETCH_SUCCESS,
-          payload: data.data.hits.hits,
+          payload: data,
         });
       })
       .catch(reason => {

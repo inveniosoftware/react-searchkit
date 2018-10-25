@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { render } from 'react-dom';
 import { Grid } from 'semantic-ui-react';
-import { ReactSearchKit, SearchBar } from '@app/components';
+import { ReactSearchKit, SearchBar, Count } from '@app/components';
 import { ResultsContainer } from './ResultsContainer';
 
 class Demo extends Component {
@@ -19,7 +19,15 @@ class Demo extends Component {
             <Grid.Row>
               <Grid.Column>FILTERS</Grid.Column>
               <Grid.Column>
-                <ResultsContainer />
+                <Grid.Row>
+                  <Grid.Column>
+                    <Count />
+                  </Grid.Column>
+
+                  <Grid.Column>
+                    <ResultsContainer />
+                  </Grid.Column>
+                </Grid.Row>
               </Grid.Column>
             </Grid.Row>
           </Grid>

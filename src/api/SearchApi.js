@@ -1,12 +1,6 @@
 import axios from 'axios';
 
 export class SearchApi {
-  filter(terms, searchOnFilter = true) {
-    if (searchOnFilter) {
-      this._execute();
-    }
-  }
-
   _addFilterToParams(params, filters) {
     let newParams = { ...params };
     Object.keys(filters).forEach(key => {
@@ -49,25 +43,35 @@ export class SearchApi {
   }
 
   search(query, apiConfig) {
-    let { currentQueryString, filters, sorting, pagination } = query;
-    let params = this._processParams(
-      currentQueryString,
-      filters,
-      sorting,
-      pagination
-    );
+    let { queryString, filters, sorting, pagination } = query;
+    console.log(query);
+    let params = this._processParams(queryString, filters, sorting, pagination);
 
     apiConfig['params'] = { ...apiConfig['params'], ...params };
+    console.log(apiConfig);
     return axios(apiConfig);
+  }
+
+  serialize(response) {
+    let data = {};
+
+    data['filters'] = response.aggregations || {};
+    data['hits'] = response.hits.hits;
+    data['total'] = response.hits.total;
+    return data;
   }
 }
 
 const query = {
   currentQueryString: 'The current query the user selected',
   filters: {
-    checkboxFilter: ['videos'],
+    categories: ['publications', 'videos'],
+    types: [],
   },
-  sorting: 'Mostrecent',
+  sorting: {
+    by: 'most-recent',
+    order: 'asc',
+  },
   pagination: {
     page: 1,
     size: 10,

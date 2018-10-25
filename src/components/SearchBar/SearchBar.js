@@ -8,14 +8,14 @@ class SearchBar extends Component {
     this.onQueryChange = this.props.onQueryChange;
     this.onSearchExecute = this.props.onSearchExecute;
     this.state = {
-      currentValue: this.props.currentQueryString || '',
+      currentValue: this.props.queryString || '',
     };
   }
 
   static getDerivedStateFromProps(props, state) {
     if (props.currentQuery !== state.currentValue) {
       return {
-        currentValue: props.currentQueryString,
+        currentValue: props.queryString,
       };
     }
     return null;
@@ -45,13 +45,13 @@ class SearchBar extends Component {
 }
 
 SearchBar.propTypes = {
-  currentQueryString: PropTypes.string,
+  queryString: PropTypes.string,
   onQueryChange: PropTypes.func.isRequired,
   onSearchExecute: PropTypes.func.isRequired,
 };
 
 SearchBar.defaultProps = {
-  currentQueryString: '',
+  queryString: '',
 };
 
 export default SearchBar;
