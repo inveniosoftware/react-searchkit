@@ -17,9 +17,12 @@ export const updateQueryString = queryString => {
   };
 };
 
-export const updateQuerySortBy = sortByValue => {
+export const updateQuerySortBy = (sortByValue, sortOrderValue) => {
   return dispatch => {
-    dispatch({ type: SET_QUERY_SORT_BY, payload: sortByValue });
+    dispatch({
+      type: SET_QUERY_SORT_BY,
+      payload: { sortBy: sortByValue, sortOrder: sortOrderValue },
+    });
     dispatch(_executeQuery());
   };
 };

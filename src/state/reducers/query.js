@@ -12,8 +12,8 @@ export default (state = {}, action) => {
       return {
         ...state,
         sorting: {
-          ...state.sorting,
-          sortBy: action.payload,
+          sortBy: action.payload.sortBy,
+          sortOrder: action.payload.sortOrder,
         },
       };
     case SET_QUERY_SORT_ORDER:
