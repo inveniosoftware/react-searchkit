@@ -1,44 +1,46 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { Input, Button } from 'semantic-ui-react';
+import { Input } from 'semantic-ui-react';
 
 class SearchBar extends Component {
   constructor(props) {
     super(props);
-    this.onQueryChange = this.props.onQueryChange;
-    this.onSearchExecute = this.props.onSearchExecute;
+    this.updateQueryString = this.props.updateQueryString;
     this.state = {
       currentValue: this.props.queryString || '',
     };
   }
 
-  static getDerivedStateFromProps(props, state) {
-    if (props.currentQuery !== state.currentValue) {
-      return {
-        currentValue: props.queryString,
-      };
+  onInputChange = (event, input) => {
+    this.setState({
+      currentValue: input.value,
+    });
+  };
+
+  onSearchClicked = (event, input) =>
+    this.updateQueryString(this.state.currentValue);
+
+  onInputKeyPress = (event, input) => {
+    if (event.key === 'Enter') {
+      this.updateQueryString(this.state.currentValue);
     }
-    return null;
-  }
-
-  handleInputChange = (event, data) => this.onQueryChange(data.value);
-
-  handleButtonClick = (event, data) =>
-    this.onSearchExecute(this.state.currentValue);
+  };
 
   render() {
     let { placeholder } = this.props;
-    placeholder = placeholder || 'Search for a record';
+    placeholder = placeholder || 'Type something';
 
     return (
       <Input
-        action={{ content: 'search', onClick: this.handleButtonClick }}
-        className="searchbar"
-        icon="search"
+        action={{
+          content: 'Search',
+          onClick: this.onSearchClicked,
+        }}
+        fluid
         placeholder={placeholder}
-        iconPosition="left"
-        onChange={this.handleInputChange}
+        onChange={this.onInputChange}
         value={this.state.currentValue}
+        onKeyPress={this.onInputKeyPress}
       />
     );
   }
@@ -46,8 +48,7 @@ class SearchBar extends Component {
 
 SearchBar.propTypes = {
   queryString: PropTypes.string,
-  onQueryChange: PropTypes.func.isRequired,
-  onSearchExecute: PropTypes.func.isRequired,
+  updateQueryString: PropTypes.func.isRequired,
 };
 
 SearchBar.defaultProps = {

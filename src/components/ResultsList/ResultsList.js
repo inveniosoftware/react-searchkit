@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import _isEmpty from 'lodash/isEmpty';
-import { List, Segment } from 'semantic-ui-react';
+import { Item, Segment } from 'semantic-ui-react';
 import { Error } from '../Error';
 
 export default class ResultsList extends Component {
@@ -13,9 +13,9 @@ export default class ResultsList extends Component {
 
   defaultListItem = rowData => {
     return (
-      <Segment>
-        <List.Item>{JSON.stringify(rowData)}</List.Item>
-      </Segment>
+      <Item>
+        <Item.Content>{JSON.stringify(rowData)}</Item.Content>
+      </Item>
     );
   };
 
@@ -28,7 +28,7 @@ export default class ResultsList extends Component {
   render() {
     const { data, error } = this.props;
     return _isEmpty(error) ? (
-      <List>{this.renderList(data)}</List>
+      <Item.Group divided>{this.renderList(data)}</Item.Group>
     ) : (
       <Error error={error} />
     );
