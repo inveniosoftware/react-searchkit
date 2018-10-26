@@ -44,11 +44,9 @@ export class SearchApi {
 
   search(query, apiConfig) {
     let { queryString, filters, sorting, pagination } = query;
-    console.log(query);
     let params = this._processParams(queryString, filters, sorting, pagination);
 
     apiConfig['params'] = { ...apiConfig['params'], ...params };
-    console.log(apiConfig);
     return axios(apiConfig);
   }
 

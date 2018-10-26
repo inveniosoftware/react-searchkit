@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { createProvider } from 'react-redux';
 import { configureStore, storeKey } from '../../store';
-import { SearchApi } from '../../api/SearchApi';
+import { SearchApi as _SearchApi } from '../../api/SearchApi';
 import 'semantic-ui-css/semantic.min.css';
 
 const Provider = createProvider(storeKey);
@@ -9,11 +9,17 @@ const Provider = createProvider(storeKey);
 export class ReactSearchKit extends Component {
   constructor(props) {
     super(props);
-    const searchApi = props.searchApi || SearchApi;
+    const SearchApi = props.searchApi || _SearchApi;
     this.store = configureStore({
-      query: {},
+      query: {
+        queryString: '',
+        sorting: {
+          sortBy: null,
+          sortOrder: null,
+        },
+      },
       apiConfig: props.apiConfig,
-      searchApi: new searchApi(),
+      searchApi: new SearchApi(),
     });
   }
 

@@ -1,1 +1,5 @@
-export { setQueryString, execute } from './query';
+export {
+  updateQueryString,
+  updateQuerySortBy,
+  updateQuerySortOrder,
+} from './query';

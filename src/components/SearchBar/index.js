@@ -1,10 +1,9 @@
-import { connect } from '../../store';
-import { setQueryString, execute } from '../../state/actions';
+import { connect } from '@app/store';
+import { updateQueryString } from '@app/state/actions';
 import SearchBarComponent from './SearchBar';
 
 const mapDispatchToProps = dispatch => ({
-  onQueryChange: query => dispatch(setQueryString(query)),
-  onSearchExecute: query => dispatch(execute(query)),
+  updateQueryString: query => dispatch(updateQueryString(query)),
 });
 
 export const SearchBar = connect(
