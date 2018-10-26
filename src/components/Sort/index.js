@@ -1,9 +1,10 @@
 import { connect } from '@app/store';
 import { updateQuerySortBy, updateQuerySortOrder } from '@app/state/actions';
-import SortComponent from './Sort';
+import SortContainerComponent from './SortContainer';
 
 const mapDispatchToProps = dispatch => ({
-  updateQuerySortBy: sortByValue => dispatch(updateQuerySortBy(sortByValue)),
+  updateQuerySortBy: (sortByValue, sortOrderValue) =>
+    dispatch(updateQuerySortBy(sortByValue, sortOrderValue)),
   updateQuerySortOrder: sortOrderValue =>
     dispatch(updateQuerySortOrder(sortOrderValue)),
 });
@@ -14,4 +15,4 @@ export const Sort = connect(
     currentSorting: state.query.sorting,
   }),
   mapDispatchToProps
-)(SortComponent);
+)(SortContainerComponent);

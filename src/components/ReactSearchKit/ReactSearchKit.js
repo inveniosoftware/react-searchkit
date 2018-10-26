@@ -14,8 +14,8 @@ export class ReactSearchKit extends Component {
       query: {
         queryString: '',
         sorting: {
-          sortBy: null,
-          sortOrder: null,
+          sortBy: 'mostrecent',
+          sortOrder: 'desc',
         },
       },
       apiConfig: props.apiConfig,

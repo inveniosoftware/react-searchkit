@@ -6,33 +6,17 @@ import { ResultsContainer } from './ResultsContainer';
 
 class Demo extends Component {
   render() {
-    const sortValues = {
-      values: [
-        {
-          text: 'Best Match',
-          value: 'bestmatch',
-          order: {
-            values: [
-              { text: 'ASC', value: 'asc' },
-              { text: 'DESC', value: 'desc' },
-            ],
-            default: 'desc',
-          },
-        },
-        {
-          text: 'Newest',
-          value: 'mostrecent',
-          order: {
-            values: [
-              { text: 'ASC', value: 'asc' },
-              { text: 'DESC', value: 'desc' },
-            ],
-            default: 'desc',
-          },
-        },
-      ],
-      default: 'mostrecent',
-    };
+    const sortValues = [
+      {
+        text: 'Best Match',
+        value: 'bestmatch',
+      },
+      {
+        text: 'Newest',
+        value: 'mostrecent',
+        order: [{ text: 'ASC', value: 'asc' }, { text: 'DESC', value: 'desc' }],
+      },
+    ];
 
     return (
       <div>
@@ -78,7 +62,12 @@ class Demo extends Component {
                         <Count />
                       </Grid.Column>
                       <Grid.Column>
-                        <Sort values={sortValues} showOnEmptyResults={true} />
+                        <Sort
+                          values={sortValues}
+                          defaultSortBy="mostrecent"
+                          defaultOrder="desc"
+                          showOnEmptyResults={true}
+                        />
                       </Grid.Column>
                     </Grid.Row>
                     <ResultsContainer />
