@@ -2,6 +2,7 @@ import {
   SET_QUERY_STRING,
   SET_QUERY_SORT_BY,
   SET_QUERY_SORT_ORDER,
+  SET_STATE_FROM_URL,
 } from '../types';
 
 export default (state = {}, action) => {
@@ -24,6 +25,8 @@ export default (state = {}, action) => {
           sortOrder: action.payload,
         },
       };
+    case SET_STATE_FROM_URL:
+      return { ...state, ...action.payload.urlState };
     default:
       return state;
   }

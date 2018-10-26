@@ -1,4 +1,5 @@
 import {
+  SET_STATE_FROM_URL,
   SET_QUERY_STRING,
   SET_QUERY_SORT_BY,
   SET_QUERY_SORT_ORDER,
@@ -6,6 +7,22 @@ import {
   RESULTS_FETCH_SUCCESS,
   RESULTS_FETCH_ERROR,
 } from '../types';
+
+export const setQueryFromUrl = location => {
+  return async (dispatch, getState) => {
+    console.log(location);
+    let urlParamsApi = getState().urlParamsApi;
+
+    if (urlParamsApi) {
+      let params = urlParamsApi.getUrlParams(location);
+      let _ = await dispatch({
+        type: SET_STATE_FROM_URL,
+        payload: { urlState: params },
+      });
+      dispatch(_executeQuery());
+    }
+  };
+};
 
 export const updateQueryString = queryString => {
   return dispatch => {
