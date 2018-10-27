@@ -21,6 +21,16 @@ export class ReactSearchKit extends Component {
           sortBy: 'mostrecent',
           sortOrder: 'desc',
         },
+        pagination: {
+          page: 1,
+          size: 10,
+        },
+      },
+      results: {
+        data: {
+          hits: [],
+          total: 0,
+        },
       },
       apiConfig: props.apiConfig,
       searchApi: new SearchApi(),

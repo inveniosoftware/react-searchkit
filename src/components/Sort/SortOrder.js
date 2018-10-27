@@ -25,9 +25,9 @@ export default class SortOrder extends Component {
     });
   };
 
-  onChange = (event, input) => {
-    if (input.value === this.props.currentSortOrder) return;
-    this.updateQuerySortOrder(input.value);
+  onChange = (event, { value }) => {
+    if (value === this.props.currentSortOrder) return;
+    this.updateQuerySortOrder(value);
   };
 
   render() {

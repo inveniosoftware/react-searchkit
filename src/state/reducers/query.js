@@ -2,6 +2,8 @@ import {
   SET_QUERY_STRING,
   SET_QUERY_SORT_BY,
   SET_QUERY_SORT_ORDER,
+  SET_QUERY_PAGINATION_PAGE,
+  SET_QUERY_PAGINATION_SIZE,
   SET_STATE_FROM_URL,
 } from '../types';
 
@@ -23,6 +25,22 @@ export default (state = {}, action) => {
         sorting: {
           ...state.sorting,
           sortOrder: action.payload,
+        },
+      };
+    case SET_QUERY_PAGINATION_PAGE:
+      return {
+        ...state,
+        pagination: {
+          ...state.pagination,
+          page: action.payload,
+        },
+      };
+    case SET_QUERY_PAGINATION_SIZE:
+      return {
+        ...state,
+        pagination: {
+          ...state.pagination,
+          size: action.payload,
         },
       };
     case SET_STATE_FROM_URL:

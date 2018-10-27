@@ -3,6 +3,8 @@ import {
   SET_QUERY_STRING,
   SET_QUERY_SORT_BY,
   SET_QUERY_SORT_ORDER,
+  SET_QUERY_PAGINATION_PAGE,
+  SET_QUERY_PAGINATION_SIZE,
   FETCHING_RESULTS,
   RESULTS_FETCH_SUCCESS,
   RESULTS_FETCH_ERROR,
@@ -10,12 +12,11 @@ import {
 
 export const setQueryFromUrl = location => {
   return async (dispatch, getState) => {
-    console.log(location);
     let urlParamsApi = getState().urlParamsApi;
 
     if (urlParamsApi) {
       let params = urlParamsApi.getUrlParams(location);
-      let _ = await dispatch({
+      await dispatch({
         type: SET_STATE_FROM_URL,
         payload: { urlState: params },
       });
@@ -25,8 +26,8 @@ export const setQueryFromUrl = location => {
 };
 
 export const updateQueryString = queryString => {
-  return dispatch => {
-    dispatch({
+  return async dispatch => {
+    await dispatch({
       type: SET_QUERY_STRING,
       payload: queryString,
     });
@@ -35,8 +36,8 @@ export const updateQueryString = queryString => {
 };
 
 export const updateQuerySortBy = (sortByValue, sortOrderValue) => {
-  return dispatch => {
-    dispatch({
+  return async dispatch => {
+    await dispatch({
       type: SET_QUERY_SORT_BY,
       payload: { sortBy: sortByValue, sortOrder: sortOrderValue },
     });
@@ -45,8 +46,22 @@ export const updateQuerySortBy = (sortByValue, sortOrderValue) => {
 };
 
 export const updateQuerySortOrder = sortOrderValue => {
-  return dispatch => {
-    dispatch({ type: SET_QUERY_SORT_ORDER, payload: sortOrderValue });
+  return async dispatch => {
+    await dispatch({ type: SET_QUERY_SORT_ORDER, payload: sortOrderValue });
+    dispatch(_executeQuery());
+  };
+};
+
+export const updateQueryPaginationPage = page => {
+  return async dispatch => {
+    await dispatch({ type: SET_QUERY_PAGINATION_PAGE, payload: page });
+    dispatch(_executeQuery());
+  };
+};
+
+export const updateQueryPaginationSize = size => {
+  return async dispatch => {
+    await dispatch({ type: SET_QUERY_PAGINATION_SIZE, payload: size });
     dispatch(_executeQuery());
   };
 };
