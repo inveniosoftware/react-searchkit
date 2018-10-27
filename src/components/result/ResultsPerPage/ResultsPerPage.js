@@ -36,7 +36,8 @@ export default class ResultsPerPage extends Component {
 
     return currentSize && totalResults > 0 ? (
       <Dropdown
-        selection
+        inline
+        compact
         options={options}
         value={currentSize}
         onChange={this.onChange}

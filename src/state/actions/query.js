@@ -5,10 +5,10 @@ import {
   SET_QUERY_SORT_ORDER,
   SET_QUERY_PAGINATION_PAGE,
   SET_QUERY_PAGINATION_SIZE,
-  FETCHING_RESULTS,
+  RESULTS_LOADING,
   RESULTS_FETCH_SUCCESS,
   RESULTS_FETCH_ERROR,
-} from '../types';
+} from '@app/state/types';
 
 export const setQueryFromUrl = location => {
   return async (dispatch, getState) => {
@@ -68,7 +68,7 @@ export const updateQueryPaginationSize = size => {
 
 export const _executeQuery = () => {
   return (dispatch, getState) => {
-    dispatch({ type: FETCHING_RESULTS });
+    dispatch({ type: RESULTS_LOADING });
 
     let apiConfig = { ...getState().apiConfig };
     let searchApi = getState().searchApi;
@@ -77,7 +77,13 @@ export const _executeQuery = () => {
       .search(queryState, apiConfig)
       .then(response => {
         let data = searchApi.serialize(response.data);
-        dispatch({ type: RESULTS_FETCH_SUCCESS, payload: data });
+        dispatch({
+          type: RESULTS_FETCH_SUCCESS,
+          payload: {
+            hits: data.hits,
+            total: data.total,
+          },
+        });
       })
       .catch(reason => {
         dispatch({ type: RESULTS_FETCH_ERROR, payload: reason });

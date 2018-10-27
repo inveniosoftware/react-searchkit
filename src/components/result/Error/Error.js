@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { Segment } from 'semantic-ui-react';
 
 export default class Loader extends Component {
   constructor(props) {

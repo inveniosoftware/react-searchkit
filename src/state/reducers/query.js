@@ -5,7 +5,7 @@ import {
   SET_QUERY_PAGINATION_PAGE,
   SET_QUERY_PAGINATION_SIZE,
   SET_STATE_FROM_URL,
-} from '../types';
+} from '@app/state/types';
 
 export default (state = {}, action) => {
   switch (action.type) {

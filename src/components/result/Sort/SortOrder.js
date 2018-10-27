@@ -38,6 +38,7 @@ export default class SortOrder extends Component {
     return Array.isArray(options) && options.length ? (
       <Dropdown
         selection
+        compact
         options={options}
         value={selectedValue}
         onChange={this.onChange}

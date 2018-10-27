@@ -47,6 +47,7 @@ export default class SortBy extends Component {
     return selectedValue ? (
       <Dropdown
         selection
+        compact
         options={options}
         value={selectedValue}
         onChange={this.onChange}

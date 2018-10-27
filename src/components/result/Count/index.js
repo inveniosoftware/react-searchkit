@@ -1,4 +1,4 @@
-import { connect } from '../../store';
+import { connect } from '@app/store';
 import CountComponent from './Count';
 
 export const Count = connect(state => ({

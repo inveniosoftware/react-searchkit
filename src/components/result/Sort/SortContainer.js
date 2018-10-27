@@ -21,7 +21,7 @@ export default class SortContainer extends Component {
     const currentSortOrderValue = this.props.currentSorting.sortOrder;
 
     return this.showOnEmptyResults || numberOfResults > 1 ? (
-      <div>
+      <span>
         <SortBy
           values={this.options}
           defaultValue={this.defaultSortBy}
@@ -35,7 +35,7 @@ export default class SortContainer extends Component {
           currentSortOrder={currentSortOrderValue}
           updateQuerySortOrder={this.updateQuerySortOrder}
         />
-      </div>
+      </span>
     ) : null;
   }
 }
