@@ -33,14 +33,11 @@ export default class SortBy extends Component {
       : undefined;
   };
 
-  onChange = (event, input) => {
-    if (input.value === this.props.currentSortBy) return;
+  onChange = (event, { value }) => {
+    if (value === this.props.currentSortBy) return;
 
-    const firstSortOrder = this._getFirstSortOrderValue(
-      this.options,
-      input.value
-    );
-    this.updateQuerySortBy(input.value, firstSortOrder);
+    const firstSortOrder = this._getFirstSortOrderValue(this.options, value);
+    this.updateQuerySortBy(value, firstSortOrder);
   };
 
   render() {
