@@ -1,32 +1,44 @@
 import {
-  FETCHING_RESULTS,
+  RESULTS_LOADING,
   RESULTS_FETCH_SUCCESS,
   RESULTS_FETCH_ERROR,
-} from '../types';
+  RESULTS_UPDATE_LAYOUT,
+} from '@app/state/types';
 
-export const initialState = { loading: false, data: [], error: {} };
-
-export default (state = initialState, action) => {
+export default (state = {}, action) => {
   switch (action.type) {
-    case FETCHING_RESULTS:
+    case RESULTS_LOADING:
       return {
+        ...state,
         loading: true,
+      };
+    case RESULTS_FETCH_SUCCESS:
+      return {
+        loading: false,
         data: {
-          hits: [],
-          total: 0,
+          ...state.data,
+          hits: action.payload.hits,
+          total: action.payload.total,
         },
         error: {},
       };
-    case RESULTS_FETCH_SUCCESS:
-      return { loading: false, data: action.payload, error: {} };
     case RESULTS_FETCH_ERROR:
       return {
         loading: false,
         data: {
+          ...state.data,
           hits: [],
           total: 0,
         },
         error: action.payload,
+      };
+    case RESULTS_UPDATE_LAYOUT:
+      return {
+        ...state,
+        data: {
+          ...state.data,
+          layout: action.payload,
+        },
       };
     default:
       return state;

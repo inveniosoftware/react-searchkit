@@ -9,11 +9,7 @@ export default class Count extends Component {
   }
 
   _renderTemplate(total) {
-    return (
-      <Fragment>
-        Results found <Label color={'blue'}>{total}</Label>
-      </Fragment>
-    );
+    return <Label color={'blue'}>{total}</Label>;
   }
 
   render() {

@@ -1,4 +1,4 @@
-import { connect } from '../../store';
+import { connect } from '@app/store';
 import ErrorComponent from './Error';
 
 export const Error = connect(state => ({

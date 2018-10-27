@@ -1,22 +1,8 @@
 import React, { Component } from 'react';
 import { render } from 'react-dom';
-import {
-  Segment,
-  Container,
-  Header,
-  Grid,
-  Card,
-  GridColumn,
-} from 'semantic-ui-react';
-import {
-  ReactSearchKit,
-  SearchBar,
-  Count,
-  Sort,
-  Pagination,
-  ResultsPerPage,
-} from '@app/components';
-import { ResultsContainer } from './ResultsContainer';
+import { Segment, Container, Header, Grid, Card } from 'semantic-ui-react';
+import { ReactSearchKit, SearchBar } from '@app/components';
+import { ResultsWithLoader } from './ResultsWithLoader';
 
 class Demo extends Component {
   render() {
@@ -28,11 +14,11 @@ class Demo extends Component {
       {
         text: 'Newest',
         value: 'mostrecent',
-        order: [{ text: 'ASC', value: 'asc' }, { text: 'DESC', value: 'desc' }],
+        order: [{ text: 'asc', value: 'asc' }, { text: 'desc', value: 'desc' }],
       },
     ];
 
-    const resultsPerPageOptions = [
+    const resultsPerPageValues = [
       {
         text: '10',
         value: 10,
@@ -69,8 +55,8 @@ class Demo extends Component {
             </Segment>
 
             <Container>
-              <Grid style={{ padding: '2em 0' }}>
-                <Grid.Row>
+              <Grid relaxed style={{ padding: '2em 0' }}>
+                <Grid.Row columns={2}>
                   <Grid.Column width={4}>
                     <Card>
                       <Card.Content header="Access Right" />
@@ -86,31 +72,10 @@ class Demo extends Component {
                     </Card>
                   </Grid.Column>
                   <Grid.Column width={12}>
-                    <Grid.Row>
-                      <Grid.Column>
-                        <Count />
-                      </Grid.Column>
-                      <Grid.Column>
-                        <Sort
-                          values={sortValues}
-                          defaultSortBy="mostrecent"
-                          defaultOrder="desc"
-                          showOnEmptyResults={true}
-                        />
-                      </Grid.Column>
-                      <Grid.Column>
-                        <ResultsPerPage
-                          values={resultsPerPageOptions}
-                          defaultValue={10}
-                        />
-                      </Grid.Column>
-                    </Grid.Row>
-                    <Grid.Row>
-                      <ResultsContainer />
-                    </Grid.Row>
-                    <Grid.Row>
-                      <Pagination />
-                    </Grid.Row>
+                    <ResultsWithLoader
+                      sortValues={sortValues}
+                      resultsPerPageValues={resultsPerPageValues}
+                    />
                   </Grid.Column>
                 </Grid.Row>
               </Grid>

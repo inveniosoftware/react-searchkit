@@ -1,4 +1,4 @@
-import reducer from '../reducer';
+import reducer from '@app/state/reducer';
 import expect from 'expect';
 
 describe('example test reducer', () => {

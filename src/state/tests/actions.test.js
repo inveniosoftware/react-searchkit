@@ -1,7 +1,7 @@
 import configureMockStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
-import { setMessage } from '../actions';
-import * as types from '../types';
+import { setMessage } from '@app/state//actions';
+import * as types from '@app/state/types';
 import expect from 'expect';
 
 const middlewares = [thunk];

@@ -1,7 +1,6 @@
-import { connect } from '../../store';
+import { connect } from '@app/store';
 import ResultsListComponent from './ResultsList';
 
 export const ResultsList = connect(state => ({
-  data: state.results.data.hits,
-  error: state.results.error,
+  items: state.results.data.hits,
 }))(ResultsListComponent);

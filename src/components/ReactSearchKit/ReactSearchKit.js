@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
 import { createProvider } from 'react-redux';
 import PropTypes from 'prop-types';
-import { configureStore, storeKey } from '../../store';
-import { SearchApi as _SearchApi } from '../../api/SearchApi';
+import { configureStore, storeKey } from '@app/store';
+import { SearchApi as _SearchApi } from '@app/api/SearchApi';
 import 'semantic-ui-css/semantic.min.css';
-import { UrlParamsProvider } from '../UrlParamsProvider';
-import { UrlParamsApi as _UrlParamsApi } from '../../api/UrlParamsApi';
+import { UrlParamsProvider } from '@app/components/UrlParamsProvider';
+import { UrlParamsApi as _UrlParamsApi } from '@app/api/UrlParamsApi';
 
 const Provider = createProvider(storeKey);
 
@@ -30,6 +30,7 @@ export class ReactSearchKit extends Component {
         data: {
           hits: [],
           total: 0,
+          layout: 'list',
         },
       },
       apiConfig: props.apiConfig,
