@@ -5,7 +5,6 @@ import {
   SET_QUERY_PAGINATION_PAGE,
   SET_QUERY_PAGINATION_SIZE,
   SET_STATE_FROM_URL,
-  SET_NEW_URL_PARAMS,
 } from '@app/state/types';
 
 export default (state = {}, action) => {
@@ -36,10 +35,7 @@ export default (state = {}, action) => {
       return {
         ...state,
         ...action.payload.urlState,
-        urlParams: action.payload.urlState,
       };
-    case SET_NEW_URL_PARAMS:
-      return { ...state, urlParams: action.payload };
     default:
       return state;
   }

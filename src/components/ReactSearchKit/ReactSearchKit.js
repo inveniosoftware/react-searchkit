@@ -14,6 +14,7 @@ export class ReactSearchKit extends Component {
     super(props);
     const SearchApi = props.searchApi || _SearchApi;
     const UrlParamsApi = props.urlParamsApi || _UrlParamsApi;
+    const { urlParamsSerializer, paramValidator } = props;
     let initialState = {
       query: {
         queryString: '',
@@ -31,7 +32,7 @@ export class ReactSearchKit extends Component {
       },
       apiConfig: props.apiConfig,
       searchApi: new SearchApi(),
-      urlParamsApi: new UrlParamsApi(),
+      urlParamsApi: new UrlParamsApi(urlParamsSerializer, paramValidator),
     };
     this.store = configureStore(initialState);
   }
