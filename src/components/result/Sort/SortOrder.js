@@ -12,6 +12,8 @@ export default class SortOrder extends Component {
   }
 
   componentDidMount() {
+    // TODO: REMOVE ME
+    this.onChange(null, { value: this.options[0].value });
     /*this.setInitialState({
       sortOrder: this.defaultValue,
     });*/
@@ -35,7 +37,7 @@ export default class SortOrder extends Component {
     const selectedValue = this.props.currentSortOrder;
     const options = this._mapOptions(this.options, sortBySelectedValue);
 
-    return Array.isArray(options) && options.length ? (
+    return selectedValue && Array.isArray(options) && options.length ? (
       <Dropdown
         selection
         compact
@@ -50,11 +52,12 @@ export default class SortOrder extends Component {
 SortOrder.propTypes = {
   values: PropTypes.array.isRequired,
   defaultValue: PropTypes.string.isRequired,
-  currentSortBy: PropTypes.string.isRequired,
+  currentSortBy: PropTypes.string,
   currentSortOrder: PropTypes.string,
   updateQuerySortOrder: PropTypes.func.isRequired,
 };
 
 SortOrder.defaultProps = {
+  currentSortBy: undefined,
   currentSortOrder: undefined,
 };

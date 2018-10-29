@@ -1,7 +1,12 @@
 import React, { Component } from 'react';
 import { render } from 'react-dom';
 import { Segment, Container, Header, Grid } from 'semantic-ui-react';
-import { ReactSearchKit, SearchBar, Aggregator } from '@app/components';
+import {
+  ReactSearchKit,
+  SearchBar,
+  Aggregator,
+  NestedAggregator,
+} from '@app/components';
 import { ResultsWithLoader } from './ResultsWithLoader';
 
 class Demo extends Component {
@@ -67,6 +72,15 @@ class Demo extends Component {
                     <Aggregator title="Languages" field="language" /> */}
                     <Aggregator title="File types" field="file_type" />
                     <Aggregator title="Keywords" field="keywords" />
+                    <NestedAggregator
+                      title="Types"
+                      nestedFields={{
+                        field: 'type',
+                        subfield: {
+                          field: 'subtype',
+                        },
+                      }}
+                    />
                   </Grid.Column>
                   <Grid.Column width={12}>
                     <ResultsWithLoader

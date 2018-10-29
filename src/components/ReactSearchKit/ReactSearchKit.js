@@ -16,22 +16,6 @@ export class ReactSearchKit extends Component {
     const UrlParamsApi = props.urlParamsApi || _UrlParamsApi;
     const { urlParamsSerializer, paramValidator } = props;
     let initialState = {
-      query: {
-        queryString: '',
-        sortBy: '',
-        sortOrder: '',
-        page: 1,
-        size: 10,
-        aggregations: {},
-      },
-      results: {
-        data: {
-          hits: [],
-          total: 0,
-          aggregations: {},
-          layout: 'list',
-        },
-      },
       apiConfig: props.apiConfig,
       searchApi: new SearchApi(),
       urlParamsApi: new UrlParamsApi(urlParamsSerializer, paramValidator),

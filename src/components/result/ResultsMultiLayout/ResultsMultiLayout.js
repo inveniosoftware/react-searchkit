@@ -30,8 +30,10 @@ export default class ResultsMultiLayout extends Component {
 
 ResultsMultiLayout.propTypes = {
   items: PropTypes.array.isRequired,
-  currentLayout: PropTypes.string.isRequired,
+  currentLayout: PropTypes.string,
   totalResults: PropTypes.number.isRequired,
 };
 
-ResultsMultiLayout.defaultProps = {};
+ResultsMultiLayout.defaultProps = {
+  currentLayout: undefined,
+};

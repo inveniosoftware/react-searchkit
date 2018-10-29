@@ -11,6 +11,8 @@ export default class LayoutSwitcher extends Component {
   }
 
   componentDidMount() {
+    // TODO: REMOVE ME
+    this.onLayoutSwitch(null, { name: this.defaultValue });
     /*this.setInitialState({
       resultsLayout: this.defaultValue,
     });*/
@@ -47,10 +49,11 @@ export default class LayoutSwitcher extends Component {
 LayoutSwitcher.propTypes = {
   defaultLayout: PropTypes.oneOf(['list', 'grid']),
   updateLayout: PropTypes.func.isRequired,
-  currentLayout: PropTypes.string.isRequired,
+  currentLayout: PropTypes.string,
   totalResults: PropTypes.number.isRequired,
 };
 
 LayoutSwitcher.defaultProps = {
   defaultLayout: 'list',
+  currentLayout: undefined,
 };

@@ -12,6 +12,8 @@ export default class SortBy extends Component {
   }
 
   componentDidMount() {
+    // TODO: REMOVE ME
+    this.onChange(null, { value: this.options[0].value });
     /*this.setInitialState({
       sortBy: this.defaultValue,
     });*/
@@ -59,8 +61,10 @@ export default class SortBy extends Component {
 SortBy.propTypes = {
   values: PropTypes.array.isRequired,
   defaultValue: PropTypes.string.isRequired,
-  currentSortBy: PropTypes.string.isRequired,
+  currentSortBy: PropTypes.string,
   updateQuerySortBy: PropTypes.func.isRequired,
 };
 
-SortBy.defaultProps = {};
+SortBy.defaultProps = {
+  currentSortBy: undefined,
+};

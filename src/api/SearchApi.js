@@ -1,4 +1,6 @@
 import axios from 'axios';
+import _isPlainObject from 'lodash/isPlainObject';
+import _find from 'lodash/find';
 
 export class SearchApi {
   _addAggregationsToParams(params, aggregations) {
@@ -42,16 +44,35 @@ export class SearchApi {
     return axios(apiConfig);
   }
 
+  _serializeAggregation(bucket) {
+    let aggregation = {
+      key: bucket.key,
+      total: bucket.doc_count,
+    };
+
+    const nestedField = _find(
+      Object.keys(bucket),
+      key =>
+        _isPlainObject(bucket[key]) &&
+        'buckets' in bucket[key] &&
+        bucket[key].buckets.length
+    );
+    if (nestedField) {
+      const buckets = bucket[nestedField].buckets;
+      aggregation[nestedField] = buckets.map(bucket =>
+        this._serializeAggregation(bucket)
+      );
+    }
+    return aggregation;
+  }
+
   _serializeAggregations(aggregationsResponse) {
     let aggregations = {};
-    Object.keys(aggregationsResponse).forEach(key => {
-      aggregations[key] = [];
-      aggregationsResponse[key].buckets.forEach(bucket => {
-        aggregations[key].push({
-          key: bucket.key,
-          total: bucket.doc_count,
-        });
-      });
+    Object.keys(aggregationsResponse).forEach(field => {
+      const buckets = aggregationsResponse[field].buckets;
+      aggregations[field] = buckets.map(bucket =>
+        this._serializeAggregation(bucket)
+      );
     });
     return aggregations;
   }
