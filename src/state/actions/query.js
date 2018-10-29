@@ -5,6 +5,7 @@ import {
   SET_QUERY_SORT_ORDER,
   SET_QUERY_PAGINATION_PAGE,
   SET_QUERY_PAGINATION_SIZE,
+  SET_QUERY_AGGREGATION,
   RESULTS_LOADING,
   RESULTS_FETCH_SUCCESS,
   RESULTS_FETCH_ERROR,
@@ -68,6 +69,19 @@ export const updateQueryPaginationSize = size => {
   };
 };
 
+export const updateQueryAggregation = (field, value) => {
+  return async dispatch => {
+    await dispatch({
+      type: SET_QUERY_AGGREGATION,
+      payload: {
+        field: field,
+        value: value,
+      },
+    });
+    dispatch(_executeQuery());
+  };
+};
+
 export const _executeQuery = (refreshUrlParams = true) => {
   return (dispatch, getState) => {
     let urlParamsApi = getState().urlParamsApi;
@@ -88,6 +102,7 @@ export const _executeQuery = (refreshUrlParams = true) => {
         dispatch({
           type: RESULTS_FETCH_SUCCESS,
           payload: {
+            aggregations: data.aggregations,
             hits: data.hits,
             total: data.total,
           },

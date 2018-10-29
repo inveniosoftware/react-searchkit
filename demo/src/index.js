@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { render } from 'react-dom';
-import { Segment, Container, Header, Grid, Card } from 'semantic-ui-react';
-import { ReactSearchKit, SearchBar } from '@app/components';
+import { Segment, Container, Header, Grid } from 'semantic-ui-react';
+import { ReactSearchKit, SearchBar, Aggregator } from '@app/components';
 import { ResultsWithLoader } from './ResultsWithLoader';
 
 class Demo extends Component {
@@ -14,7 +14,7 @@ class Demo extends Component {
       {
         text: 'Newest',
         value: 'mostrecent',
-        order: [{ text: 'asc', value: 'asc' }, { text: 'desc', value: 'desc' }],
+        // order: [{ text: 'asc', value: 'asc' }, { text: 'desc', value: 'desc' }],
       },
     ];
 
@@ -37,8 +37,9 @@ class Demo extends Component {
       <div>
         <ReactSearchKit
           apiConfig={{
-            url: 'https://videos.cern.ch/api/records',
+            url: 'https://zenodo.org/api/records/',
             timeout: 5000,
+            headers: { Accept: 'application/vnd.zenodo.v1+json' },
           }}
           searchDefault={true}
         >
@@ -62,18 +63,10 @@ class Demo extends Component {
               <Grid relaxed style={{ padding: '2em 0' }}>
                 <Grid.Row columns={2}>
                   <Grid.Column width={4}>
-                    <Card>
-                      <Card.Content header="Access Right" />
-                      <Card.Content description="" />
-                    </Card>
-                    <Card>
-                      <Card.Content header="File Type" />
-                      <Card.Content description="" />
-                    </Card>
-                    <Card>
-                      <Card.Content header="Keywords" />
-                      <Card.Content description="" />
-                    </Card>
+                    {/* <Aggregator title="Categories" field="category" />
+                    <Aggregator title="Languages" field="language" /> */}
+                    <Aggregator title="File types" field="file_type" />
+                    <Aggregator title="Keywords" field="keywords" />
                   </Grid.Column>
                   <Grid.Column width={12}>
                     <ResultsWithLoader
