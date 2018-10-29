@@ -36,7 +36,10 @@ class Demo extends Component {
     return (
       <div>
         <ReactSearchKit
-          apiConfig={{ url: 'https://videos.cern.ch/api/records' }}
+          apiConfig={{
+            url: 'https://videos.cern.ch/api/records',
+            timeout: 5000,
+          }}
           searchDefault={true}
         >
           <div>

@@ -1,4 +1,5 @@
 export { Count } from './Count';
+export { EmptyResults } from './EmptyResults';
 export { Error } from './Error';
 export { LayoutSwitcher } from './LayoutSwitcher';
 export { Pagination } from './Pagination';

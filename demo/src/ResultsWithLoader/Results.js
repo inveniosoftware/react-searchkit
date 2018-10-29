@@ -33,7 +33,6 @@ export default class Results extends Component {
                 values={this.sortValues}
                 defaultSortBy="mostrecent"
                 defaultOrder="desc"
-                showOnEmptyResults={true}
               />
             </span>
           </Grid.Column>

@@ -12,36 +12,15 @@ import {
   RESULTS_FETCH_ERROR,
 } from '@app/state/types';
 
-import _isEqual from 'lodash/isEqual';
-
-function changeUrlParamsIfChanged(prevParams, newParams, urlApi) {
-  if (!_isEqual(prevParams, newParams)) {
-    let newQuery = urlApi.setUrlQuery(newParams);
-    if (window.history.pushState) {
-      window.history.pushState({ path: newQuery }, '', newQuery);
-    }
-    return true;
-  }
-  return false;
-}
-
-export const setQueryFromUrl = (location, searchDefault) => {
+export const setQueryFromUrl = searchDefault => {
   return async (dispatch, getState) => {
     let urlParamsApi = getState().urlParamsApi;
     if (urlParamsApi) {
-      let queryState = getState().query;
-      let params = urlParamsApi.getUrlQuery(location);
-      let newParams = urlParamsApi.checkRequiredParams(params, queryState);
-
-      let changed = changeUrlParamsIfChanged(params, newParams, urlParamsApi);
-      if (changed) {
-        // retrieve new url params
-        params = urlParamsApi.getUrlQuery(location);
-        newParams = urlParamsApi.checkRequiredParams(params, queryState);
-      }
+      const queryState = getState().query;
+      const newStateQuery = urlParamsApi.get(queryState);
       await dispatch({
         type: SET_STATE_FROM_URL,
-        payload: { urlState: params },
+        payload: { urlState: newStateQuery },
       });
     }
     if (searchDefault) {
@@ -99,15 +78,16 @@ export const _executeQuery = (refreshUrlParams = true) => {
     let queryState = getState().query;
 
     if (urlParamsApi && refreshUrlParams) {
-      let urlParams = getState().query.urlParams;
-      let changed = changeUrlParamsIfChanged(
-        urlParams,
-        queryState,
-        urlParamsApi
-      );
-      if (changed) {
-        dispatch({ type: SET_NEW_URL_PARAMS, payload: queryState });
-      }
+      urlParamsApi.set(queryState);
+      // let urlParams = getState().query.urlParams;
+      // let changed = changeUrlParamsIfChanged(
+      //   urlParams,
+      //   queryState,
+      //   urlParamsApi
+      // );
+      // if (changed) {
+      //   dispatch({ type: SET_NEW_URL_PARAMS, payload: queryState });
+      // }
     }
 
     dispatch({ type: RESULTS_LOADING });

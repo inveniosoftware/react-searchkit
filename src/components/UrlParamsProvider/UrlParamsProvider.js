@@ -10,7 +10,7 @@ export default class UrlParamsProvider extends Component {
   }
 
   componentDidMount() {
-    this.setUrlParams(window.location, this.searchDefault);
+    this.setUrlParams(this.searchDefault);
   }
 
   render() {
