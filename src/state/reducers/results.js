@@ -17,6 +17,7 @@ export default (state = {}, action) => {
         loading: false,
         data: {
           ...state.data,
+          aggregations: action.payload.aggregations,
           hits: action.payload.hits,
           total: action.payload.total,
         },
@@ -27,6 +28,7 @@ export default (state = {}, action) => {
         loading: false,
         data: {
           ...state.data,
+          aggregations: {},
           hits: [],
           total: 0,
         },

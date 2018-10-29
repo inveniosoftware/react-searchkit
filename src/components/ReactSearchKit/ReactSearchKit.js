@@ -18,15 +18,17 @@ export class ReactSearchKit extends Component {
     let initialState = {
       query: {
         queryString: '',
-        sortBy: 'mostrecent',
-        sortOrder: 'desc',
+        sortBy: '',
+        sortOrder: '',
         page: 1,
         size: 10,
+        aggregations: {},
       },
       results: {
         data: {
           hits: [],
           total: 0,
+          aggregations: {},
           layout: 'list',
         },
       },

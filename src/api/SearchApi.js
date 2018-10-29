@@ -1,66 +1,66 @@
 import axios from 'axios';
 
 export class SearchApi {
-  _addFilterToParams(params, filters) {
+  _addAggregationsToParams(params, aggregations) {
     let newParams = { ...params };
-    Object.keys(filters).forEach(key => {
-      newParams[key] = filters[key];
+    Object.keys(aggregations).forEach(field => {
+      aggregations[field].forEach(value => {
+        newParams[field] = value;
+      });
     });
     return newParams;
   }
 
-  _processParams(queryString, filters, sortBy, sortOrder, page, size) {
+  _processParams(queryString, sortBy, sortOrder, page, size, aggregations) {
     let params = {};
     params['q'] = queryString;
-    if (filters) {
-      params = this._addFilterToParams(params, filters);
-    }
 
     params['sortBy'] = sortBy;
     params['sortOrder'] = sortOrder;
     params['page'] = page;
     params['size'] = size;
 
+    if (aggregations) {
+      params = this._addAggregationsToParams(params, aggregations);
+    }
+
     return params;
   }
 
   search(query, apiConfig) {
-    let { queryString, filters, sortBy, sortOrder, page, size } = query;
+    let { queryString, sortBy, sortOrder, page, size, aggregations } = query;
     let params = this._processParams(
       queryString,
-      filters,
       sortBy,
       sortOrder,
       page,
-      size
+      size,
+      aggregations
     );
 
     apiConfig['params'] = { ...apiConfig['params'], ...params };
     return axios(apiConfig);
   }
 
-  serialize(response) {
-    let data = {};
+  _serializeAggregations(aggregationsResponse) {
+    let aggregations = {};
+    Object.keys(aggregationsResponse).forEach(key => {
+      aggregations[key] = [];
+      aggregationsResponse[key].buckets.forEach(bucket => {
+        aggregations[key].push({
+          key: bucket.key,
+          total: bucket.doc_count,
+        });
+      });
+    });
+    return aggregations;
+  }
 
-    data['filters'] = response.aggregations || {};
-    data['hits'] = response.hits.hits;
-    data['total'] = response.hits.total;
-    return data;
+  serialize(response) {
+    return {
+      aggregations: this._serializeAggregations(response.aggregations || {}),
+      hits: response.hits.hits,
+      total: response.hits.total,
+    };
   }
 }
-
-const query = {
-  currentQueryString: 'The current query the user selected',
-  filters: {
-    categories: ['publications', 'videos'],
-    types: [],
-  },
-  sorting: {
-    by: 'most-recent',
-    order: 'asc',
-  },
-  pagination: {
-    page: 1,
-    size: 10,
-  },
-};

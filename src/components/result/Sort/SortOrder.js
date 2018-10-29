@@ -19,7 +19,7 @@ export default class SortOrder extends Component {
 
   _mapOptions = (options, sortBySelectedValue) => {
     const opt = _find(options, option => option.value === sortBySelectedValue);
-    const opts = Array.isArray(opt.order) ? opt.order : [];
+    const opts = opt && Array.isArray(opt.order) ? opt.order : [];
     return opts.map((element, index) => {
       return { key: index, text: element.text, value: element.value };
     });
