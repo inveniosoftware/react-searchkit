@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
-export default class Loader extends Component {
+export default class Error extends Component {
   constructor(props) {
     super(props);
     this.errorCmp = this.props.errorCmp || this.defaultError;
@@ -18,12 +18,12 @@ export default class Loader extends Component {
   }
 }
 
-Loader.propTypes = {
+Error.propTypes = {
   error: PropTypes.object.isRequired,
   errorCmp: PropTypes.func,
 };
 
-Loader.defaultProps = {
+Error.defaultProps = {
   error: {},
   errorCmp: undefined,
 };
