@@ -13,12 +13,20 @@ export default class SortContainer extends Component {
     // actions
     this.updateQuerySortBy = props.updateQuerySortBy;
     this.updateQuerySortOrder = props.updateQuerySortOrder;
+    // this.setInitialState = props.setSortingDefault;
   }
+
+  // componentDidMount() {
+  //   this.setInitialState({
+  //     sortBy: this.defaultSortBy,
+  //     sortOrder: this.defaultOrder,
+  //   });
+  // }
 
   render() {
     const numberOfResults = this.props.total;
-    const currentSortByValue = this.props.currentSorting.sortBy;
-    const currentSortOrderValue = this.props.currentSorting.sortOrder;
+    const currentSortByValue = this.props.currentSortBy;
+    const currentSortOrderValue = this.props.currentSortOrder;
 
     return this.showOnEmptyResults || numberOfResults > 1 ? (
       <span>
@@ -45,7 +53,8 @@ SortContainer.propTypes = {
   defaultSortBy: PropTypes.string.isRequired,
   defaultOrder: PropTypes.string.isRequired,
   showOnEmptyResults: PropTypes.bool,
-  currentSorting: PropTypes.object.isRequired,
+  currentSortBy: PropTypes.string.isRequired,
+  currentSortOrder: PropTypes.string.isRequired,
   updateQuerySortBy: PropTypes.func.isRequired,
   updateQuerySortOrder: PropTypes.func.isRequired,
 };

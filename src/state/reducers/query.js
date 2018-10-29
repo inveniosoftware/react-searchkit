@@ -5,6 +5,7 @@ import {
   SET_QUERY_PAGINATION_PAGE,
   SET_QUERY_PAGINATION_SIZE,
   SET_STATE_FROM_URL,
+  SET_NEW_URL_PARAMS,
 } from '@app/state/types';
 
 export default (state = {}, action) => {
@@ -14,37 +15,31 @@ export default (state = {}, action) => {
     case SET_QUERY_SORT_BY:
       return {
         ...state,
-        sorting: {
-          sortBy: action.payload.sortBy,
-          sortOrder: action.payload.sortOrder,
-        },
+        ...action.payload,
       };
     case SET_QUERY_SORT_ORDER:
       return {
         ...state,
-        sorting: {
-          ...state.sorting,
-          sortOrder: action.payload,
-        },
+        sortOrder: action.payload,
       };
     case SET_QUERY_PAGINATION_PAGE:
       return {
         ...state,
-        pagination: {
-          ...state.pagination,
-          page: action.payload,
-        },
+        page: action.payload,
       };
     case SET_QUERY_PAGINATION_SIZE:
       return {
         ...state,
-        pagination: {
-          ...state.pagination,
-          size: action.payload,
-        },
+        size: action.payload,
       };
     case SET_STATE_FROM_URL:
-      return { ...state, ...action.payload.urlState };
+      return {
+        ...state,
+        ...action.payload.urlState,
+        urlParams: action.payload.urlState,
+      };
+    case SET_NEW_URL_PARAMS:
+      return { ...state, urlParams: action.payload };
     default:
       return state;
   }
