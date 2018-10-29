@@ -17,14 +17,10 @@ export class ReactSearchKit extends Component {
     let initialState = {
       query: {
         queryString: '',
-        sorting: {
-          sortBy: 'mostrecent',
-          sortOrder: 'desc',
-        },
-        pagination: {
-          page: 1,
-          size: 10,
-        },
+        sortBy: 'mostrecent',
+        sortOrder: 'desc',
+        page: 1,
+        size: 10,
       },
       results: {
         data: {
@@ -41,7 +37,8 @@ export class ReactSearchKit extends Component {
   }
 
   render() {
-    let { searchDefault } = this.props.searchDefault;
+    let { searchDefault } = this.props;
+
     return (
       <Provider store={this.store}>
         <UrlParamsProvider searchDefault={searchDefault}>

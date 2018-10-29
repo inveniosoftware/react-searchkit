@@ -1,5 +1,7 @@
 import {
   SET_STATE_FROM_URL,
+  SET_NEW_URL_PARAMS,
+  SET_DEFAULT_FIELD_FROM_COMPONENT,
   SET_QUERY_STRING,
   SET_QUERY_SORT_BY,
   SET_QUERY_SORT_ORDER,
@@ -10,17 +12,40 @@ import {
   RESULTS_FETCH_ERROR,
 } from '@app/state/types';
 
-export const setQueryFromUrl = location => {
+import _isEqual from 'lodash/isEqual';
+
+function changeUrlParamsIfChanged(prevParams, newParams, urlApi) {
+  if (!_isEqual(prevParams, newParams)) {
+    let newQuery = urlApi.setUrlQuery(newParams);
+    if (window.history.pushState) {
+      window.history.pushState({ path: newQuery }, '', newQuery);
+    }
+    return true;
+  }
+  return false;
+}
+
+export const setQueryFromUrl = (location, searchDefault) => {
   return async (dispatch, getState) => {
     let urlParamsApi = getState().urlParamsApi;
-
     if (urlParamsApi) {
-      let params = urlParamsApi.getUrlParams(location);
+      let queryState = getState().query;
+      let params = urlParamsApi.getUrlQuery(location);
+      let newParams = urlParamsApi.checkRequiredParams(params, queryState);
+
+      let changed = changeUrlParamsIfChanged(params, newParams, urlParamsApi);
+      if (changed) {
+        // retrieve new url params
+        params = urlParamsApi.getUrlQuery(location);
+        newParams = urlParamsApi.checkRequiredParams(params, queryState);
+      }
       await dispatch({
         type: SET_STATE_FROM_URL,
         payload: { urlState: params },
       });
-      dispatch(_executeQuery());
+    }
+    if (searchDefault) {
+      dispatch(_executeQuery(false));
     }
   };
 };
@@ -66,13 +91,27 @@ export const updateQueryPaginationSize = size => {
   };
 };
 
-export const _executeQuery = () => {
+export const _executeQuery = (refreshUrlParams = true) => {
   return (dispatch, getState) => {
-    dispatch({ type: RESULTS_LOADING });
-
+    let urlParamsApi = getState().urlParamsApi;
     let apiConfig = { ...getState().apiConfig };
     let searchApi = getState().searchApi;
     let queryState = getState().query;
+
+    if (urlParamsApi && refreshUrlParams) {
+      let urlParams = getState().query.urlParams;
+      let changed = changeUrlParamsIfChanged(
+        urlParams,
+        queryState,
+        urlParamsApi
+      );
+      if (changed) {
+        dispatch({ type: SET_NEW_URL_PARAMS, payload: queryState });
+      }
+    }
+
+    dispatch({ type: RESULTS_LOADING });
+
     searchApi
       .search(queryState, apiConfig)
       .then(response => {

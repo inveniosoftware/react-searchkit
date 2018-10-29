@@ -37,6 +37,7 @@ class Demo extends Component {
       <div>
         <ReactSearchKit
           apiConfig={{ url: 'https://videos.cern.ch/api/records' }}
+          searchDefault={true}
         >
           <div>
             <Segment inverted>

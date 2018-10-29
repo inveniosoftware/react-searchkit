@@ -9,42 +9,31 @@ export class SearchApi {
     return newParams;
   }
 
-  _addSortingToParams(params, sorting) {
-    let newParams = { ...params };
-    Object.keys(sorting).forEach(key => {
-      newParams[key] = sorting[key];
-    });
-    return newParams;
-  }
-
-  _addPaginationToParams(params, pagination) {
-    let newParams = { ...params };
-    Object.keys(pagination).forEach(key => {
-      newParams[key] = pagination[key];
-    });
-    return newParams;
-  }
-
-  _processParams(queryString, filters, sorting, pagination) {
+  _processParams(queryString, filters, sortBy, sortOrder, page, size) {
     let params = {};
     params['q'] = queryString;
     if (filters) {
       params = this._addFilterToParams(params, filters);
     }
 
-    if (sorting) {
-      params = this._addSortingToParams(params, sorting);
-    }
+    params['sortBy'] = sortBy;
+    params['sortOrder'] = sortOrder;
+    params['page'] = page;
+    params['size'] = size;
 
-    if (pagination) {
-      params = this._addPaginationToParams(params, pagination);
-    }
     return params;
   }
 
   search(query, apiConfig) {
-    let { queryString, filters, sorting, pagination } = query;
-    let params = this._processParams(queryString, filters, sorting, pagination);
+    let { queryString, filters, sortBy, sortOrder, page, size } = query;
+    let params = this._processParams(
+      queryString,
+      filters,
+      sortBy,
+      sortOrder,
+      page,
+      size
+    );
 
     apiConfig['params'] = { ...apiConfig['params'], ...params };
     return axios(apiConfig);

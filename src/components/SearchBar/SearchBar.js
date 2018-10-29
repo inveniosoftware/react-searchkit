@@ -55,4 +55,7 @@ SearchBar.defaultProps = {
   queryString: '',
 };
 
-export default SearchBar;
+const SearchBarUncontrolled = props => (
+  <SearchBar key={props.queryString} {...props} />
+);
+export default SearchBarUncontrolled;
