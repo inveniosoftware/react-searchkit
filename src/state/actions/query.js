@@ -1,7 +1,5 @@
 import {
   SET_STATE_FROM_URL,
-  SET_NEW_URL_PARAMS,
-  SET_DEFAULT_FIELD_FROM_COMPONENT,
   SET_QUERY_STRING,
   SET_QUERY_SORT_BY,
   SET_QUERY_SORT_ORDER,
@@ -12,12 +10,12 @@ import {
   RESULTS_FETCH_ERROR,
 } from '@app/state/types';
 
-export const setQueryFromUrl = searchDefault => {
+export const setQueryFromUrl = (searchDefault, pushState) => {
   return async (dispatch, getState) => {
     let urlParamsApi = getState().urlParamsApi;
     if (urlParamsApi) {
       const queryState = getState().query;
-      const newStateQuery = urlParamsApi.get(queryState);
+      const newStateQuery = urlParamsApi.get(queryState, pushState);
       await dispatch({
         type: SET_STATE_FROM_URL,
         payload: { urlState: newStateQuery },
@@ -79,15 +77,6 @@ export const _executeQuery = (refreshUrlParams = true) => {
 
     if (urlParamsApi && refreshUrlParams) {
       urlParamsApi.set(queryState);
-      // let urlParams = getState().query.urlParams;
-      // let changed = changeUrlParamsIfChanged(
-      //   urlParams,
-      //   queryState,
-      //   urlParamsApi
-      // );
-      // if (changed) {
-      //   dispatch({ type: SET_NEW_URL_PARAMS, payload: queryState });
-      // }
     }
 
     dispatch({ type: RESULTS_LOADING });
