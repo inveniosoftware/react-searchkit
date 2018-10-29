@@ -5,7 +5,18 @@ import {
   RESULTS_UPDATE_LAYOUT,
 } from '@app/state/types';
 
-export default (state = {}, action) => {
+const defaultState = {
+  loading: false,
+  data: {
+    hits: [],
+    total: 0,
+    aggregations: {},
+    layout: undefined,
+  },
+  error: {},
+};
+
+export default (state = defaultState, action) => {
   switch (action.type) {
     case RESULTS_LOADING:
       return {

@@ -10,13 +10,18 @@ export default class ResultsList extends Component {
   }
 
   renderItems(items) {
-    return items.map(item => {
+    return items.map((item, index) => {
       return (
-        <Item href={`https://videos.cern.ch/record/${item.metadata.recid}`}>
+        <Item
+          key={index}
+          href={`https://videos.cern.ch/record/${item.metadata.recid}`}
+        >
           <Item.Image size="small" src="https://via.placeholder.com/200" />
 
           <Item.Content>
-            <Item.Header>{item.metadata.title.title}</Item.Header>
+            <Item.Header>
+              {item.metadata.title.title || item.metadata.title}
+            </Item.Header>
             <Item.Description>
               {_truncate(item.metadata.description, { length: 200 })}
             </Item.Description>

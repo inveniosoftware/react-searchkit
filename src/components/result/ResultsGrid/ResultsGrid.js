@@ -11,15 +11,18 @@ export default class ResultsGrid extends Component {
   }
 
   renderItems(items) {
-    return items.map(item => {
+    return items.map((item, index) => {
       return (
         <Card
           fluid
+          key={index}
           href={`https://videos.cern.ch/record/${item.metadata.recid}`}
         >
           <Image src="https://via.placeholder.com/200" />
           <Card.Content>
-            <Card.Header>{item.metadata.title.title}</Card.Header>
+            <Card.Header>
+              {item.metadata.title.title || item.metadata.title}
+            </Card.Header>
             <Card.Meta>{item.metadata.publication_date}</Card.Meta>
             <Card.Description>
               {_truncate(item.metadata.description, { length: 200 })}

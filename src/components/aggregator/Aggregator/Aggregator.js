@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Card, Checkbox, List } from 'semantic-ui-react';
 import _isEmpty from 'lodash/isEmpty';
+import _capitalize from 'lodash/capitalize';
 
 export default class Aggregator extends Component {
   constructor(props) {
@@ -24,11 +25,11 @@ export default class Aggregator extends Component {
   renderAggregatedResults = (currentAggregations, resultsAggregations) => {
     const items = resultsAggregations.map((aggregation, index) => {
       const checked = currentAggregations.indexOf(aggregation.key) >= 0;
-      const label = `${aggregation.text || aggregation.key} (${
+      const label = `${aggregation.text || _capitalize(aggregation.key)} (${
         aggregation.total
       })`;
       return (
-        <List.Item id={index}>
+        <List.Item key={index}>
           <Checkbox
             label={label}
             value={aggregation.key}

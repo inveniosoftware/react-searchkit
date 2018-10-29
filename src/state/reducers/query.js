@@ -8,7 +8,16 @@ import {
   SET_STATE_FROM_URL,
 } from '@app/state/types';
 
-export default (state = {}, action) => {
+const defaultState = {
+  queryString: '',
+  sortBy: undefined,
+  sortOrder: undefined,
+  page: 1, // ??? set to 0 when default set by the component
+  size: 10, // ??? set to 0 when default set by the component
+  aggregations: {},
+};
+
+export default (state = defaultState, action) => {
   switch (action.type) {
     case SET_QUERY_STRING:
       return { ...state, queryString: action.payload };
