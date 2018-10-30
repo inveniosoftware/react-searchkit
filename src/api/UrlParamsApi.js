@@ -35,6 +35,7 @@ export class UrlParamsApi {
       addQueryPrefix: true,
       skipNulls: true,
     });
+
     return newQuery;
   }
 
