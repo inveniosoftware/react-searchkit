@@ -1,13 +1,18 @@
 import axios from 'axios';
 import _isPlainObject from 'lodash/isPlainObject';
 import _find from 'lodash/find';
+import Qs from 'qs';
 
 export class SearchApi {
   _addAggregationsToParams(params, aggregations) {
     let newParams = { ...params };
     Object.keys(aggregations).forEach(field => {
       aggregations[field].forEach(value => {
-        newParams[field] = value;
+        if (!newParams.hasOwnProperty(field)) {
+          newParams[field] = value;
+        } else {
+          newParams[field] = [...newParams[field], value];
+        }
       });
     });
     return newParams;
@@ -40,6 +45,10 @@ export class SearchApi {
       aggregations
     );
 
+    if (!apiConfig['paramSerializer']) {
+      apiConfig['paramsSerializer'] = params =>
+        Qs.stringify(params, { arrayFormat: 'repeat' });
+    }
     apiConfig['params'] = { ...apiConfig['params'], ...params };
     return axios(apiConfig);
   }
