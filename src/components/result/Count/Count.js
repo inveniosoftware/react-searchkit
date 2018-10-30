@@ -9,11 +9,19 @@ export default class Count extends Component {
   }
 
   _renderTemplate(total) {
-    return <Label color={'blue'}>{total}</Label>;
+    return (
+      <Fragment>
+        <Label color={'blue'}>{total}</Label>
+      </Fragment>
+    );
   }
 
   render() {
-    const { total } = this.props;
+    const { total, loading } = this.props;
+
+    if (loading) {
+      return null;
+    }
     return total > 0 ? this.renderTemplate(total) : null;
   }
 }

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
+import { connect } from '@app/store';
 import { Grid } from 'semantic-ui-react';
 import { ResultsMultiLayout } from '@app/components';
 import {
@@ -7,16 +7,23 @@ import {
   LayoutSwitcher,
   Pagination,
   ResultsPerPage,
-  Sort,
+  SortBy,
+  SortOrder,
 } from '@app/components';
 
-const Spacer = ({ text }) => <span style={{ margin: '0 0.5em' }}>{text}</span>;
+const Spacer = connect(state => ({
+  loading: state.results.loading,
+}))(
+  ({ text, loading }) =>
+    loading ? null : <span style={{ margin: '0 0.5em' }}>{text}</span>
+);
 
-export default class Results extends Component {
+export class Results extends Component {
   constructor(props) {
     super(props);
 
-    this.sortValues = this.props.sortValues;
+    this.sortByValues = this.props.sortByValues;
+    this.sortOrderValues = this.props.sortOrderValues;
     this.resultsPerPageValues = this.props.resultsPerPageValues;
   }
 
@@ -29,11 +36,8 @@ export default class Results extends Component {
               <Spacer text="Found" />
               <Count />
               <Spacer text="results sorted by" />
-              <Sort
-                values={this.sortValues}
-                defaultSortBy="mostrecent"
-                defaultOrder="desc"
-              />
+              <SortBy values={this.sortByValues} defaultValue="mostrecent" />
+              <SortOrder values={this.sortOrderValues} defaultValue="desc" />
             </span>
           </Grid.Column>
           <Grid.Column width={8} textAlign="right">

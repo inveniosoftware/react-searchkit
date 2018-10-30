@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { Pagination } from 'semantic-ui-react';
+import { Pagination as Paginator } from 'semantic-ui-react';
 
-export default class SearchBar extends Component {
+export default class Pagination extends Component {
   constructor(props) {
     super(props);
 
@@ -15,12 +15,13 @@ export default class SearchBar extends Component {
     this.showNextIcon = props.options.showNextIcon;
 
     this.updateQueryPage = this.props.updateQueryPage;
+    this.setInitialState = props.setInitialState;
   }
 
   componentDidMount() {
-    /*this.setInitialState({
-      paginationPage: 1,
-    });*/
+    this.setInitialState({
+      page: 1,
+    });
   }
 
   onChange = (event, { activePage }) => {
@@ -35,7 +36,7 @@ export default class SearchBar extends Component {
     const pages = Math.ceil(totalResults / size);
 
     return totalResults > 0 ? (
-      <Pagination
+      <Paginator
         activePage={currentPage}
         totalPages={pages}
         onPageChange={this.onChange}
@@ -51,14 +52,14 @@ export default class SearchBar extends Component {
   }
 }
 
-SearchBar.propTypes = {
+Pagination.propTypes = {
   currentPage: PropTypes.number.isRequired,
   currentSize: PropTypes.number.isRequired,
   totalResults: PropTypes.number.isRequired,
   options: PropTypes.object,
 };
 
-SearchBar.defaultProps = {
+Pagination.defaultProps = {
   options: {
     boundaryRangeCount: 1,
     siblingRangeCount: 1,

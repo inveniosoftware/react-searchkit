@@ -9,14 +9,14 @@ export default class SortBy extends Component {
     this.options = props.values;
     this.defaultValue = this.props.defaultValue;
     this.updateQuerySortBy = props.updateQuerySortBy;
+    this.setInitialState = props.setInitialState;
+    this.showOnEmptyResults = props.showOnEmptyResults;
   }
 
   componentDidMount() {
-    // TODO: REMOVE ME
-    this.onChange(null, { value: this.options[0].value });
-    /*this.setInitialState({
+    this.setInitialState({
       sortBy: this.defaultValue,
-    });*/
+    });
   }
 
   _mapOptions = options => {
@@ -25,28 +25,21 @@ export default class SortBy extends Component {
     });
   };
 
-  _getFirstSortOrderValue = (options, selectedValue) => {
-    const selectedOption = _find(options, valueObj => {
-      return valueObj.value === selectedValue;
-    });
-    const orderOptions = selectedOption ? selectedOption.order : [];
-    return Array.isArray(orderOptions) && orderOptions.length
-      ? orderOptions[0].value
-      : undefined;
-  };
-
   onChange = (event, { value }) => {
     if (value === this.props.currentSortBy) return;
-
-    const firstSortOrder = this._getFirstSortOrderValue(this.options, value);
-    this.updateQuerySortBy(value, firstSortOrder);
+    this.updateQuerySortBy(value);
   };
 
   render() {
     const selectedValue = this.props.currentSortBy;
     const options = this._mapOptions(this.options);
+    const numberOfResults = this.props.total;
+    let loading = this.props.loading;
 
-    return selectedValue ? (
+    if (loading) {
+      return null;
+    }
+    return selectedValue && (this.showOnEmptyResults || numberOfResults > 1) ? (
       <Dropdown
         selection
         compact
@@ -61,10 +54,9 @@ export default class SortBy extends Component {
 SortBy.propTypes = {
   values: PropTypes.array.isRequired,
   defaultValue: PropTypes.string.isRequired,
-  currentSortBy: PropTypes.string,
   updateQuerySortBy: PropTypes.func.isRequired,
 };
 
 SortBy.defaultProps = {
-  currentSortBy: undefined,
+  showOnEmptyResults: false,
 };

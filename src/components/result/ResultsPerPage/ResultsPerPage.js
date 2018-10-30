@@ -10,12 +10,13 @@ export default class ResultsPerPage extends Component {
     this.defaultValue = props.defaultValue;
 
     this.updateQuerySize = this.props.updateQuerySize;
+    this.setInitialState = props.setInitialState;
   }
 
   componentDidMount() {
-    /*this.setInitialState({
-      paginationSize: this.defaultValue,
-    });*/
+    this.setInitialState({
+      size: this.defaultValue,
+    });
   }
 
   _mapOptions = options => {
@@ -33,6 +34,11 @@ export default class ResultsPerPage extends Component {
     const currentSize = this.props.currentSize;
     const totalResults = this.props.totalResults;
     const options = this._mapOptions(this.options);
+    let loading = this.props.loading;
+
+    if (loading) {
+      return null;
+    }
 
     return currentSize && totalResults > 0 ? (
       <Dropdown

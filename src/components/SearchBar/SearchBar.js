@@ -9,6 +9,8 @@ class SearchBar extends Component {
     this.state = {
       currentValue: this.props.queryString || '',
     };
+    this.forceStateOnEmptyQuery =
+      props.forceStateOnEmptyQuery || this._forceStateOnEmptyQuery;
   }
 
   onInputChange = (event, input) => {

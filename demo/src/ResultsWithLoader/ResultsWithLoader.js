@@ -1,13 +1,11 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { WithLoader } from '@app/components';
-import Results from './Results';
-
-const LoadingResults = WithLoader(Results);
+import { Loading } from '@app/components';
 
 export default class ResultsWithLoader extends Component {
   render() {
-    return <LoadingResults {...this.props} />;
+    let { loading } = this.props;
+    return <Loading loading={loading} />;
   }
 }
 
