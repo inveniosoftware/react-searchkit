@@ -9,20 +9,18 @@ export default class SortOrder extends Component {
     this.options = props.values;
     this.defaultValue = this.props.defaultValue;
     this.updateQuerySortOrder = props.updateQuerySortOrder;
+    this.setInitialState = props.setInitialState;
+    this.showOnEmptyResults = props.showOnEmptyResults;
   }
 
   componentDidMount() {
-    // TODO: REMOVE ME
-    this.onChange(null, { value: this.options[0].value });
-    /*this.setInitialState({
+    this.setInitialState({
       sortOrder: this.defaultValue,
-    });*/
+    });
   }
 
-  _mapOptions = (options, sortBySelectedValue) => {
-    const opt = _find(options, option => option.value === sortBySelectedValue);
-    const opts = opt && Array.isArray(opt.order) ? opt.order : [];
-    return opts.map((element, index) => {
+  _mapOptions = options => {
+    return options.map((element, index) => {
       return { key: index, text: element.text, value: element.value };
     });
   };
@@ -33,11 +31,16 @@ export default class SortOrder extends Component {
   };
 
   render() {
-    const sortBySelectedValue = this.props.currentSortBy;
     const selectedValue = this.props.currentSortOrder;
-    const options = this._mapOptions(this.options, sortBySelectedValue);
+    const options = this._mapOptions(this.options);
+    const numberOfResults = this.props.total;
+    let loading = this.props.loading;
 
-    return selectedValue && Array.isArray(options) && options.length ? (
+    if (loading) {
+      return null;
+    }
+
+    return selectedValue && (this.showOnEmptyResults || numberOfResults > 1) ? (
       <Dropdown
         selection
         compact
@@ -52,12 +55,11 @@ export default class SortOrder extends Component {
 SortOrder.propTypes = {
   values: PropTypes.array.isRequired,
   defaultValue: PropTypes.string.isRequired,
-  currentSortBy: PropTypes.string,
   currentSortOrder: PropTypes.string,
   updateQuerySortOrder: PropTypes.func.isRequired,
 };
 
 SortOrder.defaultProps = {
-  currentSortBy: undefined,
   currentSortOrder: undefined,
+  showOnEmptyResults: false,
 };

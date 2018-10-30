@@ -1,30 +1,33 @@
 import _isNaN from 'lodash/isNaN';
 import _isNil from 'lodash/isNil';
+import qs from 'qs';
 
-export const parseUrlSearch = (search = '') => {
-  let params = {};
-  let parts = search.replace(/^\?/, '').split('&');
-  parts.forEach(part => {
-    const entries = part.split('=');
-    const key = decodeURI(entries[0]);
-    const value = decodeURI(entries[1]);
-
-    let parsedValue = parseInt(value);
-    if (_isNaN(parsedValue)) {
-      try {
-        const _value = JSON.parse(value);
-        if (!_isNil(_value)) {
-          parsedValue = _value;
-        }
-      } catch (e) {
-        if (value !== 'undefined') {
-          parsedValue = value;
-        } else {
-          console.error(`Cannot parse value ${value} for param ${key}.`);
-        }
+const sanitizeParamValue = value => {
+  let parsedValue = parseInt(value);
+  if (_isNaN(parsedValue)) {
+    try {
+      const _value = JSON.parse(value);
+      if (!_isNil(_value)) {
+        parsedValue = _value;
+      }
+    } catch (e) {
+      if (value !== 'undefined') {
+        parsedValue = value;
+      } else {
+        console.error(`Cannot parse value ${value} for param ${key}.`);
       }
     }
-    params[key] = parsedValue;
+  }
+  return parsedValue;
+};
+
+export const parseUrlSearch = (search = '') => {
+  let parsedParams = qs.parse(search, { ignoreQueryPrefix: true });
+  let params = {};
+  Object.entries(parsedParams).forEach(entry => {
+    const key = entry[0];
+    const value = entry[1];
+    params[key] = sanitizeParamValue(value);
   });
   return params;
 };

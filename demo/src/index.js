@@ -8,10 +8,11 @@ import {
   NestedAggregator,
 } from '@app/components';
 import { ResultsWithLoader } from './ResultsWithLoader';
+import { Results } from './Results';
 
 class Demo extends Component {
   render() {
-    const sortValues = [
+    const sortByValues = [
       {
         text: 'Best Match',
         value: 'bestmatch',
@@ -19,8 +20,12 @@ class Demo extends Component {
       {
         text: 'Newest',
         value: 'mostrecent',
-        // order: [{ text: 'asc', value: 'asc' }, { text: 'desc', value: 'desc' }],
       },
+    ];
+
+    const sortOrderValues = [
+      { text: 'asc', value: 'asc' },
+      { text: 'desc', value: 'desc' },
     ];
 
     const resultsPerPageValues = [
@@ -83,8 +88,10 @@ class Demo extends Component {
                     />
                   </Grid.Column>
                   <Grid.Column width={12}>
-                    <ResultsWithLoader
-                      sortValues={sortValues}
+                    <ResultsWithLoader />
+                    <Results
+                      sortByValues={sortByValues}
+                      sortOrderValues={sortOrderValues}
                       resultsPerPageValues={resultsPerPageValues}
                     />
                   </Grid.Column>

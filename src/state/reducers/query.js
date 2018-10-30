@@ -1,4 +1,6 @@
 import {
+  QUERY_RESET_PAGE,
+  SET_COMPONENT_INITIAL_STATE,
   SET_QUERY_STRING,
   SET_QUERY_SORT_BY,
   SET_QUERY_SORT_ORDER,
@@ -25,7 +27,7 @@ export default (state = defaultState, action) => {
     case SET_QUERY_SORT_BY:
       return {
         ...state,
-        ...action.payload,
+        sortBy: action.payload,
       };
     case SET_QUERY_SORT_ORDER:
       return {
@@ -55,6 +57,16 @@ export default (state = defaultState, action) => {
       return {
         ...state,
         ...action.payload.urlState,
+      };
+    case SET_COMPONENT_INITIAL_STATE:
+      return {
+        ...state,
+        ...action.payload,
+      };
+    case QUERY_RESET_PAGE:
+      return {
+        ...state,
+        page: 1,
       };
     default:
       return state;

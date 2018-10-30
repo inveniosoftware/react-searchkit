@@ -1,4 +1,6 @@
 import {
+  QUERY_RESET_PAGE,
+  SET_COMPONENT_INITIAL_STATE,
   SET_STATE_FROM_URL,
   SET_QUERY_STRING,
   SET_QUERY_SORT_BY,
@@ -10,6 +12,15 @@ import {
   RESULTS_FETCH_SUCCESS,
   RESULTS_FETCH_ERROR,
 } from '@app/state/types';
+
+export const setInitialState = initialState => {
+  return dispatch => {
+    dispatch({
+      type: SET_COMPONENT_INITIAL_STATE,
+      payload: initialState,
+    });
+  };
+};
 
 export const setQueryFromUrl = (searchDefault, pushState) => {
   return async (dispatch, getState) => {
@@ -34,15 +45,16 @@ export const updateQueryString = queryString => {
       type: SET_QUERY_STRING,
       payload: queryString,
     });
+
     dispatch(_executeQuery());
   };
 };
 
-export const updateQuerySortBy = (sortByValue, sortOrderValue) => {
+export const updateQuerySortBy = sortByValue => {
   return async dispatch => {
     await dispatch({
       type: SET_QUERY_SORT_BY,
-      payload: { sortBy: sortByValue, sortOrder: sortOrderValue },
+      payload: sortByValue,
     });
     dispatch(_executeQuery());
   };
@@ -58,7 +70,7 @@ export const updateQuerySortOrder = sortOrderValue => {
 export const updateQueryPaginationPage = page => {
   return async dispatch => {
     await dispatch({ type: SET_QUERY_PAGINATION_PAGE, payload: page });
-    dispatch(_executeQuery());
+    dispatch(_executeQuery(true, false));
   };
 };
 
@@ -82,13 +94,20 @@ export const updateQueryAggregation = (field, value) => {
   };
 };
 
-export const _executeQuery = (refreshUrlParams = true) => {
-  return (dispatch, getState) => {
+export const _executeQuery = (
+  refreshUrlParams = true,
+  resetQueryPage = true
+) => {
+  return async (dispatch, getState) => {
     let urlParamsApi = getState().urlParamsApi;
     let apiConfig = { ...getState().apiConfig };
     let searchApi = getState().searchApi;
-    let queryState = getState().query;
 
+    if (resetQueryPage && getState().query.page != 1) {
+      await dispatch({ type: QUERY_RESET_PAGE });
+    }
+
+    let queryState = getState().query;
     if (urlParamsApi && refreshUrlParams) {
       urlParamsApi.set(queryState);
     }

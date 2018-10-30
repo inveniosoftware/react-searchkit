@@ -1,5 +1,4 @@
-import _isNaN from 'lodash/isNaN';
-import _isNil from 'lodash/isNil';
+import qs from 'qs';
 
 import { parseUrlSearch, pushHistory, is_param_valid } from './utils';
 
@@ -24,22 +23,15 @@ export class UrlParamsApi {
 
   _transformQueryToUrlParams(queryState) {
     let params = {};
-    let newQuery = '';
     Object.keys(queryState).forEach(stateKey => {
       if (this.urlParamsSerializer.hasOwnProperty(stateKey)) {
         const paramKey = this.urlParamsSerializer[stateKey];
-        if (!_isNil(queryState[stateKey]) && !_isNaN(queryState[stateKey])) {
-          params[paramKey] = queryState[stateKey];
-        }
+        params[paramKey] = queryState[stateKey];
       }
     });
-
-    Object.keys(params).forEach((key, index) => {
-      index === 0
-        ? (newQuery = newQuery.concat(`?${key}=${params[key]}`))
-        : (newQuery = newQuery.concat(`&${key}=${params[key]}`));
-    });
-    return encodeURI(newQuery);
+    // will omit undefined and null values from the query
+    let newQuery = qs.stringify(params, { skipNulls: true });
+    return newQuery;
   }
 
   _mergeParamsIntoState(params, queryState) {
@@ -74,12 +66,3 @@ export class UrlParamsApi {
     pushHistory(newUrlParams);
   }
 }
-
-let api = {
-  queryString: '',
-  filters: [],
-  sortBy: '',
-  sortOrder: '',
-  page: 0,
-  size: 1,
-};

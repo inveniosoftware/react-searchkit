@@ -6,20 +6,15 @@ import SortOrder from './SortOrder';
 export default class SortContainer extends Component {
   constructor(props) {
     super(props);
-    this.options = props.values;
+    this.sortByOptions = props.sortByOptions;
+    this.sortOrderOptions = props.sortOrderOptions;
     this.defaultSortBy = this.props.defaultSortBy;
     this.defaultOrder = this.props.defaultOrder;
     this.showOnEmptyResults = props.showOnEmptyResults;
     // actions
     this.updateQuerySortBy = props.updateQuerySortBy;
     this.updateQuerySortOrder = props.updateQuerySortOrder;
-  }
-
-  componentDidMount() {
-    // this.setInitialState({
-    //   sortBy: this.defaultSortBy,
-    //   sortOrder: this.defaultOrder,
-    // });
+    this.setInitialState = props.setInitialState;
   }
 
   render() {
@@ -30,17 +25,18 @@ export default class SortContainer extends Component {
     return this.showOnEmptyResults || numberOfResults > 1 ? (
       <span>
         <SortBy
-          values={this.options}
+          values={this.sortByOptions}
           defaultValue={this.defaultSortBy}
           currentSortBy={currentSortByValue}
           updateQuerySortBy={this.updateQuerySortBy}
+          setInitialState={this.setInitialState}
         />
         <SortOrder
-          values={this.options}
+          values={this.sortOrderOptions}
           defaultValue={this.defaultOrder}
-          currentSortBy={currentSortByValue}
           currentSortOrder={currentSortOrderValue}
           updateQuerySortOrder={this.updateQuerySortOrder}
+          setInitialState={this.setInitialState}
         />
       </span>
     ) : null;
@@ -48,11 +44,11 @@ export default class SortContainer extends Component {
 }
 
 SortContainer.propTypes = {
-  values: PropTypes.array.isRequired,
+  sortByOptions: PropTypes.array.isRequired,
+  sortOrderOptions: PropTypes.array.isRequired,
   defaultSortBy: PropTypes.string.isRequired,
   defaultOrder: PropTypes.string.isRequired,
   showOnEmptyResults: PropTypes.bool,
-  currentSortBy: PropTypes.string,
   currentSortOrder: PropTypes.string,
   updateQuerySortBy: PropTypes.func.isRequired,
   updateQuerySortOrder: PropTypes.func.isRequired,
