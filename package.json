@@ -22,6 +22,7 @@
   "dependencies": {
     "axios": "^0.18.0",
     "lodash": "^4.17.11",
+    "qs": "^6.5.2",
     "react-redux": "^5.0.7",
     "redux": "^4.0.1",
     "redux-devtools-extension": "^2.13.5",

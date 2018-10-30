@@ -7,6 +7,7 @@ import {
   SET_QUERY_AGGREGATION,
   SET_STATE_FROM_URL,
 } from '@app/state/types';
+import { processNewAggregationState } from '../selectors';
 
 const defaultState = {
   queryString: '',
@@ -42,28 +43,12 @@ export default (state = defaultState, action) => {
         size: action.payload,
       };
     case SET_QUERY_AGGREGATION: {
-      // simple way to copy SMALL objects
-      let newState = JSON.parse(JSON.stringify(state.aggregations || {}));
-      const actionField = action.payload.field;
-      const actionValue = action.payload.value;
-      // if not present just add it
-      if (!(actionField in newState)) {
-        newState[actionField] = [actionValue];
-      } // else, add or remove it from the list
-      else {
-        const aggrState = newState[actionField];
-        if (aggrState.indexOf(actionValue) === -1) {
-          newState[actionField].push(actionValue);
-        } else {
-          newState[actionField] = aggrState.filter(
-            value => value !== actionValue
-          );
-        }
-      }
-
       return {
         ...state,
-        aggregations: newState,
+        aggregations: processNewAggregationState(
+          state.aggregations,
+          action.payload
+        ),
       };
     }
     case SET_STATE_FROM_URL:
