@@ -4,4 +4,5 @@
 /lib
 /node_modules
 /umd
+/docs/website/node_modules
 npm-debug.log*
