@@ -23,9 +23,6 @@ export default (state = defaultState, action) => {
         loading: true,
         data: {
           ...state.data,
-          total: 0,
-          hits: [],
-          aggregations: {},
         },
       };
     case RESULTS_FETCH_SUCCESS:

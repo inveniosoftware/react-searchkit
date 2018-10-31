@@ -1,3 +1,4 @@
+export { Aggregator } from './Aggregator';
 export { Count } from './Count';
 export { EmptyResults } from './EmptyResults';
 export { Error } from './Error';
@@ -7,4 +8,4 @@ export { ResultsGrid } from './ResultsGrid';
 export { ResultsList } from './ResultsList';
 export { ResultsMultiLayout } from './ResultsMultiLayout';
 export { ResultsPerPage } from './ResultsPerPage';
-export { SortBy, SortOrder } from './sort';
+export { SortBy, SortOrder } from './Sort';

@@ -27,9 +27,9 @@ export class SearchApi {
     params['page'] = page;
     params['size'] = size;
 
-    if (aggregations) {
-      params = this._addAggregationsToParams(params, aggregations);
-    }
+    // if (aggregations) {
+    //   params = this._addAggregationsToParams(params, aggregations);
+    // }
 
     return params;
   }
@@ -57,6 +57,7 @@ export class SearchApi {
     let aggregation = {
       key: bucket.key,
       total: bucket.doc_count,
+      hasNestedField: false,
     };
 
     const nestedField = _find(
@@ -68,6 +69,7 @@ export class SearchApi {
     );
     if (nestedField) {
       const buckets = bucket[nestedField].buckets;
+      aggregation['hasNestedField'] = nestedField;
       aggregation[nestedField] = buckets.map(bucket =>
         this._serializeAggregation(bucket)
       );

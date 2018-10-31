@@ -5,7 +5,6 @@ import {
   ReactSearchKit,
   SearchBar,
   Aggregator,
-  NestedAggregator,
   EmptyResults,
   Error,
 } from '@app/components';
@@ -75,19 +74,12 @@ class Demo extends Component {
               <Grid relaxed style={{ padding: '2em 0' }}>
                 <Grid.Row columns={2}>
                   <Grid.Column width={4}>
-                    {/* <Aggregator title="Categories" field="category" />
-                    <Aggregator title="Languages" field="language" /> */}
                     <Aggregator title="File types" field="file_type" />
+                    <br />
                     <Aggregator title="Keywords" field="keywords" />
-                    <NestedAggregator
-                      title="Types"
-                      nestedFields={{
-                        field: 'type',
-                        subfield: {
-                          field: 'subtype',
-                        },
-                      }}
-                    />
+                    <br />
+                    <Aggregator title="Types" field="type" />
+                    <br />
                   </Grid.Column>
                   <Grid.Column width={12}>
                     <Error />
