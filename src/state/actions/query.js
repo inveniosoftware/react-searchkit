@@ -1,3 +1,4 @@
+import _cloneDeep from 'lodash/cloneDeep';
 import {
   QUERY_RESET_PAGE,
   SET_QUERY_COMPONENT_INITIAL_STATE,
@@ -27,11 +28,11 @@ export const setQueryFromUrl = (searchDefault, pushState) => {
   return async (dispatch, getState) => {
     let urlParamsApi = getState().urlParamsApi;
     if (urlParamsApi) {
-      const queryState = getState().query;
+      const queryState = _cloneDeep(getState().query);
       const newStateQuery = urlParamsApi.get(queryState, pushState);
       await dispatch({
         type: SET_STATE_FROM_URL,
-        payload: { urlState: newStateQuery },
+        payload: newStateQuery,
       });
     }
     if (searchDefault) {
@@ -82,14 +83,11 @@ export const updateQueryPaginationSize = size => {
   };
 };
 
-export const updateQueryAggregation = (field, value) => {
+export const updateQueryAggregation = path => {
   return async dispatch => {
     await dispatch({
       type: SET_QUERY_AGGREGATION,
-      payload: {
-        field: field,
-        value: value,
-      },
+      payload: path,
     });
     dispatch(_executeQuery());
   };

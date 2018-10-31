@@ -10,15 +10,15 @@ import {
   SET_STATE_FROM_URL,
   RESULTS_UPDATE_LAYOUT,
 } from '@app/state/types';
-import { processNewAggregationState } from '../selectors';
+import { updateQueryAggregation } from '../selectors';
 
 const defaultState = {
   queryString: '',
   sortBy: undefined,
   sortOrder: undefined,
-  page: 1, // ??? set to 0 when default set by the component
-  size: 10, // ??? set to 0 when default set by the component
-  aggregations: {},
+  page: 1,
+  size: 10,
+  aggregations: [],
 };
 
 export default (state = defaultState, action) => {
@@ -48,16 +48,16 @@ export default (state = defaultState, action) => {
     case SET_QUERY_AGGREGATION: {
       return {
         ...state,
-        aggregations: processNewAggregationState(
-          state.aggregations,
-          action.payload
+        aggregations: updateQueryAggregation(
+          action.payload,
+          state.aggregations
         ),
       };
     }
     case SET_STATE_FROM_URL:
       return {
         ...state,
-        ...action.payload.urlState,
+        ...action.payload,
       };
     case SET_QUERY_COMPONENT_INITIAL_STATE:
       return {
