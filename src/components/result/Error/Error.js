@@ -1,29 +1,34 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
+import ShouldRender from '../../ShouldRender/ShouldRender';
+import _isEmpty from 'lodash/isEmpty';
 
 export default class Error extends Component {
   constructor(props) {
     super(props);
-    this.errorCmp = this.props.errorCmp || this.defaultError;
-    this.errorCmp = this.errorCmp.bind(this);
+    this.renderElement = props.renderElement || this.error;
   }
 
-  defaultError = error => {
+  error = ({ error }) => {
     return <div>Oups! Something went wrong while fetching results.</div>;
   };
 
   render() {
-    const { error } = this.props;
-    return this.errorCmp(error);
+    const { error, loading } = this.props;
+    return (
+      <ShouldRender condition={!loading && !_isEmpty(error)}>
+        <Fragment>{this.renderElement(error)}</Fragment>
+      </ShouldRender>
+    );
   }
 }
 
 Error.propTypes = {
   error: PropTypes.object.isRequired,
-  errorCmp: PropTypes.func,
+  renderElement: PropTypes.func,
 };
 
 Error.defaultProps = {
   error: {},
-  errorCmp: undefined,
+  renderElement: null,
 };

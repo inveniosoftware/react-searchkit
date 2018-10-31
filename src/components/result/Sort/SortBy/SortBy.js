@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Dropdown } from 'semantic-ui-react';
 import _find from 'lodash/find';
+import { ShouldRender } from '@app/components';
 
 export default class SortBy extends Component {
   constructor(props) {
@@ -11,12 +12,26 @@ export default class SortBy extends Component {
     this.updateQuerySortBy = props.updateQuerySortBy;
     this.setInitialState = props.setInitialState;
     this.showOnEmptyResults = props.showOnEmptyResults;
+    this.renderElement = props.renderElement || this._renderElement;
   }
 
   componentDidMount() {
     this.setInitialState({
       sortBy: this.defaultValue,
     });
+  }
+
+  _renderElement({ currentSortBy }) {
+    const options = this._mapOptions(this.options);
+    return (
+      <Dropdown
+        selection
+        compact
+        options={options}
+        value={currentSortBy}
+        onChange={this.onChange}
+      />
+    );
   }
 
   _mapOptions = options => {
@@ -32,22 +47,18 @@ export default class SortBy extends Component {
 
   render() {
     const selectedValue = this.props.currentSortBy;
-    const options = this._mapOptions(this.options);
     const numberOfResults = this.props.total;
     let loading = this.props.loading;
-
-    if (loading) {
-      return null;
-    }
-    return selectedValue && (this.showOnEmptyResults || numberOfResults > 1) ? (
-      <Dropdown
-        selection
-        compact
-        options={options}
-        value={selectedValue}
-        onChange={this.onChange}
-      />
-    ) : null;
+    return (
+      <ShouldRender
+        condition={
+          !loading ||
+          (selectedValue && (this.showOnEmptyResults || numberOfResults > 1))
+        }
+      >
+        {this.renderElement({ ...this.props })}
+      </ShouldRender>
+    );
   }
 }
 
@@ -55,6 +66,7 @@ SortBy.propTypes = {
   values: PropTypes.array.isRequired,
   defaultValue: PropTypes.string.isRequired,
   updateQuerySortBy: PropTypes.func.isRequired,
+  renderElement: PropTypes.func,
 };
 
 SortBy.defaultProps = {

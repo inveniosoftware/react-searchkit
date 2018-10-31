@@ -6,6 +6,8 @@ import {
   SearchBar,
   Aggregator,
   NestedAggregator,
+  EmptyResults,
+  Error,
 } from '@app/components';
 import { ResultsWithLoader } from './ResultsWithLoader';
 import { Results } from './Results';
@@ -88,6 +90,8 @@ class Demo extends Component {
                     />
                   </Grid.Column>
                   <Grid.Column width={12}>
+                    <Error />
+                    <EmptyResults />
                     <ResultsWithLoader />
                     <Results
                       sortByValues={sortByValues}

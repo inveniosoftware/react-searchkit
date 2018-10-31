@@ -1,6 +1,6 @@
 import {
   QUERY_RESET_PAGE,
-  SET_COMPONENT_INITIAL_STATE,
+  SET_QUERY_COMPONENT_INITIAL_STATE,
   SET_STATE_FROM_URL,
   SET_QUERY_STRING,
   SET_QUERY_SORT_BY,
@@ -11,12 +11,13 @@ import {
   RESULTS_LOADING,
   RESULTS_FETCH_SUCCESS,
   RESULTS_FETCH_ERROR,
+  RESULTS_UPDATE_LAYOUT,
 } from '@app/state/types';
 
 export const setInitialState = initialState => {
   return dispatch => {
     dispatch({
-      type: SET_COMPONENT_INITIAL_STATE,
+      type: SET_QUERY_COMPONENT_INITIAL_STATE,
       payload: initialState,
     });
   };
@@ -91,6 +92,15 @@ export const updateQueryAggregation = (field, value) => {
       },
     });
     dispatch(_executeQuery());
+  };
+};
+
+export const updateResultsLayout = layout => {
+  return dispatch => {
+    dispatch({
+      type: RESULTS_UPDATE_LAYOUT,
+      payload: layout,
+    });
   };
 };
 

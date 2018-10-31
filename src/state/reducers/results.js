@@ -2,7 +2,6 @@ import {
   RESULTS_LOADING,
   RESULTS_FETCH_SUCCESS,
   RESULTS_FETCH_ERROR,
-  RESULTS_UPDATE_LAYOUT,
 } from '@app/state/types';
 
 const defaultState = {
@@ -50,14 +49,6 @@ export default (state = defaultState, action) => {
           total: 0,
         },
         error: action.payload,
-      };
-    case RESULTS_UPDATE_LAYOUT:
-      return {
-        ...state,
-        data: {
-          ...state.data,
-          layout: action.payload,
-        },
       };
     default:
       return state;
