@@ -13,9 +13,12 @@ import {
 
 const Spacer = connect(state => ({
   loading: state.results.loading,
+  total: state.results.data.total,
 }))(
-  ({ text, loading }) =>
-    loading ? null : <span style={{ margin: '0 0.5em' }}>{text}</span>
+  ({ text, loading, total }) =>
+    loading || total == 0 ? null : (
+      <span style={{ margin: '0 0.5em' }}>{text}</span>
+    )
 );
 
 export class Results extends Component {

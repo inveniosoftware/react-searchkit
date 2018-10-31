@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Dropdown } from 'semantic-ui-react';
+import { ShouldRender } from '@app/components';
 
 export default class ResultsPerPage extends Component {
   constructor(props) {
@@ -8,15 +9,27 @@ export default class ResultsPerPage extends Component {
 
     this.options = props.values;
     this.defaultValue = props.defaultValue;
-
     this.updateQuerySize = this.props.updateQuerySize;
     this.setInitialState = props.setInitialState;
+    this.renderElement = props.renderElement || this._renderElement;
   }
 
   componentDidMount() {
     this.setInitialState({
       size: this.defaultValue,
     });
+  }
+
+  _renderElement({ currentSize }) {
+    return (
+      <Dropdown
+        inline
+        compact
+        options={this._mapOptions(this.options)}
+        value={currentSize}
+        onChange={this.onChange}
+      />
+    );
   }
 
   _mapOptions = options => {
@@ -33,22 +46,12 @@ export default class ResultsPerPage extends Component {
   render() {
     const currentSize = this.props.currentSize;
     const totalResults = this.props.totalResults;
-    const options = this._mapOptions(this.options);
     let loading = this.props.loading;
-
-    if (loading) {
-      return null;
-    }
-
-    return currentSize && totalResults > 0 ? (
-      <Dropdown
-        inline
-        compact
-        options={options}
-        value={currentSize}
-        onChange={this.onChange}
-      />
-    ) : null;
+    return (
+      <ShouldRender condition={!loading || (currentSize && totalResults > 0)}>
+        {this.renderElement({ ...this.props })}
+      </ShouldRender>
+    );
   }
 }
 
@@ -57,6 +60,5 @@ ResultsPerPage.propTypes = {
   totalResults: PropTypes.number.isRequired,
   values: PropTypes.array.isRequired,
   defaultValue: PropTypes.number.isRequired,
+  renderElement: PropTypes.func,
 };
-
-ResultsPerPage.defaultProps = {};

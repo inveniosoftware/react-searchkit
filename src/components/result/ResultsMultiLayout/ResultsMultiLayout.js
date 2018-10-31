@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import _truncate from 'lodash/truncate';
-import { ResultsList } from '@app/components';
-import { ResultsGrid } from '@app/components';
+import { ResultsList, ResultsGrid, ShouldRender } from '@app/components';
 
 export default class ResultsMultiLayout extends Component {
   constructor(props) {
@@ -19,12 +18,13 @@ export default class ResultsMultiLayout extends Component {
   }
 
   render() {
-    const currentLayout = this.props.currentLayout;
-    const totalResults = this.props.totalResults;
-    const items = this.props.items;
-    return currentLayout && totalResults > 0
-      ? this.renderResultsList(items, currentLayout)
-      : null;
+    const { currentLayout, totalResults, items } = this.props;
+
+    return (
+      <ShouldRender condition={currentLayout && totalResults > 0}>
+        {this.renderResultsList(items, currentLayout)}
+      </ShouldRender>
+    );
   }
 }
 

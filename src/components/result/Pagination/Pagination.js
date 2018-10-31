@@ -1,21 +1,15 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Pagination as Paginator } from 'semantic-ui-react';
+import { ShouldRender } from '@app/components';
 
 export default class Pagination extends Component {
   constructor(props) {
     super(props);
 
-    this.boundaryRangeCount = props.options.boundaryRangeCount;
-    this.siblingRangeCount = props.options.siblingRangeCount;
-    this.showEllipsis = props.options.showEllipsis;
-    this.showFirstIcon = props.options.showFirstIcon;
-    this.showLastIcon = props.options.showLastIcon;
-    this.showPrevIcon = props.options.showPrevIcon;
-    this.showNextIcon = props.options.showNextIcon;
-
     this.updateQueryPage = this.props.updateQueryPage;
     this.setInitialState = props.setInitialState;
+    this.renderElement = props.renderElement || this.paginator;
   }
 
   componentDidMount() {
@@ -29,26 +23,39 @@ export default class Pagination extends Component {
     this.updateQueryPage(activePage);
   };
 
-  render() {
-    const currentPage = this.props.currentPage;
-    const size = this.props.currentSize;
-    const totalResults = this.props.totalResults;
+  paginator = props => {
+    const currentPage = props.currentPage;
+    const size = props.currentSize;
+    const totalResults = props.totalResults;
     const pages = Math.ceil(totalResults / size);
-
-    return totalResults > 0 ? (
+    const boundaryRangeCount = props.options.boundaryRangeCount;
+    const siblingRangeCount = props.options.siblingRangeCount;
+    const showEllipsis = props.options.showEllipsis;
+    const showFirstIcon = props.options.showFirstIcon;
+    const showLastIcon = props.options.showLastIcon;
+    const showPrevIcon = props.options.showPrevIcon;
+    const showNextIcon = props.options.showNextIcon;
+    return (
       <Paginator
         activePage={currentPage}
         totalPages={pages}
         onPageChange={this.onChange}
-        boundaryRange={this.boundaryRangeCount}
-        siblingRange={this.siblingRangeCount}
-        ellipsisItem={this.showEllipsis ? undefined : null}
-        firstItem={this.showFirstIcon ? undefined : null}
-        lastItem={this.showLastIcon ? undefined : null}
-        prevItem={this.showPrevIcon ? undefined : null}
-        nextItem={this.showNextIcon ? undefined : null}
+        boundaryRange={boundaryRangeCount}
+        siblingRange={siblingRangeCount}
+        ellipsisItem={showEllipsis ? undefined : null}
+        firstItem={showFirstIcon ? undefined : null}
+        lastItem={showLastIcon ? undefined : null}
+        prevItem={showPrevIcon ? undefined : null}
+        nextItem={showNextIcon ? undefined : null}
       />
-    ) : null;
+    );
+  };
+  render() {
+    return (
+      <ShouldRender condition={this.props.totalResults > 0}>
+        {this.renderElement({ ...this.props })}
+      </ShouldRender>
+    );
   }
 }
 

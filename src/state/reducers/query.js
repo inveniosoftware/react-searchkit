@@ -1,6 +1,6 @@
 import {
   QUERY_RESET_PAGE,
-  SET_COMPONENT_INITIAL_STATE,
+  SET_QUERY_COMPONENT_INITIAL_STATE,
   SET_QUERY_STRING,
   SET_QUERY_SORT_BY,
   SET_QUERY_SORT_ORDER,
@@ -8,6 +8,7 @@ import {
   SET_QUERY_PAGINATION_SIZE,
   SET_QUERY_AGGREGATION,
   SET_STATE_FROM_URL,
+  RESULTS_UPDATE_LAYOUT,
 } from '@app/state/types';
 import { processNewAggregationState } from '../selectors';
 
@@ -58,7 +59,7 @@ export default (state = defaultState, action) => {
         ...state,
         ...action.payload.urlState,
       };
-    case SET_COMPONENT_INITIAL_STATE:
+    case SET_QUERY_COMPONENT_INITIAL_STATE:
       return {
         ...state,
         ...action.payload,
@@ -67,6 +68,11 @@ export default (state = defaultState, action) => {
       return {
         ...state,
         page: 1,
+      };
+    case RESULTS_UPDATE_LAYOUT:
+      return {
+        ...state,
+        layout: action.payload,
       };
     default:
       return state;

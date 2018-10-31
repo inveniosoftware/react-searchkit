@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Loader } from 'semantic-ui-react';
+import { ShouldRender } from '../ShouldRender';
 
 export default class Loading extends Component {
   constructor(props) {
@@ -8,10 +9,6 @@ export default class Loading extends Component {
   }
   render() {
     let { loading } = this.props;
-    if (loading) {
-      return this.loader;
-    } else {
-      return null;
-    }
+    return <ShouldRender condition={loading}>{this.loader}</ShouldRender>;
   }
 }

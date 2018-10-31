@@ -8,28 +8,32 @@ export default class ResultsGrid extends Component {
     super(props);
     this.itemsPerRow = props.itemsPerRow;
     this.items = props.items;
+    this.renderElement = props.renderItem || this._renderElement;
+  }
+
+  _renderElement(gridItemData) {
+    let metadata = gridItemData.metadata;
+    return (
+      <Card
+        fluid
+        key={gridItemData.id}
+        href={`https://videos.cern.ch/record/${metadata.recid}`}
+      >
+        <Image src="https://via.placeholder.com/200" />
+        <Card.Content>
+          <Card.Header>{metadata.title.title || metadata.title}</Card.Header>
+          <Card.Meta>{metadata.publication_date}</Card.Meta>
+          <Card.Description>
+            {_truncate(metadata.description, { length: 200 })}
+          </Card.Description>
+        </Card.Content>
+      </Card>
+    );
   }
 
   renderItems(items) {
-    return items.map((item, index) => {
-      return (
-        <Card
-          fluid
-          key={index}
-          href={`https://videos.cern.ch/record/${item.metadata.recid}`}
-        >
-          <Image src="https://via.placeholder.com/200" />
-          <Card.Content>
-            <Card.Header>
-              {item.metadata.title.title || item.metadata.title}
-            </Card.Header>
-            <Card.Meta>{item.metadata.publication_date}</Card.Meta>
-            <Card.Description>
-              {_truncate(item.metadata.description, { length: 200 })}
-            </Card.Description>
-          </Card.Content>
-        </Card>
-      );
+    return items.map(item => {
+      return this.renderElement(item);
     });
   }
 
@@ -45,6 +49,7 @@ export default class ResultsGrid extends Component {
 ResultsGrid.propTypes = {
   itemsPerRow: PropTypes.number,
   items: PropTypes.array.isRequired,
+  renderElement: PropTypes.func,
 };
 
 ResultsGrid.defaultProps = {

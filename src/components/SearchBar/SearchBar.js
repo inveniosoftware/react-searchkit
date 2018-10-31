@@ -9,8 +9,24 @@ class SearchBar extends Component {
     this.state = {
       currentValue: this.props.queryString || '',
     };
-    this.forceStateOnEmptyQuery =
-      props.forceStateOnEmptyQuery || this._forceStateOnEmptyQuery;
+    this.renderElement = props.renderElement || this._renderElement;
+  }
+
+  _renderElement({ placeholder }) {
+    placeholder = placeholder || 'Type something';
+    return (
+      <Input
+        action={{
+          content: 'Search',
+          onClick: this.onSearchClicked,
+        }}
+        fluid
+        placeholder={placeholder}
+        onChange={this.onInputChange}
+        value={this.state.currentValue}
+        onKeyPress={this.onInputKeyPress}
+      />
+    );
   }
 
   onInputChange = (event, input) => {
@@ -29,28 +45,14 @@ class SearchBar extends Component {
   };
 
   render() {
-    let { placeholder } = this.props;
-    placeholder = placeholder || 'Type something';
-
-    return (
-      <Input
-        action={{
-          content: 'Search',
-          onClick: this.onSearchClicked,
-        }}
-        fluid
-        placeholder={placeholder}
-        onChange={this.onInputChange}
-        value={this.state.currentValue}
-        onKeyPress={this.onInputKeyPress}
-      />
-    );
+    return this.renderElement(this.props);
   }
 }
 
 SearchBar.propTypes = {
   queryString: PropTypes.string,
   updateQueryString: PropTypes.func.isRequired,
+  renderElement: PropTypes.func,
 };
 
 SearchBar.defaultProps = {

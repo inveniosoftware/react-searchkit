@@ -1,37 +1,36 @@
-import React, { Component, Fragment } from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Label } from 'semantic-ui-react';
+import { ShouldRender } from '@app/components';
 
 export default class Count extends Component {
   constructor(props) {
     super(props);
-    this.renderTemplate = props.renderTemplate || this._renderTemplate;
+    this.renderElement = props.renderElement || this._renderElement;
   }
 
-  _renderTemplate(total) {
-    return (
-      <Fragment>
-        <Label color={'blue'}>{total}</Label>
-      </Fragment>
-    );
+  _renderElement(total) {
+    return <Label color={'blue'}>{total}</Label>;
   }
 
   render() {
     const { total, loading } = this.props;
-
-    if (loading) {
-      return null;
-    }
-    return total > 0 ? this.renderTemplate(total) : null;
+    return (
+      <ShouldRender condition={!loading && total > 0}>
+        {this.renderElement(total)}
+      </ShouldRender>
+    );
   }
 }
 
 Count.propTypes = {
   total: PropTypes.number,
+  loading: PropTypes.bool,
   renderTemplate: PropTypes.func,
 };
 
 Count.defaultProps = {
   total: 0,
-  renderTemplate: undefined,
+  loading: null,
+  renderTemplate: null,
 };
