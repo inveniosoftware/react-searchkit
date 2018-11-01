@@ -10,7 +10,7 @@ const mapDispatchToProps = dispatch => ({
 
 export const Aggregator = connect(
   state => ({
-    currentAggregations: state.query.aggregations,
+    userSelectionAggregations: state.query.aggregations,
     resultsAggregations: state.results.data.aggregations,
   }),
   mapDispatchToProps

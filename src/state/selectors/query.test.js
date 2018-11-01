@@ -20,8 +20,8 @@ import { updateQueryAggregation } from './query';
  *  - Software
  */
 
-describe('user selects first level aggregation', () => {
-  test('`type: Publication` should be added when no another `type` are selected', () => {
+describe('queries with first level aggregations.', () => {
+  test('query with `type: Publication` should be added when not in the state.', () => {
     const state = [{ file_type: { value: 'pdf' } }];
     const query = { type: { value: 'Publication' } };
 
@@ -32,7 +32,7 @@ describe('user selects first level aggregation', () => {
     ]);
   });
 
-  test('`type: Publication` should be added when another `type` is already selected', () => {
+  test('query with `type: Publication` should be added when another `type` is already in the state.', () => {
     const state = [
       { file_type: { value: 'pdf' } },
       { type: { value: 'Image' } },
@@ -46,10 +46,21 @@ describe('user selects first level aggregation', () => {
       { type: { value: 'Publication' } },
     ]);
   });
+
+  test('query with `type: Image` should remove it from the state when it is already there.', () => {
+    const state = [
+      { file_type: { value: 'pdf' } },
+      { type: { value: 'Image' } },
+    ];
+    const query = { type: { value: 'Image' } };
+
+    const newState = updateQueryAggregation(query, state);
+    expect(newState).toEqual([{ file_type: { value: 'pdf' } }]);
+  });
 });
 
-describe('user selects second level aggregation', () => {
-  test('`subtype: Other` should be added when user selects it', () => {
+describe('queries with second level aggregations.', () => {
+  test('query with `subtype: Other` should be added when not in the state.', () => {
     const state = [
       { file_type: { value: 'pdf' } },
       { type: { value: 'Image' } },
@@ -66,7 +77,7 @@ describe('user selects second level aggregation', () => {
     ]);
   });
 
-  test('all `subtype` should be removed when user selects the parent `type: Publication`', () => {
+  test('query with `type` should remove from the state any children query.', () => {
     const state = [
       { file_type: { value: 'pdf' } },
       { type: { value: 'Image' } },
@@ -85,7 +96,8 @@ describe('user selects second level aggregation', () => {
       { type: { value: 'Publication' } },
     ]);
   });
-  test('parent `type: Publication` should be cleared when user selects  `subtype: Other`', () => {
+
+  test('query with `subtype: Other` should remove any query with the parent `type: Publication`.', () => {
     const state = [
       { file_type: { value: 'pdf' } },
       { type: { value: 'Image' } },
@@ -102,10 +114,27 @@ describe('user selects second level aggregation', () => {
       { type: { value: 'Publication', subtype: { value: 'Other' } } },
     ]);
   });
+
+  test('query with `subtype: Other` should remove it from the state when it is already there.', () => {
+    const state = [
+      { file_type: { value: 'pdf' } },
+      { type: { value: 'Image' } },
+      { type: { value: 'Publication', subtype: { value: 'Other' } } },
+    ];
+    const query = {
+      type: { value: 'Publication', subtype: { value: 'Other' } },
+    };
+
+    const newState = updateQueryAggregation(query, state);
+    expect(newState).toEqual([
+      { file_type: { value: 'pdf' } },
+      { type: { value: 'Image' } },
+    ]);
+  });
 });
 
-describe('user selects third level aggregation', () => {
-  test('`subsubtype: Public reports` should be added when user selects it', () => {
+describe('queries with third level aggregations.', () => {
+  test('query with `subsubtype: Public reports` should be added when not in the state.', () => {
     const state = [
       { file_type: { value: 'png' } },
       { file_type: { value: 'pdf' } },
@@ -137,7 +166,7 @@ describe('user selects third level aggregation', () => {
     ]);
   });
 
-  test('all `subsubtype` should be removed when user selects the parent `subtype: Report`', () => {
+  test('query with `subtype: Report` should remove from the state any child query with `subsubtype`', () => {
     const state = [
       { file_type: { value: 'png' } },
       { file_type: { value: 'pdf' } },
@@ -168,6 +197,58 @@ describe('user selects third level aggregation', () => {
       { file_type: { value: 'pdf' } },
       { type: { value: 'Image' } },
       { type: { value: 'Publication', subtype: { value: 'Report' } } },
+    ]);
+  });
+
+  test('query with `type: Publication` should remove from the state any child query with `subtype` or `subsubtype`', () => {
+    const state = [
+      { file_type: { value: 'png' } },
+      { file_type: { value: 'pdf' } },
+      { type: { value: 'Image' } },
+      {
+        type: {
+          value: 'Publication',
+          subtype: { value: 'Report', subsubtype: { value: 'Restricted' } },
+        },
+      },
+    ];
+    const query = {
+      type: {
+        value: 'Publication',
+      },
+    };
+
+    const newState = updateQueryAggregation(query, state);
+    expect(newState).toEqual([
+      { file_type: { value: 'png' } },
+      { file_type: { value: 'pdf' } },
+      { type: { value: 'Image' } },
+      { type: { value: 'Publication' } },
+    ]);
+  });
+
+  test('query with `subsubtype: Report` should remove it from the state when it is already there.', () => {
+    const state = [
+      { file_type: { value: 'pdf' } },
+      { type: { value: 'Image' } },
+      {
+        type: {
+          value: 'Publication',
+          subtype: { value: 'Report', subsubtype: { value: 'Public reports' } },
+        },
+      },
+    ];
+    const query = {
+      type: {
+        value: 'Publication',
+        subtype: { value: 'Report', subsubtype: { value: 'Public reports' } },
+      },
+    };
+
+    const newState = updateQueryAggregation(query, state);
+    expect(newState).toEqual([
+      { file_type: { value: 'pdf' } },
+      { type: { value: 'Image' } },
     ]);
   });
 });
