@@ -1,6 +1,6 @@
 import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
-import ShouldRender from '../../ShouldRender/ShouldRender';
+import { ShouldRender } from '@app/components';
 import _isEmpty from 'lodash/isEmpty';
 
 export default class Error extends Component {

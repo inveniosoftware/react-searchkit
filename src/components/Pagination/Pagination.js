@@ -51,8 +51,11 @@ export default class Pagination extends Component {
     );
   };
   render() {
+    const loading = this.props.loading;
+    const totalResults = this.props.totalResults;
+
     return (
-      <ShouldRender condition={this.props.totalResults > 0}>
+      <ShouldRender condition={!loading && totalResults > 0}>
         {this.renderElement({ ...this.props })}
       </ShouldRender>
     );
@@ -62,6 +65,7 @@ export default class Pagination extends Component {
 Pagination.propTypes = {
   currentPage: PropTypes.number.isRequired,
   currentSize: PropTypes.number.isRequired,
+  loading: PropTypes.bool.isRequired,
   totalResults: PropTypes.number.isRequired,
   options: PropTypes.object,
 };

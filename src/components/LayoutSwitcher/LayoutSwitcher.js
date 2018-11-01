@@ -23,9 +23,9 @@ export default class LayoutSwitcher extends Component {
   };
 
   render() {
-    let { currentLayout, totalResults } = this.props;
+    let { currentLayout, loading, totalResults } = this.props;
     return (
-      <ShouldRender condition={currentLayout && totalResults > 0}>
+      <ShouldRender condition={currentLayout && !loading && totalResults > 0}>
         <Menu compact icon>
           <Menu.Item
             name="list"
@@ -52,6 +52,7 @@ LayoutSwitcher.propTypes = {
   updateLayout: PropTypes.func.isRequired,
   setInitialState: PropTypes.func.isRequired,
   currentLayout: PropTypes.string,
+  loading: PropTypes.bool.isRequired,
   totalResults: PropTypes.number.isRequired,
 };
 

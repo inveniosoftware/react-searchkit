@@ -11,6 +11,7 @@ export const Pagination = connect(
   state => ({
     currentPage: state.query.page,
     currentSize: state.query.size,
+    loading: state.results.loading,
     totalResults: state.results.data.total,
   }),
   mapDispatchToProps

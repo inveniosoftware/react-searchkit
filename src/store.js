@@ -5,9 +5,9 @@ import thunk from 'redux-thunk';
 
 import rootReducer from './state/reducers';
 
-export const storeKey = 'invenio-search-kit';
+export const storeKey = 'react-searchkit';
 
-export function configureStore(config, initialState = {}) {
+export function configureStore(config) {
   return createStore(
     rootReducer,
     composeWithDevTools(applyMiddleware(thunk.withExtraArgument(config)))

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Loader } from 'semantic-ui-react';
-import { ShouldRender } from '../ShouldRender';
+import { ShouldRender } from '@app/components';
 
 export default class Loading extends Component {
   constructor(props) {

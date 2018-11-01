@@ -18,10 +18,10 @@ export default class ResultsMultiLayout extends Component {
   }
 
   render() {
-    const { currentLayout, totalResults, items } = this.props;
+    const { currentLayout, loading, totalResults, items } = this.props;
 
     return (
-      <ShouldRender condition={currentLayout && totalResults > 0}>
+      <ShouldRender condition={currentLayout && !loading && totalResults > 0}>
         {this.renderResultsList(items, currentLayout)}
       </ShouldRender>
     );
@@ -31,6 +31,7 @@ export default class ResultsMultiLayout extends Component {
 ResultsMultiLayout.propTypes = {
   items: PropTypes.array.isRequired,
   currentLayout: PropTypes.string,
+  loading: PropTypes.bool.isRequired,
   totalResults: PropTypes.number.isRequired,
 };
 

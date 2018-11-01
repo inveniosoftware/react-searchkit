@@ -9,6 +9,7 @@ const mapDispatchToProps = dispatch => ({
 export const LayoutSwitcher = connect(
   state => ({
     currentLayout: state.query.layout,
+    loading: state.results.loading,
     totalResults: state.results.data.total,
   }),
   mapDispatchToProps
