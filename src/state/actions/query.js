@@ -95,11 +95,21 @@ export const updateQueryAggregation = path => {
 };
 
 export const updateResultsLayout = layout => {
-  return dispatch => {
-    dispatch({
-      type: RESULTS_UPDATE_LAYOUT,
-      payload: layout,
-    });
+  return async (dispatch, getState, config) => {
+    let urlParamsApi = config.urlParamsApi;
+    if (urlParamsApi) {
+      await dispatch({
+        type: RESULTS_UPDATE_LAYOUT,
+        payload: layout,
+      });
+      let newStateQuery = getState().query;
+      urlParamsApi.set(newStateQuery);
+    } else {
+      dispatch({
+        type: RESULTS_UPDATE_LAYOUT,
+        payload: layout,
+      });
+    }
   };
 };
 

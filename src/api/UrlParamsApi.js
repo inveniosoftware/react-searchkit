@@ -10,6 +10,7 @@ export class UrlParamsApi {
       sortOrder: 'so',
       page: 'p',
       size: 's',
+      layout: 'l',
     };
     this.paramValidator = paramValidator || is_param_valid;
     this.urlParser = urlParser || parseUrlSearch;

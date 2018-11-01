@@ -19,6 +19,7 @@ const defaultState = {
   page: 1,
   size: 10,
   aggregations: [],
+  layout: 'list',
 };
 
 export default (state = defaultState, action) => {

@@ -53,7 +53,7 @@ export class Results extends Component {
               <Spacer text="results per page" />
             </span>
             <Spacer />
-            <LayoutSwitcher />
+            <LayoutSwitcher defaultLayout="grid" />
           </Grid.Column>
         </Grid>
         <Grid relaxed style={{ padding: '2em 0' }}>
