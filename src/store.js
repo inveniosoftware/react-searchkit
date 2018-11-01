@@ -7,11 +7,10 @@ import rootReducer from './state/reducers';
 
 export const storeKey = 'invenio-search-kit';
 
-export function configureStore(initialState) {
+export function configureStore(config, initialState = {}) {
   return createStore(
     rootReducer,
-    initialState,
-    composeWithDevTools(applyMiddleware(thunk))
+    composeWithDevTools(applyMiddleware(thunk.withExtraArgument(config)))
   );
 }
 

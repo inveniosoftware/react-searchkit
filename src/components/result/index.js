@@ -8,4 +8,4 @@ export { ResultsGrid } from './ResultsGrid';
 export { ResultsList } from './ResultsList';
 export { ResultsMultiLayout } from './ResultsMultiLayout';
 export { ResultsPerPage } from './ResultsPerPage';
-export { SortBy, SortOrder } from './Sort';
+export { SortBy, SortOrder } from './sort';

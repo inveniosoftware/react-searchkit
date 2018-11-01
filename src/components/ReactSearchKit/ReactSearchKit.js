@@ -15,12 +15,14 @@ export class ReactSearchKit extends Component {
     const SearchApi = props.searchApi || _SearchApi;
     const UrlParamsApi = props.urlParamsApi || _UrlParamsApi;
     const { urlParamsSerializer, paramValidator } = props;
-    let initialState = {
+    const setSortByOnEmptyQuery = props.setSortByOnEmptyQuery;
+    let config = {
       apiConfig: props.apiConfig,
       searchApi: new SearchApi(),
       urlParamsApi: new UrlParamsApi(urlParamsSerializer, paramValidator),
+      setSortByOnEmptyQuery: setSortByOnEmptyQuery,
     };
-    this.store = configureStore(initialState);
+    this.store = configureStore(config);
   }
 
   render() {
@@ -38,8 +40,10 @@ export class ReactSearchKit extends Component {
 
 ReactSearchKit.propTypes = {
   searchDefault: PropTypes.bool,
+  setSortByOnEmptyQuery: PropTypes.string,
 };
 
 ReactSearchKit.defaultProps = {
   searchDefault: false,
+  setSortByOnEmptyQuery: null,
 };

@@ -10,6 +10,7 @@ class SearchBar extends Component {
       currentValue: this.props.queryString || '',
     };
     this.renderElement = props.renderElement || this._renderElement;
+    this.setSortByOnEmpty = props.setSortByOnEmpty;
   }
 
   _renderElement({ placeholder }) {
@@ -53,10 +54,12 @@ SearchBar.propTypes = {
   queryString: PropTypes.string,
   updateQueryString: PropTypes.func.isRequired,
   renderElement: PropTypes.func,
+  setSortByOnEmpty: PropTypes.string,
 };
 
 SearchBar.defaultProps = {
   queryString: '',
+  setSortByOnEmpty: null,
 };
 
 const SearchBarUncontrolled = props => (
