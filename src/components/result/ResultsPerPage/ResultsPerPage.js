@@ -48,7 +48,7 @@ export default class ResultsPerPage extends Component {
     const totalResults = this.props.totalResults;
     let loading = this.props.loading;
     return (
-      <ShouldRender condition={!loading || (currentSize && totalResults > 0)}>
+      <ShouldRender condition={!loading && (currentSize && totalResults > 0)}>
         {this.renderElement({ ...this.props })}
       </ShouldRender>
     );

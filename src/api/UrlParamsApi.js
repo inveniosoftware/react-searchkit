@@ -30,7 +30,10 @@ export class UrlParamsApi {
       }
     });
     // will omit undefined and null values from the query
-    let newQuery = qs.stringify(params, { skipNulls: true });
+    let newQuery = qs.stringify(params, {
+      addQueryPrefix: true,
+      skipNulls: true,
+    });
     return newQuery;
   }
 

@@ -52,7 +52,7 @@ export default class SortOrder extends Component {
     return (
       <ShouldRender
         condition={
-          !loading ||
+          !loading &&
           (selectedValue && (this.showOnEmptyResults || numberOfResults > 1))
         }
       >

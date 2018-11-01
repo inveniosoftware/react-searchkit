@@ -2,17 +2,17 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Loading } from '@app/components';
 
-export default class ResultsWithLoader extends Component {
+export default class ResultsLoader extends Component {
   render() {
     let { loading } = this.props;
     return <Loading loading={loading} />;
   }
 }
 
-ResultsWithLoader.propTypes = {
+ResultsLoader.propTypes = {
   loading: PropTypes.bool.isRequired,
 };
 
-ResultsWithLoader.defaultProps = {
+ResultsLoader.defaultProps = {
   loading: false,
 };
