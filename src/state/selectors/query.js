@@ -10,8 +10,9 @@ export const updateQueryAggregation = (query, state) => {
     .map(stateObjQuery => Qs.stringify(stateObjQuery))
     .filter(stateQuery => {
       // filter out previous user selections by comparing the initial parts of the state and the query
-      const match = stateQuery.indexOf(strQuery) === 0;
-      return !match;
+      const queryMatchState = stateQuery.indexOf(strQuery) === 0;
+      const stateMatchQuery = strQuery.indexOf(stateQuery) === 0;
+      return !queryMatchState && !stateMatchQuery;
     });
 
   const firstKey = Object.keys(query)[0];
