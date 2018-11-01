@@ -25,8 +25,9 @@ export const setInitialState = initialState => {
 };
 
 export const setQueryFromUrl = (searchDefault, pushState) => {
-  return async (dispatch, getState) => {
-    let urlParamsApi = getState().urlParamsApi;
+  return async (dispatch, getState, config) => {
+    console.log(config);
+    let urlParamsApi = config.urlParamsApi;
     if (urlParamsApi) {
       const queryState = _cloneDeep(getState().query);
       const newStateQuery = urlParamsApi.get(queryState, pushState);
@@ -41,7 +42,7 @@ export const setQueryFromUrl = (searchDefault, pushState) => {
   };
 };
 
-export const updateQueryString = queryString => {
+export const updateQueryString = (queryString, updateSortingBy = null) => {
   return async dispatch => {
     await dispatch({
       type: SET_QUERY_STRING,
@@ -106,13 +107,22 @@ export const _executeQuery = (
   refreshUrlParams = true,
   resetQueryPage = true
 ) => {
-  return async (dispatch, getState) => {
-    let urlParamsApi = getState().urlParamsApi;
-    let apiConfig = { ...getState().apiConfig };
-    let searchApi = getState().searchApi;
+  return async (dispatch, getState, config) => {
+    const state = getState();
+    let urlParamsApi = config.urlParamsApi;
+    let apiConfig = { ...config.apiConfig };
+    let searchApi = config.searchApi;
+    let setSortByOnEmptyQuery = config.setSortByOnEmptyQuery;
 
-    if (resetQueryPage && getState().query.page != 1) {
+    if (resetQueryPage && state.query.page != 1) {
       await dispatch({ type: QUERY_RESET_PAGE });
+    }
+
+    if (setSortByOnEmptyQuery && state.query.queryString == '') {
+      await dispatch({
+        type: SET_QUERY_SORT_BY,
+        payload: setSortByOnEmptyQuery,
+      });
     }
 
     let queryState = getState().query;

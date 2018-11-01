@@ -53,6 +53,7 @@ class Demo extends Component {
             headers: { Accept: 'application/vnd.zenodo.v1+json' },
           }}
           searchDefault={true}
+          setSortByOnEmptyQuery="mostrecent"
         >
           <div>
             <Segment inverted>

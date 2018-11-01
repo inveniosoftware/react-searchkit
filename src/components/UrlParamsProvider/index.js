@@ -9,8 +9,6 @@ const mapDispatchToProps = dispatch => ({
 });
 
 export const UrlParamsProvider = connect(
-  state => ({
-    urlParamsApi: state.urlParamsApi,
-  }),
+  null,
   mapDispatchToProps
 )(UrlParamsProviderComponent);
