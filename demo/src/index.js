@@ -8,7 +8,7 @@ import {
   EmptyResults,
   Error,
 } from '@app/components';
-import { ResultsWithLoader } from './ResultsWithLoader';
+import { ResultsLoader } from './ResultsLoader';
 import { Results } from './Results';
 
 class Demo extends Component {
@@ -84,7 +84,7 @@ class Demo extends Component {
                   <Grid.Column width={12}>
                     <Error />
                     <EmptyResults />
-                    <ResultsWithLoader />
+                    <ResultsLoader />
                     <Results
                       sortByValues={sortByValues}
                       sortOrderValues={sortOrderValues}
