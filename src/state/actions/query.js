@@ -26,7 +26,6 @@ export const setInitialState = initialState => {
 
 export const setQueryFromUrl = (searchDefault, pushState) => {
   return async (dispatch, getState, config) => {
-    console.log(config);
     let urlParamsApi = config.urlParamsApi;
     if (urlParamsApi) {
       const queryState = _cloneDeep(getState().query);
