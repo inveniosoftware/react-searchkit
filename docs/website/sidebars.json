@@ -1,10 +1,26 @@
-{
-  "docs": {
-    "Usage": ["doc1"],
-    "First Category": ["doc2"],
-    "Second Category": ["doc3"]
-  },
-  "API": {
-    "First Category": ["doc4", "doc5"]
+{"*": {
+    "Getting started": ["getting_started"],
+    "Components": [
+      "components/aggregator",
+      "components/count",
+      "components/empty_results",
+      "components/error",
+      "components/layout_switcher",
+      "components/loading",
+      "components/pagination",
+      "components/react_search_kit",
+      "components/results_grid",
+      "components/results_list",
+      "components/results_multi_layout",
+      "components/results_per_page",
+      "components/search_bar",
+      "components/should_render",
+      "components/sort_by",
+      "components/sort_order",
+      "components/url_params_provider"
+    ],
+     "Advanced": ["advanced"],
+     "Help": ["help"]
+
   }
 }

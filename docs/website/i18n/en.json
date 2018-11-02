@@ -5,31 +5,94 @@
     "previous": "Previous",
     "tagline": "react-searchkit",
     "docs": {
-      "doc1": {
-        "title": "Latin-ish",
-        "sidebar_label": "Example Page"
+      "advanced": {
+        "title": "Advanced",
+        "sidebar_label": "Advanced"
       },
-      "doc2": {
-        "title": "document number 2"
+      "components/aggregator": {
+        "title": "Aggregator Component",
+        "sidebar_label": "Aggregator"
       },
-      "doc3": {
-        "title": "This is document number 3"
+      "components/count": {
+        "title": "Count Component",
+        "sidebar_label": "Count"
       },
-      "doc4": {
-        "title": "Other Document"
+      "components/empty_results": {
+        "title": "Empty Results Component",
+        "sidebar_label": "Empty Results"
       },
-      "doc5": {
-        "title": "Fifth Document"
+      "components/error": {
+        "title": "Error Component",
+        "sidebar_label": "Error"
+      },
+      "components/layout_switcher": {
+        "title": "Layout Switcher Component",
+        "sidebar_label": "Layout Switcher"
+      },
+      "components/loading": {
+        "title": "Loading Component",
+        "sidebar_label": "Loading"
+      },
+      "components/pagination": {
+        "title": "Pagination Component",
+        "sidebar_label": "Pagination"
+      },
+      "components/results_multi_layout": {
+        "title": "Results Multi Layout Component",
+        "sidebar_label": "Results Multi Layout"
+      },
+      "components/results_grid": {
+        "title": "Results Grid Component",
+        "sidebar_label": "Results Grid"
+      },
+      "components/results_list": {
+        "title": "Results List Component",
+        "sidebar_label": "Results List"
+      },
+      "components/react_search_kit": {
+        "title": "React Search Kit Component",
+        "sidebar_label": "React Search Kit"
+      },
+      "components/search_bar": {
+        "title": "Search Bar Component",
+        "sidebar_label": "Search Bar"
+      },
+      "components/should_render": {
+        "title": "Should Render Component",
+        "sidebar_label": "Should Render"
+      },
+      "components/sort_by": {
+        "title": "Sort By Component",
+        "sidebar_label": "Sort By"
+      },
+      "components/sort_order": {
+        "title": "Sort Order Component",
+        "sidebar_label": "Sort Order"
+      },
+      "components/url_params_provider": {
+        "title": "Url Params Provider Component",
+        "sidebar_label": "Url Params Provider"
+      },
+      "getting_started": {
+        "title": "React Search Kit Quickstart",
+        "sidebar_label": "Getting started"
+      },
+      "help": {
+        "title": "Help",
+        "sidebar_label": "Help"
       }
     },
     "links": {
-      "Docs": "Docs",
-      "API": "API"
+      "Getting started": "Getting started",
+      "Components": "Components",
+      "Advanced": "Advanced",
+      "Help": "Help"
     },
     "categories": {
-      "Usage": "Usage",
-      "First Category": "First Category",
-      "Second Category": "Second Category"
+      "Getting started": "Getting started",
+      "Components": "Components",
+      "Advanced": "Advanced",
+      "Help": "Help"
     }
   },
   "pages-strings": {

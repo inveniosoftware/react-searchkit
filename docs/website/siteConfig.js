@@ -38,17 +38,17 @@ const siteConfig = {
 
   // For no header links in the top nav bar -> headerLinks: [],
   headerLinks: [
-    {doc: 'doc1', label: 'Docs'},
-    {doc: 'doc4', label: 'API'},
-    // {page: 'help', label: 'Help'},
-    // {blog: true, label: 'Blog'},
+    { doc: 'getting_started', label: 'Getting started' },
+    { doc: 'components/aggregator', label: 'Components' },
+    { doc: 'advanced', label: 'Advanced' },
+    { doc: 'help', label: 'Help' },
   ],
 
   // If you have users set above, you add it here:
   // users,
 
   /* path to images for header/footer */
-  headerIcon: 'img/logo-invenio-white.png',
+  headerIcon: '',
   footerIcon: '',
   favicon: 'img/favicon.png',
 
@@ -94,7 +94,7 @@ const siteConfig = {
 
   // You may provide arbitrary config keys to be used as needed by your
   // template. For example, if you need your repo's URL...
-    repoUrl: 'https://github.com/inveniosoftware/react-searchkit',
+  repoUrl: 'https://github.com/inveniosoftware/react-searchkit',
 };
 
 module.exports = siteConfig;
