@@ -6,3 +6,4 @@
 /umd
 /docs/website/node_modules
 npm-debug.log*
+.history

@@ -55,6 +55,14 @@
   "jest": {
     "transform": {
       "^.+\\.js$": "<rootDir>/jest.transform.js"
-    }
+    },
+    "modulePathIgnorePatterns": [
+      "<rootDir>/node_modules",
+      "<rootDir>/.history"
+    ],
+    "moduleNameMapper": {
+      "@app(.*)": "<rootDir>/src/$1"
+    },
+    "testURL": "https://www.somthing.com/test.html"
   }
 }

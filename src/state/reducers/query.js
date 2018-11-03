@@ -12,7 +12,7 @@ import {
 } from '@app/state/types';
 import { updateQueryAggregation } from '../selectors';
 
-const defaultState = {
+export const defaultState = {
   queryString: '',
   sortBy: undefined,
   sortOrder: undefined,
