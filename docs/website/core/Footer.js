@@ -27,11 +27,10 @@ class Footer extends React.Component {
                 <a href="https://docusaurus.io/">Docusaurus</a>
                 <a href="https://code.facebook.com/projects/"
                   target="_blank"
-                  rel="noreferrer noopener"
-                  className="fbOpenSource">
+                  rel="noreferrer noopener">
                   <img
                     src={`${this.props.config.baseUrl}img/oss_logo.png`}
-                    alt="Facebook Open Source"
+                    alt="React SearchKit"
                     width="170"
                     height="45"
                   />

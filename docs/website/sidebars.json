@@ -1,5 +1,4 @@
 {"*": {
-    "Getting started": ["getting_started"],
     "Components": [
       "components/active_aggregations",
       "components/aggregator",
@@ -19,9 +18,6 @@
       "components/sort_by",
       "components/sort_order",
       "components/url_params_provider"
-    ],
-     "Advanced": ["advanced"],
-     "Help": ["help"]
-
+    ]
   }
 }

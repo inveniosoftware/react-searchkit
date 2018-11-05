@@ -5,14 +5,21 @@ sidebar_label: Getting started
 ---
 
 
-## Step 1 Install ReactSearchKit:
+## Create a new app
 
-```console:
-npm install
+Assuming that you have installed [create-react-app](https://github.com/facebook/create-react-app), you can run:
+
+```console
+create-react-app search-app
+cd search-app
 ```
 
-## Step 2 run ReactSearchKit:
+Them, install the library.
 
-```console:
-npm start
+```console
+npm install @inveniosoftware/react-searchkit
 ```
+
+## Bootstrap it
+
+Open the App component `src/App.js` file and add the bootstrap component.

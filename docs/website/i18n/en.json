@@ -80,19 +80,21 @@
       "help": {
         "title": "Help",
         "sidebar_label": "Help"
+      },
+      "home": {
+        "title": "Home",
+        "sidebar_label": "Home"
       }
     },
     "links": {
+      "Home": "Home",
       "Getting started": "Getting started",
       "Components": "Components",
       "Advanced": "Advanced",
       "Help": "Help"
     },
     "categories": {
-      "Getting started": "Getting started",
-      "Components": "Components",
-      "Advanced": "Advanced",
-      "Help": "Help"
+      "Components": "Components"
     }
   },
   "pages-strings": {
