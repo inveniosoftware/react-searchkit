@@ -1,11 +1,11 @@
 import {
-  QUERY_RESET_PAGE,
   SET_QUERY_COMPONENT_INITIAL_STATE,
   SET_QUERY_STRING,
   SET_QUERY_SORT_BY,
   SET_QUERY_SORT_ORDER,
   SET_QUERY_PAGINATION_PAGE,
   SET_QUERY_PAGINATION_SIZE,
+  SET_QUERY_PAGINATION_PAGE_RESET,
   SET_QUERY_AGGREGATION,
   SET_STATE_FROM_URL,
   RESULTS_UPDATE_LAYOUT,
@@ -65,7 +65,7 @@ export default (state = defaultState, action) => {
         ...state,
         ...action.payload,
       };
-    case QUERY_RESET_PAGE:
+    case SET_QUERY_PAGINATION_PAGE_RESET:
       return {
         ...state,
         page: 1,

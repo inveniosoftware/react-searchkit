@@ -11,7 +11,6 @@ export default class SortBy extends Component {
     this.defaultValue = this.props.defaultValue;
     this.updateQuerySortBy = props.updateQuerySortBy;
     this.setInitialState = props.setInitialState;
-    this.showOnEmptyResults = props.showOnEmptyResults;
     this.renderElement = props.renderElement || this._renderElement;
   }
 
@@ -51,10 +50,7 @@ export default class SortBy extends Component {
     let loading = this.props.loading;
     return (
       <ShouldRender
-        condition={
-          !loading &&
-          (selectedValue && (this.showOnEmptyResults || numberOfResults > 1))
-        }
+        condition={!loading && selectedValue && numberOfResults > 1}
       >
         {this.renderElement({ ...this.props })}
       </ShouldRender>
@@ -69,6 +65,4 @@ SortBy.propTypes = {
   renderElement: PropTypes.func,
 };
 
-SortBy.defaultProps = {
-  showOnEmptyResults: false,
-};
+SortBy.defaultProps = {};

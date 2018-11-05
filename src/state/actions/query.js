@@ -1,6 +1,5 @@
 import _cloneDeep from 'lodash/cloneDeep';
 import {
-  QUERY_RESET_PAGE,
   SET_QUERY_COMPONENT_INITIAL_STATE,
   SET_STATE_FROM_URL,
   SET_QUERY_STRING,
@@ -8,6 +7,7 @@ import {
   SET_QUERY_SORT_ORDER,
   SET_QUERY_PAGINATION_PAGE,
   SET_QUERY_PAGINATION_SIZE,
+  SET_QUERY_PAGINATION_PAGE_RESET,
   SET_QUERY_AGGREGATION,
   RESULTS_LOADING,
   RESULTS_FETCH_SUCCESS,
@@ -24,72 +24,74 @@ export const setInitialState = initialState => {
   };
 };
 
-export const setQueryFromUrl = (searchDefault, pushState) => {
+export const setQueryFromUrl = (searchOnLoad, updateUrlParams) => {
   return async (dispatch, getState, config) => {
-    let urlParamsApi = config.urlParamsApi;
-    if (urlParamsApi) {
+    if (config.urlParamsApi) {
       const queryState = _cloneDeep(getState().query);
-      const newStateQuery = urlParamsApi.get(queryState, pushState);
-      await dispatch({
+      const newStateQuery = config.urlParamsApi.get(
+        queryState,
+        updateUrlParams
+      );
+      dispatch({
         type: SET_STATE_FROM_URL,
         payload: newStateQuery,
       });
     }
-    if (searchDefault) {
-      dispatch(_executeQuery(false));
+    if (searchOnLoad) {
+      await dispatch(executeQuery(false));
     }
   };
 };
 
-export const updateQueryString = (queryString, updateSortingBy = null) => {
+export const updateQueryString = queryString => {
   return async dispatch => {
-    await dispatch({
+    dispatch({
       type: SET_QUERY_STRING,
       payload: queryString,
     });
 
-    dispatch(_executeQuery());
+    await dispatch(executeQuery());
   };
 };
 
 export const updateQuerySortBy = sortByValue => {
   return async dispatch => {
-    await dispatch({
+    dispatch({
       type: SET_QUERY_SORT_BY,
       payload: sortByValue,
     });
-    dispatch(_executeQuery());
+    await dispatch(executeQuery());
   };
 };
 
 export const updateQuerySortOrder = sortOrderValue => {
   return async dispatch => {
-    await dispatch({ type: SET_QUERY_SORT_ORDER, payload: sortOrderValue });
-    dispatch(_executeQuery());
+    dispatch({ type: SET_QUERY_SORT_ORDER, payload: sortOrderValue });
+    await dispatch(executeQuery());
   };
 };
 
 export const updateQueryPaginationPage = page => {
   return async dispatch => {
-    await dispatch({ type: SET_QUERY_PAGINATION_PAGE, payload: page });
-    dispatch(_executeQuery(true, false));
+    dispatch({ type: SET_QUERY_PAGINATION_PAGE, payload: page });
+    await dispatch(executeQuery(true, false));
   };
 };
 
 export const updateQueryPaginationSize = size => {
   return async dispatch => {
-    await dispatch({ type: SET_QUERY_PAGINATION_SIZE, payload: size });
-    dispatch(_executeQuery());
+    dispatch({ type: SET_QUERY_PAGINATION_SIZE, payload: size });
+    await dispatch(executeQuery());
   };
 };
 
 export const updateQueryAggregation = path => {
   return async dispatch => {
-    await dispatch({
+    dispatch({
       type: SET_QUERY_AGGREGATION,
       payload: path,
     });
-    dispatch(_executeQuery());
+    await dispatch(executeQuery());
   };
 };
 
@@ -112,50 +114,42 @@ export const updateResultsLayout = layout => {
   };
 };
 
-export const _executeQuery = (
-  refreshUrlParams = true,
-  resetQueryPage = true
-) => {
+export const executeQuery = (updateUrlParams = true, resetQueryPage = true) => {
   return async (dispatch, getState, config) => {
-    const state = getState();
-    let urlParamsApi = config.urlParamsApi;
-    let apiConfig = { ...config.apiConfig };
-    let searchApi = config.searchApi;
-    let setSortByOnEmptyQuery = config.setSortByOnEmptyQuery;
+    let queryState = _cloneDeep(getState().query);
+    const searchApi = config.searchApi;
+    const urlParamsApi = config.urlParamsApi;
+    const defaultSortByOnEmptyQuery = config.defaultSortByOnEmptyQuery;
 
-    if (resetQueryPage && state.query.page != 1) {
-      await dispatch({ type: QUERY_RESET_PAGE });
+    if (resetQueryPage && queryState.page !== 1) {
+      dispatch({ type: SET_QUERY_PAGINATION_PAGE_RESET });
     }
 
-    if (setSortByOnEmptyQuery && state.query.queryString == '') {
-      await dispatch({
+    if (defaultSortByOnEmptyQuery && queryState.queryString === '') {
+      dispatch({
         type: SET_QUERY_SORT_BY,
-        payload: setSortByOnEmptyQuery,
+        payload: defaultSortByOnEmptyQuery,
       });
+      queryState = _cloneDeep(getState().query);
     }
 
-    let queryState = getState().query;
-    if (urlParamsApi && refreshUrlParams) {
+    if (urlParamsApi && updateUrlParams) {
       urlParamsApi.set(queryState);
     }
 
     dispatch({ type: RESULTS_LOADING });
-
-    searchApi
-      .search(queryState, apiConfig)
-      .then(response => {
-        let data = searchApi.serialize(response.data);
-        dispatch({
-          type: RESULTS_FETCH_SUCCESS,
-          payload: {
-            aggregations: data.aggregations,
-            hits: data.hits,
-            total: data.total,
-          },
-        });
-      })
-      .catch(reason => {
-        dispatch({ type: RESULTS_FETCH_ERROR, payload: reason });
+    try {
+      const response = await searchApi.search(queryState);
+      dispatch({
+        type: RESULTS_FETCH_SUCCESS,
+        payload: {
+          aggregations: response.aggregations,
+          hits: response.hits,
+          total: response.total,
+        },
       });
+    } catch (reason) {
+      dispatch({ type: RESULTS_FETCH_ERROR, payload: reason });
+    }
   };
 };

@@ -11,7 +11,6 @@ export default class SortOrder extends Component {
     this.defaultValue = this.props.defaultValue;
     this.updateQuerySortOrder = props.updateQuerySortOrder;
     this.setInitialState = props.setInitialState;
-    this.showOnEmptyResults = props.showOnEmptyResults;
     this.renderElement = props.renderElement || this._renderElement;
   }
 
@@ -51,10 +50,7 @@ export default class SortOrder extends Component {
     let loading = this.props.loading;
     return (
       <ShouldRender
-        condition={
-          !loading &&
-          (selectedValue && (this.showOnEmptyResults || numberOfResults > 1))
-        }
+        condition={!loading && selectedValue && numberOfResults > 1}
       >
         {this.renderElement({ ...this.props })}
       </ShouldRender>
@@ -72,5 +68,4 @@ SortOrder.propTypes = {
 
 SortOrder.defaultProps = {
   currentSortOrder: undefined,
-  showOnEmptyResults: false,
 };

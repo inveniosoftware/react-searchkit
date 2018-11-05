@@ -1,4 +1,5 @@
-import { updateQueryAggregation } from './query';
+import 'babel-polyfill';
+import { updateQueryAggregation } from '@app/state/selectors/query';
 
 /**
  * Test scenario

@@ -3,63 +3,62 @@ import _isPlainObject from 'lodash/isPlainObject';
 import _find from 'lodash/find';
 import Qs from 'qs';
 
-export class SearchApi {
-  _addAggregation(params, key, valueObj) {
+/** Default backend request serializer */
+class RequestSerializer {
+  _addAggregation(getParams, key, valueObj) {
     const value = valueObj['value'];
     if (value) {
-      key in params ? params[key].push(value) : (params[key] = [value]);
+      key in getParams
+        ? getParams[key].push(value)
+        : (getParams[key] = [value]);
     }
 
     const nestedKeys = Object.keys(valueObj).filter(key => key !== 'value');
     if (nestedKeys.length) {
       const nestedKey = nestedKeys[0];
       const nestedValueObj = valueObj[nestedKey];
-      this._addAggregation(params, nestedKey, nestedValueObj);
+      this._addAggregation(getParams, nestedKey, nestedValueObj);
     }
   }
 
-  _addAggregations(params, aggregations) {
+  _addAggregations(getParams, aggregations) {
     aggregations.forEach(aggregation => {
       const rootKey = Object.keys(aggregation)[0];
       const valueObj = aggregation[rootKey];
-      this._addAggregation(params, rootKey, valueObj);
+      this._addAggregation(getParams, rootKey, valueObj);
     });
   }
 
-  _processParams(queryString, sortBy, sortOrder, page, size, aggregations) {
-    let params = {};
-    params['q'] = queryString;
-
-    params['sortBy'] = sortBy;
-    params['sortOrder'] = sortOrder;
-    params['page'] = page;
-    params['size'] = size;
-    this._addAggregations(params, aggregations);
-
-    return params;
-  }
-
-  search(query, apiConfig) {
-    let { queryString, sortBy, sortOrder, page, size, aggregations } = query;
-    let params = this._processParams(
+  /**
+   * Return a serialized version of the app state `query` for the API backend.
+   * @param {object} stateQuery the `query` state to serialize
+   */
+  serialize = stateQuery => {
+    const {
       queryString,
       sortBy,
       sortOrder,
       page,
       size,
-      aggregations
-    );
+      aggregations,
+    } = stateQuery;
 
-    if (!apiConfig['paramSerializer']) {
-      apiConfig['paramsSerializer'] = params =>
-        Qs.stringify(params, { arrayFormat: 'repeat' });
-    }
-    apiConfig['params'] = { ...apiConfig['params'], ...params };
-    return axios(apiConfig);
-  }
+    const getParams = {};
+    getParams['q'] = queryString;
+    getParams['sortBy'] = sortBy;
+    getParams['sortOrder'] = sortOrder;
+    getParams['page'] = page;
+    getParams['size'] = size;
+    this._addAggregations(getParams, aggregations);
 
+    return Qs.stringify(getParams, { arrayFormat: 'repeat' });
+  };
+}
+
+/** Default backend response serializer */
+class ResponseSerializer {
   _serializeAggregation(bucket) {
-    let aggregation = {
+    const aggregation = {
       key: bucket.key,
       total: bucket.doc_count,
       hasNestedField: false,
@@ -83,7 +82,7 @@ export class SearchApi {
   }
 
   _serializeAggregations(aggregationsResponse) {
-    let aggregations = {};
+    const aggregations = {};
     Object.keys(aggregationsResponse).forEach(field => {
       const buckets = aggregationsResponse[field].buckets;
       aggregations[field] = buckets.map(bucket =>
@@ -93,11 +92,42 @@ export class SearchApi {
     return aggregations;
   }
 
-  serialize(response) {
+  /**
+   * Return a serialized version of the API backend response for the app state `results`.
+   * @param {object} payload the backend response payload
+   */
+  serialize = payload => {
     return {
-      aggregations: this._serializeAggregations(response.aggregations || {}),
-      hits: response.hits.hits,
-      total: response.hits.total,
+      aggregations: this._serializeAggregations(payload.aggregations || {}),
+      hits: payload.hits.hits,
+      total: payload.hits.total,
     };
+  };
+}
+
+/**  */
+export class SearchApi {
+  constructor(config = {}) {
+    this.config = config;
+    this.requestSerializer =
+      config.requestSerializer || new RequestSerializer();
+    this.responseSerializer =
+      config.responseSerializer || new ResponseSerializer();
   }
+
+  /**
+   * Perform the backend request to search and return the serialized list of results for the app state `results`.
+   * @param {string} stateQuery the `query` state with the user input
+   */
+  search = async stateQuery => {
+    const axiosConfig = {
+      paramsSerializer: stateQuery =>
+        this.requestSerializer.serialize(stateQuery),
+      params: stateQuery,
+      ...this.config,
+    };
+
+    const response = await axios(axiosConfig);
+    return this.responseSerializer.serialize(response.data);
+  };
 }
