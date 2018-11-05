@@ -1,36 +1,30 @@
 import React, { Component } from 'react';
 import { createProvider } from 'react-redux';
 import PropTypes from 'prop-types';
-import { configureStore, storeKey } from '@app/store';
-import { SearchApi as _SearchApi } from '@app/api/SearchApi';
+import { SearchApi, UrlParamsApi, configureStore, storeKey } from '@app';
 import 'semantic-ui-css/semantic.min.css';
 import { UrlParamsProvider } from '@app/components/UrlParamsProvider';
-import { UrlParamsApi as _UrlParamsApi } from '@app/api/UrlParamsApi';
 
 const Provider = createProvider(storeKey);
 
 export class ReactSearchKit extends Component {
   constructor(props) {
     super(props);
-    const SearchApi = props.searchApi || _SearchApi;
-    const UrlParamsApi = props.urlParamsApi || _UrlParamsApi;
-    const { urlParamsSerializer, paramValidator } = props;
-    const setSortByOnEmptyQuery = props.setSortByOnEmptyQuery;
-    let config = {
-      apiConfig: props.apiConfig,
-      searchApi: new SearchApi(),
-      urlParamsApi: new UrlParamsApi(urlParamsSerializer, paramValidator),
-      setSortByOnEmptyQuery: setSortByOnEmptyQuery,
+    const appConfig = {
+      searchApi: props.searchApi || new SearchApi(props.searchConfig),
+      urlParamsApi:
+        props.urlParamsApi || new UrlParamsApi(props.urlParamsConfig),
+      defaultSortByOnEmptyQuery: props.defaultSortByOnEmptyQuery,
     };
-    this.store = configureStore(config);
+    this.store = configureStore(appConfig);
   }
 
   render() {
-    let { searchDefault } = this.props;
+    const { searchOnLoad } = this.props;
 
     return (
       <Provider store={this.store}>
-        <UrlParamsProvider searchDefault={searchDefault}>
+        <UrlParamsProvider searchOnLoad={searchOnLoad}>
           {this.props.children}
         </UrlParamsProvider>
       </Provider>
@@ -39,11 +33,15 @@ export class ReactSearchKit extends Component {
 }
 
 ReactSearchKit.propTypes = {
-  searchDefault: PropTypes.bool,
-  setSortByOnEmptyQuery: PropTypes.string,
+  searchConfig: PropTypes.object,
+  searchApi: PropTypes.object,
+  urlParamsConfig: PropTypes.object,
+  urlParamsApi: PropTypes.object,
+  searchOnLoad: PropTypes.bool,
+  defaultSortByOnEmptyQuery: PropTypes.string,
 };
 
 ReactSearchKit.defaultProps = {
-  searchDefault: false,
-  setSortByOnEmptyQuery: null,
+  searchOnLoad: true,
+  defaultSortByOnEmptyQuery: null,
 };

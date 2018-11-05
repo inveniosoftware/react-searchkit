@@ -4,16 +4,16 @@ export default class UrlParamsProvider extends Component {
   constructor(props) {
     super(props);
 
-    this.searchDefault = props.searchDefault || false;
+    this.searchOnLoad = props.searchOnLoad || false;
     this.setUrlParams = props.setUrlParams;
     this.setUrlParamsWithoutPush = props.setUrlParamsWithoutPush;
   }
 
   componentDidMount() {
     window.onpopstate = () => {
-      this.setUrlParamsWithoutPush(this.searchDefault);
+      this.setUrlParamsWithoutPush(this.searchOnLoad);
     };
-    this.setUrlParams(this.searchDefault);
+    this.setUrlParams(this.searchOnLoad);
   }
 
   render() {

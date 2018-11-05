@@ -47,13 +47,12 @@ class Demo extends Component {
     return (
       <div>
         <ReactSearchKit
-          apiConfig={{
+          searchConfig={{
             url: 'https://zenodo.org/api/records/',
             timeout: 5000,
             headers: { Accept: 'application/vnd.zenodo.v1+json' },
           }}
-          searchDefault={true}
-          setSortByOnEmptyQuery="mostrecent"
+          defaultSortByOnEmptyQuery="mostrecent"
         >
           <div>
             <Segment inverted>

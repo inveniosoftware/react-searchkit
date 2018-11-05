@@ -8,7 +8,7 @@ import _findIndex from 'lodash/findIndex';
  * @param {string} first a string
  * @param {string} second a string
  */
-function containsFromStart(first, second) {
+function startsWith(first, second) {
   return first.indexOf(second) === 0;
 }
 
@@ -33,8 +33,8 @@ export const updateQueryAggregation = (query, state) => {
   let isExactMatch = false;
   const filtered = [];
   strStates.forEach(strState => {
-    const queryMatchState = containsFromStart(strState, strQuery);
-    const stateMatchQuery = containsFromStart(strQuery, strState);
+    const queryMatchState = startsWith(strState, strQuery);
+    const stateMatchQuery = startsWith(strQuery, strState);
 
     // check if it the state is exactly the query
     if (!isExactMatch) {

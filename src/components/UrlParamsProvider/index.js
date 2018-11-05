@@ -3,9 +3,9 @@ import { setQueryFromUrl } from '@app/state/actions';
 import UrlParamsProviderComponent from './UrlParamsProvider';
 
 const mapDispatchToProps = dispatch => ({
-  setUrlParams: searchDefault => dispatch(setQueryFromUrl(searchDefault, true)),
-  setUrlParamsWithoutPush: searchDefault =>
-    dispatch(setQueryFromUrl(searchDefault, false)),
+  setUrlParams: searchOnLoad => dispatch(setQueryFromUrl(searchOnLoad, true)),
+  setUrlParamsWithoutPush: searchOnLoad =>
+    dispatch(setQueryFromUrl(searchOnLoad, false)),
 });
 
 export const UrlParamsProvider = connect(

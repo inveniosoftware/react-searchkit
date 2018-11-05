@@ -8,8 +8,6 @@ import {
   SET_QUERY_STRING,
   SET_QUERY_SORT_BY,
   SET_QUERY_SORT_ORDER,
-  SET_QUERY_PAGINATION_PAGE,
-  SET_QUERY_PAGINATION_SIZE,
 } from '@app/state/types';
 import {
   setInitialState,
@@ -17,8 +15,6 @@ import {
   updateQueryString,
   updateQuerySortBy,
   updateQuerySortOrder,
-  updateQueryPaginationPage,
-  updateQueryPaginationSize,
 } from '@app/state/actions';
 import { UrlParamsApi } from '@app/api/UrlParamsApi';
 import { SearchApi } from '@app/api/SearchApi';
@@ -66,8 +62,8 @@ describe('test query actions', () => {
   it('it parses url params to state and ignores unknown params', () => {
     const urlParams = [
       'q=this is my message',
-      'sb=bestmatch',
-      'so=asc',
+      'sort=bestmatch',
+      'order=asc',
       'p=1',
       's=10',
       'unknown=invalid',
