@@ -51,11 +51,15 @@ describe('queries with first level aggregations.', () => {
     const state = [
       { file_type: { value: 'pdf' } },
       { type: { value: 'Image' } },
+      { type: { value: 'Publication' } },
     ];
     const query = { type: { value: 'Image' } };
 
     const newState = updateQueryAggregation(query, state);
-    expect(newState).toEqual([{ file_type: { value: 'pdf' } }]);
+    expect(newState).toEqual([
+      { file_type: { value: 'pdf' } },
+      { type: { value: 'Publication' } },
+    ]);
   });
 });
 

@@ -1,4 +1,4 @@
-import qs from 'qs';
+import Qs from 'qs';
 
 import { parseUrlSearch, pushHistory, is_param_valid } from './utils';
 
@@ -11,6 +11,7 @@ export class UrlParamsApi {
       page: 'p',
       size: 's',
       layout: 'l',
+      aggregations: 'aggr',
     };
     this.paramValidator = paramValidator || is_param_valid;
     this.urlParser = urlParser || parseUrlSearch;
@@ -30,8 +31,9 @@ export class UrlParamsApi {
         params[paramKey] = queryState[stateKey];
       }
     });
+
     // will omit undefined and null values from the query
-    let newQuery = qs.stringify(params, {
+    let newQuery = Qs.stringify(params, {
       addQueryPrefix: true,
       skipNulls: true,
     });
