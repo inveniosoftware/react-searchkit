@@ -4,18 +4,26 @@ import _find from 'lodash/find';
 import Qs from 'qs';
 
 export class SearchApi {
-  _addAggregationsToParams(params, aggregations) {
-    let newParams = { ...params };
-    Object.keys(aggregations).forEach(field => {
-      aggregations[field].forEach(value => {
-        if (!newParams.hasOwnProperty(field)) {
-          newParams[field] = value;
-        } else {
-          newParams[field] = [...newParams[field], value];
-        }
-      });
+  _addAggregation(params, key, valueObj) {
+    const value = valueObj['value'];
+    if (value) {
+      key in params ? params[key].push(value) : (params[key] = [value]);
+    }
+
+    const nestedKeys = Object.keys(valueObj).filter(key => key !== 'value');
+    if (nestedKeys.length) {
+      const nestedKey = nestedKeys[0];
+      const nestedValueObj = valueObj[nestedKey];
+      this._addAggregation(params, nestedKey, nestedValueObj);
+    }
+  }
+
+  _addAggregations(params, aggregations) {
+    aggregations.forEach(aggregation => {
+      const rootKey = Object.keys(aggregation)[0];
+      const valueObj = aggregation[rootKey];
+      this._addAggregation(params, rootKey, valueObj);
     });
-    return newParams;
   }
 
   _processParams(queryString, sortBy, sortOrder, page, size, aggregations) {
@@ -26,10 +34,7 @@ export class SearchApi {
     params['sortOrder'] = sortOrder;
     params['page'] = page;
     params['size'] = size;
-
-    // if (aggregations) {
-    //   params = this._addAggregationsToParams(params, aggregations);
-    // }
+    this._addAggregations(params, aggregations);
 
     return params;
   }
