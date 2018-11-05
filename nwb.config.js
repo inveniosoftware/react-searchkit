@@ -6,9 +6,17 @@ module.exports = {
     esModules: true,
     umd: false,
   },
-  webpack: {
-    aliases: {
-      '@app': path.resolve('src'),
-    },
+  babel: {
+    plugins: [
+      [
+        'module-resolver',
+        {
+          root: ['.'],
+          alias: {
+            '@app': './src',
+          },
+        },
+      ],
+    ],
   },
 };
