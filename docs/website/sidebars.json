@@ -1,16 +1,17 @@
 {"*": {
     "Getting started": ["getting_started"],
     "Components": [
+      "components/active_aggregations",
       "components/aggregator",
       "components/count",
       "components/empty_results",
       "components/error",
       "components/layout_switcher",
-      "components/loading",
       "components/pagination",
       "components/react_search_kit",
       "components/results_grid",
       "components/results_list",
+      "components/results_loader",
       "components/results_multi_layout",
       "components/results_per_page",
       "components/search_bar",

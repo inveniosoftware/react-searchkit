@@ -4,23 +4,28 @@ title: Url Params Provider Component
 sidebar_label: Url Params Provider
 ---
 
-## Props
+## Usage
+### Props
 ???
 TODO: no proptypes
 
+| Name              | Required  | Default       | Type      | Description             |
+| ------------------|-----------|---------------| ----------|-------------|
 
-## Usage
+
+## Usage when overriding template
+
+Props below are available in your renderElement function when you override the template.
+
+### Props
+
+| Name              | Default       | Type      | Description             |
+| ------------------|---------------| ----------|-------------------------|
+
 
 Usage description 
 ```jsx
-<TextField
-  componentId="NameTextSensor"
-  dataField="name"
-  title="TextField"
-  defaultSelected="volvo"
-  placeholder="Type a car name"
-  showFilter={true}
-  filterLabel="Car"
-  URLParams={false}
+<UrlParamsProvider
+//TODO
 />
 ```
