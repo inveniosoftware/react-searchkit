@@ -24,3 +24,10 @@ script:
 
 after_success:
   - npm run coverage
+  -
+deploy:
+  provider: script
+  script: bash docs/deploy_docs.sh
+  keep-history: true
+  on:
+    branch: master
