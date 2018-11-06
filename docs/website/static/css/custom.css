@@ -4,6 +4,9 @@
 }
 
 @media only screen and (min-width: 1024px) {
+    .sitemap div {
+        padding-left: 140px;
+    }
 }
 
 @media only screen and (max-width: 1023px) {
@@ -18,4 +21,3 @@
 .sitemap div p {
     color: rgba(255, 255, 255, 0.6)
 }
-
