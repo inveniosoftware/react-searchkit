@@ -5,6 +5,7 @@
 #
 # React-SearchKit is free software; you can redistribute it and/or modify it
 # under the terms of the MIT License; see LICENSE file for more details.
+
 sudo: false
 
 language: node_js
@@ -16,11 +17,41 @@ cache:
   directories:
     - node_modules
 
+env:
+  global:
+      # env vars to publish GitHub pages
+      - GH_EMAIL=info@inveniosoftware.org
+      - GH_NAME=invenio-developers
+      - secure: "OoeSeMqgn8Mpqon/anyrWrm3SjxudQZxw/UJEvL6z38nhmpAdM57Fi3ahYuLmU/RCCYIbY1PuffHt12qq/OZQx0YoRynldZotnP8ZzkZBFryD+Q6g/pktLNwPo90CDxlBbL5DjXkdssJ3WItoKnNUP9pt4GifLa4JQ8Yc5K3MrINocFln7xDPnOvNSybVMAZX4qBvEE4qCVZnZhGXdL4ZscKToUZh2LSHiYdp+fvr2Wr7Z2UMdZTvq5jBYmOkidgurSQd8EXH6NVsEmJ8Vo6mlriqyE5qTdsyXeol9YGNwjrwQTXtnNsA+GFLJmk1T2pAVhM7p4vh71nc3gxOaMlJiOHA3Dx/s/llG+TxBaRqjOffFC/hUG5K8JvB1OqTgy0lMNY6y15eubGTxV7ggWZRin2TxRcYYu2kWlEUn+tFBTSALX4uKRYhVtZUuiqPJElEBOKtcgIAgYzc/e9hLO2498pm/g5OWzy1JxPMBJdzppA3hUv9CWTqK66pdKymWBSkZZ2esvxrbYuIgdCWEJRA9glVr+3Ti5aktkyKzsMdiXBeghq8WOn4XrsAnUpiF+JeQbQeDvb1AT+wJirE0U/0q+AugMKv3SP80PJaTrp/obfSp4mjVz73v9apbeX+Ox2pfkTJDn2sEvhIo0h2FCD5gMxj8Z31RQEHFqEeDSW6qQ="
+
 install:
   - npm install
+  # install peerDependencies
+  - npm install react@16.x react-dom@16.x
 
 script:
   - npm test
 
 after_success:
   - npm run coverage
+
+before_deploy:
+  - npm run build
+
+deploy:
+  - provider: script
+    script: bash deploy_docs.sh
+    keep-history: true
+    on:
+      branch: master
+      tags: true
+      repo: inveniosoftware/react-searchkit
+  - provider: npm
+    skip_cleanup: true
+    email: info@inveniosoftware.org
+    api_key:
+      secure: t+bbrru2t8d4EmcmFstR4kGIQaa7yan7oBzDT2H7TRZiWl+DxUK0HaoS+wwMZdGWjIfceo763rnNgluLpLa3cCgfTIhaC3j5QyjNosviTNYz41N9y5OovwJpGHPmnQptFzv/yG2hcmIjsH13M2e5gS/70Ueqej4r3XVycBYsphLHaHX4axEELV5XtyUbuCiMZW7cPowvKQvAOfmVZUi7p6Tu27sBeknuEiq6tED259eS4f5NtKGoDrq6ib0fGCKC4RAMuBqWZe1CDt/SsOADdUz3g0lRBUgUJnrRjHUm6yklS2GTlL3iqyQ9sUlZGOSRPBdtE5hDliS5TU1EgdFCoe1RdObfNPIDFEEoUvvkPW0R49FZcmOJ8q+cDLK7u23mSJV4kw0hKSz2sKL5rkDy3jyAfV7hldxjnvxX7cTge10c2Q5K6jh/aUVBv1yTa2R0DgQQRDmCGFPPpV5WzqugGFIdajQS4DDnmU8sSRRfXnUtb+cIb0d7ujKMjR20oNfaB4mLzMUuzr3lY9kngQF8kns7EPCTgAYbXWclQrALSA/QbdnE9LAW9XLg73TrlC00mzqI7Iecnj/m5UrpcGVCyT/UEg89n1F4Hlufq311DjgOZ7jBTRjJop9YTTX8PjcSxQxhpdqdkT5pcHqbeQxV5Ts5TrBWz5X4fbDPee8+Kz4=
+    on:
+      branch: master
+      tags: true
+      repo: inveniosoftware/react-searchkit

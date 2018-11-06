@@ -113,7 +113,6 @@ class Home extends React.Component {
                 src={`${siteConfig.baseUrl}img/screenshot.png`}
                 alt="Screenshot"
                 width="700"
-                style={{ boxShadow: '2px 2px 5px 0px rgba(0,0,0,0.3)' }}
               />
             </div>
           </Container>

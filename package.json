@@ -1,7 +1,7 @@
 {
-  "name": "@inveniosoftware/react-searchkit",
-  "version": "1.0.0",
-  "description": "react-searchkit React components to build a search UI",
+  "name": "react-searchkit",
+  "version": "0.1.0",
+  "description": "React components to build your search UI application",
   "main": "lib/index.js",
   "module": "es/index.js",
   "files": [
@@ -23,6 +23,8 @@
     "axios": "^0.18.0",
     "lodash": "^4.17.11",
     "qs": "^6.5.2",
+    "react": "^16.6.1",
+    "react-dom": "^16.6.1",
     "react-redux": "^5.0.7",
     "redux": "^4.0.1",
     "redux-devtools-extension": "^2.13.5",
@@ -32,7 +34,7 @@
   },
   "peerDependencies": {
     "react": "16.x",
-    "react-dom": "^16.x"
+    "react-dom": "16.x"
   },
   "devDependencies": {
     "babel-jest": "^23.6.0",
@@ -49,7 +51,7 @@
     "name": "CERN",
     "email": "info@inveniosoftware.org"
   },
-  "homepage": "https://inveniosoftware.org",
+  "homepage": "https://inveniosoftware.github.io/react-searchkit/",
   "license": "MIT",
   "repository": {
     "type": "git",

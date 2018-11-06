@@ -9,8 +9,8 @@
 const siteConfig = {
   title: 'React-SearchKit',
   tagline: 'A simple yet powerful UI search kit built with React',
-  url: 'https://your-docusaurus-test-site.com',
-  baseUrl: '/', // Base URL for your project */
+  url: 'https://inveniosoftware.github.io',
+  baseUrl: '/react-searchkit/', // Base URL for your project */
   // For github.io type URLs, you would set the url and baseUrl like:
   //   url: 'https://facebook.github.io',
   //   baseUrl: '/test-site/',
@@ -58,9 +58,6 @@ const siteConfig = {
   },
   */
 
-  // This copyright info is used in /core/Footer.js and blog RSS/Atom feeds.
-  copyright: `Copyright © ${new Date().getFullYear()} inveniosoftware & contributors`,
-
   highlight: {
     // Highlight.js theme to use for syntax highlighting in code blocks.
     theme: 'default',
@@ -70,10 +67,10 @@ const siteConfig = {
   scripts: [
     'https://buttons.github.io/buttons.js',
     'https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.0/clipboard.min.js',
-    '/js/code-blocks-buttons.js',
+    '/react-searchkit/js/code-blocks-buttons.js',
   ],
 
-  stylesheets: ['/css/code-blocks-buttons.css'],
+  stylesheets: ['/react-searchkit/css/code-blocks-buttons.css'],
 
   // On page navigation for the current documentation page.
   onPageNav: 'separate',
