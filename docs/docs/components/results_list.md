@@ -4,26 +4,31 @@ title: Results List Component
 sidebar_label: Results List
 ---
 
-## Props
-
-| Name              | Required  | Default       | Type      | Description             |
-| ------------------|-----------|---------------| ----------|-------------------------|
-| ``items``         | yes       | []            | {array}   | Aggregations selected by user |
-| ``renderElement`` | no        |               | {func}    | Aggregations of the results |
-
 
 ## Usage
 
+### Props
+
+| Name              | Required  | Default       | Type      | Description             |
+| ------------------|-----------|---------------| ----------|-------------------------|
+| ``items``         | yes       | []            | {array}   | Array of items to be presented |
+| ``renderElement`` | no        |               | {func}    | Function to override the the component's template |
+
+
+
+## Usage when overriding template
+
+Props below are available in your renderElement function when you override the template.
+
+### Props
+
+| Name              | Default       | Type      | Description             |
+| ------------------|---------------| ----------|-------------|
+
+
 Usage description 
 ```jsx
-<TextField
-  componentId="NameTextSensor"
-  dataField="name"
-  title="TextField"
-  defaultSelected="volvo"
-  placeholder="Type a car name"
-  showFilter={true}
-  filterLabel="Car"
-  URLParams={false}
+<ResultsList
+//TODO
 />
 ```

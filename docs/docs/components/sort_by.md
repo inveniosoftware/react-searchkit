@@ -3,31 +3,32 @@ id: sort_by
 title: Sort By Component
 sidebar_label: Sort By
 ---
-
-## Props
+## Usage
+### Props
 
 | Name                          | Required  | Default       | Type      | Description             |
-| ------------------------------|-----------|---------------| ----------|-------------|
-| ``values``                    | yes       |               | {array}  | Title of the aggregator |
-| ``defaultValue``              | yes       |               | {string}  | Title of the aggregator |
-| ``updateQuerySortBy``         | yes       |               | {func}   | Aggregations selected by user |
-| ``renderElement``             | no        |               | {func}    | Aggregations of the results |
+| ------------------------------|-----------|---------------| ----------|-------------------------|
+| ``values``                    | yes       |               | {array}   | Array of values to be sorted |
+| ``defaultValue``              | yes       |               | {string}  | Default value to sort by |
+| ``updateQuerySortBy``         | yes       |               | {func}    | // TODO |
+| ``renderElement``             | no        | null          | {func}    | Function to override the the component's template |
 
 ???????
 TODO: Shouldnt a property "showOnEmptyResults" be here?
 
-## Usage
+
+## Usage when overriding template
+
+Props below are available in your renderElement function when you override the template.
+
+### Props
+
+| Name              | Default       | Type      | Description             |
+| ------------------|---------------| ----------|-------------------------|
 
 Usage description 
 ```jsx
-<TextField
-  componentId="NameTextSensor"
-  dataField="name"
-  title="TextField"
-  defaultSelected="volvo"
-  placeholder="Type a car name"
-  showFilter={true}
-  filterLabel="Car"
-  URLParams={false}
+<SortBy
+ //TODO
 />
 ```
