@@ -19,7 +19,7 @@ sidebar_label: Layout Switcher
 ## Usage
 
 Usage description 
-```
+```jsx
 <TextField
   componentId="NameTextSensor"
   dataField="name"

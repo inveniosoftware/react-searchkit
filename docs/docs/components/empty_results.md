@@ -4,28 +4,38 @@ title: Empty Results Component
 sidebar_label: Empty Results
 ---
 
-## Props
-
-| Name              | Required  | Default       | Type      | Description             |
-| ------------------|-----------|---------------| ----------|-------------|
-| ``total``         | no        | null          | {number}  | Title of the aggregator |
-| ``loading``       | no        | null          | {bool}  | Title of the aggregator |
-| ``error``         | no        | null          | {object}   | Aggregations selected by user |
-| ``renderElement`` | no        | null          | {func}    | Aggregations of the results |
-
+This component is very nice!
 
 ## Usage
 
-Usage description 
+### Props
+
+| Name              | Required  | Default       | Type      | Description |
+| ------------------|-----------|---------------| ----------|-------------|
+| ``renderElement`` | no        | null          | {func}    | Override default template |
+
+
+```jsx
+<EmptyResults />
 ```
-<TextField
-  componentId="NameTextSensor"
-  dataField="name"
-  title="TextField"
-  defaultSelected="volvo"
-  placeholder="Type a car name"
-  showFilter={true}
-  filterLabel="Car"
-  URLParams={false}
+
+## Usage when overriding template
+
+### Props
+
+| Name              | Required  | Default       | Type      | Description             |
+| ------------------|-----------|---------------| ----------|-------------|
+| ``total``         | no        | null          | {number}  | Total number of results |
+| ``loading``       | no        | null          | {bool}  | True if the app is fetching results |
+| ``error``         | no        | null          | {object}   | Object containing the error payload when fetching results |
+
+
+```jsx
+const CustomEmptyResults = props => props.total === 0 ? <div>Sorry, no results!</div> : null;
+
+<EmptyResults
+  renderElement= props => (
+  !props.error && !props.loading ? <CustomEmptyResults total={props.total}/> : null
+  )
 />
 ```

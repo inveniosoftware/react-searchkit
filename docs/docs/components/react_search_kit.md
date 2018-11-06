@@ -18,7 +18,7 @@ sidebar_label: Results Multi Layout
 ## Usage
 
 Usage description 
-```
+```jsx
 <TextField
   componentId="NameTextSensor"
   dataField="name"

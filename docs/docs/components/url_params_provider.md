@@ -12,7 +12,7 @@ TODO: no proptypes
 ## Usage
 
 Usage description 
-```
+```jsx
 <TextField
   componentId="NameTextSensor"
   dataField="name"
