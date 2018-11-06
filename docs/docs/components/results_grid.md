@@ -1,7 +1,6 @@
 ---
 id: results-grid
-title: Results Grid Component
-sidebar_label: Results Grid
+title: ResultsGrid
 ---
 
 ## Usage

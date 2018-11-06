@@ -6,14 +6,18 @@ import { Item, Label } from 'semantic-ui-react';
 export default class ResultsList extends Component {
   constructor(props) {
     super(props);
-    this.items = props.items;
-    this.renderElement = props.renderItem || this._renderElement;
+    this.renderElement = props.renderElement || this._renderItem;
   }
 
-  _renderElement(item, index) {
+  _renderItem(item, index) {
     const metadata = item.metadata;
+    const keywords = metadata.keywords || [];
+    const labels = keywords.map((keyword, index) => (
+      <Label key={index} content={keyword} />
+    ));
+
     return (
-      <Item key={item.id} href={`https://zenodo.org/record/${metadata.recid}`}>
+      <Item key={item.id} href={`#${metadata.recid}`}>
         <Item.Image
           size="small"
           src={item.imageSrc || 'https://via.placeholder.com/200'}
@@ -24,9 +28,7 @@ export default class ResultsList extends Component {
           <Item.Description>
             {_truncate(metadata.description, { length: 200 })}
           </Item.Description>
-          <Item.Extra>
-            <Label icon="globe" content="My label" />
-          </Item.Extra>
+          <Item.Extra>{labels}</Item.Extra>
         </Item.Content>
       </Item>
     );
@@ -39,9 +41,10 @@ export default class ResultsList extends Component {
   }
 
   render() {
+    const items = this.props.items;
     return (
       <Item.Group divided relaxed link>
-        {this.renderItems(this.items)}
+        {this.renderItems(items)}
       </Item.Group>
     );
   }
@@ -52,6 +55,4 @@ ResultsList.propTypes = {
   renderElement: PropTypes.func,
 };
 
-ResultsList.defaultProps = {
-  items: [],
-};
+ResultsList.defaultProps = {};

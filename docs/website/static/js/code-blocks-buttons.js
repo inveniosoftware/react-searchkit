@@ -9,9 +9,9 @@ window.addEventListener('load', function() {
     btn.innerHTML =
       '<div class="btnIcon__body">' +
       icon +
-      '<strong class="btnIcon__label">' +
+      '<span class="btnIcon__label">' +
       label +
-      '</strong>' +
+      '</span>' +
       '</div>';
     return btn;
   }
@@ -27,7 +27,7 @@ window.addEventListener('load', function() {
 
   addButtons(
     '.hljs',
-    button('Copy', 'Copy code to clipboard', copyIcon, 'btnClipboard'),
+    button('Copy', 'Copy code to clipboard', copyIcon, 'btnClipboard')
   );
 
   const clipboard = new ClipboardJS('.btnClipboard', {

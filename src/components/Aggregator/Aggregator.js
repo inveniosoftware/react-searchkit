@@ -13,7 +13,7 @@ export default class Aggregator extends Component {
     this.renderElement = props.renderElement || this._renderElement;
   }
 
-  componentDidMount() {
+  componentWillMount() {
     this.setInitialState({
       aggregations: [],
     });

@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import _isEmpty from 'lodash/isEmpty';
 import { Menu, Icon } from 'semantic-ui-react';
-import { ShouldRender } from '@app/components';
+import { ShouldRender } from '@app/components/ShouldRender';
 
 export default class LayoutSwitcher extends Component {
   constructor(props) {
@@ -37,7 +37,7 @@ export default class LayoutSwitcher extends Component {
     );
   };
 
-  componentDidMount() {
+  componentWillMount() {
     if (this.defaultValue !== 'list') {
       this.setInitialState({
         layout: this.defaultValue,

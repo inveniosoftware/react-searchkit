@@ -44,11 +44,21 @@ class RequestSerializer {
     } = stateQuery;
 
     const getParams = {};
-    getParams['q'] = queryString;
-    getParams['sortBy'] = sortBy;
-    getParams['sortOrder'] = sortOrder;
-    getParams['page'] = page;
-    getParams['size'] = size;
+    if (queryString !== null) {
+      getParams['q'] = queryString;
+    }
+    if (sortBy !== null) {
+      getParams['sortBy'] = sortBy;
+    }
+    if (sortOrder !== null) {
+      getParams['sortOrder'] = sortOrder;
+    }
+    if (page !== null) {
+      getParams['page'] = page;
+    }
+    if (size !== null) {
+      getParams['size'] = size;
+    }
     this._addAggregations(getParams, aggregations);
 
     return Qs.stringify(getParams, { arrayFormat: 'repeat' });

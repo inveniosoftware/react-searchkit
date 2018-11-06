@@ -1,7 +1,7 @@
 {
-  "name": "react-searchkit",
+  "name": "@inveniosoftware/react-searchkit",
   "version": "1.0.0",
-  "description": "react-searchkit React components",
+  "description": "react-searchkit React components to build a search UI",
   "main": "lib/index.js",
   "module": "es/index.js",
   "files": [
@@ -26,7 +26,9 @@
     "react-redux": "^5.0.7",
     "redux": "^4.0.1",
     "redux-devtools-extension": "^2.13.5",
-    "redux-thunk": "^2.3.0"
+    "redux-thunk": "^2.3.0",
+    "semantic-ui-css": "^2.4.1",
+    "semantic-ui-react": "^0.83.0"
   },
   "peerDependencies": {
     "react": "16.x"
@@ -42,16 +44,24 @@
     "react": "^16.5.2",
     "react-dom": "^16.5.2",
     "react-test-renderer": "^16.5.2",
-    "redux-mock-store": "^1.5.3",
-    "semantic-ui-css": "^2.4.1",
-    "semantic-ui-react": "^0.83.0"
+    "redux-mock-store": "^1.5.3"
   },
-  "author": "",
+  "author": {
+    "name": "CERN",
+    "email": "info@inveniosoftware.org"
+  },
   "homepage": "",
   "license": "MIT",
-  "repository": "",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/inveniosoftware/react-searchkit"
+  },
   "keywords": [
-    "react-component"
+    "react",
+    "react-component",
+    "react-searchkit",
+    "search",
+    "react search"
   ],
   "jest": {
     "transform": {
@@ -64,6 +74,6 @@
     "moduleNameMapper": {
       "@app(.*)": "<rootDir>/src/$1"
     },
-    "testURL": "https://www.somthing.com/test.html"
+    "testURL": "https://www.something.com/test.html"
   }
 }

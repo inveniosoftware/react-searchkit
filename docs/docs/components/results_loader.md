@@ -1,7 +1,6 @@
 ---
 id: results-loader
-title: Results Loader Component
-sidebar_label: Results Loader
+title: ResultsLoader
 ---
 
 ## Usage

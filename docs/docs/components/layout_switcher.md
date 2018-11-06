@@ -1,7 +1,6 @@
 ---
 id: layout-switcher
-title: Layout Switcher Component
-sidebar_label: Layout Switcher
+title: LayoutSwitcher
 ---
 
 

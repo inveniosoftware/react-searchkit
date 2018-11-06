@@ -16,10 +16,10 @@ export const defaultState = {
   queryString: '',
   sortBy: null,
   sortOrder: null,
-  page: 1,
-  size: 10,
+  page: null,
+  size: null,
   aggregations: [],
-  layout: 'list',
+  layout: null,
 };
 
 export default (state = defaultState, action) => {

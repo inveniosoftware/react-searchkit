@@ -1,7 +1,6 @@
 ---
 id: sort-by
-title: Sort By Component
-sidebar_label: Sort By
+title: SortBy
 ---
 ## Usage
 ### Props
