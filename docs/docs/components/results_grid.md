@@ -4,27 +4,31 @@ title: Results Grid Component
 sidebar_label: Results Grid
 ---
 
-## Props
+## Usage
+
+### Props
 
 | Name              | Required  | Default       | Type      | Description             |
 | ------------------|-----------| --------------|-----------|-------------------------|
-| ``itemsPerRow``   | no        |  3            | {number}  | Title of the aggregator |
-| ``items``         | yes       |               | {array}   | Title of the aggregator |
-| ``renderElement`` | no        |               | {func}    | Aggregations selected by user |
+| ``itemsPerRow``   | no        |  3            | {number}  | Number of items per row |
+| ``items``         | yes       |               | {array}   | Array of items to be presented |
+| ``renderElement`` | no        | null          | {func}    | Function to override the the component's template |
 
 
-## Usage
+
+## Usage when overriding template
+
+Props below are available in your renderElement function when you override the template.
+
+### Props
+
+| Name              | Default       | Type      | Description             |
+| ------------------|---------------| ----------|-------------------------|
+
 
 Usage description 
 ```jsx
-<TextField
-  componentId="NameTextSensor"
-  dataField="name"
-  title="TextField"
-  defaultSelected="volvo"
-  placeholder="Type a car name"
-  showFilter={true}
-  filterLabel="Car"
-  URLParams={false}
+<ResultsGrid
+//TODO
 />
 ```

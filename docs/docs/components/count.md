@@ -4,28 +4,29 @@ title: Count Component
 sidebar_label: Count
 ---
 
+## Usage
+
 ## Props
 
 | Name                 | Required  | Default       | Type      | Description             |
-| ---------------------|-----------|---------------| ----------|-------------|
-| ``total``            | no        | 0             | {number}  | Title of the aggregator |
-| ``loading``          | no        | null          | {bool}    | Title of the aggregator |
-| ``renderTemplate``   | no        | null          | {func}    | Aggregations selected by user |
+| ---------------------|-----------|---------------| ----------|-------------------------|
+| ``renderElement``    | no        | null          | {func}    | Function to override the the component's template |
 
 
-## Usage
+## Usage when overriding template
+
+Props below are available in your renderElement function when you override the template.
+
+### Props
+| Name                 | Default       | Type      | Description             |
+| ---------------------|---------------| ----------|-------------------------|
+| ``total``            | 0             | {number}  | Total number of results |
+
 
 Usage description 
 ```jsx
-<TextField
-  componentId="NameTextSensor"
-  dataField="name"
-  title="TextField"
-  defaultSelected="volvo"
-  placeholder="Type a car name"
-  showFilter={true}
-  filterLabel="Car"
-  URLParams={false}
+<Count
+ //TODO
 />
 ```
 

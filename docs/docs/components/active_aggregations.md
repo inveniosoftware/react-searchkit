@@ -1,7 +1,7 @@
 ---
-id: aggregator
-title: Aggregator Component
-sidebar_label: Aggregator
+id: active_aggregations
+title: Active Aggregations Component
+sidebar_label: Active Aggregations
 ---
 
 ## Usage
@@ -10,13 +10,13 @@ sidebar_label: Aggregator
 
 | Name                          | Required  | Default       | Type      | Description             |
 | ------------------------------|-----------|---------------| ----------|-------------------------|
-| ``title``                     | yes       |               | {string}  | Title of the aggregator |
-| ``field``                     | yes       |               | {string}  | Field by which we want to aggregate |
+| ``aggregations``              | yes       |               | {array}   | //TODO |
+| ``updateQueryAggregation``    | yes       |               | {func}    | //TODO  |
 | ``renderElement``             | no        | null          | {func}    | Function to override the the component's template |
 
 
 ```jsx
-<Aggregator
+<Agg
  title="File types"
  field="file_type"
 />

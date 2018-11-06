@@ -4,30 +4,30 @@ title: Layout Switcher Component
 sidebar_label: Layout Switcher
 ---
 
-## Props
-
-| Name                  | Required  | Default       | Type                      | Description             |
-| ----------------------|-----------|---------------| --------------------------|-------------|
-| ``defaultLayout``     | no        | 'list'        | {oneOf(['list', 'grid'])} | Title of the aggregator |
-| ``updateLayout``      | yes       |               | {func}                    | Title of the aggregator |
-| ``setInitialState``   | yes       |               | {func}                    | Aggregations selected by user |
-| ``currentLayout``     | no        |               | {string}                  | Aggregations of the results |
-| ``loading``           | yes       |               | {bool}                    | Aggregations of the results |
-| ``totalResults``      | yes       |               | {number}                  | Aggregations of the results |
-
 
 ## Usage
 
-Usage description 
+### Props
+
+| Name                  | Required  | Default       | Type                      | Description               |
+| ----------------------|-----------|---------------| --------------------------|---------------------------|
+| ``defaultLayout``     | no        | 'list'        | {oneOf(['list', 'grid'])} | The default layout value  |
+
+
+## Usage when overriding template
+
+Props below are available in your renderElement function when you override the template.
+
+### Props
+
+| Name              | Default       | Type                        | Description             |
+| ------------------|---------------| ----------------------------|-------------------------|
+| ``currentLayout`` | -             | {oneOf(['list', 'grid'])}   | Currently selected layout |
+| ``onLayoutChange``| -             | {func}                      | The function to update the selected layout in the application state |
+
+Usage description
 ```jsx
-<TextField
-  componentId="NameTextSensor"
-  dataField="name"
-  title="TextField"
-  defaultSelected="volvo"
-  placeholder="Type a car name"
-  showFilter={true}
-  filterLabel="Car"
-  URLParams={false}
+<LayoutSwitcher
+//TODO
 />
 ```

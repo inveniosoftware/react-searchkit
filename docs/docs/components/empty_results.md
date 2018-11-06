@@ -12,7 +12,7 @@ This component is very nice!
 
 | Name              | Required  | Default       | Type      | Description |
 | ------------------|-----------|---------------| ----------|-------------|
-| ``renderElement`` | no        | null          | {func}    | Override default template |
+| ``renderElement`` | no        | null          | {func}    | Function to override the the component's template |
 
 
 ```jsx
@@ -21,13 +21,13 @@ This component is very nice!
 
 ## Usage when overriding template
 
+Props below are available in your renderElement function when you override the template.
+
 ### Props
 
-| Name              | Required  | Default       | Type      | Description             |
-| ------------------|-----------|---------------| ----------|-------------|
-| ``total``         | no        | null          | {number}  | Total number of results |
-| ``loading``       | no        | null          | {bool}  | True if the app is fetching results |
-| ``error``         | no        | null          | {object}   | Object containing the error payload when fetching results |
+| Name              | Default       | Type      | Description             |
+| ------------------|---------------| ----------|-------------------------|
+| ``total``         | 0             | {number}  | Total number of results |
 
 
 ```jsx

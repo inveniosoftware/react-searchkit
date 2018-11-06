@@ -3,29 +3,34 @@ id: search_bar
 title: Search Bar Component
 sidebar_label: Search Bar
 ---
+## Usage
 
-## Props
+### Props
 
 | Name                          | Required  | Default       | Type      | Description             |
-| ------------------------------|-----------|---------------| ----------|-------------|
-| ``queryString``               | no        | ''            | {string}  | Title of the aggregator |
-| ``updateQueryString``         | yes       |               | {func}    | Title of the aggregator |
-| ``renderElement``             | no        |               | {func}    | Aggregations selected by user |
+| ------------------------------|-----------|---------------| ----------|-------------------------|
+| ``queryString``               | no        | ''            | {string}  | Query string for the search bar |
+| ``updateQueryString``         | yes       |               | {func}    | function //TODO |
+| ``renderElement``             | no        | null          | {func}    | Function to override the the component's template |
 | ``setSortByOnEmpty``          | no        | null          | {string}  | Aggregations of the results |
 
 
-## Usage
+
+
+## Usage when overriding template
+
+Props below are available in your renderElement function when you override the template.
+
+### Props
+
+| Name              | Default       | Type      | Description             |
+| ------------------|---------------| ----------|-------------------------|
+
+
 
 Usage description 
 ```jsx
-<TextField
-  componentId="NameTextSensor"
-  dataField="name"
-  title="TextField"
-  defaultSelected="volvo"
-  placeholder="Type a car name"
-  showFilter={true}
-  filterLabel="Car"
-  URLParams={false}
+<SearchBar
+//TODO
 />
 ```
