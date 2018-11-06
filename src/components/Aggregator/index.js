@@ -3,8 +3,8 @@ import { updateQueryAggregation, setInitialState } from '@app/state/actions';
 import AggregatorComponent from './Aggregator';
 
 const mapDispatchToProps = dispatch => ({
-  updateQueryAggregation: (field, value) =>
-    dispatch(updateQueryAggregation(field, value)),
+  updateQueryAggregation: aggregation =>
+    dispatch(updateQueryAggregation(aggregation)),
   setInitialState: value => dispatch(setInitialState(value)),
 });
 

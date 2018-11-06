@@ -8,7 +8,7 @@ export default class AggregatorValues extends Component {
   constructor(props) {
     super(props);
     this.field = props.field;
-    this.parentOnUserSelectionChange = props.onUserSelectionChange;
+    this.onUserSelectionChange = props.onUserSelectionChange;
   }
 
   isItemChecked = (fieldName, aggrValue, userSelection) => {
@@ -23,13 +23,13 @@ export default class AggregatorValues extends Component {
   };
 
   renderNestedAggregator = (fieldName, aggrValue, userSelection) => {
-    const onUserSelectionChange = pathToClickedAggr => {
+    const _onUserSelectionChange = partialAggregation => {
       const aggrNameValue = {};
       aggrNameValue[fieldName] = {
         value: aggrValue.key,
-        ...pathToClickedAggr,
+        ...partialAggregation,
       };
-      this.parentOnUserSelectionChange(aggrNameValue);
+      this.onUserSelectionChange(aggrNameValue);
     };
     const nestedUserSelection = userSelection
       .filter(selectedAggr => fieldName in selectedAggr)
@@ -39,7 +39,7 @@ export default class AggregatorValues extends Component {
         field={aggrValue.hasNestedField}
         values={aggrValue[aggrValue.hasNestedField]}
         userSelection={nestedUserSelection}
-        onUserSelectionChange={onUserSelectionChange}
+        onUserSelectionChange={_onUserSelectionChange}
       />
     );
   };
@@ -49,10 +49,10 @@ export default class AggregatorValues extends Component {
       aggrValue.total
     })`;
     const checked = this.isItemChecked(fieldName, aggrValue, userSelection);
-    const onUserSelectionChange = (e, { value }) => {
+    const _onUserSelectionChange = (e, { value }) => {
       const aggrNameValue = {};
       aggrNameValue[fieldName] = { value: aggrValue.key };
-      this.parentOnUserSelectionChange(aggrNameValue);
+      this.onUserSelectionChange(aggrNameValue);
     };
 
     let nestedAggregatorTemplate;
@@ -70,7 +70,7 @@ export default class AggregatorValues extends Component {
           label={label}
           value={aggrValue.key}
           checked={checked}
-          onClick={onUserSelectionChange}
+          onClick={_onUserSelectionChange}
         />
         {nestedAggregatorTemplate}
       </List.Item>
