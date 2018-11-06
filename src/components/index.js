@@ -1,3 +1,4 @@
+export { ActiveAggregations } from './ActiveAggregations';
 export { Aggregator } from './Aggregator';
 export { Count } from './Count';
 export { EmptyResults } from './EmptyResults';

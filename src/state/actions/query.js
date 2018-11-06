@@ -85,11 +85,11 @@ export const updateQueryPaginationSize = size => {
   };
 };
 
-export const updateQueryAggregation = path => {
+export const updateQueryAggregation = aggregation => {
   return async dispatch => {
     dispatch({
       type: SET_QUERY_AGGREGATION,
-      payload: path,
+      payload: aggregation,
     });
     await dispatch(executeQuery());
   };

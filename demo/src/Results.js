@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
 import { connect } from '@app/store';
 import { Grid } from 'semantic-ui-react';
-import { ResultsMultiLayout } from '@app/components';
 import {
+  ActiveAggregations,
   Count,
   LayoutSwitcher,
   Pagination,
+  ResultsMultiLayout,
   ResultsPerPage,
   SortBy,
   SortOrder,
@@ -21,6 +22,18 @@ const Spacer = connect(state => ({
     )
 );
 
+const ActiveAggregationsSpacer = connect(state => ({
+  aggregations: state.query.aggregations,
+}))(
+  ({ text, aggregations }) =>
+    aggregations.length ? (
+      <Grid relaxed style={{ padding: '0 0 1em 0' }}>
+        <Spacer text="Active filters:" />
+        <ActiveAggregations />
+      </Grid>
+    ) : null
+);
+
 export class Results extends Component {
   constructor(props) {
     super(props);
@@ -33,6 +46,7 @@ export class Results extends Component {
   render() {
     return (
       <div>
+        <ActiveAggregationsSpacer />
         <Grid relaxed verticalAlign="middle">
           <Grid.Column width={8}>
             <span>
