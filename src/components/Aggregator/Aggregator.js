@@ -19,8 +19,8 @@ export default class Aggregator extends Component {
     });
   }
 
-  onUserSelectionChange = pathToClickedAggr => {
-    this.updateQueryAggregation(pathToClickedAggr);
+  onUserSelectionChange = aggregation => {
+    this.updateQueryAggregation(aggregation);
   };
 
   _renderElement({ userSelectionAggregations, resultsAggregations }) {
