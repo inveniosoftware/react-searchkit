@@ -1,5 +1,5 @@
 ---
-id: empty_results
+id: empty-results
 title: Empty Results Component
 sidebar_label: Empty Results
 ---

@@ -1,5 +1,5 @@
 ---
-id: results_grid
+id: results-grid
 title: Results Grid Component
 sidebar_label: Results Grid
 ---
@@ -11,10 +11,8 @@ sidebar_label: Results Grid
 
 | Name                          | Required  | Default       | Type      | Description             |
 | ------------------------------|-----------|---------------| ----------|-------------------------|
-| ``currentSize``               | yes       |               | {number}  | Title of the aggregator |
-| ``totalResults``              | yes       |               | {number}  | Title of the aggregator |
-| ``values``                    | yes       |               | {array}   | Aggregations selected by user |
-| ``defaultValue``              | yes       |               | {number}  | Aggregations of the results |
+| ``values``               | yes       |               | {array}  | Array of options to show(Each option should be an object with keys `text`, `value`|
+| ``defaultValue``              | yes       |               | {string}  | Default dropdown value |
 | ``renderElement``             | no        | null          | {func}    | Function to override the the component's template |
 
 
@@ -27,9 +25,12 @@ Props below are available in your renderElement function when you override the t
 
 | Name              | Default       | Type      | Description             |
 | ------------------|---------------| ----------|-------------------------|
+| ``currentSize``   | -             | {number}  | Selected dropdown size value |
+| ``values``  | -             | {string}  | Array of options to show(Each option should be an object with keys `text`, `value` |
+| ``onValueChange``  | -             | {func}  | Function to call when dropdown value is changed |
 
 
-Usage description 
+Usage description
 ```jsx
 <ResultsPerPage
   //TODO

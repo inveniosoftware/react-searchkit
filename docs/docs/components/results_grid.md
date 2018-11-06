@@ -1,5 +1,5 @@
 ---
-id: results_grid
+id: results-grid
 title: Results Grid Component
 sidebar_label: Results Grid
 ---
@@ -26,7 +26,7 @@ Props below are available in your renderElement function when you override the t
 | ------------------|---------------| ----------|-------------------------|
 
 
-Usage description 
+Usage description
 ```jsx
 <ResultsGrid
 //TODO

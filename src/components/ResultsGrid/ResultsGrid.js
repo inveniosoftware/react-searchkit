@@ -11,15 +11,15 @@ export default class ResultsGrid extends Component {
     this.renderElement = props.renderItem || this._renderElement;
   }
 
-  _renderElement(gridItemData) {
-    let metadata = gridItemData.metadata;
+  _renderElement(item) {
+    let metadata = item.metadata;
     return (
       <Card
         fluid
-        key={gridItemData.id}
-        href={`https://videos.cern.ch/record/${metadata.recid}`}
+        key={item.id}
+        href={`https://zenodo.org/record/${metadata.recid}`}
       >
-        <Image src="https://via.placeholder.com/200" />
+        <Image src={item.imageSrc || 'https://via.placeholder.com/200'} />
         <Card.Content>
           <Card.Header>{metadata.title.title || metadata.title}</Card.Header>
           <Card.Meta>{metadata.publication_date}</Card.Meta>
@@ -54,4 +54,5 @@ ResultsGrid.propTypes = {
 
 ResultsGrid.defaultProps = {
   itemsPerRow: 3,
+  renderElement: null,
 };

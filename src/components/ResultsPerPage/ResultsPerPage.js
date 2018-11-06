@@ -20,14 +20,17 @@ export default class ResultsPerPage extends Component {
     });
   }
 
-  _renderElement({ currentSize }) {
+  _renderElement(currentSize, values, onValueChange) {
+    const onChange = (event, { value }) => {
+      onValueChange(value);
+    };
     return (
       <Dropdown
         inline
         compact
-        options={this._mapOptions(this.options)}
+        options={this._mapOptions(values)}
         value={currentSize}
-        onChange={this.onChange}
+        onChange={onChange}
       />
     );
   }
@@ -38,18 +41,16 @@ export default class ResultsPerPage extends Component {
     });
   };
 
-  onChange = (event, { value }) => {
+  onChange = value => {
     if (value === this.props.currentSize) return;
     this.updateQuerySize(value);
   };
 
   render() {
-    const currentSize = this.props.currentSize;
-    const totalResults = this.props.totalResults;
-    let loading = this.props.loading;
+    const { currentSize, totalResults, loading, values } = this.props;
     return (
       <ShouldRender condition={!loading && (currentSize && totalResults > 0)}>
-        {this.renderElement({ ...this.props })}
+        {this.renderElement(currentSize, values, this.onChange)}
       </ShouldRender>
     );
   }
@@ -61,4 +62,8 @@ ResultsPerPage.propTypes = {
   values: PropTypes.array.isRequired,
   defaultValue: PropTypes.number.isRequired,
   renderElement: PropTypes.func,
+};
+
+ResultsPerPage.defaultProps = {
+  renderElement: null,
 };

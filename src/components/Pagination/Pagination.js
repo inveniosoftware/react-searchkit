@@ -12,34 +12,35 @@ export default class Pagination extends Component {
     this.renderElement = props.renderElement || this.paginator;
   }
 
-  componentDidMount() {
-    this.setInitialState({
-      page: 1,
-    });
-  }
-
-  onChange = (event, { activePage }) => {
+  onPageChange = activePage => {
     if (activePage === this.props.currentPage) return;
     this.updateQueryPage(activePage);
   };
 
-  paginator = props => {
-    const currentPage = props.currentPage;
-    const size = props.currentSize;
-    const totalResults = props.totalResults;
-    const pages = Math.ceil(totalResults / size);
-    const boundaryRangeCount = props.options.boundaryRangeCount;
-    const siblingRangeCount = props.options.siblingRangeCount;
-    const showEllipsis = props.options.showEllipsis;
-    const showFirstIcon = props.options.showFirstIcon;
-    const showLastIcon = props.options.showLastIcon;
-    const showPrevIcon = props.options.showPrevIcon;
-    const showNextIcon = props.options.showNextIcon;
+  paginator = (
+    currentPage,
+    currentSize,
+    totalResults,
+    onPageChange,
+    options
+  ) => {
+    const pages = Math.ceil(totalResults / currentSize);
+    const boundaryRangeCount = options.boundaryRangeCount;
+    const siblingRangeCount = options.siblingRangeCount;
+    const showEllipsis = options.showEllipsis;
+    const showFirstIcon = options.showFirstIcon;
+    const showLastIcon = options.showLastIcon;
+    const showPrevIcon = options.showPrevIcon;
+    const showNextIcon = options.showNextIcon;
+    const _onPageChange = (event, { activePage }) => {
+      onPageChange(activePage);
+    };
+
     return (
       <Paginator
         activePage={currentPage}
         totalPages={pages}
-        onPageChange={this.onChange}
+        onPageChange={_onPageChange}
         boundaryRange={boundaryRangeCount}
         siblingRange={siblingRangeCount}
         ellipsisItem={showEllipsis ? undefined : null}
@@ -51,12 +52,23 @@ export default class Pagination extends Component {
     );
   };
   render() {
-    const loading = this.props.loading;
-    const totalResults = this.props.totalResults;
+    const {
+      loading,
+      totalResults,
+      currentPage,
+      currentSize,
+      options,
+    } = this.props;
 
     return (
       <ShouldRender condition={!loading && totalResults > 0}>
-        {this.renderElement({ ...this.props })}
+        {this.renderElement(
+          currentPage,
+          currentSize,
+          totalResults,
+          this.onPageChange,
+          options
+        )}
       </ShouldRender>
     );
   }
@@ -67,7 +79,16 @@ Pagination.propTypes = {
   currentSize: PropTypes.number.isRequired,
   loading: PropTypes.bool.isRequired,
   totalResults: PropTypes.number.isRequired,
-  options: PropTypes.object,
+  options: PropTypes.PropTypes.shape({
+    boundaryRangeCount: PropTypes.number,
+    siblingRangeCount: PropTypes.number,
+    showEllipsis: PropTypes.bool,
+    showFirstIcon: PropTypes.bool,
+    showLastIcon: PropTypes.bool,
+    showPrevIcon: PropTypes.bool,
+    showNextIcon: PropTypes.bool,
+  }),
+  renderElement: PropTypes.func,
 };
 
 Pagination.defaultProps = {
@@ -80,4 +101,5 @@ Pagination.defaultProps = {
     showPrevIcon: true,
     showNextIcon: true,
   },
+  renderElement: null,
 };

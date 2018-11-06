@@ -1,5 +1,5 @@
 ---
-id: results_loader
+id: results-loader
 title: Results Loader Component
 sidebar_label: Results Loader
 ---
@@ -19,7 +19,7 @@ sidebar_label: Results Loader
 Your render element function should return a jsx template.
 
 
-Usage description 
+Usage description
 ```jsx
 <Loading
 //TODO

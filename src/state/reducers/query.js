@@ -14,8 +14,8 @@ import { updateQueryAggregation } from '../selectors';
 
 export const defaultState = {
   queryString: '',
-  sortBy: undefined,
-  sortOrder: undefined,
+  sortBy: null,
+  sortOrder: null,
   page: 1,
   size: 10,
   aggregations: [],

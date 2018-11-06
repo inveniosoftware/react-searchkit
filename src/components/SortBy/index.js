@@ -8,7 +8,7 @@ const mapDispatchToProps = dispatch => ({
 
 export const SortBy = connect(
   state => ({
-    total: state.results.data.total,
+    totalResults: state.results.data.total,
     currentSortBy: state.query.sortBy,
     loading: state.results.loading,
   }),

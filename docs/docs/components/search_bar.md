@@ -1,5 +1,5 @@
 ---
-id: search_bar
+id: search-bar
 title: Search Bar Component
 sidebar_label: Search Bar
 ---
@@ -9,10 +9,8 @@ sidebar_label: Search Bar
 
 | Name                          | Required  | Default       | Type      | Description             |
 | ------------------------------|-----------|---------------| ----------|-------------------------|
-| ``queryString``               | no        | ''            | {string}  | Query string for the search bar |
-| ``updateQueryString``         | yes       |               | {func}    | function //TODO |
 | ``renderElement``             | no        | null          | {func}    | Function to override the the component's template |
-| ``setSortByOnEmpty``          | no        | null          | {string}  | Aggregations of the results |
+
 
 
 
@@ -25,10 +23,13 @@ Props below are available in your renderElement function when you override the t
 
 | Name              | Default       | Type      | Description             |
 | ------------------|---------------| ----------|-------------------------|
+| ``placeholder``   |  'Type something'       | {string}    | Placeholder value |
+| ``value``   |  -       | {string}    | component's input value |
+| ``onInputChange``   |  -      | {func}    | Function to call when input value is changed |
+| ``onUpdateQuery``   |  -      | {func}    | Function to call when you want to update application's state querystring |
 
 
-
-Usage description 
+Usage description
 ```jsx
 <SearchBar
 //TODO

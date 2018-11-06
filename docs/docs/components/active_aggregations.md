@@ -1,5 +1,5 @@
 ---
-id: active_aggregations
+id: active-aggregations
 title: Active Aggregations Component
 sidebar_label: Active Aggregations
 ---

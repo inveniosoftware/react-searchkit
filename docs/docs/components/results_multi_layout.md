@@ -1,33 +1,12 @@
 ---
-id: react_search_kit
+id: react-search-kit
 title: React Search Kit Component
 sidebar_label: React Search Kit
 ---
 
 ## Usage
-### Props
 
-| Name                          | Required  | Default       | Type      | Description             |
-| ------------------------------|-----------|---------------| ----------|-------------------------|
-| ``items``                     | yes       |               | {array}   | Array of items to be presented |
-| ``currentLayout``             | no        | undefined     | {string}  | Title of the aggregator |
-| ``loading``                   | yes       |               | {bool}    | Aggregations selected by user |
-| ``totalResults``              | yes       |               | {number}  | Aggregations of the results |
-
-
-
-## Usage when overriding template
-
-Props below are available in your renderElement function when you override the template.
-
-### Props
-
-| Name              | Default       | Type      | Description             |
-| ------------------|---------------| ----------|-------------------------|
-
-Usage description 
-```jsx
-<ResultsMultiLayout
-  //TODO
-/>
-```
+Uncontrolled component that listens to the application's `layout` state and
+renders results in a `list` or `grid` respectively. Can be used in parallel with the
+`LayoutSwitcher` component to change the results layout in controllable way.
+By default it renders results as a list.

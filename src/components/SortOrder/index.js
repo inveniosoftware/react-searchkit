@@ -10,7 +10,7 @@ const mapDispatchToProps = dispatch => ({
 
 export const SortOrder = connect(
   state => ({
-    total: state.results.data.total,
+    totalResults: state.results.data.total,
     currentSortOrder: state.query.sortOrder,
     loading: state.results.loading,
   }),
