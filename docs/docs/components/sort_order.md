@@ -20,7 +20,7 @@ TODO:   showOnEmptyResults: false, not included in proptype
 ## Usage
 
 Usage description 
-```
+```jsx
 <TextField
   componentId="NameTextSensor"
   dataField="name"

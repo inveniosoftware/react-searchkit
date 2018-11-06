@@ -14,7 +14,7 @@ sidebar_label: Pagination
 ## Usage
 
 Usage description 
-```
+```jsx
 <TextField
   componentId="NameTextSensor"
   dataField="name"

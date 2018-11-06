@@ -16,7 +16,7 @@ sidebar_label: Count
 ## Usage
 
 Usage description 
-```
+```jsx
 <TextField
   componentId="NameTextSensor"
   dataField="name"
