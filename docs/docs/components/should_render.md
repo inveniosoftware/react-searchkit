@@ -18,7 +18,7 @@ sidebar_label: Should Render
 ## Usage
 
 Usage description 
-```
+```jsx
 <TextField
   componentId="NameTextSensor"
   dataField="name"

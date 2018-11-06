@@ -15,7 +15,7 @@ sidebar_label: Results List
 ## Usage
 
 Usage description 
-```
+```jsx
 <TextField
   componentId="NameTextSensor"
   dataField="name"

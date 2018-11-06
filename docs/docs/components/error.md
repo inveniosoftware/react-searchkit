@@ -15,7 +15,7 @@ sidebar_label: Error
 ## Usage
 
 Usage description 
-```
+```jsx
 <TextField
   componentId="NameTextSensor"
   dataField="name"

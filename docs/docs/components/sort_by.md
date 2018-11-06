@@ -19,7 +19,7 @@ TODO: Shouldnt a property "showOnEmptyResults" be here?
 ## Usage
 
 Usage description 
-```
+```jsx
 <TextField
   componentId="NameTextSensor"
   dataField="name"

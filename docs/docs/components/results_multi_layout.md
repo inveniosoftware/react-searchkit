@@ -17,7 +17,7 @@ sidebar_label: React Search Kit
 ## Usage
 
 Usage description 
-```
+```jsx
 <TextField
   componentId="NameTextSensor"
   dataField="name"
