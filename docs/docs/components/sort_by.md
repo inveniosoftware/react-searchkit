@@ -1,5 +1,5 @@
 ---
-id: sort_by
+id: sort-by
 title: Sort By Component
 sidebar_label: Sort By
 ---
@@ -8,13 +8,9 @@ sidebar_label: Sort By
 
 | Name                          | Required  | Default       | Type      | Description             |
 | ------------------------------|-----------|---------------| ----------|-------------------------|
-| ``values``                    | yes       |               | {array}   | Array of values to be sorted |
-| ``defaultValue``              | yes       |               | {string}  | Default value to sort by |
-| ``updateQuerySortBy``         | yes       |               | {func}    | // TODO |
+| ``values``                    | yes       |               | {array}   | Array of options to show(Each option should be an object with keys `text`, `value |
+| ``defaultValue``              | yes       |               | {string}  | Default dropdown value |
 | ``renderElement``             | no        | null          | {func}    | Function to override the the component's template |
-
-???????
-TODO: Shouldnt a property "showOnEmptyResults" be here?
 
 
 ## Usage when overriding template
@@ -25,8 +21,12 @@ Props below are available in your renderElement function when you override the t
 
 | Name              | Default       | Type      | Description             |
 | ------------------|---------------| ----------|-------------------------|
+| ``currentSortBy``   | -             | {number}  | Selected dropdown sortBy value |
+| ``values``  | -             | {string}  | Array of options to show(Each option should be an object with keys `text`, `value` |
+| ``onValueChange``  | -             | {func}  | Function to call when dropdown value is changed |
 
-Usage description 
+
+Usage description
 ```jsx
 <SortBy
  //TODO

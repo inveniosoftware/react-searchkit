@@ -9,7 +9,7 @@ export default class ShouldRender extends Component {
 }
 
 ShouldRender.propTypes = {
-  condition: PropTypes.bool.isRequired,
+  condition: PropTypes.bool,
 };
 
 ShouldRender.defaultProps = {

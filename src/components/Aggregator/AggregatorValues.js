@@ -9,6 +9,7 @@ export default class AggregatorValues extends Component {
     super(props);
     this.field = props.field;
     this.onUserSelectionChange = props.onUserSelectionChange;
+    this.renderElement = props.renderElement || this.renderListItem;
   }
 
   isItemChecked = (fieldName, aggrValue, userSelection) => {
@@ -82,7 +83,7 @@ export default class AggregatorValues extends Component {
     const userSelection = this.props.userSelection;
 
     const listItems = values.map((value, index) =>
-      this.renderListItem(this.field, value, index, userSelection)
+      this.renderElement(this.field, value, index, userSelection)
     );
 
     return <List>{listItems}</List>;
@@ -94,6 +95,9 @@ AggregatorValues.propTypes = {
   values: PropTypes.array.isRequired,
   userSelection: PropTypes.array.isRequired,
   onUserSelectionChange: PropTypes.func.isRequired,
+  renderElement: PropTypes.func,
 };
 
-AggregatorValues.defaultProps = {};
+AggregatorValues.defaultProps = {
+  renderElement: null,
+};

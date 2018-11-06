@@ -1,5 +1,5 @@
 ---
-id: results_multi_layout
+id: results-multi-layout
 title: Results Multi Layout Component
 sidebar_label: Results Multi Layout
 ---
@@ -10,26 +10,15 @@ sidebar_label: Results Multi Layout
 
 | Name                          | Required  | Default       | Type      | Description             |
 | ------------------------------|-----------|---------------| ----------|-------------------------|
-| ``title``                     | yes       |               | {string}  | //TODO |
-| ``field``                     | yes       |               | {string}  | //TODO |
-| ``userSelectionAggregations`` | yes       |               | {array}   | Aggregations selected by user |
-| ``resultsAggregations``       | yes       |               | {func}    | Aggregations of the results |
-| ``renderElement``             | no        | null          | {func}    | Function to override the the component's template |
+| ``searchConfig``              | no        |      -         | {object}  | Configuration object for SearchApi class |
+| ``searchApi``                 | no        |       -        | {class}  | Class to override completely the default SearchApi class. |
+| ``urlParamsConfig`` | no       |       -        | {object}   | Configuration object for UrlParamsApi class |
+| ``urlParamsApi``       | no       |    -           | {class}    | Class to override completely the default UrlParamsApi class. |
+| ``searchOnLoad``             | no        | true          | {bool}    | Option to trigger search when application is mounted |
+| ``defaultSortByOnEmptyQuery``             | no        | null          | {string}    | One of the values of the `SortBy` component that is set when a search is triggered with empty querystring|
 
 
-
-
-## Usage when overriding template
-
-Props below are available in your renderElement function when you override the template.
-
-### Props
-
-| Name              | Default       | Type      | Description             |
-| ------------------|---------------| ----------|-------------------------|
-
-
-Usage description 
+Usage description
 ```jsx
 <ReactSearchKit
 //TODO

@@ -10,14 +10,14 @@ export default class ResultsList extends Component {
     this.renderElement = props.renderItem || this._renderElement;
   }
 
-  _renderElement(rowData) {
-    const metadata = rowData.metadata;
+  _renderElement(item, index) {
+    const metadata = item.metadata;
     return (
-      <Item
-        key={rowData.id}
-        href={`https://videos.cern.ch/record/${metadata.recid}`}
-      >
-        <Item.Image size="small" src="https://via.placeholder.com/200" />
+      <Item key={item.id} href={`https://zenodo.org/record/${metadata.recid}`}>
+        <Item.Image
+          size="small"
+          src={item.imageSrc || 'https://via.placeholder.com/200'}
+        />
 
         <Item.Content>
           <Item.Header>{metadata.title.title || metadata.title}</Item.Header>
@@ -33,8 +33,8 @@ export default class ResultsList extends Component {
   }
 
   renderItems(items) {
-    return items.map(item => {
-      return this.renderElement(item);
+    return items.map((item, index) => {
+      return this.renderElement(item, index);
     });
   }
 

@@ -34,7 +34,3 @@ ResultsMultiLayout.propTypes = {
   loading: PropTypes.bool.isRequired,
   totalResults: PropTypes.number.isRequired,
 };
-
-ResultsMultiLayout.defaultProps = {
-  currentLayout: undefined,
-};

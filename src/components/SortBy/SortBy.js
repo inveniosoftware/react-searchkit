@@ -20,15 +20,17 @@ export default class SortBy extends Component {
     });
   }
 
-  _renderElement({ currentSortBy }) {
-    const options = this._mapOptions(this.options);
+  _renderElement(currentSortBy, values, onValueChange) {
+    const onChange = (event, { value }) => {
+      onValueChange(value);
+    };
     return (
       <Dropdown
         selection
         compact
-        options={options}
+        options={this._mapOptions(values)}
         value={currentSortBy}
-        onChange={this.onChange}
+        onChange={onChange}
       />
     );
   }
@@ -39,20 +41,16 @@ export default class SortBy extends Component {
     });
   };
 
-  onChange = (event, { value }) => {
+  onChange = value => {
     if (value === this.props.currentSortBy) return;
     this.updateQuerySortBy(value);
   };
 
   render() {
-    const selectedValue = this.props.currentSortBy;
-    const numberOfResults = this.props.total;
-    let loading = this.props.loading;
+    const { currentSortBy, totalResults, loading, values } = this.props;
     return (
-      <ShouldRender
-        condition={!loading && selectedValue && numberOfResults > 1}
-      >
-        {this.renderElement({ ...this.props })}
+      <ShouldRender condition={!loading && currentSortBy && totalResults > 1}>
+        {this.renderElement(currentSortBy, values, this.onChange)}
       </ShouldRender>
     );
   }
@@ -65,4 +63,6 @@ SortBy.propTypes = {
   renderElement: PropTypes.func,
 };
 
-SortBy.defaultProps = {};
+SortBy.defaultProps = {
+  renderElement: null,
+};

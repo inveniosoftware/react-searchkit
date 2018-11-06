@@ -4,7 +4,7 @@ export { Count } from './Count';
 export { EmptyResults } from './EmptyResults';
 export { Error } from './Error';
 export { LayoutSwitcher } from './LayoutSwitcher';
-export { Loading } from './Loading';
+export { ResultsLoader } from './ResultsLoader';
 export { Pagination } from './Pagination';
 export { ReactSearchKit } from './ReactSearchKit';
 export { ResultsGrid } from './ResultsGrid';

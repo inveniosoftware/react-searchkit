@@ -9,28 +9,25 @@ export default class EmptyResults extends Component {
     this.renderElement = props.renderElement || this.empty;
   }
 
-  empty = ({ total }) => (total === 0 ? <div>No results found!</div> : null);
+  empty = total => (total === 0 ? <div>No results found!</div> : null);
 
   render() {
-    const { loading, error } = this.props;
+    const { loading, error, total } = this.props;
     return (
       <ShouldRender condition={!loading && _isEmpty(error)}>
-        <Fragment>{this.renderElement({ ...this.props })}</Fragment>
+        <Fragment>{this.renderElement(total)}</Fragment>
       </ShouldRender>
     );
   }
 }
 
 EmptyResults.propTypes = {
-  total: PropTypes.number,
-  loading: PropTypes.bool,
-  error: PropTypes.object,
+  total: PropTypes.number.isRequired,
+  loading: PropTypes.bool.isRequired,
+  error: PropTypes.object.isRequired,
   renderElement: PropTypes.func,
 };
 
 EmptyResults.defaultProps = {
-  total: null,
-  loading: null,
-  error: null,
   renderElement: null,
 };

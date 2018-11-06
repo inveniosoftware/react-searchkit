@@ -14,15 +14,17 @@ export default class SortOrder extends Component {
     this.renderElement = props.renderElement || this._renderElement;
   }
 
-  _renderElement({ currentSortOrder }) {
-    const options = this._mapOptions(this.options);
+  _renderElement(currentSortOrder, values, onValueChange) {
+    const onChange = (event, { value }) => {
+      onValueChange(value);
+    };
     return (
       <Dropdown
         selection
         compact
-        options={options}
+        options={this._mapOptions(values)}
         value={currentSortOrder}
-        onChange={this.onChange}
+        onChange={onChange}
       />
     );
   }
@@ -39,20 +41,19 @@ export default class SortOrder extends Component {
     });
   };
 
-  onChange = (event, { value }) => {
+  onChange = value => {
     if (value === this.props.currentSortOrder) return;
     this.updateQuerySortOrder(value);
   };
 
   render() {
-    const selectedValue = this.props.currentSortOrder;
-    const numberOfResults = this.props.total;
-    let loading = this.props.loading;
+    const { currentSortOrder, totalResults, loading, values } = this.props;
+
     return (
       <ShouldRender
-        condition={!loading && selectedValue && numberOfResults > 1}
+        condition={!loading && currentSortOrder && totalResults > 1}
       >
-        {this.renderElement({ ...this.props })}
+        {this.renderElement(currentSortOrder, values, this.onChange)}
       </ShouldRender>
     );
   }
@@ -67,5 +68,5 @@ SortOrder.propTypes = {
 };
 
 SortOrder.defaultProps = {
-  currentSortOrder: undefined,
+  renderElement: null,
 };
