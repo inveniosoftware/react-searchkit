@@ -1,7 +1,6 @@
 ---
 id: active-aggregations
-title: Active Aggregations Component
-sidebar_label: Active Aggregations
+title: ActiveAggregations
 ---
 
 ## Usage

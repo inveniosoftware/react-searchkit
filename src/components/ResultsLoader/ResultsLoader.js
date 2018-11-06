@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Loader } from 'semantic-ui-react';
-import { ShouldRender } from '@app/components';
+import { ShouldRender } from '@app/components/ShouldRender';
 
 export default class ResultsLoader extends Component {
   constructor(props) {

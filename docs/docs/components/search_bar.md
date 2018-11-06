@@ -1,7 +1,6 @@
 ---
 id: search-bar
-title: Search Bar Component
-sidebar_label: Search Bar
+title: SearchBar
 ---
 ## Usage
 
@@ -10,10 +9,6 @@ sidebar_label: Search Bar
 | Name                          | Required  | Default       | Type      | Description             |
 | ------------------------------|-----------|---------------| ----------|-------------------------|
 | ``renderElement``             | no        | null          | {func}    | Function to override the the component's template |
-
-
-
-
 
 ## Usage when overriding template
 

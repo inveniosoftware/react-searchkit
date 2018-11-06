@@ -7,18 +7,13 @@ export default class ResultsGrid extends Component {
   constructor(props) {
     super(props);
     this.itemsPerRow = props.itemsPerRow;
-    this.items = props.items;
-    this.renderElement = props.renderItem || this._renderElement;
+    this.renderElement = props.renderElement || this._renderItem;
   }
 
-  _renderElement(item) {
+  _renderItem(item) {
     let metadata = item.metadata;
     return (
-      <Card
-        fluid
-        key={item.id}
-        href={`https://zenodo.org/record/${metadata.recid}`}
-      >
+      <Card fluid key={item.id} href={`#${metadata.recid}`}>
         <Image src={item.imageSrc || 'https://via.placeholder.com/200'} />
         <Card.Content>
           <Card.Header>{metadata.title.title || metadata.title}</Card.Header>
@@ -38,9 +33,10 @@ export default class ResultsGrid extends Component {
   }
 
   render() {
+    const items = this.props.items;
     return (
       <Card.Group itemsPerRow={this.itemsPerRow}>
-        {this.renderItems(this.items)}
+        {this.renderItems(items)}
       </Card.Group>
     );
   }

@@ -1,7 +1,6 @@
 ---
 id: pagination
-title: Pagination Component
-sidebar_label: Pagination
+title: Pagination
 ---
 ## Usage
 

@@ -1,35 +1,26 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import _truncate from 'lodash/truncate';
-import { ResultsList, ResultsGrid, ShouldRender } from '@app/components';
+import { ResultsList, ResultsGrid } from '@app/components';
+import { ShouldRender } from '@app/components/ShouldRender';
 
 export default class ResultsMultiLayout extends Component {
-  constructor(props) {
-    super(props);
-    this.items = props.items;
-  }
-
-  renderResultsList(items, layout) {
-    return layout == 'list' ? (
-      <ResultsList items={items} />
-    ) : (
-      <ResultsGrid items={items} />
-    );
+  renderResultsList(layout) {
+    return layout === 'list' ? <ResultsList /> : <ResultsGrid />;
   }
 
   render() {
-    const { currentLayout, loading, totalResults, items } = this.props;
+    const { currentLayout, loading, totalResults } = this.props;
 
     return (
       <ShouldRender condition={currentLayout && !loading && totalResults > 0}>
-        {this.renderResultsList(items, currentLayout)}
+        {this.renderResultsList(currentLayout)}
       </ShouldRender>
     );
   }
 }
 
 ResultsMultiLayout.propTypes = {
-  items: PropTypes.array.isRequired,
   currentLayout: PropTypes.string,
   loading: PropTypes.bool.isRequired,
   totalResults: PropTypes.number.isRequired,

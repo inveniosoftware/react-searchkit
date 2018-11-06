@@ -1,7 +1,6 @@
 ---
 id: results-list
-title: Results List Component
-sidebar_label: Results List
+title: ResultsList
 ---
 
 

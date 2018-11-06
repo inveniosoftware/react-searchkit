@@ -31,12 +31,12 @@ describe('test query actions', () => {
   let store;
   let initialState = {
     queryString: '',
-    sortBy: undefined,
-    sortOrder: undefined,
-    page: 1,
-    size: 10,
+    sortBy: null,
+    sortOrder: null,
+    page: null,
+    size: null,
     aggregations: [],
-    layout: 'list',
+    layout: null,
   };
   beforeEach(() => {
     store = mockStore({

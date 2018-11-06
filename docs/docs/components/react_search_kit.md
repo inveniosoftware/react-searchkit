@@ -1,7 +1,6 @@
 ---
-id: results-multi-layout
-title: Results Multi Layout Component
-sidebar_label: Results Multi Layout
+id: react-searchkit
+title: ReactSearchKit
 ---
 
 ## Usage

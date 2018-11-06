@@ -1,7 +1,6 @@
 ---
 id: aggregator
-title: Aggregator Component
-sidebar_label: Aggregator
+title: Aggregator
 ---
 
 ## Usage

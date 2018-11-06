@@ -9,7 +9,7 @@ export default class UrlParamsProvider extends Component {
     this.setUrlParamsWithoutPush = props.setUrlParamsWithoutPush;
   }
 
-  componentDidMount() {
+  componentWillMount() {
     window.onpopstate = () => {
       this.setUrlParamsWithoutPush(this.searchOnLoad);
     };

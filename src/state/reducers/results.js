@@ -10,7 +10,6 @@ const defaultState = {
     hits: [],
     total: 0,
     aggregations: {},
-    layout: null,
   },
   error: {},
 };

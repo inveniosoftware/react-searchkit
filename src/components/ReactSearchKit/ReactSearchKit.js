@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import { createProvider } from 'react-redux';
 import PropTypes from 'prop-types';
-import { SearchApi, UrlParamsApi, configureStore, storeKey } from '@app';
+import { configureStore, storeKey } from '@app/store';
+import { SearchApi, UrlParamsApi } from '@app';
 import 'semantic-ui-css/semantic.min.css';
 import { UrlParamsProvider } from '@app/components/UrlParamsProvider';
 

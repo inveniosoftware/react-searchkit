@@ -121,7 +121,7 @@ export const executeQuery = (updateUrlParams = true, resetQueryPage = true) => {
     const urlParamsApi = config.urlParamsApi;
     const defaultSortByOnEmptyQuery = config.defaultSortByOnEmptyQuery;
 
-    if (resetQueryPage && queryState.page !== 1) {
+    if (resetQueryPage && queryState.page > 1) {
       dispatch({ type: SET_QUERY_PAGINATION_PAGE_RESET });
     }
 

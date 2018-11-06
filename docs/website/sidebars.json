@@ -1,23 +1,24 @@
-{"*": {
+{
+  "*": {
+    "Introduction": ["getting-started"],
     "Components": [
-      "components/active_aggregations",
-      "components/aggregator",
-      "components/count",
-      "components/empty_results",
-      "components/error",
-      "components/layout_switcher",
+      "components/react-searchkit",
+      "components/search-bar",
+      "components/results-loader",
+      "components/layout-switcher",
+      "components/results-multi-layout",
+      "components/results-grid",
+      "components/results-list",
       "components/pagination",
-      "components/react_search_kit",
-      "components/results_grid",
-      "components/results_list",
-      "components/results_loader",
-      "components/results_multi_layout",
-      "components/results_per_page",
-      "components/search_bar",
-      "components/should_render",
-      "components/sort_by",
-      "components/sort_order",
-      "components/url_params_provider"
-    ]
+      "components/sort-by",
+      "components/sort-order",
+      "components/count",
+      "components/results-per-page",
+      "components/active-aggregations",
+      "components/aggregator",
+      "components/error",
+      "components/empty-results"
+    ],
+    "Extending": ["your-component"]
   }
 }

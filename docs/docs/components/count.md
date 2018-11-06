@@ -1,7 +1,6 @@
 ---
 id: count
-title: Count Component
-sidebar_label: Count
+title: Count
 ---
 
 ## Usage
@@ -23,7 +22,7 @@ Props below are available in your renderElement function when you override the t
 | ``total``            | 0             | {number}  | Total number of results |
 
 
-Usage description 
+Usage description
 ```jsx
 <Count
  //TODO

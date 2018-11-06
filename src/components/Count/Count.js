@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Label } from 'semantic-ui-react';
-import { ShouldRender } from '@app/components';
+import { ShouldRender } from '@app/components/ShouldRender';
 
 export default class Count extends Component {
   constructor(props) {

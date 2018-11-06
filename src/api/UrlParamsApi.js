@@ -80,12 +80,15 @@ export class UrlParamsApi {
 
   _transformQueryToUrlParams(queryState) {
     const params = {};
-    Object.keys(queryState).forEach(stateKey => {
-      if (stateKey in this.urlParamsMapping) {
+    Object.keys(queryState)
+      .filter(
+        stateKey =>
+          queryState[stateKey] !== null && stateKey in this.urlParamsMapping
+      )
+      .forEach(stateKey => {
         const paramKey = this.urlParamsMapping[stateKey];
         params[paramKey] = queryState[stateKey];
-      }
-    });
+      });
 
     // will omit undefined and null values from the query
     return Qs.stringify(params, {
@@ -95,16 +98,15 @@ export class UrlParamsApi {
   }
 
   _mergeParamsIntoState(params, queryState) {
-    const newState = { ...queryState };
     Object.keys(params).forEach(paramKey => {
       const stateKey = this.fromParamsMapping[paramKey];
       if (this.paramValidator.isValid(paramKey, params[paramKey])) {
-        if (stateKey in newState) {
-          newState[stateKey] = params[paramKey];
+        if (stateKey in queryState) {
+          queryState[stateKey] = params[paramKey];
         }
       }
     });
-    return newState;
+    return queryState;
   }
 
   /**

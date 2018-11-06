@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Pagination as Paginator } from 'semantic-ui-react';
-import { ShouldRender } from '@app/components';
+import { ShouldRender } from '@app/components/ShouldRender';
 
 export default class Pagination extends Component {
   constructor(props) {
@@ -10,6 +10,12 @@ export default class Pagination extends Component {
     this.updateQueryPage = this.props.updateQueryPage;
     this.setInitialState = props.setInitialState;
     this.renderElement = props.renderElement || this.paginator;
+  }
+
+  componentWillMount() {
+    this.setInitialState({
+      page: 1,
+    });
   }
 
   onPageChange = activePage => {

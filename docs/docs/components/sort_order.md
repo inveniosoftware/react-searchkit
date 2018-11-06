@@ -1,7 +1,6 @@
 ---
 id: sort-order
-title: Sort Order Component
-sidebar_label: Sort Order
+title: SortOrder
 ---
 ## Usage
 

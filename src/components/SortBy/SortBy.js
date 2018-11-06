@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Dropdown } from 'semantic-ui-react';
 import _find from 'lodash/find';
-import { ShouldRender } from '@app/components';
+import { ShouldRender } from '@app/components/ShouldRender';
 
 export default class SortBy extends Component {
   constructor(props) {
@@ -14,7 +14,7 @@ export default class SortBy extends Component {
     this.renderElement = props.renderElement || this._renderElement;
   }
 
-  componentDidMount() {
+  componentWillMount() {
     this.setInitialState({
       sortBy: this.defaultValue,
     });

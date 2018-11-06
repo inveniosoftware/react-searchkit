@@ -12,6 +12,5 @@ export { ResultsList } from './ResultsList';
 export { ResultsMultiLayout } from './ResultsMultiLayout';
 export { ResultsPerPage } from './ResultsPerPage';
 export { SearchBar } from './SearchBar';
-export { ShouldRender } from './ShouldRender';
 export { SortBy } from './SortBy';
 export { SortOrder } from './SortOrder';

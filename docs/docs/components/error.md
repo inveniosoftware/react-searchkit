@@ -1,7 +1,6 @@
 ---
 id: error
-title: Error Component
-sidebar_label: Error
+title: Error
 ---
 ## Usage
 
@@ -24,7 +23,7 @@ Props below are available in your renderElement function when you override the t
 | ------------------|---------------| ----------|-------------------------|
 | ``error``         | {}            | {object}  | Response error object   |
 
-Usage description 
+Usage description
 ```jsx
 <Error
 //TODO

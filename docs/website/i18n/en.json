@@ -3,98 +3,73 @@
   "localized-strings": {
     "next": "Next",
     "previous": "Previous",
-    "tagline": "react-searchkit",
+    "tagline": "A simple yet powerful UI search kit built with React",
     "docs": {
-      "advanced": {
-        "title": "Advanced",
-        "sidebar_label": "Advanced"
+      "components/active-aggregations": {
+        "title": "ActiveAggregations"
       },
       "components/aggregator": {
-        "title": "Aggregator Component",
-        "sidebar_label": "Aggregator"
+        "title": "Aggregator"
       },
       "components/count": {
-        "title": "Count Component",
-        "sidebar_label": "Count"
+        "title": "Count"
       },
-      "components/empty_results": {
-        "title": "Empty Results Component",
-        "sidebar_label": "Empty Results"
+      "components/empty-results": {
+        "title": "EmptyResults"
       },
       "components/error": {
-        "title": "Error Component",
-        "sidebar_label": "Error"
+        "title": "Error"
       },
-      "components/layout_switcher": {
-        "title": "Layout Switcher Component",
-        "sidebar_label": "Layout Switcher"
-      },
-      "components/loading": {
-        "title": "Loading Component",
-        "sidebar_label": "Loading"
+      "components/layout-switcher": {
+        "title": "LayoutSwitcher"
       },
       "components/pagination": {
-        "title": "Pagination Component",
-        "sidebar_label": "Pagination"
+        "title": "Pagination"
       },
-      "components/results_multi_layout": {
-        "title": "Results Multi Layout Component",
-        "sidebar_label": "Results Multi Layout"
+      "components/react-searchkit": {
+        "title": "ReactSearchKit"
       },
-      "components/results_grid": {
-        "title": "Results Grid Component",
-        "sidebar_label": "Results Grid"
+      "components/results-grid": {
+        "title": "ResultsGrid"
       },
-      "components/results_list": {
-        "title": "Results List Component",
-        "sidebar_label": "Results List"
+      "components/results-list": {
+        "title": "ResultsList"
       },
-      "components/react_search_kit": {
-        "title": "React Search Kit Component",
-        "sidebar_label": "React Search Kit"
+      "components/results-loader": {
+        "title": "ResultsLoader"
       },
-      "components/search_bar": {
-        "title": "Search Bar Component",
-        "sidebar_label": "Search Bar"
+      "components/results-multi-layout": {
+        "title": "ResultsMultiLayout"
       },
-      "components/should_render": {
-        "title": "Should Render Component",
-        "sidebar_label": "Should Render"
+      "components/results-per-page": {
+        "title": "ResultsPerPage"
       },
-      "components/sort_by": {
-        "title": "Sort By Component",
-        "sidebar_label": "Sort By"
+      "components/search-bar": {
+        "title": "SearchBar"
       },
-      "components/sort_order": {
-        "title": "Sort Order Component",
-        "sidebar_label": "Sort Order"
+      "components/sort-by": {
+        "title": "SortBy"
       },
-      "components/url_params_provider": {
-        "title": "Url Params Provider Component",
-        "sidebar_label": "Url Params Provider"
+      "components/sort-order": {
+        "title": "SortOrder"
       },
-      "getting_started": {
-        "title": "React Search Kit Quickstart",
-        "sidebar_label": "Getting started"
+      "getting-started": {
+        "title": "Getting Started"
       },
-      "help": {
-        "title": "Help",
-        "sidebar_label": "Help"
-      },
-      "home": {
-        "title": "Home",
-        "sidebar_label": "Home"
+      "your-component": {
+        "title": "Create your component"
       }
     },
     "links": {
-      "Home": "Home",
-      "Getting started": "Getting started",
+      "Docs": "Docs",
       "Components": "Components",
-      "Advanced": "Advanced",
+      "Extending": "Extending",
       "Help": "Help"
     },
     "categories": {
-      "Components": "Components"
+      "Introduction": "Introduction",
+      "Components": "Components",
+      "Extending": "Extending"
     }
   },
   "pages-strings": {

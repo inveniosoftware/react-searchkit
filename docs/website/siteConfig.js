@@ -1,29 +1,7 @@
-/**
- * Copyright (c) 2017-present, Facebook, Inc.
- *
- * This source code is licensed under the MIT license found in the
- * LICENSE file in the root directory of this source tree.
- */
-
-// See https://docusaurus.io/docs/site-config for all the possible
-// site configuration options.
-
-// List of projects/orgs using your project for the users page.
-// const users = [
-//   {
-//     caption: 'User1',
-//     // You will need to prepend the image path with your baseUrl
-//     // if it is not '/', like: '/test-site/img/docusaurus.svg'.
-//     image: '/img/docusaurus.svg',
-//     infoLink: 'https://www.facebook.com',
-//     pinned: true,
-//   },
-// ];
-
 const siteConfig = {
   title: 'React SearchKit',
-  tagline: 'react-searchkit',
-  url: 'https://your-docusaurus-test-site.com', // Your website URL
+  tagline: 'A simple yet powerful UI search kit built with React',
+  url: 'https://your-docusaurus-test-site.com',
   baseUrl: '/', // Base URL for your project */
   // For github.io type URLs, you would set the url and baseUrl like:
   //   url: 'https://facebook.github.io',
@@ -38,10 +16,9 @@ const siteConfig = {
 
   // For no header links in the top nav bar -> headerLinks: [],
   headerLinks: [
-    { page: 'home', label: 'Home' },
-    { doc: 'getting_started', label: 'Getting started' },
-    { doc: 'components/aggregator', label: 'Components' },
-    { doc: 'advanced', label: 'Advanced' },
+    { doc: 'getting-started', label: 'Docs' },
+    { doc: 'components/react-searchkit', label: 'Components' },
+    { doc: 'your-component', label: 'Extending' },
     { page: 'help', label: 'Help' },
   ],
 
@@ -56,7 +33,7 @@ const siteConfig = {
   /* Colors for website */
   colors: {
     primaryColor: '#28688a',
-    secondaryColor: '#ff00ff',
+    secondaryColor: 'rgba(10, 73, 105, 0.91)',
   },
 
   /* Custom fonts for website */
@@ -74,7 +51,7 @@ const siteConfig = {
   */
 
   // This copyright info is used in /core/Footer.js and blog RSS/Atom feeds.
-  copyright: `Copyright © ${new Date().getFullYear()} CERN & contributors`,
+  copyright: `Copyright © ${new Date().getFullYear()} inveniosoftware & contributors`,
 
   highlight: {
     // Highlight.js theme to use for syntax highlighting in code blocks.
@@ -82,10 +59,11 @@ const siteConfig = {
   },
 
   // Add custom scripts here that would be placed in <script> tags.
-  scripts: ['https://buttons.github.io/buttons.js',
-            'https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.0/clipboard.min.js',
-            '/js/code-blocks-buttons.js',
-            ],
+  scripts: [
+    'https://buttons.github.io/buttons.js',
+    'https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.0/clipboard.min.js',
+    '/js/code-blocks-buttons.js',
+  ],
 
   stylesheets: ['/css/code-blocks-buttons.css'],
 
@@ -102,7 +80,7 @@ const siteConfig = {
   // template. For example, if you need your repo's URL...
   repoUrl: 'https://github.com/inveniosoftware/react-searchkit',
 
-  usePrism: ['jsx']
+  usePrism: ['jsx'],
 };
 
 module.exports = siteConfig;

@@ -1,7 +1,6 @@
 ---
 id: empty-results
-title: Empty Results Component
-sidebar_label: Empty Results
+title: EmptyResults
 ---
 
 This component is very nice!
