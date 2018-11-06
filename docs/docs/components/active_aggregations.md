@@ -3,6 +3,10 @@ id: active-aggregations
 title: ActiveAggregations
 ---
 
+`ActiveAggregations` renders the current selected aggregations by the user as a list of labels.
+
+Each label has a `close` icon which can be clicked to remove the selected aggregation.
+
 ## Usage
 
 ### Props

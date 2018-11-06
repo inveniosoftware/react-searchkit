@@ -24,8 +24,6 @@ Button.defaultProps = {
 
 class Header extends React.Component {
   render() {
-    const linkGettingStarted = `${siteConfig.baseUrl}docs/getting_started`;
-    const linkComponents = `${siteConfig.baseUrl}docs/components`;
     return (
       <div className="homeContainer">
         <div className="homeSplashFade">
@@ -38,8 +36,16 @@ class Header extends React.Component {
               <div className="section promoSection">
                 <div className="promoRow">
                   <div className="pluginRowBlock">
-                    <Button href={linkGettingStarted}>Get Started</Button>
-                    <Button href={linkComponents}>Discover components</Button>
+                    <Button href={`${siteConfig.baseUrl}docs/getting-started`}>
+                      Get Started
+                    </Button>
+                    <Button
+                      href={`${
+                        siteConfig.baseUrl
+                      }docs/components/react-searchkit`}
+                    >
+                      Discover components
+                    </Button>
                   </div>
                 </div>
               </div>
@@ -76,18 +82,19 @@ class Home extends React.Component {
               layout="threeColumn"
               contents={[
                 {
-                  title: 'Customizable',
-                  content: `Build your search UI with the available components. You can override the default look and feel
-                of each component.`,
+                  title: 'Ready To Use',
+                  content: `Build your search UI mixing together the available components. Override the default
+                  look and feel of each component and provide your own look and feel.`,
                 },
                 {
-                  title: 'Configurable',
-                  content: `Use React SearchKit as it is and just configure it with your search backend. You can adapt the
-                API configuration to your needs or provide your own API implementation.`,
+                  title: 'Fully Configurable',
+                  content: `Use React-SearchKit with your search REST API endpoint by providing your
+                  configuration or implementation. Customize the way user selections are persisted in the URL query string.`,
                 },
                 {
                   title: 'Extensible',
-                  content: 'Create your own components in a simple way.',
+                  content:
+                    'Create new components in a simple way and plug them to the other already available components.',
                 },
               ]}
             />

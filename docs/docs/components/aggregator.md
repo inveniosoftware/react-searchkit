@@ -3,6 +3,10 @@ id: aggregator
 title: Aggregator
 ---
 
+`Aggregator` renders the list of search results aggregations as checkboxes supporting nesting.
+
+It allows the user to click on an aggregation value to select it.
+
 ## Usage
 
 ### Props

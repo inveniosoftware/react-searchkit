@@ -1,5 +1,5 @@
 const siteConfig = {
-  title: 'React SearchKit',
+  title: 'React-SearchKit',
   tagline: 'A simple yet powerful UI search kit built with React',
   url: 'https://your-docusaurus-test-site.com',
   baseUrl: '/', // Base URL for your project */
@@ -18,7 +18,7 @@ const siteConfig = {
   headerLinks: [
     { doc: 'getting-started', label: 'Docs' },
     { doc: 'components/react-searchkit', label: 'Components' },
-    { doc: 'your-component', label: 'Extending' },
+    { doc: 'create-your-component', label: 'Extending' },
     { page: 'help', label: 'Help' },
   ],
 

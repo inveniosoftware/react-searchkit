@@ -112,19 +112,20 @@ export class UrlParamsApi {
   /**
    * Return a new version of the given `query` state with updated values parsed from the URL query string.
    * @param {object} queryState the `query` state
-   * @param {boolean} updateUrlParams a flag to push the new updated version of `query` state to the URL query string
+   * @param {boolean} pushUpdate a flag to push the new updated version of `query` state to the URL query string.
+   *                             Normally false when setting the initial state on app load, true otherwise.
    */
-  get = (queryState, updateUrlParams) => {
+  get = (queryState, pushUpdate) => {
     const currentParams = this.urlParser.parse(window.location.search);
     const newQueryState = this._mergeParamsIntoState(currentParams, queryState);
-    if (updateUrlParams) {
+    if (pushUpdate) {
       this.set(newQueryState);
     }
     return newQueryState;
   };
 
   /**
-   * Update the URL query string parameters from the given `query`state
+   * Update the URL query string parameters from the given `query` state
    * @param {object} stateQuery the `query` state
    */
   set = stateQuery => {

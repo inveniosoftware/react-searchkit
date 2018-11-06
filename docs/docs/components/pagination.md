@@ -2,7 +2,8 @@
 id: pagination
 title: Pagination
 ---
-Pagination controls for navigating the search result pages.
+
+`Pagination` renders the controls for navigating the search result pages.
 
 ## Usage
 

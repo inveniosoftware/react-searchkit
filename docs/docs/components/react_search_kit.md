@@ -3,7 +3,9 @@ id: react-searchkit
 title: ReactSearchKit
 ---
 
-This component is the container of the entire search application.
+`ReactSearchKit` is the base component container of the entire search application.
+
+It wraps any other component, provide state and configuration to the application.
 
 ## Usage
 

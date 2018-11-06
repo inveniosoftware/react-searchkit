@@ -2,7 +2,8 @@
 id: results-loader
 title: ResultsLoader
 ---
-This component renders the loading indicator for the REST API request.
+
+`ResultsLoader` renders the loading indicator displayed while performing a REST API request and refreshing the results.
 
 ## Usage
 

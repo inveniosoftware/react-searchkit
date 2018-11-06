@@ -2,7 +2,10 @@
 id: search-bar
 title: SearchBar
 ---
-Search input box for queries.
+
+`SearchBar` renders an input box for queries and a Search button.
+
+The search can be triggered clicking on the button or pressing the `enter` keystroke.
 
 ## Usage
 

@@ -17,7 +17,7 @@ class Footer extends React.Component {
             >
               <img
                 src={`${siteConfig.baseUrl}img/oss_logo.png`}
-                alt="React SearchKit"
+                alt="React-SearchKit"
                 width="170"
                 height="45"
               />

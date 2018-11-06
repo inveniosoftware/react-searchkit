@@ -3,6 +3,7 @@ id: results-per-page
 title: ResultsPerPage
 ---
 
+`ResultsPerPages` renders a list of the possible number of results per page.
 
 ## Usage
 
