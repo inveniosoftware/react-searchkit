@@ -7,8 +7,8 @@ import {
   Aggregator,
   EmptyResults,
   Error,
+  ResultsLoader,
 } from '@app/components';
-import { ResultsLoader } from './ResultsLoader';
 import { Results } from './Results';
 
 class Demo extends Component {

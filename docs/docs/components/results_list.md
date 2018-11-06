@@ -1,5 +1,5 @@
 ---
-id: results_list
+id: results-list
 title: Results List Component
 sidebar_label: Results List
 ---
@@ -24,9 +24,11 @@ Props below are available in your renderElement function when you override the t
 
 | Name              | Default       | Type      | Description             |
 | ------------------|---------------| ----------|-------------|
+| ``item``          |  -            | {object}   | One item of the `items` array |
+| ``index``          |  -            | {number}   | Index of the item in the `items` array |
 
 
-Usage description 
+Usage description
 ```jsx
 <ResultsList
 //TODO

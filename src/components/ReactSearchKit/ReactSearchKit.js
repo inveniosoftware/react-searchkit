@@ -34,9 +34,9 @@ export class ReactSearchKit extends Component {
 
 ReactSearchKit.propTypes = {
   searchConfig: PropTypes.object,
-  searchApi: PropTypes.object,
+  searchApi: PropTypes.func,
   urlParamsConfig: PropTypes.object,
-  urlParamsApi: PropTypes.object,
+  urlParamsApi: PropTypes.func,
   searchOnLoad: PropTypes.bool,
   defaultSortByOnEmptyQuery: PropTypes.string,
 };

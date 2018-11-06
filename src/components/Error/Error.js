@@ -9,7 +9,7 @@ export default class Error extends Component {
     this.renderElement = props.renderElement || this.error;
   }
 
-  error = ({ error }) => {
+  error = error => {
     return <div>Oups! Something went wrong while fetching results.</div>;
   };
 
@@ -25,10 +25,10 @@ export default class Error extends Component {
 
 Error.propTypes = {
   error: PropTypes.object.isRequired,
+  loading: PropTypes.bool.isRequired,
   renderElement: PropTypes.func,
 };
 
 Error.defaultProps = {
-  error: {},
   renderElement: null,
 };

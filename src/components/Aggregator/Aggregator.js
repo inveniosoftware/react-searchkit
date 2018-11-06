@@ -48,7 +48,8 @@ export default class Aggregator extends Component {
   }
 
   render() {
-    return <div>{this.renderElement({ ...this.props })}</div>;
+    let { setInitialState, ...props } = this.props;
+    return <div>{this.renderElement({ ...props })}</div>;
   }
 }
 
@@ -58,7 +59,10 @@ Aggregator.propTypes = {
   userSelectionAggregations: PropTypes.array.isRequired,
   resultsAggregations: PropTypes.object.isRequired,
   updateQueryAggregation: PropTypes.func.isRequired,
+  setInitialState: PropTypes.func.isRequired,
   renderElement: PropTypes.func,
 };
 
-Aggregator.defaultProps = {};
+Aggregator.defaultProps = {
+  renderElement: null,
+};

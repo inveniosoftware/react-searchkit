@@ -24,13 +24,11 @@ export default class Count extends Component {
 }
 
 Count.propTypes = {
-  total: PropTypes.number,
-  loading: PropTypes.bool,
-  renderTemplate: PropTypes.func,
+  total: PropTypes.number.isRequired,
+  loading: PropTypes.bool.isRequired,
+  renderElement: PropTypes.func,
 };
 
 Count.defaultProps = {
-  total: 0,
-  loading: null,
-  renderTemplate: null,
+  renderElement: null,
 };

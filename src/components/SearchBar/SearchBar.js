@@ -10,43 +10,54 @@ class SearchBar extends Component {
       currentValue: this.props.queryString || '',
     };
     this.renderElement = props.renderElement || this._renderElement;
-    this.setSortByOnEmpty = props.setSortByOnEmpty;
   }
 
-  _renderElement({ placeholder }) {
+  _renderElement(placeholder, value, onInputChange, onUpdateQuery) {
     placeholder = placeholder || 'Type something';
+    const onChange = (event, input) => {
+      onInputChange(input);
+    };
+    const onClick = (event, input) => {
+      onUpdateQuery();
+    };
+    const onKeyPress = (event, input) => {
+      if (event.key === 'Enter') {
+        onUpdateQuery();
+      }
+    };
     return (
       <Input
         action={{
           content: 'Search',
-          onClick: this.onSearchClicked,
+          onClick: onClick,
         }}
         fluid
         placeholder={placeholder}
-        onChange={this.onInputChange}
-        value={this.state.currentValue}
-        onKeyPress={this.onInputKeyPress}
+        onChange={onChange}
+        value={value}
+        onKeyPress={onKeyPress}
       />
     );
   }
 
-  onInputChange = (event, input) => {
+  onInputChange = input => {
     this.setState({
       currentValue: input.value,
     });
   };
 
-  onSearchClicked = (event, input) =>
+  onUpdateQuery = () => {
     this.updateQueryString(this.state.currentValue);
-
-  onInputKeyPress = (event, input) => {
-    if (event.key === 'Enter') {
-      this.updateQueryString(this.state.currentValue);
-    }
   };
 
   render() {
-    return this.renderElement(this.props);
+    const { placeholder } = this.props;
+    return this.renderElement(
+      placeholder,
+      this.state.currentValue,
+      this.onInputChange,
+      this.onUpdateQuery
+    );
   }
 }
 
@@ -54,12 +65,10 @@ SearchBar.propTypes = {
   queryString: PropTypes.string,
   updateQueryString: PropTypes.func.isRequired,
   renderElement: PropTypes.func,
-  setSortByOnEmpty: PropTypes.string,
 };
 
 SearchBar.defaultProps = {
-  queryString: '',
-  setSortByOnEmpty: null,
+  renderElement: null,
 };
 
 const SearchBarUncontrolled = props => (
