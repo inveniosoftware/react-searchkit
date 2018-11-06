@@ -13,7 +13,7 @@ class Help extends React.Component {
       {
         content: `Have a look to the [Getting Started guide](${
           siteConfig.baseUrl
-        }docs/getting_started) to better understand how React SearchKit works and how it can help you to build your own SearchKit app.\n\nRead the [advanced guide](${
+        }docs/getting_started) to better understand how React-SearchKit works and how it can help you to build your own SearchKit app.\n\nRead the [advanced guide](${
           siteConfig.baseUrl
         }docs/advanced) to know how to customize, extend and create your own components.`,
         title: 'Browse the documentation',
@@ -25,7 +25,7 @@ class Help extends React.Component {
       },
       {
         content:
-          'React SearchKit is part of the Invenio software organization.\n- Have a look to the [Invenio](https://inveniosoftware.org/) website to know more about the project.\n- Announcements and news are published in the official [Invenio blog](https://inveniosoftware.org/blog/).\n- Follow Invenio on [Twitter](https://twitter.com/inveniosoftware).',
+          'React-SearchKit is part of the Invenio software organization.\n- Have a look to the [Invenio](https://inveniosoftware.org/) website to know more about the project.\n- Announcements and news are published in the official [Invenio blog](https://inveniosoftware.org/blog/).\n- Follow Invenio on [Twitter](https://twitter.com/inveniosoftware).',
         title: 'Stay up to date',
       },
     ];
@@ -41,7 +41,7 @@ class Help extends React.Component {
             </header>
             <p>
               <MarkdownBlock>
-                React SearchKit is born at [CERN](https://home.cern). It is
+                React-SearchKit is born at [CERN](https://home.cern). It is
                 under active development and used by websites built on top of
                 [Invenio](https://inveniosoftware.org/).
               </MarkdownBlock>

@@ -46,9 +46,9 @@ class App extends Component {
 export default App;
 ```
 
-## Plug backend API
+## Connect REST API endpoint
 
-Change the `ReactSearchKit` props to define the backend. For this example we are going to use [Zenodo APIs](https://zenodo.org).
+Change the `ReactSearchKit` props to define the REST API endpoint. For this example we are going to use [Zenodo APIs](https://zenodo.org).
 
 ```jsx
 render() {
@@ -66,7 +66,7 @@ render() {
 }
 ```
 
-> Note: by default, `React SearchKit` is compatible with an [Invenio](https://inveniosoftware.org) backend. To plug your backend, you can define your configuration or provide your own API implementation. See [ReactSearchKit](components/react_search_kit.md) API documentation for more details.
+> Note: out of the box, `React-SearchKit` is compatible with [Invenio](https://inveniosoftware.org) REST APIs. To connect your own REST APIs, you can override the default configuration or provide your own connector implementation. Follow the next steps of this guide for detailed instructions on how to do it.
 
 ## Add the first component
 

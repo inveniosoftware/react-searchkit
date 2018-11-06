@@ -2,7 +2,11 @@
 id: sort-by
 title: SortBy
 ---
+
+`SortBy` renders a list of the possible sort by values.
+
 ## Usage
+
 ### Props
 
 | Name                          | Required  | Default       | Type      | Description             |

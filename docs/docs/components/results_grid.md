@@ -2,7 +2,8 @@
 id: results-grid
 title: ResultsGrid
 ---
-The actual result item displayed as a grid.
+
+`ResultsGrid` renders the list of results as a grid.
 
 ## Usage
 

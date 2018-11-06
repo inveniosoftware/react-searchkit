@@ -2,7 +2,8 @@
 id: results-list
 title: ResultsList
 ---
-The actual result item displayed as a list.
+
+`ResultsList` renders the list of results as a list.
 
 ## Usage
 

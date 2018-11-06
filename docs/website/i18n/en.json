@@ -53,11 +53,26 @@
       "components/sort-order": {
         "title": "SortOrder"
       },
+      "connect-your-rest-apis": {
+        "title": "Connect Your REST APIs"
+      },
+      "create-your-component": {
+        "title": "Create Your Component"
+      },
+      "extend-state": {
+        "title": "Extend State"
+      },
       "getting-started": {
         "title": "Getting Started"
       },
-      "your-component": {
-        "title": "Create your component"
+      "main-concepts": {
+        "title": "Main Concepts"
+      },
+      "ui-customisation": {
+        "title": "Customise The Look And Feel"
+      },
+      "using-url-parameters": {
+        "title": "Using URL Parameters"
       }
     },
     "links": {
@@ -67,7 +82,7 @@
       "Help": "Help"
     },
     "categories": {
-      "Introduction": "Introduction",
+      "Guide": "Guide",
       "Components": "Components",
       "Extending": "Extending"
     }

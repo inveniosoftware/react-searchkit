@@ -2,7 +2,8 @@
 id: empty-results
 title: EmptyResults
 ---
-This component is rendered when there are no results.
+
+`EmptyResults` is rendered when there are no results and displays a default message.
 
 ## Usage
 

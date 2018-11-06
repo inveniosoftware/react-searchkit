@@ -1,6 +1,12 @@
 {
   "*": {
-    "Introduction": ["getting-started"],
+    "Guide": [
+      "getting-started",
+      "main-concepts",
+      "connect-your-rest-apis",
+      "using-url-parameters",
+      "ui-customisation"
+    ],
     "Components": [
       "components/react-searchkit",
       "components/search-bar",
@@ -19,6 +25,6 @@
       "components/error",
       "components/empty-results"
     ],
-    "Extending": ["your-component"]
+    "Extending": ["create-your-component", "extend-state"]
   }
 }

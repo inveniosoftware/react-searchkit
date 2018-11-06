@@ -2,7 +2,8 @@
 id: error
 title: Error
 ---
-This component renders the errors returned by the REST API, e.g. 4xx or 5xx.
+
+`Error` renders the errors returned by the REST API, e.g. 4xx or 5xx.
 
 ## Usage
 

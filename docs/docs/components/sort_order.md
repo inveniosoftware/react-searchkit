@@ -2,7 +2,8 @@
 id: sort-order
 title: SortOrder
 ---
-This component lets you sort the results, i.e. ascending/descending.
+
+`SortOrder` renders a list of the possible sort order values, i.e. ascending/descending.
 
 ## Usage
 

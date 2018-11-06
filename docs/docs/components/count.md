@@ -2,7 +2,10 @@
 id: count
 title: Count
 ---
-This component renders the number of search results.
+
+`Count` renders the number of search results.
+
+Useful to display the total number of results after a search.
 
 ## Usage
 

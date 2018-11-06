@@ -3,6 +3,9 @@ id: layout-switcher
 title: LayoutSwitcher
 ---
 
+`LayoutSwitcher` renders a pair of buttons that allows the user to change results layout between `list` and `grid`.
+
+It is normally in combinatin with `ResultMultiLayout` to wrap `ResultsList` and `ResultsGrid`.
 
 ## Usage
 
