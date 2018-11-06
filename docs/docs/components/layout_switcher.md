@@ -27,10 +27,3 @@ Props below are available in your renderElement function when you override the t
 | ``renderElement`` | null      | {func}                   | Function to override the the component's template |
 | ``currentLayout`` | -         | {oneOf(['list', 'grid'])}| Currently selected layout |
 | ``onLayoutChange``| -         | {func}                   | The function to update the selected layout in the application state |
-
-Usage description
-```jsx
-<LayoutSwitcher
-//TODO
-/>
-```

@@ -14,7 +14,7 @@ title: ActiveAggregations
 
 
 ```jsx
-<Agg />
+<ActiveAggregations />
 ```
 
 ## Usage when overriding template
@@ -28,10 +28,3 @@ Props below are available in your renderElement function when you override the t
 | ``renderElement``             | null          | {func}    | Function to override the the component's template |
 | ``userSelectionAggregations`` |               | {array}   | Aggregations selected by user |
 | ``resultsAggregations``       |               | {func}    | Aggregations of the results   |
-
-Usage description
-```jsx
-<Aggregator
-  //TODO
-/>
-```

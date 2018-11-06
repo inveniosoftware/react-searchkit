@@ -19,12 +19,3 @@ Props below are available in your renderElement function when you override the t
 | ---------------------|---------------| ----------|-------------------------|
 | ``renderElement``    | null          | {func}    | Function to override the the component's template |
 | ``total``            | 0             | {number}  | Total number of results |
-
-
-Usage description
-```jsx
-<Count
- //TODO
-/>
-```
-

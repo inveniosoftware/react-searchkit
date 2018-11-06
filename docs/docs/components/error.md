@@ -20,10 +20,3 @@ Props below are available in your renderElement function when you override the t
 | ------------------|---------------| ----------|-------------------------|
 | ``renderElement`` | null          | {func}    | Function to override the the component's template |
 | ``error``         | {}            | {object}  | Response error object   |
-
-Usage description
-```jsx
-<Error
-//TODO
-/>
-```
