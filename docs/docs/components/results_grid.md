@@ -2,6 +2,7 @@
 id: results-grid
 title: ResultsGrid
 ---
+The actual result item displayed as a grid.
 
 ## Usage
 
@@ -11,8 +12,6 @@ title: ResultsGrid
 | ------------------|-----------| --------------|-----------|-------------------------|
 | ``itemsPerRow``   | no        |  3            | {number}  | Number of items per row |
 | ``items``         | yes       |               | {array}   | Array of items to be presented |
-| ``renderElement`` | no        | null          | {func}    | Function to override the the component's template |
-
 
 
 ## Usage when overriding template
@@ -23,6 +22,7 @@ Props below are available in your renderElement function when you override the t
 
 | Name              | Default       | Type      | Description             |
 | ------------------|---------------| ----------|-------------------------|
+| ``renderElement`` | null          | {func}    | Function to override the the component's template |
 
 
 Usage description
