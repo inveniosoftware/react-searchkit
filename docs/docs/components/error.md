@@ -2,16 +2,13 @@
 id: error
 title: Error
 ---
+This component renders the errors returned by the REST API, e.g. 4xx or 5xx.
+
 ## Usage
 
-### Props
-
-| Name              | Required  | Default       | Type      | Description           |
-| ------------------|-----------|---------------| ----------|-----------------------|
-| ``renderElement`` | no        |  null         | {func}    | Function to override the the component's template |
-
-
-
+```jsx
+<Error />
+```
 
 ## Usage when overriding template
 
@@ -21,6 +18,7 @@ Props below are available in your renderElement function when you override the t
 
 | Name              | Default       | Type      | Description             |
 | ------------------|---------------| ----------|-------------------------|
+| ``renderElement`` | null          | {func}    | Function to override the the component's template |
 | ``error``         | {}            | {object}  | Response error object   |
 
 Usage description

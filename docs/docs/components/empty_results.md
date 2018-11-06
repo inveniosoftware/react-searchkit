@@ -2,17 +2,9 @@
 id: empty-results
 title: EmptyResults
 ---
-
-This component is very nice!
+This component is rendered when there are no results.
 
 ## Usage
-
-### Props
-
-| Name              | Required  | Default       | Type      | Description |
-| ------------------|-----------|---------------| ----------|-------------|
-| ``renderElement`` | no        | null          | {func}    | Function to override the the component's template |
-
 
 ```jsx
 <EmptyResults />
@@ -26,8 +18,8 @@ Props below are available in your renderElement function when you override the t
 
 | Name              | Default       | Type      | Description             |
 | ------------------|---------------| ----------|-------------------------|
+| ``renderElement`` | null          | {func}    | Function to override the the component's template |
 | ``total``         | 0             | {number}  | Total number of results |
-
 
 ```jsx
 const CustomEmptyResults = props => props.total === 0 ? <div>Sorry, no results!</div> : null;
