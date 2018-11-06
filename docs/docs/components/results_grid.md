@@ -11,8 +11,10 @@ The actual result item displayed as a grid.
 | Name              | Required  | Default       | Type      | Description             |
 | ------------------|-----------| --------------|-----------|-------------------------|
 | ``itemsPerRow``   | no        |  3            | {number}  | Number of items per row |
-| ``items``         | yes       |               | {array}   | Array of items to be presented |
 
+```jsx
+<ResultsGrid />
+```
 
 ## Usage when overriding template
 
@@ -22,12 +24,5 @@ Props below are available in your renderElement function when you override the t
 
 | Name              | Default       | Type      | Description             |
 | ------------------|---------------| ----------|-------------------------|
+| ``items``         | []            | {array}   | Array of items to be presented |
 | ``renderElement`` | null          | {func}    | Function to override the the component's template |
-
-
-Usage description
-```jsx
-<ResultsGrid
-//TODO
-/>
-```

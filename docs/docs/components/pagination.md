@@ -30,11 +30,3 @@ Props below are available in your renderElement function when you override the t
 | ``totalResults``  |  -            | {number}  | Total numbers of results to be presented |
 | ``onPageChange``  |  -            | {function}| Function to update page value in application state |
 | ``options``       |  -            | {obj}     | Options prop passed to the component |
-
-
-Usage description
-```jsx
-<Pagination
-//TODO
-/>
-```
