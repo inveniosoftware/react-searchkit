@@ -1,7 +1,7 @@
 {
-  "name": "@inveniosoftware/react-searchkit",
+  "name": "react-searchkit",
   "version": "0.1.0",
-  "description": "react-searchkit React components to build a search UI",
+  "description": "React components to build your search UI application",
   "main": "lib/index.js",
   "module": "es/index.js",
   "files": [

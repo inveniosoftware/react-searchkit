@@ -15,7 +15,7 @@ cd search-app
 Then, install the React-SearchKit.
 
 ```console
-npm install @inveniosoftware/react-searchkit
+npm install react-searchkit
 ```
 
 ## Bootstrap it
