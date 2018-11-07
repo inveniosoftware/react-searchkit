@@ -1,0 +1,150 @@
+<!DOCTYPE html><html lang="en"><head><meta charSet="utf-8"/><meta http-equiv="X-UA-Compatible" content="IE=edge"/><title>Using URL Parameters · React-SearchKit</title><meta name="viewport" content="width=device-width"/><meta name="generator" content="Docusaurus"/><meta name="description" content="React-SearchKit can update URL query string parameters with the user selections so URLs can be shared to perform the same search."/><meta name="docsearch:language" content="en"/><meta property="og:title" content="Using URL Parameters · React-SearchKit"/><meta property="og:type" content="website"/><meta property="og:url" content="https://inveniosoftware.github.io/react-searchkit/index.html"/><meta property="og:description" content="React-SearchKit can update URL query string parameters with the user selections so URLs can be shared to perform the same search."/><meta property="og:image" content="https://inveniosoftware.github.io/react-searchkit/img/docusaurus.png"/><meta name="twitter:card" content="summary"/><meta name="twitter:image" content="https://inveniosoftware.github.io/react-searchkit/img/docusaurus.png"/><link rel="shortcut icon" href="/react-searchkit/img/favicon.png"/><link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/default.min.css"/><link rel="stylesheet" href="/react-searchkit/css/code-blocks-buttons.css"/><script type="text/javascript" src="https://buttons.github.io/buttons.js"></script><script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.0/clipboard.min.js"></script><script type="text/javascript" src="/react-searchkit/js/code-blocks-buttons.js"></script><link rel="stylesheet" href="/react-searchkit/css/prism.css"/><link rel="stylesheet" href="/react-searchkit/css/main.css"/></head><body class="sideNavVisible separateOnPageNav"><div class="fixedHeaderContainer"><div class="headerWrapper wrapper"><header><a href="/react-searchkit/"><h2 class="headerTitle">React-SearchKit</h2></a><div class="navigationWrapper navigationSlider"><nav class="slidingNav"><ul class="nav-site nav-site-internal"><li class="siteNavGroupActive"><a href="/react-searchkit/docs/getting-started" target="_self">Docs</a></li><li class="siteNavGroupActive"><a href="/react-searchkit/docs/components/react-searchkit" target="_self">Components</a></li><li class="siteNavGroupActive"><a href="/react-searchkit/docs/create-your-component" target="_self">Extending</a></li><li class=""><a href="/react-searchkit/help" target="_self">Help</a></li></ul></nav></div></header></div></div><div class="navPusher"><div class="docMainWrapper wrapper"><div class="container docsNavContainer" id="docsNav"><nav class="toc"><div class="toggleNav"><section class="navWrapper wrapper"><div class="navBreadcrumb wrapper"><div class="navToggle" id="navToggler"><i></i></div><h2><i>›</i><span>Guide</span></h2><div class="tocToggler" id="tocToggler"><i class="icon-toc"></i></div></div><div class="navGroups"><div class="navGroup"><h3 class="navGroupCategoryTitle">Guide</h3><ul><li class="navListItem"><a class="navItem" href="/react-searchkit/docs/getting-started">Getting Started</a></li><li class="navListItem"><a class="navItem" href="/react-searchkit/docs/main-concepts">Main Concepts</a></li><li class="navListItem"><a class="navItem" href="/react-searchkit/docs/connect-your-rest-apis">Connect Your REST APIs</a></li><li class="navListItem navListItemActive"><a class="navItem" href="/react-searchkit/docs/using-url-parameters">Using URL Parameters</a></li><li class="navListItem"><a class="navItem" href="/react-searchkit/docs/ui-customisation">Customise The Look And Feel</a></li></ul></div><div class="navGroup"><h3 class="navGroupCategoryTitle">Components</h3><ul><li class="navListItem"><a class="navItem" href="/react-searchkit/docs/components/react-searchkit">ReactSearchKit</a></li><li class="navListItem"><a class="navItem" href="/react-searchkit/docs/components/search-bar">SearchBar</a></li><li class="navListItem"><a class="navItem" href="/react-searchkit/docs/components/results-loader">ResultsLoader</a></li><li class="navListItem"><a class="navItem" href="/react-searchkit/docs/components/layout-switcher">LayoutSwitcher</a></li><li class="navListItem"><a class="navItem" href="/react-searchkit/docs/components/results-multi-layout">ResultsMultiLayout</a></li><li class="navListItem"><a class="navItem" href="/react-searchkit/docs/components/results-grid">ResultsGrid</a></li><li class="navListItem"><a class="navItem" href="/react-searchkit/docs/components/results-list">ResultsList</a></li><li class="navListItem"><a class="navItem" href="/react-searchkit/docs/components/pagination">Pagination</a></li><li class="navListItem"><a class="navItem" href="/react-searchkit/docs/components/sort-by">SortBy</a></li><li class="navListItem"><a class="navItem" href="/react-searchkit/docs/components/sort-order">SortOrder</a></li><li class="navListItem"><a class="navItem" href="/react-searchkit/docs/components/count">Count</a></li><li class="navListItem"><a class="navItem" href="/react-searchkit/docs/components/results-per-page">ResultsPerPage</a></li><li class="navListItem"><a class="navItem" href="/react-searchkit/docs/components/active-aggregations">ActiveAggregations</a></li><li class="navListItem"><a class="navItem" href="/react-searchkit/docs/components/aggregator">Aggregator</a></li><li class="navListItem"><a class="navItem" href="/react-searchkit/docs/components/error">Error</a></li><li class="navListItem"><a class="navItem" href="/react-searchkit/docs/components/empty-results">EmptyResults</a></li></ul></div><div class="navGroup"><h3 class="navGroupCategoryTitle">Extending</h3><ul><li class="navListItem"><a class="navItem" href="/react-searchkit/docs/create-your-component">Create Your Component</a></li><li class="navListItem"><a class="navItem" href="/react-searchkit/docs/extend-state">Extend State</a></li></ul></div></div></section></div><script>
+            document.addEventListener('DOMContentLoaded', function() {
+              createToggler('#navToggler', '#docsNav', 'docsSliderActive');
+              createToggler('#tocToggler', 'body', 'tocActive');
+
+              const headings = document.querySelector('.toc-headings');
+              headings && headings.addEventListener('click', function(event) {
+                if (event.target.tagName === 'A') {
+                  document.body.classList.remove('tocActive');
+                }
+              }, false);
+
+              function createToggler(togglerSelector, targetSelector, className) {
+                var toggler = document.querySelector(togglerSelector);
+                var target = document.querySelector(targetSelector);
+
+                if (!toggler) {
+                  return;
+                }
+
+                toggler.onclick = function(event) {
+                  event.preventDefault();
+
+                  target.classList.toggle(className);
+                };
+              }
+            });
+        </script></nav></div><div class="container mainContainer docMainContainer"><div class="wrapper"><div class="post"><header class="postHeader"><h1 class="postHeaderTitle">Using URL Parameters</h1></header><article><div><span><p>React-SearchKit can update URL query string parameters with the user selections so URLs can be shared to perform the same search.</p>
+<p>The URL parameters handling behaves in a similar way as the REST API: when the <code>query</code> state is updated by any component, it is serialized and the URL query string is updated.
+When the URL query string changes, React-SearchKit serializes it to the <code>query</code> state triggering automatically an update of all mounted components.</p>
+<p>See how the URL parameters change on user input:</p>
+<p><img src="/react-searchkit/docs/assets/url_params.gif" alt="Screenshot showing the URL parameters"></p>
+<h2><a class="anchor" aria-hidden="true" id="how-it-works"></a><a href="#how-it-works" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>How it works</h2>
+<p>When loading React-SearchKit, the URL is parsed and each parameters value is persistent into the <code>query</code> state, defining the initial values.
+When the user changes any search criteria using the available components, the <code>query</code> state is updated. The URL is then updated accordingly.</p>
+<h2><a class="anchor" aria-hidden="true" id="configure-urlparamsapi"></a><a href="#configure-urlparamsapi" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Configure UrlParamsAPI</h2>
+<p>React-SearchKit uses as default implementation <code>UrlParamsAPI</code> to serialize the <code>query</code> state to the URL query string.
+You can configure the way parameters are serialized by injecting custom configuration:</p>
+<ul>
+<li><code>urlParamsMapping</code>: an object to map each <code>query</code> state field to an URL parameter</li>
+<li><code>paramValidator</code>: an object to validate each parameter and value before updating the <code>query</code> state</li>
+<li><code>urlParser</code>: an object to parse the URL query string and perform sanitation.</li>
+</ul>
+<h3><a class="anchor" aria-hidden="true" id="provide-a-new-mapping"></a><a href="#provide-a-new-mapping" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Provide a new mapping</h3>
+<p>By default, the mapping is the following:</p>
+<pre><code class="hljs css language-js">{
+  <span class="hljs-attr">queryString</span>: <span class="hljs-string">'q'</span>,
+  <span class="hljs-attr">sortBy</span>: <span class="hljs-string">'sort'</span>,
+  <span class="hljs-attr">sortOrder</span>: <span class="hljs-string">'order'</span>,
+  <span class="hljs-attr">page</span>: <span class="hljs-string">'p'</span>,
+  <span class="hljs-attr">size</span>: <span class="hljs-string">'s'</span>,
+  <span class="hljs-attr">layout</span>: <span class="hljs-string">'l'</span>,
+  <span class="hljs-attr">aggregations</span>: <span class="hljs-string">'aggr'</span>
+}
+</code></pre>
+<p>If you want to change the name of the parameter displayed in the URL, just provide a new mapping to convert the <code>query</code> state, for example:</p>
+<pre><code class="hljs css language-js"><span class="hljs-keyword">const</span> myUrlParamsMapping = {
+  <span class="hljs-attr">queryString</span>: <span class="hljs-string">'qs'</span>,
+  <span class="hljs-attr">sortBy</span>: <span class="hljs-string">'s'</span>,
+  <span class="hljs-attr">sortOrder</span>: <span class="hljs-string">'o'</span>,
+  <span class="hljs-attr">page</span>: <span class="hljs-string">'page'</span>,
+  <span class="hljs-attr">size</span>: <span class="hljs-string">'size'</span>,
+  <span class="hljs-attr">layout</span>: <span class="hljs-string">'display'</span>,
+  <span class="hljs-attr">aggregations</span>: <span class="hljs-string">'a'</span>
+}
+</code></pre>
+<h3><a class="anchor" aria-hidden="true" id="provide-a-validator"></a><a href="#provide-a-validator" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Provide a validator</h3>
+<p>The parameters validator is called when loading React-SearchKit and parsing the URL to persist parameters values into the <code>query</code> state.
+Implement an object with a <code>isValid</code> method that returns true if the given param and value is valid, for example:</p>
+<pre><code class="hljs css language-js"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">MyParamValidator</span> </span>{
+  isValid = <span class="hljs-function">(<span class="hljs-params">paramName, paramValue</span>) =&gt;</span> {
+    <span class="hljs-keyword">const</span> valid = ... <span class="hljs-comment">// your logic</span>
+    <span class="hljs-keyword">return</span> valid;
+  };
+}
+</code></pre>
+<h3><a class="anchor" aria-hidden="true" id="provide-a-url-parser"></a><a href="#provide-a-url-parser" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Provide a URL parser</h3>
+<p>By default, the URL query string is parsed using the library <a href="https://github.com/ljharb/qs">qs</a>. If you want to provide your own parser, then implement an object with a <code>parse</code> method. Given as input the URL query string, it returns an object where each item is the parameter name as key and the parameter value as value.</p>
+<blockquote>
+<p>Note: it is not needed to return all the key/values. If some parameters are not set in the URL, they will be initialised to their default state value.</p>
+</blockquote>
+<p>For example:</p>
+<pre><code class="hljs css language-js"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">MyUrlParser</span> </span>{
+
+  parse = <span class="hljs-function">(<span class="hljs-params">queryString = <span class="hljs-string">''</span></span>) =&gt;</span> {
+    ... <span class="hljs-comment">// parse the query string</span>
+    <span class="hljs-keyword">return</span> {
+      <span class="hljs-attr">qs</span>: <span class="hljs-string">'CERN'</span>,
+      <span class="hljs-attr">page</span>: <span class="hljs-number">3</span>
+    }
+  }
+}
+</code></pre>
+<h3><a class="anchor" aria-hidden="true" id="inject-the-new-configuration"></a><a href="#inject-the-new-configuration" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Inject the new configuration</h3>
+<p>You can inject overridden configuration in an object named <code>urlParamsConfig</code>.</p>
+<pre><code class="hljs css language-jsx"><span class="token keyword">const</span> myParamValidator <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">MyParamValidator</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token keyword">const</span> myUrlParser <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">MyUrlParser</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>ReactSearchKit</span>
+  <span class="token attr-name">urlParamsConfig</span><span class="token script language-javascript"><span class="token script-punctuation punctuation">=</span><span class="token punctuation">{</span><span class="token punctuation">{</span>
+    urlParamsMapping<span class="token punctuation">:</span> myUrlParamsMapping<span class="token punctuation">,</span>
+    paramValidator<span class="token punctuation">:</span> myParamValidator<span class="token punctuation">,</span>
+    urlParser<span class="token punctuation">:</span> myUrlParser<span class="token punctuation">,</span>
+  <span class="token punctuation">}</span><span class="token punctuation">}</span></span>
+<span class="token punctuation">></span></span>
+  <span class="token operator">...</span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>ReactSearchKit</span><span class="token punctuation">></span></span>
+</code></pre>
+<hr>
+<h2><a class="anchor" aria-hidden="true" id="implement-a-new-url-handler"></a><a href="#implement-a-new-url-handler" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Implement a new URL handler</h2>
+<p>If you need to have full control on the way the URL is handled, you can provide your own implementation.
+The object needs to implement a <code>get</code> method and a <code>set</code> method:</p>
+<ul>
+<li><code>get</code>: return an object with the same fields as the given <code>query</code> state updating it with the parsed URL parameters values.</li>
+<li><code>set</code>: update the URL query string parameters from the given <code>query</code> state.</li>
+</ul>
+<p>For example, a new URL handler could be:</p>
+<pre><code class="hljs css language-js"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">MyUrlParamsHandler</span> </span>{
+
+  get = <span class="hljs-function">(<span class="hljs-params">queryState, pushUpdate</span>) =&gt;</span> {
+      <span class="hljs-keyword">const</span> parsedQS = ...
+      const newQueryState = {
+          ...queryState,
+          parseQS[<span class="hljs-string">'q'</span>]
+      };
+      <span class="hljs-keyword">return</span> newQueryState;
+  }
+
+  set = <span class="hljs-function"><span class="hljs-params">stateQuery</span> =&gt;</span> {
+      <span class="hljs-keyword">const</span> urlParams = mapStateToParams(stateQuery);
+      updateQS(urlParams);
+  }
+}
+</code></pre>
+<p>You can provide the new implementation in the main component.</p>
+<pre><code class="hljs css language-jsx"><span class="token keyword">const</span> myUrlParamsHandler <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">MyUrlParamsHandler</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>ReactSearchKit</span>
+  <span class="token attr-name">urlParamsApi</span><span class="token script language-javascript"><span class="token script-punctuation punctuation">=</span><span class="token punctuation">{</span>myUrlParamsHandler<span class="token punctuation">}</span></span>
+<span class="token punctuation">></span></span>
+  <span class="token operator">...</span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>ReactSearchKit</span><span class="token punctuation">></span></span>
+</code></pre>
+<hr>
+<h2><a class="anchor" aria-hidden="true" id="tl-dr"></a><a href="#tl-dr" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>TL;DR</h2>
+<ul>
+<li>You can override specific config providing a <code>urlParamsConfig</code> object injected as prop in the main component</li>
+<li>You can implement your own URL handler by implementing the same interface as <code>UrlParamsApi</code> and inject it as prop <code>urlParamsApi</code> in the main component</li>
+</ul>
+</span></div></article></div><div class="docs-prevnext"><a class="docs-prev button" href="/react-searchkit/docs/connect-your-rest-apis"><span class="arrow-prev">← </span><span>Previous</span></a><a class="docs-next button" href="/react-searchkit/docs/ui-customisation"><span>Next</span><span class="arrow-next"> →</span></a></div></div></div><nav class="onPageNav docOnPageNav"><ul class="toc-headings"><li><a href="#how-it-works">How it works</a></li><li><a href="#configure-urlparamsapi">Configure UrlParamsAPI</a><ul class="toc-headings"><li><a href="#provide-a-new-mapping">Provide a new mapping</a></li><li><a href="#provide-a-validator">Provide a validator</a></li><li><a href="#provide-a-url-parser">Provide a URL parser</a></li><li><a href="#inject-the-new-configuration">Inject the new configuration</a></li></ul></li><li><a href="#implement-a-new-url-handler">Implement a new URL handler</a></li><li><a href="#tl-dr">TL;DR</a></li></ul></nav></div><footer class="nav-footer" id="footer"><section class="sitemap"><div><h5>Made with</h5><a href="https://docusaurus.io/">Docusaurus</a><a href="https://code.facebook.com/projects/" target="_blank" rel="noreferrer noopener"><img src="/react-searchkit/img/oss_logo.png" alt="React-SearchKit" width="170" height="45"/></a></div><div><h5>More</h5><a href="https://github.com/inveniosoftware/react-searchkit">GitHub</a><a href="https://inveniosoftware.org/">Invenio Software</a><a href="https://gitter.im/inveniosoftware/invenio"><img src="/react-searchkit/img/gitter.svg" alt="Gitter chat"/></a><a href="https://twitter.com/inveniosoftware">Twitter</a></div><div><h5>Born with ❤️ at</h5><a href="https://home.cern/" target="_blank"><img src="/react-searchkit/img/logo-cern.png" alt="CERN" width="130"/></a></div></section><section class="copyright"></section></footer></div></body></html>
