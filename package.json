@@ -1,6 +1,6 @@
 {
   "name": "@inveniosoftware/react-searchkit",
-  "version": "1.0.0",
+  "version": "0.1.0",
   "description": "react-searchkit React components to build a search UI",
   "main": "lib/index.js",
   "module": "es/index.js",
@@ -49,7 +49,7 @@
     "name": "CERN",
     "email": "info@inveniosoftware.org"
   },
-  "homepage": "https://inveniosoftware.org",
+  "homepage": "https://inveniosoftware.github.io/react-searchkit/",
   "license": "MIT",
   "repository": {
     "type": "git",
