@@ -1,11 +1,3 @@
-<!--
-  This file is part of React-SearchKit.
-  Copyright (C) 2018 CERN.
-
-  React-SearchKit is free software; you can redistribute it and/or modify it
-  under the terms of the MIT License; see LICENSE file for more details.
--->
-
 ---
 id: getting-started
 title: Getting Started
@@ -13,14 +5,14 @@ title: Getting Started
 
 ## Create a new app
 
-Assuming that you have installed [create-react-app](https://github.com/facebook/create-react-app), you can run:
+Let's create a simple search app using [create-react-app](https://github.com/facebook/create-react-app):
 
 ```console
-create-react-app search-app
+npx create-react-app search-app
 cd search-app
 ```
 
-Then, install the library.
+Then, install the React-SearchKit.
 
 ```console
 npm install @inveniosoftware/react-searchkit

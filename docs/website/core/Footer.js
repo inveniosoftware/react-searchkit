@@ -46,7 +46,7 @@ class Footer extends React.Component {
             <a href="https://twitter.com/inveniosoftware">Twitter</a>
           </div>
           <div>
-            <h5>Born at</h5>
+            <h5>Born with ❤️ at</h5>
             <a href="https://home.cern/" target="_blank">
               <img
                 src={`${siteConfig.baseUrl}img/logo-cern.png`}
