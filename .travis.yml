@@ -33,7 +33,7 @@ env:
 
 deploy:
   - provider: script
-    script: bash docs/deploy_docs.sh
+    script: bash deploy_docs.sh
     keep-history: true
     on:
       branch: master
@@ -41,7 +41,7 @@ deploy:
   - provider: npm
     email: info@inveniosoftware.org
     api_key:
-      secure: ggf80AVCr6Xx2fN3mK7xxtd7oMWJDeWZJRaYXXut3LJpHZy9392CNJQjIiahombphaX7zH29QCozoW/fPXkybkBN9rk+w01Ewrk4+1xPVXMW/f72GR7adzvoA8Wq2O2E8+qqMAYmiD2UrxBhI1yLxPGLJ71tPJz1mDhyEbAmMQHUKN3N1SE/9qL394S2JiJvXYMWaP6FM6++MKXTGVxOspcY60+jI39Tmro66M1B+r+lH+boy7QRDoJy6M85yY3h9GWj/79mhTLIfJoPr8fZOu20S2YTNFsXloM1cW7iwPVdhc3Fo5ptjFFzmeUtKM4llzD1vNyFvciHBBLkCpNV8bdtgG+q3e2PJ2WSrASeAoK5XmlXyssDdy14hnJnRfqRRZOEZvo2nEjqeWGIoYLJUdcBZuhMZhcRW3VIi6pXVckOd3GnYWEBwMTMmjZ1HO0sjdiTTDVNcD/2JGrmqmbsTS4N6sq7yOvv+nhANq/1D2P7OF4rWiYPhrWYQYLsh1KAnSqQXK+1FmsgPOl9kr5Qy3sMog4hOhgkG6QbzjbL29397YGuRaJBTEFKqHmLcnCWDBP+xo91BROnmgyod1CbOG6pyxcm96YICFnHtL7I6ySuaAzmonKr3rq6k7paPwtVhxAXAHDVVOoDGVOv/pXBcEA2xTBrrdX3qGqdL1u0Kys=
+      secure: t+bbrru2t8d4EmcmFstR4kGIQaa7yan7oBzDT2H7TRZiWl+DxUK0HaoS+wwMZdGWjIfceo763rnNgluLpLa3cCgfTIhaC3j5QyjNosviTNYz41N9y5OovwJpGHPmnQptFzv/yG2hcmIjsH13M2e5gS/70Ueqej4r3XVycBYsphLHaHX4axEELV5XtyUbuCiMZW7cPowvKQvAOfmVZUi7p6Tu27sBeknuEiq6tED259eS4f5NtKGoDrq6ib0fGCKC4RAMuBqWZe1CDt/SsOADdUz3g0lRBUgUJnrRjHUm6yklS2GTlL3iqyQ9sUlZGOSRPBdtE5hDliS5TU1EgdFCoe1RdObfNPIDFEEoUvvkPW0R49FZcmOJ8q+cDLK7u23mSJV4kw0hKSz2sKL5rkDy3jyAfV7hldxjnvxX7cTge10c2Q5K6jh/aUVBv1yTa2R0DgQQRDmCGFPPpV5WzqugGFIdajQS4DDnmU8sSRRfXnUtb+cIb0d7ujKMjR20oNfaB4mLzMUuzr3lY9kngQF8kns7EPCTgAYbXWclQrALSA/QbdnE9LAW9XLg73TrlC00mzqI7Iecnj/m5UrpcGVCyT/UEg89n1F4Hlufq311DjgOZ7jBTRjJop9YTTX8PjcSxQxhpdqdkT5pcHqbeQxV5Ts5TrBWz5X4fbDPee8+Kz4=
     on:
       tags: true
       repo: inveniosoftware/react-searchkit
