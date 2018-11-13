@@ -3,7 +3,7 @@ id: results-loader
 title: ResultsLoader
 ---
 
-`ResultsLoader` renders the loading indicator displayed while performing a REST API request and refreshing the results.
+`ResultsLoader` renders a loading indicator while performing a REST API request and refreshing the results.
 
 ## Usage
 
@@ -11,12 +11,23 @@ title: ResultsLoader
 <Loading />
 ```
 
+## Props
+
+* **renderElement** `function` *optional*
+
+  An optional function to override the default rendered component.
+
 ## Usage when overriding template
 
-Your render element function should return a jsx template.
+```jsx
+<ResultsGrid renderElement={renderLoader} />
+```
 
-### Props
+The function `renderElement` is called every time the loading state changes to `true`. When the state is `false`, then
+the component is not displayed.
 
-| Name              | Required  | Default       | Type      | Description             |
-| ------------------|-----------|---------------| ----------|-------------------------|
-| ``renderElement`` | no        | null          | {func}    |Function to override the the component's template  |
+```jsx
+renderLoader = () => {
+  return <div>Loading...</div>;
+}
+```

@@ -20,41 +20,40 @@ class SearchBar extends Component {
     this.renderElement = props.renderElement || this._renderElement;
   }
 
-  _renderElement(placeholder, value, onInputChange, onUpdateQuery) {
+  _renderElement(placeholder, queryString, onInputChange, executeSearch) {
     placeholder = placeholder || 'Type something';
-    const onChange = (event, input) => {
-      onInputChange(input);
-    };
-    const onClick = (event, input) => {
-      onUpdateQuery();
+    const onBtnSearchClick = (event, input) => {
+      executeSearch();
     };
     const onKeyPress = (event, input) => {
       if (event.key === 'Enter') {
-        onUpdateQuery();
+        executeSearch();
       }
     };
     return (
       <Input
         action={{
           content: 'Search',
-          onClick: onClick,
+          onClick: onBtnSearchClick,
         }}
         fluid
         placeholder={placeholder}
-        onChange={onChange}
-        value={value}
+        onChange={(event, { value }) => {
+          onInputChange(value);
+        }}
+        value={queryString}
         onKeyPress={onKeyPress}
       />
     );
   }
 
-  onInputChange = input => {
+  onInputChange = queryString => {
     this.setState({
-      currentValue: input.value,
+      currentValue: queryString,
     });
   };
 
-  onUpdateQuery = () => {
+  executeSearch = () => {
     this.updateQueryString(this.state.currentValue);
   };
 
@@ -64,7 +63,7 @@ class SearchBar extends Component {
       placeholder,
       this.state.currentValue,
       this.onInputChange,
-      this.onUpdateQuery
+      this.executeSearch
     );
   }
 }

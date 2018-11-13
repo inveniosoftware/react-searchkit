@@ -3,27 +3,47 @@ id: react-searchkit
 title: ReactSearchKit
 ---
 
-`ReactSearchKit` is the base component container of the entire search application.
+`ReactSearchKit` is the base component that wraps your search application.
 
-It wraps any other component, provide state and configuration to the application.
+It provides state and configuration to the application.
 
 ## Usage
 
-### Props
-
-| Name                   | Required | Default       | Type      | Description             |
-| -----------------------|----------|---------------| ----------|-------------------------|
-| ``searchConfig``       | no       |      -        | {object}  | Configuration object for SearchApi class |
-| ``searchApi``          | no       |       -       | {class}   | Class to override completely the default SearchApi class. |
-| ``urlParamsConfig``    | no       |       -       | {object}  | Configuration object for UrlParamsApi class |
-| ``urlParamsApi``       | no       |    -          | {class}   | Class to override completely the default UrlParamsApi class. |
-| ``searchOnLoad``       | no       | true          | {bool}    | Option to trigger search when application is mounted |
-| ``defaultSortByOnEmptyQuery``| no | null          | {string}  | One of the values of the `SortBy` component that is set when a search is triggered with empty querystring|
-
-
-Usage description
 ```jsx
-<ReactSearchKit>
-// my search UI components
+<ReactSearchKit
+  searchConfig={apiConfig}
+  urlParamsConfig={urlConfig}
+>
+  ... React-SearchKit components ...
 </ReactSearchKit>
 ```
+
+See the [complete guide](main_concepts.md) for detailed information.
+
+## Props
+
+* **searchConfig** `object` *optional*
+
+  An object containing configuration for the default REST API endpoint connector.
+
+* **searchApi** `object` *optional*
+
+  An instance of a class to override the default implementation of the REST API endpoint connector.
+
+* **urlParamsConfig** `object` *optional*
+
+  An object containing configuration for the default URL parameters handler.
+
+* **urlParamsApi** `object` *optional*
+
+  An instance of a class to override the default implementation of the URL parameters handler.
+
+* **searchOnLoad** `boolean` *optional*
+
+  A boolean to perform a search when the application is mounted. Default `true`.
+
+* **defaultSortByOnEmptyQuery** `String` *optional*
+
+  Value of the `SortBy` component, if defined, when performing a search with an empty query. By default disabled with value `null`.
+
+  When searching with an empty query, users normally expect most recent results, while searching with a defined query string, best match.

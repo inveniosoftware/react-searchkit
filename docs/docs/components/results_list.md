@@ -3,7 +3,7 @@ id: results-list
 title: ResultsList
 ---
 
-`ResultsList` renders the list of results as a list.
+`ResultsList` renders the list of results as a simple list.
 
 ## Usage
 
@@ -11,15 +11,28 @@ title: ResultsList
 <ResultsList />
 ```
 
+## Props
+
+* **renderElement** `function` *optional*
+
+  An optional function to override the default rendered component.
+
 ## Usage when overriding template
 
-Props below are available in your renderElement function when you override the template.
+```jsx
+<ResultsList renderElement={renderResultsList} />
+```
 
-### Props
+The function `renderElement` is called every time the results have changed.
 
-| Name              | Default       | Type      | Description             |
-| ------------------|---------------| ----------|-------------|
-| ``renderElement`` |               | {func}    | Function to override the the component's template |
-| ``items``         | []            | {array}   | Array of items to be presented |
-| ``item``          |  -            | {object}   | One item of the `items` array |
-| ``index``         |  -            | {number}   | Index of the item in the `items` array |
+```jsx
+renderResultsList = results => {
+  return results.map(result => <div>{result}</div>);
+}
+```
+
+### Parameters
+
+* **results** `array`
+
+  The list of results to display to the user.
