@@ -10,7 +10,7 @@
 
 [![Build Status](https://img.shields.io/travis/inveniosoftware/react-searchkit.svg)](https://travis-ci.org/inveniosoftware/react-searchkit)
 [![Coveralls coverage](https://img.shields.io/coveralls/inveniosoftware/react-searchkit.svg)](https://coveralls.io/r/inveniosoftware/react-searchkit)
-[![Release](https://img.shields.io/npm/v/@inveniosoftware/react-searchkit.svg)](https://www.npmjs.com/package/@inveniosoftware/react-searchkit)
+[![Release](https://img.shields.io/npm/v/react-searchkit.svg)](https://www.npmjs.com/package/react-searchkit)
 [![License](https://img.shields.io/github/license/inveniosoftware/react-searchkit.svg)](https://github.com/inveniosoftware/react-searchkit/blob/master/LICENSE)
 
 
@@ -45,4 +45,28 @@ The library uses [Jest](https://jestjs.io/) as test runner. To run the tests:
 
 ```
 npm test
+```
+
+### Integration with hot reloading
+
+If you need to integrate React-SearchKit in your application but in the meantime be able to edit the library, you can do the following.
+
+Create a global link of React-SearchKit:
+
+```
+cd react-searchkit
+npm link
+```
+
+Use the global link in your application:
+
+```
+cd myapplication
+npm link react-searchkit
+```
+
+Start the react-searchkit build with hot reloading:
+
+```
+npm run build:watch
 ```
