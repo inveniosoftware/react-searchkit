@@ -5,24 +5,53 @@ title: SearchBar
 
 `SearchBar` renders an input box for queries and a Search button.
 
-The search can be triggered clicking on the button or pressing the `enter` keystroke.
+As default behaviour, the search can be triggered clicking on the button or pressing the `enter` keystroke.
 
 ## Usage
 
 ```jsx
-<SearchBar />
+<SearchBar placeholder="Enter any keyword" />
 ```
+
+## Props
+
+* **placeholder** `String` *optional*
+
+  The placeholder value of the search box. Default value: `Type something`.
+
+* **renderElement** `function` *optional*
+
+  An optional function to override the default rendered component.
 
 ## Usage when overriding template
 
-Props below are available in your renderElement function when you override the template.
+```jsx
+<SearchBar renderElement={renderSearchBar} />
+```
 
-### Props
+The function `renderElement` is called every time the query string changes.
 
-| Name              | Default       | Type      | Description             |
-| ------------------|---------------| ----------|-------------------------|
-| ``renderElement`` | null          | {func}    | Function to override the the component's template |
-| ``placeholder``   |'Type something'| {string} | Placeholder value       |
-| ``value``         |  -            | {string}  | component's input value |
-| ``onInputChange`` |  -            | {func}    | Function to call when input value is changed |
-| ``onUpdateQuery`` |  -            | {func}    | Function to call when you want to update application's state querystring |
+```jsx
+renderSearchBar = (placeholder, currentQueryString, onInputChange, executeSearch) => {
+  return <input type="text">;
+}
+```
+
+### Parameters
+
+* **placeholder** `String`
+
+  The prop `placeholder` defined when using the component.
+
+* **currentQueryString** `String`
+
+  The current value of the query string.
+
+* **onInputChange** `function`
+
+  A function to be called every time the user changes the query string. `onInputChange(queryString)`
+
+* **executeSearch** `function`
+
+  A function to be called to perform a search. It does not accept any parameter, as it will use the current query
+  string to perform the search.

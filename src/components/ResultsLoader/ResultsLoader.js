@@ -14,13 +14,13 @@ import { ShouldRender } from '@app/components/ShouldRender';
 export default class ResultsLoader extends Component {
   constructor(props) {
     super(props);
-    this.renderElement = props.renderElement || this.loader;
+    this.renderElement = props.renderElement || this._renderElement;
   }
 
-  loader = () => <Loader active inline="centered" />;
+  _renderElement = () => <Loader active inline="centered" />;
 
   render() {
-    let { loading } = this.props;
+    const { loading } = this.props;
     return (
       <ShouldRender condition={loading}>{this.renderElement()}</ShouldRender>
     );

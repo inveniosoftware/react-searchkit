@@ -14,15 +14,14 @@ import { Card, Image } from 'semantic-ui-react';
 export default class ResultsGrid extends Component {
   constructor(props) {
     super(props);
-    this.itemsPerRow = props.itemsPerRow;
-    this.renderElement = props.renderElement || this._renderItem;
+    this.renderElement = props.renderElement || this._renderElement;
   }
 
-  _renderItem(item) {
-    let metadata = item.metadata;
+  _renderResult(result, index) {
+    let metadata = result.metadata;
     return (
-      <Card fluid key={item.id} href={`#${metadata.recid}`}>
-        <Image src={item.imageSrc || 'https://via.placeholder.com/200'} />
+      <Card fluid key={index} href={`#${metadata.recid}`}>
+        <Image src={result.imageSrc || 'https://via.placeholder.com/200'} />
         <Card.Content>
           <Card.Header>{metadata.title.title || metadata.title}</Card.Header>
           <Card.Meta>{metadata.publication_date}</Card.Meta>
@@ -34,29 +33,28 @@ export default class ResultsGrid extends Component {
     );
   }
 
-  renderItems(items) {
-    return items.map(item => {
-      return this.renderElement(item);
-    });
+  _renderElement(results, resultsPerRow) {
+    const _results = results.map((result, index) =>
+      this._renderResult(result, index)
+    );
+
+    return <Card.Group itemsPerRow={resultsPerRow}>{_results}</Card.Group>;
   }
 
   render() {
-    const items = this.props.items;
-    return (
-      <Card.Group itemsPerRow={this.itemsPerRow}>
-        {this.renderItems(items)}
-      </Card.Group>
-    );
+    const results = this.props.results;
+    const resultsPerRow = this.props.resultsPerRow;
+    return this.renderElement(results, resultsPerRow);
   }
 }
 
 ResultsGrid.propTypes = {
-  itemsPerRow: PropTypes.number,
-  items: PropTypes.array.isRequired,
+  resultsPerRow: PropTypes.number,
+  results: PropTypes.array.isRequired,
   renderElement: PropTypes.func,
 };
 
 ResultsGrid.defaultProps = {
-  itemsPerRow: 3,
+  resultsPerRow: 3,
   renderElement: null,
 };

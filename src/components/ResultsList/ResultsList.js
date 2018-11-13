@@ -14,21 +14,21 @@ import { Item, Label } from 'semantic-ui-react';
 export default class ResultsList extends Component {
   constructor(props) {
     super(props);
-    this.renderElement = props.renderElement || this._renderItem;
+    this.renderElement = props.renderElement || this._renderElement;
   }
 
-  _renderItem(item, index) {
-    const metadata = item.metadata;
+  _renderResult(result, index) {
+    const metadata = result.metadata;
     const keywords = metadata.keywords || [];
     const labels = keywords.map((keyword, index) => (
       <Label key={index} content={keyword} />
     ));
 
     return (
-      <Item key={item.id} href={`#${metadata.recid}`}>
+      <Item key={index} href={`#${metadata.recid}`}>
         <Item.Image
           size="small"
-          src={item.imageSrc || 'https://via.placeholder.com/200'}
+          src={result.imageSrc || 'https://via.placeholder.com/200'}
         />
 
         <Item.Content>
@@ -42,25 +42,29 @@ export default class ResultsList extends Component {
     );
   }
 
-  renderItems(items) {
-    return items.map((item, index) => {
-      return this.renderElement(item, index);
-    });
+  _renderElement(results) {
+    const _results = results.map((result, index) =>
+      this._renderResult(result, index)
+    );
+
+    return (
+      <Item.Group divided relaxed link>
+        {_results}
+      </Item.Group>
+    );
   }
 
   render() {
-    const items = this.props.items;
-    return (
-      <Item.Group divided relaxed link>
-        {this.renderItems(items)}
-      </Item.Group>
-    );
+    const results = this.props.results;
+    return this.renderElement(results);
   }
 }
 
 ResultsList.propTypes = {
-  items: PropTypes.array.isRequired,
+  results: PropTypes.array.isRequired,
   renderElement: PropTypes.func,
 };
 
-ResultsList.defaultProps = {};
+ResultsList.defaultProps = {
+  renderElement: null,
+};
