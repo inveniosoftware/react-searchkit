@@ -55,9 +55,11 @@ export default class SortBy extends Component {
   };
 
   render() {
-    const { currentSortBy, totalResults, loading, values } = this.props;
+    const { currentSortBy, loading, totalResults, values } = this.props;
     return (
-      <ShouldRender condition={!loading && currentSortBy && totalResults > 1}>
+      <ShouldRender
+        condition={currentSortBy !== null && !loading && totalResults > 1}
+      >
         {this.renderElement(currentSortBy, values, this.onChange)}
       </ShouldRender>
     );

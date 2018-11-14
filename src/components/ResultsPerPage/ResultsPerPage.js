@@ -22,23 +22,22 @@ export default class ResultsPerPage extends Component {
     this.renderElement = props.renderElement || this._renderElement;
   }
 
-  componentWillMount() {
-    this.setInitialState({
-      size: this.defaultValue,
-    });
+  componentDidMount() {
+    if (this.props.currentSize === -1) {
+      this.setInitialState({
+        size: this.defaultValue,
+      });
+    }
   }
 
-  _renderElement(currentSize, values, onValueChange) {
-    const onChange = (event, { value }) => {
-      onValueChange(value);
-    };
+  _renderElement(currentSize, values, onChange) {
     return (
       <Dropdown
         inline
         compact
-        options={this._mapOptions(values)}
+        options={values}
         value={currentSize}
-        onChange={onChange}
+        onChange={(e, { value }) => onChange(value)}
       />
     );
   }
@@ -55,10 +54,16 @@ export default class ResultsPerPage extends Component {
   };
 
   render() {
-    const { currentSize, totalResults, loading, values } = this.props;
+    const { loading, currentSize, totalResults, values } = this.props;
     return (
-      <ShouldRender condition={!loading && (currentSize && totalResults > 0)}>
-        {this.renderElement(currentSize, values, this.onChange)}
+      <ShouldRender
+        condition={!loading && totalResults > 0 && currentSize !== -1}
+      >
+        {this.renderElement(
+          currentSize,
+          this._mapOptions(values),
+          this.onChange
+        )}
       </ShouldRender>
     );
   }
@@ -66,6 +71,7 @@ export default class ResultsPerPage extends Component {
 
 ResultsPerPage.propTypes = {
   currentSize: PropTypes.number.isRequired,
+  loading: PropTypes.bool.isRequired,
   totalResults: PropTypes.number.isRequired,
   values: PropTypes.array.isRequired,
   defaultValue: PropTypes.number.isRequired,

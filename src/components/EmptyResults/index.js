@@ -7,10 +7,18 @@
  */
 
 import { connect } from '@app/store';
+import { resetQuery } from '@app/state/actions';
 import EmptyResultsComponent from './EmptyResults';
 
-export const EmptyResults = connect(state => ({
-  total: state.results.data.total,
-  loading: state.results.loading,
-  error: state.results.error,
-}))(EmptyResultsComponent);
+const mapDispatchToProps = dispatch => ({
+  resetQuery: () => dispatch(resetQuery()),
+});
+export const EmptyResults = connect(
+  state => ({
+    loading: state.results.loading,
+    totalResults: state.results.data.total,
+    error: state.results.error,
+    queryString: state.query.queryString,
+  }),
+  mapDispatchToProps
+)(EmptyResultsComponent);

@@ -10,5 +10,7 @@ import { connect } from '@app/store';
 import ResultsListComponent from './ResultsList';
 
 export const ResultsList = connect(state => ({
+  loading: state.results.loading,
+  totalResults: state.results.data.total,
   results: state.results.data.hits,
 }))(ResultsListComponent);

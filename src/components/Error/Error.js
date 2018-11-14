@@ -14,15 +14,15 @@ import _isEmpty from 'lodash/isEmpty';
 export default class Error extends Component {
   constructor(props) {
     super(props);
-    this.renderElement = props.renderElement || this.error;
+    this.renderElement = props.renderElement || this._renderElement;
   }
 
-  error = error => {
+  _renderElement = error => {
     return <div>Oups! Something went wrong while fetching results.</div>;
   };
 
   render() {
-    const { error, loading } = this.props;
+    const { loading, error } = this.props;
     return (
       <ShouldRender condition={!loading && !_isEmpty(error)}>
         <Fragment>{this.renderElement(error)}</Fragment>
@@ -32,8 +32,8 @@ export default class Error extends Component {
 }
 
 Error.propTypes = {
-  error: PropTypes.object.isRequired,
   loading: PropTypes.bool.isRequired,
+  error: PropTypes.object.isRequired,
   renderElement: PropTypes.func,
 };
 

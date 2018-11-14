@@ -10,5 +10,7 @@ import { connect } from '@app/store';
 import ResultsGridComponent from './ResultsGrid';
 
 export const ResultsGrid = connect(state => ({
+  loading: state.results.loading,
+  totalResults: state.results.data.total,
   results: state.results.data.hits,
 }))(ResultsGridComponent);

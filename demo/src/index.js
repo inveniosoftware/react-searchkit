@@ -90,14 +90,15 @@ class Demo extends Component {
                     <br />
                   </Grid.Column>
                   <Grid.Column width={13}>
-                    <Error />
-                    <EmptyResults />
-                    <ResultsLoader />
-                    <Results
-                      sortByValues={sortByValues}
-                      sortOrderValues={sortOrderValues}
-                      resultsPerPageValues={resultsPerPageValues}
-                    />
+                    <ResultsLoader>
+                      <EmptyResults />
+                      <Error />
+                      <Results
+                        sortByValues={sortByValues}
+                        sortOrderValues={sortOrderValues}
+                        resultsPerPageValues={resultsPerPageValues}
+                      />
+                    </ResultsLoader>
                   </Grid.Column>
                 </Grid.Row>
               </Grid>

@@ -18,9 +18,9 @@ const mapDispatchToProps = dispatch => ({
 
 export const SortOrder = connect(
   state => ({
+    loading: state.results.loading,
     totalResults: state.results.data.total,
     currentSortOrder: state.query.sortOrder,
-    loading: state.results.loading,
   }),
   mapDispatchToProps
 )(SortOrderComponent);

@@ -16,9 +16,9 @@ const mapDispatchToProps = dispatch => ({
 
 export const SortBy = connect(
   state => ({
+    loading: state.results.loading,
     totalResults: state.results.data.total,
     currentSortBy: state.query.sortBy,
-    loading: state.results.loading,
   }),
   mapDispatchToProps
 )(SortByComponent);

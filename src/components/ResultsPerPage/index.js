@@ -17,9 +17,9 @@ const mapDispatchToProps = dispatch => ({
 
 export const ResultsPerPage = connect(
   state => ({
+    loading: state.results.loading,
     currentSize: state.query.size,
     totalResults: state.results.data.total,
-    loading: state.results.loading,
   }),
   mapDispatchToProps
 )(ResultsPerPageComponent);

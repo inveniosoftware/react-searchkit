@@ -10,6 +10,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import _truncate from 'lodash/truncate';
 import { Card, Image } from 'semantic-ui-react';
+import { ShouldRender } from '@app/components/ShouldRender';
 
 export default class ResultsGrid extends Component {
   constructor(props) {
@@ -42,14 +43,20 @@ export default class ResultsGrid extends Component {
   }
 
   render() {
-    const results = this.props.results;
+    const { loading, totalResults, results } = this.props;
     const resultsPerRow = this.props.resultsPerRow;
-    return this.renderElement(results, resultsPerRow);
+    return (
+      <ShouldRender condition={!loading && totalResults > 0}>
+        {this.renderElement(results, resultsPerRow)}
+      </ShouldRender>
+    );
   }
 }
 
 ResultsGrid.propTypes = {
   resultsPerRow: PropTypes.number,
+  loading: PropTypes.bool.isRequired,
+  totalResults: PropTypes.number.isRequired,
   results: PropTypes.array.isRequired,
   renderElement: PropTypes.func,
 };

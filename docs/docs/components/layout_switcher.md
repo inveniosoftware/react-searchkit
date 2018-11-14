@@ -5,28 +5,47 @@ title: LayoutSwitcher
 
 `LayoutSwitcher` renders a pair of buttons that allows the user to change results layout between `list` and `grid`.
 
-It is normally in combinatin with `ResultMultiLayout` to wrap `ResultsList` and `ResultsGrid`.
+It is normally used in combination with `ResultMultiLayout`, which wraps `ResultsList` and `ResultsGrid`.
+
+The component is **not** displayed while executing the search query, if the current layout is not set or if
+there are no results.
 
 ## Usage
 
-### Props
-
-| Name                  | Required  | Default       | Type                      | Description               |
-| ----------------------|-----------|---------------| --------------------------|---------------------------|
-| ``defaultLayout``     | no        | 'list'        | {oneOf(['list', 'grid'])} | The default layout value  |
-
 ```jsx
-<LayoutSwitcher />
+<LayoutSwitcher defaultLayout="list" />
 ```
+
+## Props
+
+* **defaultLayout** `String` *optional*
+
+  The default layout, one of `list` or `grid`. Default value: `list`.
+
+* **renderElement** `function` *optional*
+
+  An optional function to override the default rendered component.
 
 ## Usage when overriding template
 
-Props below are available in your renderElement function when you override the template.
+```jsx
+<LayoutSwitcher renderElement={renderLayoutSwitcher} />
+```
 
-### Props
+The function `renderElement` is called every time the number of results changes.
 
-| Name              | Default   | Type                     | Description             |
-| ------------------|-----------|--------------------------|-------------------------|
-| ``renderElement`` | null      | {func}                   | Function to override the the component's template |
-| ``currentLayout`` | -         | {oneOf(['list', 'grid'])}| Currently selected layout |
-| ``onLayoutChange``| -         | {func}                   | The function to update the selected layout in the application state |
+```jsx
+renderLayoutSwitcher = (currentLayout, onLayoutChange) => {
+  return <a onClick={() => onLayoutChange('list')}>LIST</a>/<a onClick={() => onLayoutChange('grid')}>GRID</a>;
+}
+```
+
+### Parameters
+
+* **currentLayout** `String`
+
+  The current layout.
+
+* **onLayoutChange** `function`
+
+  The function to call when the user wants to change the current layout, passing as parameter the new layout.

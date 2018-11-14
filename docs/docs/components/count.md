@@ -7,18 +7,36 @@ title: Count
 
 Useful to display the total number of results after a search.
 
+The component is **not** displayed while executing the search query or if there are no results.
+
 ## Usage
 
 ```jsx
 <Count />
 ```
 
+## Props
+
+* **renderElement** `function` *optional*
+
+  An optional function to override the default rendered component.
+
 ## Usage when overriding template
 
-Props below are available in your renderElement function when you override the template.
+```jsx
+<Count renderElement={renderCount} />
+```
 
-### Props
-| Name                 | Default       | Type      | Description             |
-| ---------------------|---------------| ----------|-------------------------|
-| ``renderElement``    | null          | {func}    | Function to override the the component's template |
-| ``total``            | 0             | {number}  | Total number of results |
+The function `renderElement` is called every time the number of results changes.
+
+```jsx
+renderCount = totalResults => {
+  return <div>Found {totalResults} results.</div>;
+}
+```
+
+### Parameters
+
+* **totalResults** `Number`
+
+  The number of results found.

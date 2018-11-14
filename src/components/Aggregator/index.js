@@ -13,7 +13,6 @@ import AggregatorComponent from './Aggregator';
 const mapDispatchToProps = dispatch => ({
   updateQueryAggregation: aggregation =>
     dispatch(updateQueryAggregation(aggregation)),
-  setInitialState: value => dispatch(setInitialState(value)),
 });
 
 export const Aggregator = connect(
