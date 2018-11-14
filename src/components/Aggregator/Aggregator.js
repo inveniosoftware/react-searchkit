@@ -16,48 +16,54 @@ export default class Aggregator extends Component {
     super(props);
     this.title = props.title;
     this.field = props.field;
-    this.setInitialState = props.setInitialState;
     this.updateQueryAggregation = props.updateQueryAggregation;
     this.renderElement = props.renderElement || this._renderElement;
-  }
-
-  componentWillMount() {
-    this.setInitialState({
-      aggregations: [],
-    });
   }
 
   onUserSelectionChange = aggregation => {
     this.updateQueryAggregation(aggregation);
   };
 
-  _renderElement({ userSelectionAggregations, resultsAggregations }) {
-    const current = userSelectionAggregations || [];
-    const results = resultsAggregations[this.field] || [];
-
+  _renderElement(
+    aggregationField,
+    resultsAggregations,
+    userSelectionAggregations,
+    userSelectionChangeHandler
+  ) {
     // user selection for this specific aggregator
-    const userSelection = current.filter(
-      selectedAggr => this.field in selectedAggr
+    const userSelection = userSelectionAggregations.filter(
+      selectedAggr => aggregationField in selectedAggr
     );
 
-    return (
+    return resultsAggregations.length ? (
       <Card>
         <Card.Content header={this.title} />
         <Card.Content>
           <AggregatorValues
-            field={this.field}
-            values={results}
+            field={aggregationField}
+            values={resultsAggregations}
             userSelection={userSelection}
-            onUserSelectionChange={this.onUserSelectionChange}
+            onUserSelectionChange={userSelectionChangeHandler}
           />
         </Card.Content>
       </Card>
-    );
+    ) : null;
   }
 
   render() {
-    let { setInitialState, ...props } = this.props;
-    return <div>{this.renderElement({ ...props })}</div>;
+    const { userSelectionAggregations, resultsAggregations } = this.props;
+    const current = userSelectionAggregations || [];
+    const results = resultsAggregations[this.field] || [];
+    return (
+      <div>
+        {this.renderElement(
+          this.field,
+          results,
+          current,
+          this.onUserSelectionChange
+        )}
+      </div>
+    );
   }
 }
 
@@ -67,7 +73,6 @@ Aggregator.propTypes = {
   userSelectionAggregations: PropTypes.array.isRequired,
   resultsAggregations: PropTypes.object.isRequired,
   updateQueryAggregation: PropTypes.func.isRequired,
-  setInitialState: PropTypes.func.isRequired,
   renderElement: PropTypes.func,
 };
 

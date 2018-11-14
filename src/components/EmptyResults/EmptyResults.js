@@ -8,34 +8,52 @@
 
 import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
-import { ShouldRender } from '@app/components/ShouldRender';
+import { Segment, Header, Icon, Button } from 'semantic-ui-react';
 import _isEmpty from 'lodash/isEmpty';
+import { ShouldRender } from '@app/components/ShouldRender';
 
 export default class EmptyResults extends Component {
   constructor(props) {
     super(props);
-    this.renderElement = props.renderElement || this.empty;
+    this.resetQuery = props.resetQuery;
+    this.renderElement = props.renderElement || this._renderElement;
   }
 
-  empty = total => (total === 0 ? <div>No results found!</div> : null);
+  _renderElement = (queryString, resetQuery) => (
+    <Segment placeholder textAlign="center">
+      <Header icon>
+        <Icon name="search" />
+        No results found!
+      </Header>
+      <em>Current search "{queryString}"</em>
+      <br />
+      <Button primary onClick={() => resetQuery()}>
+        Clear query
+      </Button>
+    </Segment>
+  );
 
   render() {
-    const { loading, error, total } = this.props;
+    const { loading, totalResults, error, queryString } = this.props;
     return (
-      <ShouldRender condition={!loading && _isEmpty(error)}>
-        <Fragment>{this.renderElement(total)}</Fragment>
+      <ShouldRender
+        condition={!loading && _isEmpty(error) && totalResults === 0}
+      >
+        {this.renderElement(queryString, this.resetQuery)}
       </ShouldRender>
     );
   }
 }
 
 EmptyResults.propTypes = {
-  total: PropTypes.number.isRequired,
   loading: PropTypes.bool.isRequired,
+  totalResults: PropTypes.number.isRequired,
   error: PropTypes.object.isRequired,
-  renderElement: PropTypes.func,
+  queryString: PropTypes.string,
+  resetQuery: PropTypes.func.isRequired,
 };
 
 EmptyResults.defaultProps = {
+  queryString: '',
   renderElement: null,
 };

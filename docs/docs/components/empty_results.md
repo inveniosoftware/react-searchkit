@@ -3,7 +3,10 @@ id: empty-results
 title: EmptyResults
 ---
 
-`EmptyResults` is rendered when there are no results and displays a default message.
+`EmptyResults` is a component that renders in case of 0 results.
+
+The component is **not** displayed while executing the search query, when there is no error or when the number of
+results is greater than 0.
 
 ## Usage
 
@@ -11,13 +14,35 @@ title: EmptyResults
 <EmptyResults />
 ```
 
+## Props
+
+* **renderElement** `function` *optional*
+
+  An optional function to override the default rendered component.
+
 ## Usage when overriding template
 
-Props below are available in your renderElement function when you override the template.
+```jsx
+<EmptyResults renderElement={renderEmptyResults} />
+```
 
-### Props
+The function `renderElement` is called every time the number of results changes.
 
-| Name              | Default       | Type      | Description             |
-| ------------------|---------------| ----------|-------------------------|
-| ``renderElement`` | null          | {func}    | Function to override the the component's template |
-| ``total``         | 0             | {number}  | Total number of results |
+```jsx
+renderEmptyResults = (queryString, resetQuery) => {
+  return (<div>
+    <em>No results found with query "{queryString}"</em>
+    <div><button onClick={() => resetQuery()}>Clear query</button></div>
+  </div>);
+}
+```
+
+### Parameters
+
+* **queryString** `String`
+
+  The current query string.
+
+* **resetQuery** `function`
+
+  A function to call to reset the current search query.

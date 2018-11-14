@@ -17,23 +17,23 @@ export default class Count extends Component {
     this.renderElement = props.renderElement || this._renderElement;
   }
 
-  _renderElement(total) {
-    return <Label color={'blue'}>{total}</Label>;
+  _renderElement(totalResults) {
+    return <Label color={'blue'}>{totalResults}</Label>;
   }
 
   render() {
-    const { total, loading } = this.props;
+    const { loading, totalResults } = this.props;
     return (
-      <ShouldRender condition={!loading && total > 0}>
-        {this.renderElement(total)}
+      <ShouldRender condition={!loading && totalResults > 0}>
+        {this.renderElement(totalResults)}
       </ShouldRender>
     );
   }
 }
 
 Count.propTypes = {
-  total: PropTypes.number.isRequired,
   loading: PropTypes.bool.isRequired,
+  totalResults: PropTypes.number.isRequired,
   renderElement: PropTypes.func,
 };
 

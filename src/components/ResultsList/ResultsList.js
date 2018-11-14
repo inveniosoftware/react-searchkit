@@ -10,6 +10,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import _truncate from 'lodash/truncate';
 import { Item, Label } from 'semantic-ui-react';
+import { ShouldRender } from '@app/components/ShouldRender';
 
 export default class ResultsList extends Component {
   constructor(props) {
@@ -55,12 +56,18 @@ export default class ResultsList extends Component {
   }
 
   render() {
-    const results = this.props.results;
-    return this.renderElement(results);
+    const { loading, totalResults, results } = this.props;
+    return (
+      <ShouldRender condition={!loading && totalResults > 0}>
+        {this.renderElement(results)}
+      </ShouldRender>
+    );
   }
 }
 
 ResultsList.propTypes = {
+  loading: PropTypes.bool.isRequired,
+  totalResults: PropTypes.number.isRequired,
   results: PropTypes.array.isRequired,
   renderElement: PropTypes.func,
 };

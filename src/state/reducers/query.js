@@ -17,6 +17,7 @@ import {
   SET_QUERY_AGGREGATION,
   SET_STATE_FROM_URL,
   RESULTS_UPDATE_LAYOUT,
+  RESET_QUERY,
 } from '@app/state/types';
 import { updateQueryAggregation } from '../selectors';
 
@@ -24,8 +25,8 @@ export const defaultState = {
   queryString: '',
   sortBy: null,
   sortOrder: null,
-  page: null,
-  size: null,
+  page: -1,
+  size: -1,
   aggregations: [],
   layout: null,
 };
@@ -82,6 +83,13 @@ export default (state = defaultState, action) => {
       return {
         ...state,
         layout: action.payload,
+      };
+    case RESET_QUERY:
+      return {
+        ...state,
+        queryString: '',
+        page: 1,
+        aggregations: [],
       };
     default:
       return state;

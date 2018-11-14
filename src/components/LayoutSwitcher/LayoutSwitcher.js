@@ -18,10 +18,10 @@ export default class LayoutSwitcher extends Component {
     this.defaultValue = this.props.defaultLayout;
     this.updateLayout = props.updateLayout;
     this.setInitialState = props.setInitialState;
-    this.renderElement = props.renderElement || this._renderMenu;
+    this.renderElement = props.renderElement || this._renderElement;
   }
 
-  _renderMenu = (currentLayout, onLayoutChange) => {
+  _renderElement = (currentLayout, onLayoutChange) => {
     const clickHandler = (event, { name }) => {
       onLayoutChange(name);
     };
@@ -45,8 +45,8 @@ export default class LayoutSwitcher extends Component {
     );
   };
 
-  componentWillMount() {
-    if (this.defaultValue !== 'list') {
+  componentDidMount() {
+    if (this.props.currentLayout === null) {
       this.setInitialState({
         layout: this.defaultValue,
       });
@@ -58,10 +58,11 @@ export default class LayoutSwitcher extends Component {
   };
 
   render() {
-    let { currentLayout, loading, totalResults } = this.props;
-
+    const { currentLayout, loading, totalResults } = this.props;
     return (
-      <ShouldRender condition={currentLayout && !loading && totalResults > 0}>
+      <ShouldRender
+        condition={currentLayout !== null && !loading && totalResults > 0}
+      >
         {this.renderElement(currentLayout, this.onLayoutChange)}
       </ShouldRender>
     );
@@ -72,13 +73,14 @@ LayoutSwitcher.propTypes = {
   defaultLayout: PropTypes.oneOf(['list', 'grid']),
   updateLayout: PropTypes.func.isRequired,
   setInitialState: PropTypes.func.isRequired,
-  currentLayout: PropTypes.string.isRequired,
   loading: PropTypes.bool.isRequired,
+  currentLayout: PropTypes.string,
   totalResults: PropTypes.number.isRequired,
   renderElement: PropTypes.func,
 };
 
 LayoutSwitcher.defaultProps = {
   defaultLayout: 'list',
+  currentLayout: null,
   renderElement: null,
 };

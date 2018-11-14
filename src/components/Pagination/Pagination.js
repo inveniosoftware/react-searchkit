@@ -17,13 +17,15 @@ export default class Pagination extends Component {
 
     this.updateQueryPage = this.props.updateQueryPage;
     this.setInitialState = props.setInitialState;
-    this.renderElement = props.renderElement || this.paginator;
+    this.renderElement = props.renderElement || this._renderElement;
   }
 
-  componentWillMount() {
-    this.setInitialState({
-      page: 1,
-    });
+  componentDidMount() {
+    if (this.props.currentPage === -1) {
+      this.setInitialState({
+        page: 1,
+      });
+    }
   }
 
   onPageChange = activePage => {
@@ -31,7 +33,7 @@ export default class Pagination extends Component {
     this.updateQueryPage(activePage);
   };
 
-  paginator = (
+  _renderElement = (
     currentPage,
     currentSize,
     totalResults,
@@ -42,10 +44,10 @@ export default class Pagination extends Component {
     const boundaryRangeCount = options.boundaryRangeCount;
     const siblingRangeCount = options.siblingRangeCount;
     const showEllipsis = options.showEllipsis;
-    const showFirstIcon = options.showFirstIcon;
-    const showLastIcon = options.showLastIcon;
-    const showPrevIcon = options.showPrevIcon;
-    const showNextIcon = options.showNextIcon;
+    const showFirst = options.showFirst;
+    const showLast = options.showLast;
+    const showPrev = options.showPrev;
+    const showNext = options.showNext;
     const _onPageChange = (event, { activePage }) => {
       onPageChange(activePage);
     };
@@ -58,10 +60,10 @@ export default class Pagination extends Component {
         boundaryRange={boundaryRangeCount}
         siblingRange={siblingRangeCount}
         ellipsisItem={showEllipsis ? undefined : null}
-        firstItem={showFirstIcon ? undefined : null}
-        lastItem={showLastIcon ? undefined : null}
-        prevItem={showPrevIcon ? undefined : null}
-        nextItem={showNextIcon ? undefined : null}
+        firstItem={showFirst ? undefined : null}
+        lastItem={showLast ? undefined : null}
+        prevItem={showPrev ? undefined : null}
+        nextItem={showNext ? undefined : null}
       />
     );
   };
@@ -75,7 +77,11 @@ export default class Pagination extends Component {
     } = this.props;
 
     return (
-      <ShouldRender condition={!loading && totalResults > 0}>
+      <ShouldRender
+        condition={
+          !loading && currentPage > -1 && currentSize > -1 && totalResults > 0
+        }
+      >
         {this.renderElement(
           currentPage,
           currentSize,
@@ -97,10 +103,10 @@ Pagination.propTypes = {
     boundaryRangeCount: PropTypes.number,
     siblingRangeCount: PropTypes.number,
     showEllipsis: PropTypes.bool,
-    showFirstIcon: PropTypes.bool,
-    showLastIcon: PropTypes.bool,
-    showPrevIcon: PropTypes.bool,
-    showNextIcon: PropTypes.bool,
+    showFirst: PropTypes.bool,
+    showLast: PropTypes.bool,
+    showPrev: PropTypes.bool,
+    showNext: PropTypes.bool,
   }),
   renderElement: PropTypes.func,
 };
@@ -110,10 +116,10 @@ Pagination.defaultProps = {
     boundaryRangeCount: 1,
     siblingRangeCount: 1,
     showEllipsis: true,
-    showFirstIcon: true,
-    showLastIcon: true,
-    showPrevIcon: true,
-    showNextIcon: true,
+    showFirst: true,
+    showLast: true,
+    showPrev: true,
+    showNext: true,
   },
   renderElement: null,
 };

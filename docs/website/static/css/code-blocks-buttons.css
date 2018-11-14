@@ -5,12 +5,10 @@ pre {
 
 pre .btnIcon {
   position: absolute;
-  top: -2px;
   z-index: 2;
   cursor: pointer;
   border: 1px solid transparent;
   padding: 0.5em;
-  margin: 0.5em;
   color: #333;
   background-color: transparent;
   transition: all .25s ease-out;
@@ -35,5 +33,6 @@ pre .btnIcon:hover {
 }
 
 .btnClipboard {
-  right: 10px;
+  top: 0.1em;
+  right: 0.1em;
 }

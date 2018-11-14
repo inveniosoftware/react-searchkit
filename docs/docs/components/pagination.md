@@ -5,29 +5,67 @@ title: Pagination
 
 `Pagination` renders the controls for navigating the search result pages.
 
+The component is **not** displayed while executing the search query, if the current page or results per page are not set
+or if there are no results.
+
 ## Usage
 
-### Props
-
-| Name                      | Required  | Default       | Type      | Description             |
-| --------------------------|-----------|---------------| ----------|-------------------------|
-| ``options``               | no        | ``{ boundaryRangeCount: 1, siblingRangeCount: 1,  showEllipsis: true, showFirstIcon: true,  showLastIcon: true,  showPrevIcon: true,  showNextIcon: true,} ``        | ``{boundaryRangeCount: PropTypes.number, siblingRangeCount: PropTypes.number, showEllipsis: PropTypes.bool, showFirstIcon: PropTypes.bool, showLastIcon: PropTypes.bool, showPrevIcon: PropTypes.bool, showNextIcon: PropTypes.bool, } ``   | Options to customize the styling of the component |
-
 ```jsx
-<Pagination />
+const options = { showEllipsis: false, showLastIcon: false }
+<Pagination options={options} />
 ```
+
+## Props
+
+* **options** `object` *optional*
+
+  An object that can contain:
+
+  * **boundaryRangeCount** `Number`: Number of always visible pages at the beginning and end. Default value: `1`.
+  * **siblingRangeCount** `Number`: Number of always visible pages before and after the current one. Default value: `1`.
+  * **showEllipsis** `boolean`: Show '...' for hidden pages. Default value: `true`.
+  * **showFirst** `boolean`: Show the icon to go to the first page. Default value: `true`.
+  * **showLast** `boolean`: Show the icon to go to the last page. Default value: `true`.
+  * **showPrev** `boolean`: Show the icon to go to the previous page. Default value: `true`.
+  * **showNext** `boolean`: Show the icon to go to the next page. Default value: `true`.
+
+* **renderElement** `function` *optional*
+
+  An optional function to override the default rendered component.
 
 ## Usage when overriding template
 
-Props below are available in your renderElement function when you override the template.
+```jsx
+<Pagination renderElement={renderPagination} />
+```
 
-### Props
+The function `renderElement` is called every time the list of results changes.
 
-| Name              | Default       | Type      | Description |
-| ------------------|---------------| ----------|-------------|
-| ``renderElement`` | null          | {func}    | Function to override the the component's template |
-| ``currentPage``   |  -            | {number}  | Current page number |
-| ``currentSize``   |  -            | {number}  | Current page size |
-| ``totalResults``  |  -            | {number}  | Total numbers of results to be presented |
-| ``onPageChange``  |  -            | {function}| Function to update page value in application state |
-| ``options``       |  -            | {obj}     | Options prop passed to the component |
+```jsx
+renderPagination = (currentPage, currentSize, totalResults, onPageChange, options) => {
+  const pages = Math.ceil(totalResults / currentSize);
+  return <div>Page {currentPage} of {pages}.</div>;
+}
+```
+
+### Parameters
+
+* **currentPage** `Number`
+
+  The value of the current page.
+
+* **currentSize** `Number`
+
+  Number of results per page to display, to be able to calculate the total number of pages.
+
+* **totalResults** `Number`
+
+  Total number of results, to be able to calculate the total number of pages.
+
+* **onPageChange** `Number`
+
+  Function to call when the user wants to change the page, passing the new page number.
+
+* **options** `object`
+
+  The options prop passed to the component.

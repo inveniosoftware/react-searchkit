@@ -17,6 +17,7 @@ import {
   SET_QUERY_PAGINATION_SIZE,
   SET_QUERY_PAGINATION_PAGE_RESET,
   SET_QUERY_AGGREGATION,
+  RESET_QUERY,
   RESULTS_LOADING,
   RESULTS_FETCH_SUCCESS,
   RESULTS_FETCH_ERROR,
@@ -122,6 +123,15 @@ export const updateResultsLayout = layout => {
   };
 };
 
+export const resetQuery = () => {
+  return async dispatch => {
+    dispatch({
+      type: RESET_QUERY,
+    });
+    await dispatch(executeQuery());
+  };
+};
+
 export const executeQuery = (updateUrlParams = true, resetQueryPage = true) => {
   return async (dispatch, getState, config) => {
     let queryState = _cloneDeep(getState().query);
@@ -131,6 +141,7 @@ export const executeQuery = (updateUrlParams = true, resetQueryPage = true) => {
 
     if (resetQueryPage && queryState.page > 1) {
       dispatch({ type: SET_QUERY_PAGINATION_PAGE_RESET });
+      queryState = _cloneDeep(getState().query);
     }
 
     if (defaultSortByOnEmptyQuery && queryState.queryString === '') {

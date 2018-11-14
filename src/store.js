@@ -15,10 +15,14 @@ import rootReducer from './state/reducers';
 
 export const storeKey = 'react-searchkit';
 
+const composeEnhancers = composeWithDevTools({
+  name: 'React-SearchKit',
+});
+
 export function configureStore(config) {
   return createStore(
     rootReducer,
-    composeWithDevTools(applyMiddleware(thunk.withExtraArgument(config)))
+    composeEnhancers(applyMiddleware(thunk.withExtraArgument(config)))
   );
 }
 

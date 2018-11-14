@@ -9,7 +9,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Loader } from 'semantic-ui-react';
-import { ShouldRender } from '@app/components/ShouldRender';
 
 export default class ResultsLoader extends Component {
   constructor(props) {
@@ -17,13 +16,10 @@ export default class ResultsLoader extends Component {
     this.renderElement = props.renderElement || this._renderElement;
   }
 
-  _renderElement = () => <Loader active inline="centered" />;
+  _renderElement = () => <Loader active size="huge" inline="centered" />;
 
   render() {
-    const { loading } = this.props;
-    return (
-      <ShouldRender condition={loading}>{this.renderElement()}</ShouldRender>
-    );
+    return this.props.loading ? this.renderElement() : this.props.children;
   }
 }
 
