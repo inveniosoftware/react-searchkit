@@ -26,32 +26,48 @@
               }
             });
         </script></nav></div><div class="container mainContainer docMainContainer"><div class="wrapper"><div class="post"><header class="postHeader"><h1 class="postHeaderTitle">Pagination</h1></header><article><div><span><p><code>Pagination</code> renders the controls for navigating the search result pages.</p>
+<p>The component is <strong>not</strong> displayed while executing the search query, if the current page or results per page are not set
+or if there are no results.</p>
 <h2><a class="anchor" aria-hidden="true" id="usage"></a><a href="#usage" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Usage</h2>
-<h3><a class="anchor" aria-hidden="true" id="props"></a><a href="#props" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Props</h3>
-<table>
-<thead>
-<tr><th>Name</th><th>Required</th><th>Default</th><th>Type</th><th>Description</th></tr>
-</thead>
-<tbody>
-<tr><td><code>options</code></td><td>no</td><td><code>{ boundaryRangeCount: 1, siblingRangeCount: 1, showEllipsis: true, showFirstIcon: true, showLastIcon: true, showPrevIcon: true, showNextIcon: true,}</code></td><td><code>{boundaryRangeCount: PropTypes.number, siblingRangeCount: PropTypes.number, showEllipsis: PropTypes.bool, showFirstIcon: PropTypes.bool, showLastIcon: PropTypes.bool, showPrevIcon: PropTypes.bool, showNextIcon: PropTypes.bool, }</code></td><td>Options to customize the styling of the component</td></tr>
-</tbody>
-</table>
-<pre><code class="hljs css language-jsx"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>Pagination</span> <span class="token punctuation">/></span></span>
+<pre><code class="hljs css language-jsx"><span class="token keyword">const</span> options <span class="token operator">=</span> <span class="token punctuation">{</span> showEllipsis<span class="token punctuation">:</span> <span class="token boolean">false</span><span class="token punctuation">,</span> showLastIcon<span class="token punctuation">:</span> <span class="token boolean">false</span> <span class="token punctuation">}</span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>Pagination</span> <span class="token attr-name">options</span><span class="token script language-javascript"><span class="token script-punctuation punctuation">=</span><span class="token punctuation">{</span>options<span class="token punctuation">}</span></span> <span class="token punctuation">/></span></span>
 </code></pre>
+<h2><a class="anchor" aria-hidden="true" id="props"></a><a href="#props" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Props</h2>
+<ul>
+<li><p><strong>options</strong> <code>object</code> <em>optional</em></p>
+<p>An object that can contain:</p>
+<ul>
+<li><strong>boundaryRangeCount</strong> <code>Number</code>: Number of always visible pages at the beginning and end. Default value: <code>1</code>.</li>
+<li><strong>siblingRangeCount</strong> <code>Number</code>: Number of always visible pages before and after the current one. Default value: <code>1</code>.</li>
+<li><strong>showEllipsis</strong> <code>boolean</code>: Show '...' for hidden pages. Default value: <code>true</code>.</li>
+<li><strong>showFirst</strong> <code>boolean</code>: Show the icon to go to the first page. Default value: <code>true</code>.</li>
+<li><strong>showLast</strong> <code>boolean</code>: Show the icon to go to the last page. Default value: <code>true</code>.</li>
+<li><strong>showPrev</strong> <code>boolean</code>: Show the icon to go to the previous page. Default value: <code>true</code>.</li>
+<li><strong>showNext</strong> <code>boolean</code>: Show the icon to go to the next page. Default value: <code>true</code>.</li>
+</ul></li>
+<li><p><strong>renderElement</strong> <code>function</code> <em>optional</em></p>
+<p>An optional function to override the default rendered component.</p></li>
+</ul>
 <h2><a class="anchor" aria-hidden="true" id="usage-when-overriding-template"></a><a href="#usage-when-overriding-template" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Usage when overriding template</h2>
-<p>Props below are available in your renderElement function when you override the template.</p>
-<h3><a class="anchor" aria-hidden="true" id="props-1"></a><a href="#props-1" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Props</h3>
-<table>
-<thead>
-<tr><th>Name</th><th>Default</th><th>Type</th><th>Description</th></tr>
-</thead>
-<tbody>
-<tr><td><code>renderElement</code></td><td>null</td><td>{func}</td><td>Function to override the the component's template</td></tr>
-<tr><td><code>currentPage</code></td><td>-</td><td>{number}</td><td>Current page number</td></tr>
-<tr><td><code>currentSize</code></td><td>-</td><td>{number}</td><td>Current page size</td></tr>
-<tr><td><code>totalResults</code></td><td>-</td><td>{number}</td><td>Total numbers of results to be presented</td></tr>
-<tr><td><code>onPageChange</code></td><td>-</td><td>{function}</td><td>Function to update page value in application state</td></tr>
-<tr><td><code>options</code></td><td>-</td><td>{obj}</td><td>Options prop passed to the component</td></tr>
-</tbody>
-</table>
-</span></div></article></div><div class="docs-prevnext"><a class="docs-prev button" href="/react-searchkit/docs/components/results-list"><span class="arrow-prev">← </span><span>Previous</span></a><a class="docs-next button" href="/react-searchkit/docs/components/sort-by"><span>Next</span><span class="arrow-next"> →</span></a></div></div></div><nav class="onPageNav docOnPageNav"><ul class="toc-headings"><li><a href="#usage">Usage</a><ul class="toc-headings"><li><a href="#props">Props</a></li></ul></li><li><a href="#usage-when-overriding-template">Usage when overriding template</a><ul class="toc-headings"><li><a href="#props-1">Props</a></li></ul></li></ul></nav></div><footer class="nav-footer" id="footer"><section class="sitemap"><div><h5>Made with</h5><a href="https://docusaurus.io/">Docusaurus</a><a href="https://code.facebook.com/projects/" target="_blank" rel="noreferrer noopener"><img src="/react-searchkit/img/oss_logo.png" alt="React-SearchKit" width="170" height="45"/></a></div><div><h5>More</h5><a href="https://github.com/inveniosoftware/react-searchkit">GitHub</a><a href="https://inveniosoftware.org/">Invenio Software</a><a href="https://gitter.im/inveniosoftware/invenio"><img src="/react-searchkit/img/gitter.svg" alt="Gitter chat"/></a><a href="https://twitter.com/inveniosoftware">Twitter</a></div><div><h5>Born with ❤️ at</h5><a href="https://home.cern/" target="_blank"><img src="/react-searchkit/img/logo-cern.png" alt="CERN" width="130"/></a></div></section><section class="copyright"></section></footer></div></body></html>
+<pre><code class="hljs css language-jsx"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>Pagination</span> <span class="token attr-name">renderElement</span><span class="token script language-javascript"><span class="token script-punctuation punctuation">=</span><span class="token punctuation">{</span>renderPagination<span class="token punctuation">}</span></span> <span class="token punctuation">/></span></span>
+</code></pre>
+<p>The function <code>renderElement</code> is called every time the list of results changes.</p>
+<pre><code class="hljs css language-jsx"><span class="token function-variable function">renderPagination</span> <span class="token operator">=</span> <span class="token punctuation">(</span>currentPage<span class="token punctuation">,</span> currentSize<span class="token punctuation">,</span> totalResults<span class="token punctuation">,</span> onPageChange<span class="token punctuation">,</span> options<span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">{</span>
+  <span class="token keyword">const</span> pages <span class="token operator">=</span> Math<span class="token punctuation">.</span><span class="token function">ceil</span><span class="token punctuation">(</span>totalResults <span class="token operator">/</span> currentSize<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token keyword">return</span> <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span><span class="token punctuation">></span></span>Page <span class="token punctuation">{</span>currentPage<span class="token punctuation">}</span> <span class="token keyword">of</span> <span class="token punctuation">{</span>pages<span class="token punctuation">}</span><span class="token punctuation">.</span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">></span></span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<h3><a class="anchor" aria-hidden="true" id="parameters"></a><a href="#parameters" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Parameters</h3>
+<ul>
+<li><p><strong>currentPage</strong> <code>Number</code></p>
+<p>The value of the current page.</p></li>
+<li><p><strong>currentSize</strong> <code>Number</code></p>
+<p>Number of results per page to display, to be able to calculate the total number of pages.</p></li>
+<li><p><strong>totalResults</strong> <code>Number</code></p>
+<p>Total number of results, to be able to calculate the total number of pages.</p></li>
+<li><p><strong>onPageChange</strong> <code>Number</code></p>
+<p>Function to call when the user wants to change the page, passing the new page number.</p></li>
+<li><p><strong>options</strong> <code>object</code></p>
+<p>The options prop passed to the component.</p></li>
+</ul>
+</span></div></article></div><div class="docs-prevnext"><a class="docs-prev button" href="/react-searchkit/docs/components/results-list"><span class="arrow-prev">← </span><span>Previous</span></a><a class="docs-next button" href="/react-searchkit/docs/components/sort-by"><span>Next</span><span class="arrow-next"> →</span></a></div></div></div><nav class="onPageNav docOnPageNav"><ul class="toc-headings"><li><a href="#usage">Usage</a></li><li><a href="#props">Props</a></li><li><a href="#usage-when-overriding-template">Usage when overriding template</a><ul class="toc-headings"><li><a href="#parameters">Parameters</a></li></ul></li></ul></nav></div><footer class="nav-footer" id="footer"><section class="sitemap"><div><h5>Made with</h5><a href="https://docusaurus.io/">Docusaurus</a><a href="https://code.facebook.com/projects/" target="_blank" rel="noreferrer noopener"><img src="/react-searchkit/img/oss_logo.png" alt="React-SearchKit" width="170" height="45"/></a></div><div><h5>More</h5><a href="https://github.com/inveniosoftware/react-searchkit">GitHub</a><a href="https://inveniosoftware.org/">Invenio Software</a><a href="https://gitter.im/inveniosoftware/invenio"><img src="/react-searchkit/img/gitter.svg" alt="Gitter chat"/></a><a href="https://twitter.com/inveniosoftware">Twitter</a></div><div><h5>Born with ❤️ at</h5><a href="https://home.cern/" target="_blank"><img src="/react-searchkit/img/logo-cern.png" alt="CERN" width="130"/></a></div></section><section class="copyright"></section></footer></div></body></html>
