@@ -37,4 +37,4 @@ renderError = error => {
 
 * **error** `object`
 
-  An object containing the error returned by the search API connector.
+  The current value of the `error` `results` state, containing the error returned by the search API connector.

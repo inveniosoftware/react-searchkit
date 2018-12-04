@@ -89,10 +89,17 @@ export class UrlParamsApi {
   _transformQueryToUrlParams(queryState) {
     const params = {};
     Object.keys(queryState)
-      .filter(
-        stateKey =>
-          queryState[stateKey] !== null && stateKey in this.urlParamsMapping
-      )
+      .filter(stateKey => stateKey in this.urlParamsMapping)
+      .filter(stateKey => {
+        // filter out negative or null values
+        if (
+          (stateKey === 'page' || stateKey === 'size') &&
+          queryState[stateKey] <= 0
+        ) {
+          return false;
+        }
+        return queryState[stateKey] !== null;
+      })
       .forEach(stateKey => {
         const paramKey = this.urlParamsMapping[stateKey];
         params[paramKey] = queryState[stateKey];

@@ -60,7 +60,7 @@ state = {
 }
 ```
 
-> Important: the app state is a fixed structure that can be mutated by the components only through the available Redux actions. If you have the need to add extra state, follow the [Custom State](custom_state.md) guide.
+> Important: the app state is a fixed structure that can be changed by the components only through the available Redux actions. If you have the need to add extra state, follow the [Custom State](custom_state.md) guide.
 
 ### Query
 
@@ -74,9 +74,9 @@ The `query` state stores the user selection and it has the following structure:
 * `layout`: a string to store how the list of results is displayed, for example `list` or `grid`.
 * `aggregations`: a complex array to store for which group of aggregations the results are shown.
 
-Each component accesses to the fields of the app state it needs, renders the UI component according to the user selection and react to user input by calling predefined actions which will mutate the state.
+Each component accesses to the fields of the app state it needs, renders the UI component according to the user selection and react to user input by calling predefined actions which will change the state.
 
-> Note: even if the structure of the state is rigid, not all values are used or set by the app. Depending on which component you are going to use or implement, only a subset of the state is mutated. It is the responsibility of the API layer to decide what state fields to use when performing the request.
+> Note: even if the structure of the state is rigid, not all values are used or set by the app. Depending on which component you are going to use or implement, only a subset of the state is changed. It is the responsibility of the API layer to decide what state fields to use when performing the request.
 
 ### Results
 
@@ -97,7 +97,7 @@ API responses will update this part of the state. Components that are connected 
 
 The API layer contains 2 components:
 
-* `SearchAPI`: an object to serialize the `query` state to search requests for your REST APIs and serialize back responses to mutate the `results` state.
+* `SearchAPI`: an object to serialize the `query` state to search requests for your REST APIs and serialize back responses to change the `results` state.
 * `UrlParamsAPI`: an object to serialize the `query` state to update the browser URL query string and vice versa.
 
 > Note: given that the state is rigid, it is very important that the serialization of the responses complies with the `results` state structure.
@@ -108,5 +108,5 @@ The concept around `SearchAPI` and `UrlParamsAPI` will be explained in the next 
 
 ## TL;DR
 
-* UI Components mutate the `query` state through Redux actions in response to user inputs. They receive `results` after a REST APIs search through props injected automatically by Redux.
-* The REST APIs implementation is responsible of serializing the `query` state in a format understandable by your REST APIs and serialize the response back to mutate the `results` state.
+* UI Components change the `query` state through Redux actions in response to user inputs. They receive `results` after a REST APIs search through props injected automatically by Redux.
+* The REST APIs implementation is responsible of serializing the `query` state in a format understandable by your REST APIs and serialize the response back to change the `results` state.

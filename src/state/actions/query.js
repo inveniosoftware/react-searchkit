@@ -15,7 +15,6 @@ import {
   SET_QUERY_SORT_ORDER,
   SET_QUERY_PAGINATION_PAGE,
   SET_QUERY_PAGINATION_SIZE,
-  SET_QUERY_PAGINATION_PAGE_RESET,
   SET_QUERY_AGGREGATION,
   RESET_QUERY,
   RESULTS_LOADING,
@@ -132,25 +131,11 @@ export const resetQuery = () => {
   };
 };
 
-export const executeQuery = (updateUrlParams = true, resetQueryPage = true) => {
+export const executeQuery = (updateUrlParams = true) => {
   return async (dispatch, getState, config) => {
-    let queryState = _cloneDeep(getState().query);
+    const queryState = _cloneDeep(getState().query);
     const searchApi = config.searchApi;
     const urlParamsApi = config.urlParamsApi;
-    const defaultSortByOnEmptyQuery = config.defaultSortByOnEmptyQuery;
-
-    if (resetQueryPage && queryState.page > 1) {
-      dispatch({ type: SET_QUERY_PAGINATION_PAGE_RESET });
-      queryState = _cloneDeep(getState().query);
-    }
-
-    if (defaultSortByOnEmptyQuery && queryState.queryString === '') {
-      dispatch({
-        type: SET_QUERY_SORT_BY,
-        payload: defaultSortByOnEmptyQuery,
-      });
-      queryState = _cloneDeep(getState().query);
-    }
 
     if (urlParamsApi && updateUrlParams) {
       urlParamsApi.set(queryState);

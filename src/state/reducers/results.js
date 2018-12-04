@@ -12,7 +12,7 @@ import {
   RESULTS_FETCH_ERROR,
 } from '@app/state/types';
 
-const defaultState = {
+const initialState = {
   loading: false,
   data: {
     hits: [],
@@ -22,7 +22,7 @@ const defaultState = {
   error: {},
 };
 
-export default (state = defaultState, action) => {
+export default (state = initialState, action) => {
   switch (action.type) {
     case RESULTS_LOADING:
       return {

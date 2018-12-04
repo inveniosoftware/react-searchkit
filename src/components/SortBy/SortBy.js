@@ -17,36 +17,36 @@ export default class SortBy extends Component {
     super(props);
     this.options = props.values;
     this.defaultValue = this.props.defaultValue;
+    this.defaultValueOnEmptyString = this.props.defaultValueOnEmptyString;
     this.updateQuerySortBy = props.updateQuerySortBy;
     this.setInitialState = props.setInitialState;
     this.renderElement = props.renderElement || this._renderElement;
   }
 
   componentWillMount() {
-    this.setInitialState({
-      sortBy: this.defaultValue,
-    });
+    if (this.props.currentSortBy === null) {
+      const sortBy = this.props.currentQueryString
+        ? this.defaultValue
+        : this.defaultValueOnEmptyString || this.defaultValue;
+      this.setInitialState({
+        sortBy: sortBy,
+      });
+    }
   }
 
-  _renderElement(currentSortBy, values, onValueChange) {
-    const onChange = (event, { value }) => {
-      onValueChange(value);
-    };
+  _renderElement = (currentSortBy, options, onValueChange) => {
+    const _options = options.map((element, index) => {
+      return { key: index, text: element.text, value: element.value };
+    });
     return (
       <Dropdown
         selection
         compact
-        options={this._mapOptions(values)}
+        options={_options}
         value={currentSortBy}
-        onChange={onChange}
+        onChange={(e, { value }) => onValueChange(value)}
       />
     );
-  }
-
-  _mapOptions = options => {
-    return options.map((element, index) => {
-      return { key: index, text: element.text, value: element.value };
-    });
   };
 
   onChange = value => {
@@ -55,12 +55,12 @@ export default class SortBy extends Component {
   };
 
   render() {
-    const { currentSortBy, loading, totalResults, values } = this.props;
+    const { currentSortBy, loading, totalResults } = this.props;
     return (
       <ShouldRender
         condition={currentSortBy !== null && !loading && totalResults > 1}
       >
-        {this.renderElement(currentSortBy, values, this.onChange)}
+        {this.renderElement(currentSortBy, this.options, this.onChange)}
       </ShouldRender>
     );
   }
@@ -69,10 +69,18 @@ export default class SortBy extends Component {
 SortBy.propTypes = {
   values: PropTypes.array.isRequired,
   defaultValue: PropTypes.string.isRequired,
+  defaultValueOnEmptyString: PropTypes.string,
+  loading: PropTypes.bool.isRequired,
+  totalResults: PropTypes.number.isRequired,
+  currentSortBy: PropTypes.string,
+  currentQueryString: PropTypes.string.isRequired,
   updateQuerySortBy: PropTypes.func.isRequired,
+  setInitialState: PropTypes.func.isRequired,
   renderElement: PropTypes.func,
 };
 
 SortBy.defaultProps = {
+  defaultValueOnEmptyString: null,
+  currentSortBy: null,
   renderElement: null,
 };

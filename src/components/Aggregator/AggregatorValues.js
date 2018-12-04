@@ -17,7 +17,7 @@ export default class AggregatorValues extends Component {
     super(props);
     this.field = props.field;
     this.onUserSelectionChange = props.onUserSelectionChange;
-    this.renderElement = props.renderElement || this.renderListItem;
+    this.renderElement = props.renderElement || this._renderElement;
   }
 
   isItemChecked = (fieldName, aggrValue, userSelection) => {
@@ -53,7 +53,7 @@ export default class AggregatorValues extends Component {
     );
   };
 
-  renderListItem = (fieldName, aggrValue, index, userSelection) => {
+  _renderElement = (fieldName, aggrValue, index, userSelection) => {
     const label = `${aggrValue.text || _capitalize(aggrValue.key)} (${
       aggrValue.total
     })`;

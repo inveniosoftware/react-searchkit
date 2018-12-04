@@ -22,31 +22,27 @@ export default class SortOrder extends Component {
     this.renderElement = props.renderElement || this._renderElement;
   }
 
-  _renderElement(currentSortOrder, values, onValueChange) {
-    const onChange = (event, { value }) => {
-      onValueChange(value);
-    };
+  componentWillMount() {
+    if (this.props.currentSortOrder === null) {
+      this.setInitialState({
+        sortOrder: this.defaultValue,
+      });
+    }
+  }
+
+  _renderElement = (currentSortOrder, options, onValueChange) => {
+    const _options = options.map((element, index) => {
+      return { key: index, text: element.text, value: element.value };
+    });
     return (
       <Dropdown
         selection
         compact
-        options={this._mapOptions(values)}
+        options={_options}
         value={currentSortOrder}
-        onChange={onChange}
+        onChange={(e, { value }) => onValueChange(value)}
       />
     );
-  }
-
-  componentWillMount() {
-    this.setInitialState({
-      sortOrder: this.defaultValue,
-    });
-  }
-
-  _mapOptions = options => {
-    return options.map((element, index) => {
-      return { key: index, text: element.text, value: element.value };
-    });
   };
 
   onChange = value => {
@@ -55,13 +51,12 @@ export default class SortOrder extends Component {
   };
 
   render() {
-    const { currentSortOrder, loading, totalResults, values } = this.props;
-
+    const { currentSortOrder, loading, totalResults } = this.props;
     return (
       <ShouldRender
         condition={currentSortOrder !== null && !loading && totalResults > 1}
       >
-        {this.renderElement(currentSortOrder, values, this.onChange)}
+        {this.renderElement(currentSortOrder, this.options, this.onChange)}
       </ShouldRender>
     );
   }
@@ -74,9 +69,11 @@ SortOrder.propTypes = {
   loading: PropTypes.bool.isRequired,
   totalResults: PropTypes.number.isRequired,
   updateQuerySortOrder: PropTypes.func.isRequired,
+  setInitialState: PropTypes.func.isRequired,
   renderElement: PropTypes.func,
 };
 
 SortOrder.defaultProps = {
+  currentSortOrder: null,
   renderElement: null,
 };

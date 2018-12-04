@@ -39,4 +39,4 @@ renderCount = totalResults => {
 
 * **totalResults** `Number`
 
-  The number of results found.
+  The current value of the `total` `results` state representing the number of results.
