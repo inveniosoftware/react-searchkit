@@ -13,7 +13,6 @@ import {
   SET_QUERY_SORT_ORDER,
   SET_QUERY_PAGINATION_PAGE,
   SET_QUERY_PAGINATION_SIZE,
-  SET_QUERY_PAGINATION_PAGE_RESET,
   SET_QUERY_AGGREGATION,
   SET_STATE_FROM_URL,
   RESULTS_UPDATE_LAYOUT,
@@ -21,7 +20,7 @@ import {
 } from '@app/state/types';
 import { updateQueryAggregation } from '../selectors';
 
-export const defaultState = {
+const initialState = {
   queryString: '',
   sortBy: null,
   sortOrder: null,
@@ -31,19 +30,21 @@ export const defaultState = {
   layout: null,
 };
 
-export default (state = defaultState, action) => {
+export default (state = initialState, action) => {
   switch (action.type) {
     case SET_QUERY_STRING:
-      return { ...state, queryString: action.payload };
+      return { ...state, queryString: action.payload, page: 1 };
     case SET_QUERY_SORT_BY:
       return {
         ...state,
         sortBy: action.payload,
+        page: 1,
       };
     case SET_QUERY_SORT_ORDER:
       return {
         ...state,
         sortOrder: action.payload,
+        page: 1,
       };
     case SET_QUERY_PAGINATION_PAGE:
       return {
@@ -54,10 +55,12 @@ export default (state = defaultState, action) => {
       return {
         ...state,
         size: action.payload,
+        page: 1,
       };
     case SET_QUERY_AGGREGATION: {
       return {
         ...state,
+        page: 1,
         aggregations: updateQueryAggregation(
           action.payload,
           state.aggregations
@@ -73,11 +76,6 @@ export default (state = defaultState, action) => {
       return {
         ...state,
         ...action.payload,
-      };
-    case SET_QUERY_PAGINATION_PAGE_RESET:
-      return {
-        ...state,
-        page: 1,
       };
     case RESULTS_UPDATE_LAYOUT:
       return {

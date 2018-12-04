@@ -52,19 +52,19 @@ renderPagination = (currentPage, currentSize, totalResults, onPageChange, option
 
 * **currentPage** `Number`
 
-  The value of the current page.
+  The current value of the `page` `query` state.
 
 * **currentSize** `Number`
 
-  Number of results per page to display, to be able to calculate the total number of pages.
+  The current value of the `size` `query` state, to be able to calculate the total number of pages.
 
 * **totalResults** `Number`
 
-  Total number of results, to be able to calculate the total number of pages.
+  The current value of the `total` `results` state representing the number of results, to be able to calculate the total number of pages.
 
 * **onPageChange** `Number`
 
-  Function to call when the user wants to change the page, passing the new page number.
+  Function to call when the user wants to change the page to change the `query` state. `onPageChange(newValue)`
 
 * **options** `object`
 

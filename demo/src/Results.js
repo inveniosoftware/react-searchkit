@@ -23,23 +23,21 @@ import {
 const Spacer = connect(state => ({
   loading: state.results.loading,
   total: state.results.data.total,
-}))(
-  ({ text, loading, total }) =>
-    loading || total == 0 ? null : (
-      <span style={{ margin: '0 0.5em' }}>{text}</span>
-    )
+}))(({ text, loading, total }) =>
+  loading || total == 0 ? null : (
+    <span style={{ margin: '0 0.5em' }}>{text}</span>
+  )
 );
 
 const ActiveAggregationsSpacer = connect(state => ({
   aggregations: state.query.aggregations,
-}))(
-  ({ text, aggregations }) =>
-    aggregations.length ? (
-      <Grid relaxed style={{ padding: '0 0 1em 0' }}>
-        <Spacer text="Active filters:" />
-        <ActiveAggregations />
-      </Grid>
-    ) : null
+}))(({ text, aggregations }) =>
+  aggregations.length ? (
+    <Grid relaxed style={{ padding: '0 0 1em 0' }}>
+      <Spacer text="Active filters:" />
+      <ActiveAggregations />
+    </Grid>
+  ) : null
 );
 
 export class Results extends Component {
@@ -61,7 +59,11 @@ export class Results extends Component {
               <Spacer text="Found" />
               <Count />
               <Spacer text="results sorted by" />
-              <SortBy values={this.sortByValues} defaultValue="mostrecent" />
+              <SortBy
+                values={this.sortByValues}
+                defaultValue="bestmatch"
+                defaultValueOnEmptyString="mostrecent"
+              />
               <SortOrder values={this.sortOrderValues} defaultValue="desc" />
             </span>
           </Grid.Column>

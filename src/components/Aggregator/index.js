@@ -7,7 +7,7 @@
  */
 
 import { connect } from '@app/store';
-import { updateQueryAggregation, setInitialState } from '@app/state/actions';
+import { updateQueryAggregation } from '@app/state/actions';
 import AggregatorComponent from './Aggregator';
 
 const mapDispatchToProps = dispatch => ({

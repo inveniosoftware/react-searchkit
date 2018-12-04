@@ -41,7 +41,7 @@ renderEmptyResults = (queryString, resetQuery) => {
 
 * **queryString** `String`
 
-  The current query string.
+  The current value of the `queryString` `query` state.
 
 * **resetQuery** `function`
 

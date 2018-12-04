@@ -45,11 +45,11 @@ renderSearchBar = (placeholder, currentQueryString, onInputChange, executeSearch
 
 * **currentQueryString** `String`
 
-  The current value of the query string.
+  The current value of the `queryString` `query` state.
 
 * **onInputChange** `function`
 
-  A function to be called every time the user changes the query string. `onInputChange(queryString)`
+  A function to be called every time the user changes the query string to change the `query` state. `onInputChange(queryString)`
 
 * **executeSearch** `function`
 

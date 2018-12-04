@@ -56,15 +56,16 @@ class RequestSerializer {
       getParams['q'] = queryString;
     }
     if (sortBy !== null) {
-      getParams['sortBy'] = sortBy;
+      getParams['sort'] = sortBy;
+
+      if (sortOrder !== null) {
+        getParams['sort'] = sortOrder === 'desc' ? `-${sortBy}` : sortBy;
+      }
     }
-    if (sortOrder !== null) {
-      getParams['sortOrder'] = sortOrder;
-    }
-    if (page !== null) {
+    if (page > 0) {
       getParams['page'] = page;
     }
-    if (size !== null) {
+    if (size > 0) {
       getParams['size'] = size;
     }
     this._addAggregations(getParams, aggregations);

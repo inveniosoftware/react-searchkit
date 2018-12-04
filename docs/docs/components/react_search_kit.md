@@ -42,8 +42,3 @@ See the [complete guide](main_concepts.md) for detailed information.
 
   A boolean to perform a search when the application is mounted. Default `true`.
 
-* **defaultSortByOnEmptyQuery** `String` *optional*
-
-  Value of the `SortBy` component, if defined, when performing a search with an empty query. By default disabled with value `null`.
-
-  When searching with an empty query, users normally expect most recent results, while searching with a defined query string, best match.

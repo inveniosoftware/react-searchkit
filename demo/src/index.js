@@ -60,7 +60,6 @@ class Demo extends Component {
             timeout: 5000,
             headers: { Accept: 'application/vnd.zenodo.v1+json' },
           }}
-          defaultSortByOnEmptyQuery="mostrecent"
         >
           <div>
             <Segment inverted>

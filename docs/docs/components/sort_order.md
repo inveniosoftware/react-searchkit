@@ -5,31 +5,52 @@ title: SortOrder
 
 `SortOrder` renders a list of the possible sort order values, i.e. ascending/descending.
 
+The component is **not** displayed while executing the search query or if there are no results.
+
 ## Usage
-
-### Props
-
-| Name                          | Required  | Default       | Type      | Description             |
-| ------------------------------|-----------|---------------| ----------|-------------|
-| ``values``                    | yes       |               | {array}   | Array of options to show(Each option should be an object with keys `text`, `value |
-| ``defaultValue``              | yes       |               | {string}  | Default dropdown value |
 
 ```jsx
 <SortOrder
- values={this.sortOrderValues}
- defaultValue="desc"
+  values={[{text: "Asc", value: "asc"}, {text: "Desc", value: "desc"}]}
+  defaultValue="desc"
 />
 ```
 
+## Props
+
+* **values** `Array`
+
+  A list of possible values, where each value has the format `{ text: "Asc", value: "asc" }`.
+
+* **defaultValue** `String`
+
+  The default value to pre-select when rendering the component. For example, `"desc"`.
+
 ## Usage when overriding template
 
-Props below are available in your renderElement function when you override the template.
+```jsx
+<SortOrder renderElement={renderSortOrder} />
+```
 
-### Props
+The function `renderElement` is called every time results or currentSortOrder change.
 
-| Name              | Default       | Type      | Description             |
-| ------------------|---------------| ----------|-------------------------|
-| ``renderElement`` | null          | {func}    | Function to override the the component's template |
-| ``currentSortOrder``| -           | {number}  | Selected dropdown sortOrder value |
-| ``values``        | -             | {string}  | Array of options to show(Each option should be an object with keys `text`, `value` |
-| ``onValueChange`` | -             | {func}    | Function to call when dropdown value is changed |
+```jsx
+renderSortOrder = (currentSortOrder, options, onValueChange) => {
+  const _options = options.map(option => <li onClick={() => {onValueChange(option.value)}}>{option.text}</li>);
+  return <ul>{this._options}</ul>;
+}
+```
+
+### Parameters
+
+* **currentSortOrder** `String`
+
+  The current value of the `sortOrder` `query` state.
+
+* **options** `Array`
+
+  The options passed as prop to the component.
+
+* **onValueChange** `function`
+
+  The function to call when the user changes the sort order field value to change the `query` state. `onValueChange(newValue)`

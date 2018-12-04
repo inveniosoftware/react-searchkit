@@ -51,7 +51,15 @@ export default class ActiveAggregations extends Component {
     this.updateQueryAggregation(stateQueryAggregation);
   };
 
-  _renderSelectedAggregations = aggregations => {
+  _renderSelectedAggregation = (label, key, removeAggregationClickHandler) => {
+    return (
+      <Label key={key}>
+        {label} <Icon name="close" onClick={removeAggregationClickHandler} />
+      </Label>
+    );
+  };
+
+  _renderElement = aggregations => {
     const indexedLabels = this._getActiveAggregations(aggregations);
     indexedLabels.sort((first, second) => first['label'] < second['label']);
     const sortedLabels = indexedLabels.map(indexedLabel => {
@@ -60,22 +68,18 @@ export default class ActiveAggregations extends Component {
       const removeAggregationClickHandler = (event, input) => {
         this._onClick(event, key);
       };
-      return this.renderElement(value, key, removeAggregationClickHandler);
+      return this._renderSelectedAggregation(
+        value,
+        key,
+        removeAggregationClickHandler
+      );
     });
     return sortedLabels.length ? sortedLabels : null;
   };
 
-  _renderElement = (label, key, removeAggregationClickHandler) => {
-    return (
-      <Label key={key}>
-        {label} <Icon name="close" onClick={removeAggregationClickHandler} />
-      </Label>
-    );
-  };
-
   render() {
     const aggregations = this.props.aggregations;
-    return this._renderSelectedAggregations(aggregations);
+    return this.renderElement(aggregations);
   }
 }
 

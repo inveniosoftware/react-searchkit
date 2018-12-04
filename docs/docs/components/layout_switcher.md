@@ -44,8 +44,8 @@ renderLayoutSwitcher = (currentLayout, onLayoutChange) => {
 
 * **currentLayout** `String`
 
-  The current layout.
+  The current value of the `layout` `query` state.
 
 * **onLayoutChange** `function`
 
-  The function to call when the user wants to change the current layout, passing as parameter the new layout.
+  The function to call when the user wants to change the current layout to change the `query` state. `onLayoutChange(newValue)`

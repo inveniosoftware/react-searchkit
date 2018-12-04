@@ -9,26 +9,26 @@ Each label has a `close` icon which can be clicked to remove the selected aggreg
 
 ## Usage
 
-### Props
-
-| Name                          | Required | Default       | Type      | Description             |
-| ------------------------------|----------|---------------| ----------|-------------------------|
-| ``aggregations``              | no       |               | {array}   |  |
-| ``updateQueryAggregation``    | no       |               | {func}    |  |
-
-
 ```jsx
 <ActiveAggregations />
 ```
 
 ## Usage when overriding template
 
-Props below are available in your renderElement function when you override the template.
+```jsx
+<ActiveAggregations renderElement={renderActiveAggregations}/>
+```
 
-### Props
+The function `renderElement` is called every time results or currentSortOrder change.
 
-| Name                          | Default       | Type      | Description                   |
-| ------------------------------|---------------| ----------|-------------------------------|
-| ``renderElement``             | null          | {func}    | Function to override the the component's template |
-| ``userSelectionAggregations`` |               | {array}   | Aggregations selected by user |
-| ``resultsAggregations``       |               | {func}    | Aggregations of the results   |
+```jsx
+renderActiveAggregations = aggregations => {
+  return aggregations.keys().map(aggregation => <div>{aggregation})</div>);
+}
+```
+
+### Parameters
+
+* **aggregations** `object`
+
+  The `aggregations` `results` state. It contains aggregations returned by the API layer in the format described in the Aggregation section of this guide.

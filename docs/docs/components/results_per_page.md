@@ -5,31 +5,52 @@ title: ResultsPerPage
 
 `ResultsPerPages` renders a list of the possible number of results per page.
 
+The component is **not** displayed while executing the search query or if there are no results.
+
 ## Usage
 
-### Props
-
-| Name                          | Required  | Default       | Type      | Description             |
-| ------------------------------|-----------|---------------| ----------|-------------------------|
-| ``values``                    | yes       |               | {array}  | Array of options to show(Each option should be an object with keys `text`, `value`|
-| ``defaultValue``              | yes       |               | {string}  | Default dropdown value |
-
 ```jsx
-<ResultsPerPage
-  values={this.resultsPerPageValues}
-  defaultValue={10}
+<ResultsPerPages
+  values={[{text: "Ten", value: 10}, {text: "Twenty", value: 20}]}
+  defaultValue={20}
 />
 ```
 
+## Props
+
+* **values** `Array`
+
+  A list of possible values, where each value has the format `{ text: "Fifty", value: 50 }`.
+
+* **defaultValue** `String`
+
+  The default value to pre-select when rendering the component. For example, `20`.
+
 ## Usage when overriding template
 
-Props below are available in your renderElement function when you override the template.
+```jsx
+<ResultsPerPages renderElement={renderResultsPerPages} />
+```
 
-### Props
+The function `renderElement` is called every time results or currentSize change.
 
-| Name              | Default       | Type      | Description             |
-| ------------------|---------------| ----------|-------------------------|
-| ``renderElement`` | null          | {func}    | Function to override the the component's template |
-| ``currentSize``   | -             | {number}  | Selected dropdown size value |
-| ``values``        | -             | {string}  | Array of options to show(Each option should be an object with keys `text`, `value` |
-| ``onValueChange`` | -             | {func}  | Function to call when dropdown value is changed |
+```jsx
+renderResultsPerPages = (currentSize, options, onValueChange) => {
+  const _options = options.map(option => <li onClick={() => {onValueChange(option.value)}}>{option.text}</li>);
+  return <ul>{this._options}</ul>;
+}
+```
+
+### Parameters
+
+* **currentSize** `String`
+
+  The current value of the `size` `query` state.
+
+* **options** `Array`
+
+  The options passed as prop to the component.
+
+* **onValueChange** `function`
+
+  The function to call when the user changes the number of results per page to change the `query` state. `onValueChange(newValue)`

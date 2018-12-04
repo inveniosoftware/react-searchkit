@@ -24,23 +24,24 @@ export default class Aggregator extends Component {
     this.updateQueryAggregation(aggregation);
   };
 
-  _renderElement(
-    aggregationField,
+  _renderElement = (
+    title,
+    field,
     resultsAggregations,
     userSelectionAggregations,
     userSelectionChangeHandler
-  ) {
+  ) => {
     // user selection for this specific aggregator
     const userSelection = userSelectionAggregations.filter(
-      selectedAggr => aggregationField in selectedAggr
+      selectedAggr => field in selectedAggr
     );
 
     return resultsAggregations.length ? (
       <Card>
-        <Card.Content header={this.title} />
+        <Card.Content header={title} />
         <Card.Content>
           <AggregatorValues
-            field={aggregationField}
+            field={field}
             values={resultsAggregations}
             userSelection={userSelection}
             onUserSelectionChange={userSelectionChangeHandler}
@@ -48,7 +49,7 @@ export default class Aggregator extends Component {
         </Card.Content>
       </Card>
     ) : null;
-  }
+  };
 
   render() {
     const { userSelectionAggregations, resultsAggregations } = this.props;
@@ -57,6 +58,7 @@ export default class Aggregator extends Component {
     return (
       <div>
         {this.renderElement(
+          this.title,
           this.field,
           results,
           current,
