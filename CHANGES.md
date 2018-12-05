@@ -1,5 +1,11 @@
 # Changes
 
+Version 0.3.0 (released 2018-12-05)
+
+* Upgraded dependencies to remove event-stream npm package
+* Fixed an issue with sorting component
+* Completed documentation changes for components
+
 Version 0.2.0 (released 2018-11-15)
 
 * Added npm build:watch to task to easily integrate while making changes to the app
