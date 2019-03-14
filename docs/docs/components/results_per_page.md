@@ -3,14 +3,14 @@ id: results-per-page
 title: ResultsPerPage
 ---
 
-`ResultsPerPages` renders a list of the possible number of results per page.
+`ResultsPerPage` renders a list of the possible number of results per page.
 
 The component is **not** displayed while executing the search query or if there are no results.
 
 ## Usage
 
 ```jsx
-<ResultsPerPages
+<ResultsPerPage
   values={[{text: "Ten", value: 10}, {text: "Twenty", value: 20}]}
   defaultValue={20}
 />
@@ -29,13 +29,13 @@ The component is **not** displayed while executing the search query or if there 
 ## Usage when overriding template
 
 ```jsx
-<ResultsPerPages renderElement={renderResultsPerPages} />
+<ResultsPerPage renderElement={renderResultsPerPage} />
 ```
 
 The function `renderElement` is called every time results or currentSize change.
 
 ```jsx
-renderResultsPerPages = (currentSize, options, onValueChange) => {
+renderResultsPerPage = (currentSize, options, onValueChange) => {
   const _options = options.map(option => <li onClick={() => {onValueChange(option.value)}}>{option.text}</li>);
   return <ul>{this._options}</ul>;
 }
