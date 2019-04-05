@@ -20,6 +20,46 @@ export default class AggregatorValues extends Component {
     this.renderElement = props.renderElement || this._renderElement;
   }
 
+  buildAggregations = (fieldName, values, userSelection) => {
+    const parentNestedField = values.hasNestedField;
+
+    return Object.keys(values).map((key, index) => {
+      if (typeof values[key] === 'object') {
+        const aggrValue = values[key];
+        const checked = this.isItemChecked(fieldName, aggrValue, userSelection);
+        const _onUserSelectionChange = (e, { value }) => {
+          const aggrNameValue = {};
+          aggrNameValue[fieldName] = { value: aggrValue.key };
+          this.onUserSelectionChange(aggrNameValue);
+        };
+
+        const label = `${_capitalize(aggrValue.name)} (${aggrValue.total})`;
+
+        const checkboxItem = (<Checkbox
+          label={label}
+          value={aggrValue.key}
+          checked={checked}
+          onClick={_onUserSelectionChange}
+        />);
+
+        let nestedAgg;
+        if (values[key].hasNestedField) {
+          nestedAgg = (
+          <List>
+            {this.buildAggregations(fieldName, values[key], userSelection)}
+          </List>);
+        }
+
+        return (
+          <List.Item key={index}>
+            {checkboxItem}
+            {nestedAgg}
+          </List.Item>
+        );
+      }
+    });
+  };
+
   isItemChecked = (fieldName, aggrValue, userSelection) => {
     const selectedFieldFound = _find(userSelection, userSelectedAggr => {
       return (
@@ -31,70 +71,13 @@ export default class AggregatorValues extends Component {
     return selectedFieldFound ? true : false;
   };
 
-  renderNestedAggregator = (fieldName, aggrValue, userSelection) => {
-    const _onUserSelectionChange = partialAggregation => {
-      const aggrNameValue = {};
-      aggrNameValue[fieldName] = {
-        value: aggrValue.key,
-        ...partialAggregation,
-      };
-      this.onUserSelectionChange(aggrNameValue);
-    };
-    const nestedUserSelection = userSelection
-      .filter(selectedAggr => fieldName in selectedAggr)
-      .map(selectedAggr => selectedAggr[fieldName]);
-    return (
-      <AggregatorValues
-        field={aggrValue.hasNestedField}
-        values={aggrValue[aggrValue.hasNestedField]}
-        userSelection={nestedUserSelection}
-        onUserSelectionChange={_onUserSelectionChange}
-      />
-    );
-  };
-
-  _renderElement = (fieldName, aggrValue, index, userSelection) => {
-    const label = `${aggrValue.text || _capitalize(aggrValue.key)} (${
-      aggrValue.total
-    })`;
-    const checked = this.isItemChecked(fieldName, aggrValue, userSelection);
-    const _onUserSelectionChange = (e, { value }) => {
-      const aggrNameValue = {};
-      aggrNameValue[fieldName] = { value: aggrValue.key };
-      this.onUserSelectionChange(aggrNameValue);
-    };
-
-    let nestedAggregatorTemplate;
-    if (aggrValue.hasNestedField) {
-      nestedAggregatorTemplate = this.renderNestedAggregator(
-        fieldName,
-        aggrValue,
-        userSelection
-      );
-    }
-
-    return (
-      <List.Item key={index}>
-        <Checkbox
-          label={label}
-          value={aggrValue.key}
-          checked={checked}
-          onClick={_onUserSelectionChange}
-        />
-        {nestedAggregatorTemplate}
-      </List.Item>
-    );
-  };
-
   render() {
     const values = this.props.values;
     const userSelection = this.props.userSelection;
 
-    const listItems = values.map((value, index) =>
-      this.renderElement(this.field, value, index, userSelection)
-    );
+    const allAgggregations = this.buildAggregations(this.field, values, userSelection);
 
-    return <List>{listItems}</List>;
+    return <List>{allAgggregations}</List>;
   }
 }
 

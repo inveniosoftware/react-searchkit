@@ -15,6 +15,7 @@ export default class ActiveAggregations extends Component {
     super(props);
     this.updateQueryAggregation = props.updateQueryAggregation;
     this.renderElement = props.renderElement || this._renderElement;
+    this.renderSelectedAggregation = props.renderSelectedAggregation || this._renderSelectedAggregation;
   }
 
   _getNestedActiveAggregation = (fieldName, aggrValue, aggregationIndex) => {
@@ -27,9 +28,9 @@ export default class ActiveAggregations extends Component {
         aggregationIndex
       );
     } else {
-      const value = aggrValue['value'];
+      const selectionLabel = aggrValue['value'].split('.').join(':');
       return {
-        label: `${fieldName}: ${value}`,
+        label: `${selectionLabel}`,
         aggregationIndex: aggregationIndex,
       };
     }
@@ -68,7 +69,7 @@ export default class ActiveAggregations extends Component {
       const removeAggregationClickHandler = (event, input) => {
         this._onClick(event, key);
       };
-      return this._renderSelectedAggregation(
+      return this.renderSelectedAggregation(
         value,
         key,
         removeAggregationClickHandler
