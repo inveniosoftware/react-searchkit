@@ -8,7 +8,7 @@
 
 import React, { Component } from 'react';
 import { connect } from '@app/store';
-import { Grid } from 'semantic-ui-react';
+import {Grid, Icon, Label} from 'semantic-ui-react';
 import {
   ActiveAggregations,
   Count,
@@ -29,13 +29,28 @@ const Spacer = connect(state => ({
   )
 );
 
+  const renderSelectedAggregation = (label, key, removeAggregationClickHandler) => {
+    const capitalize = string => { return string.charAt(0).toUpperCase() + string.slice(1) };
+    const mainAggregationLabel = capitalize(label.split(":").slice(0,1).join(""));
+    const nestedLabel = label.split(":")
+                             .filter((item, index) => index%2 !== 0)
+                             .map(item => capitalize(item))
+                             .join(" : ");
+    const newLabel = "".concat(mainAggregationLabel, ": ", nestedLabel);
+    return (
+      <Label key={key}>
+        {newLabel} <Icon name="close" onClick={removeAggregationClickHandler} />
+      </Label>
+    );
+  };
+
 const ActiveAggregationsSpacer = connect(state => ({
   aggregations: state.query.aggregations,
 }))(({ text, aggregations }) =>
   aggregations.length ? (
     <Grid relaxed style={{ padding: '0 0 1em 0' }}>
       <Spacer text="Active filters:" />
-      <ActiveAggregations />
+      <ActiveAggregations renderSelectedAggregation={renderSelectedAggregation} />
     </Grid>
   ) : null
 );

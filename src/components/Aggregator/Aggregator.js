@@ -8,7 +8,7 @@
 
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { Card } from 'semantic-ui-react';
+import { Card, Dropdown, Input, Checkbox, Sidebar, Segment, Menu, Header, Accordion } from 'semantic-ui-react';
 import AggregatorValues from './AggregatorValues';
 
 export default class Aggregator extends Component {
@@ -18,6 +18,7 @@ export default class Aggregator extends Component {
     this.field = props.field;
     this.updateQueryAggregation = props.updateQueryAggregation;
     this.renderElement = props.renderElement || this._renderElement;
+    this.customProps = props.customProps;
   }
 
   onUserSelectionChange = aggregation => {
@@ -26,26 +27,15 @@ export default class Aggregator extends Component {
 
   _renderElement = (
     title,
-    field,
     resultsAggregations,
-    userSelectionAggregations,
-    userSelectionChangeHandler
+    aggregations,
+    customProps
   ) => {
-    // user selection for this specific aggregator
-    const userSelection = userSelectionAggregations.filter(
-      selectedAggr => field in selectedAggr
-    );
-
-    return resultsAggregations.length ? (
+    return resultsAggregations !== undefined ? (
       <Card>
         <Card.Content header={title} />
         <Card.Content>
-          <AggregatorValues
-            field={field}
-            values={resultsAggregations}
-            userSelection={userSelection}
-            onUserSelectionChange={userSelectionChangeHandler}
-          />
+          {aggregations}
         </Card.Content>
       </Card>
     ) : null;
@@ -55,15 +45,29 @@ export default class Aggregator extends Component {
     const { userSelectionAggregations, resultsAggregations } = this.props;
     const current = userSelectionAggregations || [];
     const results = resultsAggregations[this.field] || [];
+
+    // user selection for this specific aggregator
+    const userSelection = current.filter(
+      selectedAggr => this.field in selectedAggr
+    );
+
+    const aggregations = (
+        <AggregatorValues
+          field={this.field}
+          values={results}
+          userSelection={userSelection}
+          onUserSelectionChange={this.onUserSelectionChange}
+        />
+    )
+
     return (
-      <div>
+    <div>
         {this.renderElement(
           this.title,
-          this.field,
           results,
-          current,
-          this.onUserSelectionChange
-        )}
+          aggregations,
+          this.customProps)
+        }
       </div>
     );
   }
