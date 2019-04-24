@@ -1,5 +1,11 @@
 # Changes
 
+Version 0.4.0 (released 2019-04-24)
+* Updated nested aggregation code
+* Change in how selected aggregations are displayed
+* Updated response/request serializers
+* Added option to display aggregations as expandable accordions
+
 Version 0.3.0 (released 2018-12-05)
 
 * Upgraded dependencies to remove event-stream npm package
