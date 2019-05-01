@@ -6,5 +6,5 @@
  * under the terms of the MIT License; see LICENSE file for more details.
  */
 
-export { ElasticSearchApi, InvenioSearchApi } from './search';
-export { UrlQueryStringHandler } from './UrlQueryStringHandler';
+export { InvenioSearchApi } from './InvenioSearchApi';
+export { ElasticSearchApi } from './ElasticSearchApi';

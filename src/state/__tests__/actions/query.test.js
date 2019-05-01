@@ -24,13 +24,11 @@ import {
   updateQuerySortBy,
   updateQuerySortOrder,
 } from '@app/state/actions';
-import { UrlParamsApi } from '@app/api/UrlParamsApi';
-import { SearchApi } from '@app/api/SearchApi';
+import { UrlQueryStringHandler } from '@app/api/UrlQueryStringHandler';
 
 const config = {
-  apiConfig: {},
-  urlParamsApi: new UrlParamsApi(),
-  searchApi: new SearchApi(),
+  urlQueryStringHandler: new UrlQueryStringHandler(),
+  searchApi: null,
 };
 const middlewares = [thunk.withExtraArgument(config)];
 const mockStore = configureMockStore(middlewares);

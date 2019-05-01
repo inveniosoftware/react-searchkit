@@ -8,14 +8,15 @@
 
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { Card, Dropdown, Input, Checkbox, Sidebar, Segment, Menu, Header, Accordion } from 'semantic-ui-react';
-import AggregatorValues from './AggregatorValues';
+import { Card } from 'semantic-ui-react';
+import { _isPlainObject } from 'lodash/isPlainObject';
+import BucketAggregationValues from './BucketAggregationValues';
 
-export default class Aggregator extends Component {
+export default class BucketAggregation extends Component {
   constructor(props) {
     super(props);
     this.title = props.title;
-    this.field = props.field;
+    this.agg = props.agg;
     this.updateQueryAggregation = props.updateQueryAggregation;
     this.renderElement = props.renderElement || this._renderElement;
     this.customProps = props.customProps;
@@ -25,18 +26,11 @@ export default class Aggregator extends Component {
     this.updateQueryAggregation(aggregation);
   };
 
-  _renderElement = (
-    title,
-    resultsAggregations,
-    aggregations,
-    customProps
-  ) => {
-    return resultsAggregations !== undefined ? (
+  _renderElement = (title, buckets, aggregations, customProps) => {
+    return _isPlainObject(buckets) ? (
       <Card>
         <Card.Content header={title} />
-        <Card.Content>
-          {aggregations}
-        </Card.Content>
+        <Card.Content>{aggregations}</Card.Content>
       </Card>
     ) : null;
   };
@@ -44,44 +38,48 @@ export default class Aggregator extends Component {
   render() {
     const { userSelectionAggregations, resultsAggregations } = this.props;
     const current = userSelectionAggregations || [];
-    const results = resultsAggregations[this.field] || [];
+    const buckets = resultsAggregations[this.agg.name] || {};
 
-    // user selection for this specific aggregator
+    // user selection for the field of this bucket aggregation
     const userSelection = current.filter(
-      selectedAggr => this.field in selectedAggr
+      selectedAggr => this.agg.field in selectedAggr
     );
 
     const aggregations = (
-        <AggregatorValues
-          field={this.field}
-          values={results}
-          userSelection={userSelection}
-          onUserSelectionChange={this.onUserSelectionChange}
-        />
-    )
+      <BucketAggregationValues
+        agg={this.agg}
+        buckets={buckets}
+        userSelection={userSelection}
+        onUserSelectionChange={this.onUserSelectionChange}
+      />
+    );
 
     return (
-    <div>
+      <div>
         {this.renderElement(
           this.title,
-          results,
+          buckets,
           aggregations,
-          this.customProps)
-        }
+          this.customProps
+        )}
       </div>
     );
   }
 }
 
-Aggregator.propTypes = {
+BucketAggregation.propTypes = {
   title: PropTypes.string.isRequired,
-  field: PropTypes.string.isRequired,
+  agg: PropTypes.shape({
+    name: PropTypes.string.isRequired,
+    field: PropTypes.string.isRequired,
+    aggs: PropTypes.object,
+  }),
   userSelectionAggregations: PropTypes.array.isRequired,
   resultsAggregations: PropTypes.object.isRequired,
   updateQueryAggregation: PropTypes.func.isRequired,
   renderElement: PropTypes.func,
 };
 
-Aggregator.defaultProps = {
+BucketAggregation.defaultProps = {
   renderElement: null,
 };

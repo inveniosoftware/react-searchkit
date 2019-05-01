@@ -16,14 +16,13 @@ class RequestSerializer {
   _addAggregations(getParams, aggregations) {
     aggregations.forEach(aggregation => {
       const rootKey = Object.keys(aggregation)[0];
-
       /**
        * The selection represent any one of the aggregation values clicked at any level of depth.
        * Its value is the whole path e.g. for Type -> Publication -> (Subtype)Article
        * the value will be type.publication.subtype.article from which the array will be created
        * @type {string[]}
        */
-      const selection = aggregation[rootKey]["value"].split('.');
+      const selection = aggregation[rootKey]['value'].split('.');
 
       /**
        * For each category:name pair (e.g. subtype:article) in the path
@@ -32,7 +31,9 @@ class RequestSerializer {
       for (let i = 0, j = 1; j <= selection.length; i += 2, j += 2) {
         const key = selection[i];
         const value = selection[j];
-        key in getParams ? getParams[key].push(value) : (getParams[key] = [value]);
+        key in getParams
+          ? getParams[key].push(value)
+          : (getParams[key] = [value]);
       }
     });
   }
@@ -76,53 +77,77 @@ class RequestSerializer {
 
 /** Default backend response serializer */
 class ResponseSerializer {
-  _createAggregation(parentKeyName, buckets) {
-    let aggregations = new Object();
+  _mapBuckets(parentKeyName, buckets) {
+    const aggregations = {};
+    buckets.forEach(bucket => {
+      const key = `${parentKeyName}.${bucket.key}`;
+      // check if the agg name has a field called `bucket` that is an object not empty.
+      const nestedAggName = _find(
+        Object.keys(bucket),
+        key =>
+          _isPlainObject(bucket[key]) &&
+          'buckets' in bucket[key] &&
+          bucket[key].buckets.length
+      );
 
-      buckets.forEach(item => {
-        const nestedField = _find(
-          Object.keys(item),
-          key =>
-            _isPlainObject(item[key]) &&
-            'buckets' in item[key] &&
-            item[key].buckets.length
+      // console.log(parentKeyName, nestedAggName);
+
+      if (nestedAggName) {
+        const nestedBuckets = bucket[nestedAggName].buckets;
+
+        //???????
+        // const nestedAggregationPath = [nestedAggName, 'buckets'];
+        // const nestedBuckets = this._extractFromPath(
+        //   bucket,
+        //   nestedAggregationPath
+        // );
+
+        console.log(`${key}.${nestedAggName}`);
+        aggregations[bucket.key] = this._mapBuckets(
+          `${key}.${nestedAggName}`,
+          nestedBuckets
         );
-        if (nestedField) {
-          const nestedAggregationPath = [nestedField, "buckets"];
-          const nestedBuckets = this._extractFromPath(item, nestedAggregationPath);
-          const newKeyName = "".concat(parentKeyName, ".", item.key);
-          aggregations[item.key] = this._createAggregation("".concat(newKeyName, ".", nestedField), nestedBuckets);
-          aggregations[item.key]["key"] = newKeyName;
-          aggregations[item.key]["name"] = item.key;
-          aggregations[item.key]["total"] = item.doc_count;
-          aggregations[item.key]["hasNestedField"] = nestedField;
-        }
-        else {
-          const parentNestedField = parentKeyName.split(".").slice(-1);
-          aggregations[item.key] = {
-              "hasNestedField": false,
-              "name": item.key,
-              "total": item.doc_count,
-              "key": "".concat(parentKeyName, ".", item.key)
-          };
-        }
-      }, this);
+        aggregations[bucket.key]['key'] = key;
+        aggregations[bucket.key]['name'] = bucket.key;
+        aggregations[bucket.key]['total'] = bucket.doc_count;
+        aggregations[bucket.key]['hasNestedAgg'] = nestedAggName;
+      } else {
+        aggregations[bucket.key] = {
+          hasNestedAgg: false,
+          value: bucket.key,
+          total: bucket.doc_count,
+          key: key,
+        };
+      }
+    });
 
-      return aggregations;
+    return aggregations;
   }
 
+  //???????
   _extractFromPath(aggregation, pathToExtract) {
-    return pathToExtract.reduce((obj, key) =>
-        (obj && obj[key] !== 'undefined') ? obj[key] : undefined, aggregation);
+    return pathToExtract.reduce(
+      (obj, key) => (obj && obj[key] !== 'undefined' ? obj[key] : undefined),
+      aggregation
+    );
   }
 
   _serializeAggregations(aggregationsResponse) {
     const aggregations = {};
-
     Object.keys(aggregationsResponse).forEach(aggregationName => {
       aggregations[aggregationName] = {};
-      const mainBuckets = this._extractFromPath(aggregationsResponse[aggregationName], ["buckets"]);
-      aggregations[aggregationName] = this._createAggregation(aggregationName, mainBuckets);
+
+      //???????
+      // const mainBuckets = this._extractFromPath(
+      //   aggregationsResponse[aggregationName],
+      //   ['buckets']
+      // );
+      // console.log(mainBuckets);
+
+      aggregations[aggregationName] = this._mapBuckets(
+        aggregationName,
+        aggregationsResponse[aggregationName].buckets
+      );
     }, this);
 
     return aggregations;
@@ -142,7 +167,7 @@ class ResponseSerializer {
 }
 
 /**  */
-export class SearchApi {
+export class InvenioSearchApi {
   constructor(config = {}) {
     this.config = config;
     this.requestSerializer =
@@ -157,8 +182,7 @@ export class SearchApi {
    */
   search = async stateQuery => {
     const axiosConfig = {
-      paramsSerializer: stateQuery =>
-        this.requestSerializer.serialize(stateQuery),
+      paramsSerializer: this.requestSerializer.serialize,
       params: stateQuery,
       ...this.config,
     };

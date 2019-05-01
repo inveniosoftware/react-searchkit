@@ -25,21 +25,37 @@ Main features:
 
 ![React-SearchKit screenshot](docs/website/static/img/screenshot.png)
 
+## Demo
+
+The repository includes a `demo` folder with a simple example using ElasticSearch APIs as example.
+
+### How to run the demo
+
+Run ElasticSearch 6 using Docker (see [here](https://www.elastic.co/guide/en/elasticsearch/reference/6.7/docker.html) the documentation):
+
+```console
+$ docker run -p 9200:9200 -p 9300:9300 -e "discovery.type=single-node" -e "http.cors.enabled=true" -e "http.cors.allow-origin=*" docker.elastic.co/elasticsearch/elasticsearch:6.7.1
+```
+
+Create the index and init the demo data:
+
+```console
+$ cd react-searchkit
+$ ./demo/init.sh
+```
+
+Run the React-SearchKit demo app:
+
+```console
+$ npm install
+$ npm start
+```
+
+The browser should open automatically, otherwise open a new browser window at the address <http://localhost:3000>.
+
 ## Developer guide
 
 React-SearchKit uses [nwb](https://github.com/insin/nwb) as development toolkit.
-
-Install the library:
-
-```
-npm install
-```
-
-Start the demo applications:
-
-```
-npm start
-```
 
 The library uses [Jest](https://jestjs.io/) as test runner. To run the tests:
 

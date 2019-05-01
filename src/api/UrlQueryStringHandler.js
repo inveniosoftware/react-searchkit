@@ -1,6 +1,6 @@
 /*
  * This file is part of React-SearchKit.
- * Copyright (C) 2018 CERN.
+ * Copyright (C) 2018-2019 CERN.
  *
  * React-SearchKit is free software; you can redistribute it and/or modify it
  * under the terms of the MIT License; see LICENSE file for more details.
@@ -64,7 +64,7 @@ export class ParamValidator {
 }
 
 /** Object responsible to update the URL query string and parse it to update the app state */
-export class UrlParamsApi {
+export class UrlQueryStringHandler {
   constructor(config = {}) {
     this.urlParamsMapping = config.urlParamsMapping || {
       queryString: 'q',

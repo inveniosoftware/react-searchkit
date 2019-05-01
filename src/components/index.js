@@ -7,7 +7,7 @@
  */
 
 export { ActiveAggregations } from './ActiveAggregations';
-export { Aggregator } from './Aggregator';
+export { BucketAggregation } from './BucketAggregation';
 export { Count } from './Count';
 export { EmptyResults } from './EmptyResults';
 export { Error } from './Error';

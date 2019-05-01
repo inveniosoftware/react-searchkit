@@ -8,17 +8,17 @@
 
 import { connect } from '@app/store';
 import { updateQueryAggregation } from '@app/state/actions';
-import AggregatorComponent from './Aggregator';
+import BucketAggregationComponent from './BucketAggregation';
 
 const mapDispatchToProps = dispatch => ({
   updateQueryAggregation: aggregation =>
     dispatch(updateQueryAggregation(aggregation)),
 });
 
-export const Aggregator = connect(
+export const BucketAggregation = connect(
   state => ({
     userSelectionAggregations: state.query.aggregations,
     resultsAggregations: state.results.data.aggregations,
   }),
   mapDispatchToProps
-)(AggregatorComponent);
+)(BucketAggregationComponent);

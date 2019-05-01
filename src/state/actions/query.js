@@ -32,11 +32,11 @@ export const setInitialState = initialState => {
   };
 };
 
-export const setQueryFromUrl = (searchOnLoad, updateUrlParams) => {
+export const setQueryFromUrl = (searchOnInit, updateUrlParams) => {
   return async (dispatch, getState, config) => {
-    if (config.urlParamsApi) {
+    if (config.urlQueryStringHandler) {
       const queryState = _cloneDeep(getState().query);
-      const newStateQuery = config.urlParamsApi.get(
+      const newStateQuery = config.urlQueryStringHandler.get(
         queryState,
         updateUrlParams
       );
@@ -45,7 +45,7 @@ export const setQueryFromUrl = (searchOnLoad, updateUrlParams) => {
         payload: newStateQuery,
       });
     }
-    if (searchOnLoad) {
+    if (searchOnInit) {
       await dispatch(executeQuery(false));
     }
   };
@@ -105,14 +105,14 @@ export const updateQueryAggregation = aggregation => {
 
 export const updateResultsLayout = layout => {
   return async (dispatch, getState, config) => {
-    let urlParamsApi = config.urlParamsApi;
-    if (urlParamsApi) {
+    const urlQueryStringHandler = config.urlQueryStringHandler;
+    if (urlQueryStringHandler) {
       await dispatch({
         type: RESULTS_UPDATE_LAYOUT,
         payload: layout,
       });
       let newStateQuery = getState().query;
-      urlParamsApi.set(newStateQuery);
+      urlQueryStringHandler.set(newStateQuery);
     } else {
       dispatch({
         type: RESULTS_UPDATE_LAYOUT,
@@ -135,10 +135,10 @@ export const executeQuery = (updateUrlParams = true) => {
   return async (dispatch, getState, config) => {
     const queryState = _cloneDeep(getState().query);
     const searchApi = config.searchApi;
-    const urlParamsApi = config.urlParamsApi;
+    const urlQueryStringHandler = config.urlQueryStringHandler;
 
-    if (urlParamsApi && updateUrlParams) {
-      urlParamsApi.set(queryState);
+    if (urlQueryStringHandler && updateUrlParams) {
+      urlQueryStringHandler.set(queryState);
     }
 
     dispatch({ type: RESULTS_LOADING });

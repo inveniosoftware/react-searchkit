@@ -19,15 +19,13 @@ export default class ResultsGrid extends Component {
   }
 
   _renderResult(result, index) {
-    let metadata = result.metadata;
     return (
-      <Card fluid key={index} href={`#${metadata.recid}`}>
-        <Image src={result.imageSrc || 'https://via.placeholder.com/200'} />
+      <Card fluid key={index}>
+        <Image src={'https://via.placeholder.com/200'} />
         <Card.Content>
-          <Card.Header>{metadata.title.title || metadata.title}</Card.Header>
-          <Card.Meta>{metadata.publication_date}</Card.Meta>
+          <Card.Header>{result.title}</Card.Header>
           <Card.Description>
-            {_truncate(metadata.description, { length: 200 })}
+            {_truncate(result.description, { length: 200 })}
           </Card.Description>
         </Card.Content>
       </Card>

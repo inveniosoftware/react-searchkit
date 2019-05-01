@@ -19,23 +19,19 @@ export default class ResultsList extends Component {
   }
 
   _renderResult(result, index) {
-    const metadata = result.metadata;
-    const keywords = metadata.keywords || [];
+    const keywords = result.keywords || [];
     const labels = keywords.map((keyword, index) => (
       <Label key={index} content={keyword} />
     ));
 
     return (
-      <Item key={index} href={`#${metadata.recid}`}>
-        <Item.Image
-          size="small"
-          src={result.imageSrc || 'https://via.placeholder.com/200'}
-        />
+      <Item key={index}>
+        <Item.Image size="small" src={'https://via.placeholder.com/200'} />
 
         <Item.Content>
-          <Item.Header>{metadata.title.title || metadata.title}</Item.Header>
+          <Item.Header>{result.title}</Item.Header>
           <Item.Description>
-            {_truncate(metadata.description, { length: 200 })}
+            {_truncate(result.description, { length: 200 })}
           </Item.Description>
           <Item.Extra>{labels}</Item.Extra>
         </Item.Content>
