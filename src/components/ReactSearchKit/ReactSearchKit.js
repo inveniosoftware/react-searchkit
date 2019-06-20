@@ -21,6 +21,7 @@ export class ReactSearchKit extends Component {
     super(props);
     const appConfig = {
       searchApi: props.searchApi || new SearchApi(props.searchConfig),
+      suggestionApi: props.suggestionApi,
       urlParamsApi:
         props.urlParamsApi || new UrlParamsApi(props.urlParamsConfig),
       defaultSortByOnEmptyQuery: props.defaultSortByOnEmptyQuery,
@@ -44,6 +45,7 @@ export class ReactSearchKit extends Component {
 ReactSearchKit.propTypes = {
   searchConfig: PropTypes.object,
   searchApi: PropTypes.func,
+  suggestionApi: PropTypes.object,
   urlParamsConfig: PropTypes.object,
   urlParamsApi: PropTypes.func,
   searchOnLoad: PropTypes.bool,
@@ -52,5 +54,6 @@ ReactSearchKit.propTypes = {
 
 ReactSearchKit.defaultProps = {
   searchOnLoad: true,
+  suggestionApi: null,
   defaultSortByOnEmptyQuery: null,
 };
