@@ -14,6 +14,9 @@ import {
   SET_QUERY_PAGINATION_PAGE,
   SET_QUERY_PAGINATION_SIZE,
   SET_QUERY_AGGREGATION,
+  SET_QUERY_SUGGESTIONS,
+  SET_SUGGESTION_STRING,
+  CLEAR_QUERY_SUGGESTIONS,
   SET_STATE_FROM_URL,
   RESULTS_UPDATE_LAYOUT,
   RESET_QUERY,
@@ -22,6 +25,7 @@ import { updateQueryAggregation } from '../selectors';
 
 const initialState = {
   queryString: '',
+  suggestions: [],
   sortBy: null,
   sortOrder: null,
   page: -1,
@@ -67,6 +71,21 @@ export default (state = initialState, action) => {
         ),
       };
     }
+    case SET_QUERY_SUGGESTIONS:
+      return {
+        ...state,
+        suggestions: action.payload.suggestions,
+      };
+    case CLEAR_QUERY_SUGGESTIONS:
+      return {
+        ...state,
+        suggestions: action.payload.suggestions,
+      };
+    case SET_SUGGESTION_STRING:
+      return {
+        ...state,
+        suggestionString: action.payload,
+      };
     case SET_STATE_FROM_URL:
       return {
         ...state,

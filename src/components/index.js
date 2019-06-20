@@ -8,6 +8,7 @@
 
 export { ActiveAggregations } from './ActiveAggregations';
 export { Aggregator } from './Aggregator';
+export { AutocompleteSearchBar } from './AutocompleteSearchBar';
 export { Count } from './Count';
 export { EmptyResults } from './EmptyResults';
 export { Error } from './Error';

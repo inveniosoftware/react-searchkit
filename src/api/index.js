@@ -7,4 +7,5 @@
  */
 
 export { SearchApi } from './SearchApi';
+export { InvenioSuggestionApi } from './SuggestionApi';
 export { UrlParamsApi } from './UrlParamsApi';

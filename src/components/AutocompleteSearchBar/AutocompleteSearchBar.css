@@ -1,0 +1,42 @@
+.AutoCompleteText {
+  position: relative;
+  z-index: 100;
+}
+
+.AutoCompleteText .input input {
+  border: none;
+  border-radius: 0;
+}
+
+.AutoCompleteText .input button {
+  border: none;
+  border-radius: 0;
+}
+
+.AutoCompleteText ul {
+  width: 100%;
+  position: absolute;
+  list-style-type: none;
+  text-align: left;
+  color: black;
+  background-color: white;
+  margin: 0;
+  padding: 0;
+  border: 1px solid rgb(224, 225, 226);
+  border-radius: 0 0 0.3rem 0.3rem;
+}
+
+.AutoCompleteText ul::before {
+  content: '';
+}
+
+.AutoCompleteText li {
+  padding: 0.3em 1em;
+  cursor: pointer;
+}
+
+.AutoCompleteText li:hover {
+  text-decoration: underline;
+  background-color: rgb(224, 225, 226);
+  border-radius: 0.3rem;
+}

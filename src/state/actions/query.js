@@ -16,6 +16,9 @@ import {
   SET_QUERY_PAGINATION_PAGE,
   SET_QUERY_PAGINATION_SIZE,
   SET_QUERY_AGGREGATION,
+  SET_QUERY_SUGGESTIONS,
+  SET_SUGGESTION_STRING,
+  CLEAR_QUERY_SUGGESTIONS,
   RESET_QUERY,
   RESULTS_LOADING,
   RESULTS_FETCH_SUCCESS,
@@ -155,5 +158,47 @@ export const executeQuery = (updateUrlParams = true) => {
     } catch (reason) {
       dispatch({ type: RESULTS_FETCH_ERROR, payload: reason });
     }
+  };
+};
+
+export const updateSuggestions = suggestionString => {
+  return async dispatch => {
+    dispatch({
+      type: SET_SUGGESTION_STRING,
+      payload: suggestionString,
+    });
+
+    await dispatch(executeSuggestionQuery());
+  };
+};
+
+export const executeSuggestionQuery = () => {
+  return async (dispatch, getState, config) => {
+    const queryState = _cloneDeep(getState().query);
+    const suggestionApi = config.suggestionApi;
+
+    try {
+      const response = await suggestionApi.search(queryState);
+      //Iterate through response and get titles
+      dispatch({
+        type: SET_QUERY_SUGGESTIONS,
+        payload: {
+          suggestions: response.suggestions,
+        },
+      });
+    } catch (reason) {
+      console.error('Could not load suggestions due to: ' + reason);
+    }
+  };
+};
+
+export const clearSuggestions = () => {
+  return dispatch => {
+    dispatch({
+      type: CLEAR_QUERY_SUGGESTIONS,
+      payload: {
+        suggestions: [],
+      },
+    });
   };
 };
