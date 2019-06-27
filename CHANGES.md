@@ -1,5 +1,8 @@
 # Changes
 
+Version 0.5.0 (released 2019-06-27)
+* Added Searchbar component with autocompletion
+
 Version 0.4.0 (released 2019-04-24)
 * Updated nested aggregation code
 * Change in how selected aggregations are displayed
