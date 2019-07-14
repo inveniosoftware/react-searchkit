@@ -19,10 +19,10 @@ cache:
 
 env:
   global:
-      # env vars to publish GitHub pages
-      - GH_EMAIL=info@inveniosoftware.org
-      - GH_NAME=invenio-developers
-      - secure: "OoeSeMqgn8Mpqon/anyrWrm3SjxudQZxw/UJEvL6z38nhmpAdM57Fi3ahYuLmU/RCCYIbY1PuffHt12qq/OZQx0YoRynldZotnP8ZzkZBFryD+Q6g/pktLNwPo90CDxlBbL5DjXkdssJ3WItoKnNUP9pt4GifLa4JQ8Yc5K3MrINocFln7xDPnOvNSybVMAZX4qBvEE4qCVZnZhGXdL4ZscKToUZh2LSHiYdp+fvr2Wr7Z2UMdZTvq5jBYmOkidgurSQd8EXH6NVsEmJ8Vo6mlriqyE5qTdsyXeol9YGNwjrwQTXtnNsA+GFLJmk1T2pAVhM7p4vh71nc3gxOaMlJiOHA3Dx/s/llG+TxBaRqjOffFC/hUG5K8JvB1OqTgy0lMNY6y15eubGTxV7ggWZRin2TxRcYYu2kWlEUn+tFBTSALX4uKRYhVtZUuiqPJElEBOKtcgIAgYzc/e9hLO2498pm/g5OWzy1JxPMBJdzppA3hUv9CWTqK66pdKymWBSkZZ2esvxrbYuIgdCWEJRA9glVr+3Ti5aktkyKzsMdiXBeghq8WOn4XrsAnUpiF+JeQbQeDvb1AT+wJirE0U/0q+AugMKv3SP80PJaTrp/obfSp4mjVz73v9apbeX+Ox2pfkTJDn2sEvhIo0h2FCD5gMxj8Z31RQEHFqEeDSW6qQ="
+    # env vars to publish GitHub pages
+    - GH_EMAIL=info@inveniosoftware.org
+    - GH_NAME=invenio-developers
+    - secure: 'OoeSeMqgn8Mpqon/anyrWrm3SjxudQZxw/UJEvL6z38nhmpAdM57Fi3ahYuLmU/RCCYIbY1PuffHt12qq/OZQx0YoRynldZotnP8ZzkZBFryD+Q6g/pktLNwPo90CDxlBbL5DjXkdssJ3WItoKnNUP9pt4GifLa4JQ8Yc5K3MrINocFln7xDPnOvNSybVMAZX4qBvEE4qCVZnZhGXdL4ZscKToUZh2LSHiYdp+fvr2Wr7Z2UMdZTvq5jBYmOkidgurSQd8EXH6NVsEmJ8Vo6mlriqyE5qTdsyXeol9YGNwjrwQTXtnNsA+GFLJmk1T2pAVhM7p4vh71nc3gxOaMlJiOHA3Dx/s/llG+TxBaRqjOffFC/hUG5K8JvB1OqTgy0lMNY6y15eubGTxV7ggWZRin2TxRcYYu2kWlEUn+tFBTSALX4uKRYhVtZUuiqPJElEBOKtcgIAgYzc/e9hLO2498pm/g5OWzy1JxPMBJdzppA3hUv9CWTqK66pdKymWBSkZZ2esvxrbYuIgdCWEJRA9glVr+3Ti5aktkyKzsMdiXBeghq8WOn4XrsAnUpiF+JeQbQeDvb1AT+wJirE0U/0q+AugMKv3SP80PJaTrp/obfSp4mjVz73v9apbeX+Ox2pfkTJDn2sEvhIo0h2FCD5gMxj8Z31RQEHFqEeDSW6qQ='
 
 install:
   - npm install
@@ -30,6 +30,7 @@ install:
   - npm install react@16.x react-dom@16.x
 
 script:
+  - npm run lint
   - npm test
 
 after_success:

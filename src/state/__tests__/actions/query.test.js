@@ -1,6 +1,6 @@
 /*
  * This file is part of React-SearchKit.
- * Copyright (C) 2018 CERN.
+ * Copyright (C) 2018-2019 CERN.
  *
  * React-SearchKit is free software; you can redistribute it and/or modify it
  * under the terms of the MIT License; see LICENSE file for more details.
@@ -11,6 +11,8 @@ import configureMockStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
 import expect from 'expect';
 import {
+  RESULTS_FETCH_SUCCESS,
+  RESULTS_LOADING,
   SET_QUERY_COMPONENT_INITIAL_STATE,
   SET_STATE_FROM_URL,
   SET_QUERY_STRING,
@@ -19,25 +21,29 @@ import {
 } from '@app/state/types';
 import {
   setInitialState,
-  setQueryFromUrl,
+  onAppInitialized,
   updateQueryString,
   updateQuerySortBy,
   updateQuerySortOrder,
 } from '@app/state/actions';
-import { UrlParamsApi } from '@app/api/UrlParamsApi';
-import { SearchApi } from '@app/api/SearchApi';
+import { UrlQueryStringHandler } from '@app/api';
 
 const config = {
-  apiConfig: {},
-  urlParamsApi: new UrlParamsApi(),
-  searchApi: new SearchApi(),
+  urlQueryStringHandler: new UrlQueryStringHandler(),
+  searchApi: {
+    search: query => ({
+      aggregations: [],
+      hits: [],
+      total: 0,
+    }),
+  },
 };
 const middlewares = [thunk.withExtraArgument(config)];
 const mockStore = configureMockStore(middlewares);
 
 describe('test query actions', () => {
   let store;
-  let initialState = {
+  const initialState = {
     queryString: '',
     sortBy: null,
     sortOrder: null,
@@ -53,22 +59,22 @@ describe('test query actions', () => {
     store.clearActions();
   });
 
-  it('fires a set initial state action', () => {
-    const newQueryString = { queryString: 'this is my message' };
+  it('fires a set initial state action', async () => {
+    const initialState = { queryString: 'this is my message' };
     const expectedActions = [
       {
         type: SET_QUERY_COMPONENT_INITIAL_STATE,
-        payload: newQueryString,
+        payload: initialState,
       },
     ];
 
-    store.dispatch(setInitialState(newQueryString));
-    let actions = store.getActions();
+    await store.dispatch(setInitialState(initialState));
+    const actions = store.getActions();
     expect(actions[0]).toEqual(expectedActions[0]);
   });
 
-  it('it parses url params to state and ignores unknown params', () => {
-    const urlParams = [
+  it('initializes the app setting the query state from the url query string', async () => {
+    const queryStringOnLoad = [
       'q=this is my message',
       'sort=bestmatch',
       'order=asc',
@@ -76,14 +82,14 @@ describe('test query actions', () => {
       's=10',
       'unknown=invalid',
     ];
-
-    // push a new url to your desired param state
+    // set the url query string
     window.history.pushState(
       {},
       'Test Title',
-      `/test.html?${urlParams.join('&')}`
+      `/test.html?${queryStringOnLoad.join('&')}`
     );
-    const newQueryState = {
+
+    const expectedQueryState = {
       ...initialState,
       queryString: 'this is my message',
       sortBy: 'bestmatch',
@@ -91,21 +97,47 @@ describe('test query actions', () => {
       page: 1,
       size: 10,
     };
+    const expectedActions = [
+      {
+        type: SET_STATE_FROM_URL,
+        payload: expectedQueryState,
+      },
+    ];
+
+    await store.dispatch(onAppInitialized(false));
+    const actions = store.getActions();
+    expect(actions[0]).toEqual(expectedActions[0]);
+  });
+
+  it('executes a search after app init', async () => {
+    // // set the url query string
+    // window.history.pushState(
+    //   {},
+    //   'Test Title',
+    //   `/test.html?${queryStringOnLoad.join('&')}`
+    // );
 
     const expectedActions = [
       {
         type: SET_STATE_FROM_URL,
-        payload: newQueryState,
+      },
+      {
+        type: RESULTS_LOADING,
+      },
+      {
+        type: RESULTS_FETCH_SUCCESS,
       },
     ];
 
-    // Do not trigger search or push new state
-    store.dispatch(setQueryFromUrl(false, false));
-    let actions = store.getActions();
-    expect(actions[0]).toEqual(expectedActions[0]);
+    await store.dispatch(onAppInitialized(true));
+    const actions = store.getActions();
+
+    expect(actions[0].type).toEqual(expectedActions[0].type);
+    expect(actions[1].type).toEqual(expectedActions[1].type);
+    expect(actions[2].type).toEqual(expectedActions[2].type);
   });
 
-  it('updates state with a new query string', () => {
+  it('updates the query state with a new query string', async () => {
     const newQueryString = 'this is my message';
     const expectedActions = [
       {
@@ -114,12 +146,12 @@ describe('test query actions', () => {
       },
     ];
 
-    store.dispatch(updateQueryString(newQueryString));
-    let actions = store.getActions();
+    await store.dispatch(updateQueryString(newQueryString));
+    const actions = store.getActions();
     expect(actions[0]).toEqual(expectedActions[0]);
   });
 
-  it('updates state with a new sortBy value', () => {
+  it('updates the query state with a new sortBy value', async () => {
     const newSortBy = 'mostrecent';
     const expectedActions = [
       {
@@ -128,12 +160,12 @@ describe('test query actions', () => {
       },
     ];
 
-    store.dispatch(updateQuerySortBy(newSortBy));
-    let actions = store.getActions();
+    await store.dispatch(updateQuerySortBy(newSortBy));
+    const actions = store.getActions();
     expect(actions[0]).toEqual(expectedActions[0]);
   });
 
-  it('updates state with a new sortOrder value', () => {
+  it('updates the query state with a new sortOrder value', async () => {
     const newSortOrder = 'desc';
     const expectedActions = [
       {
@@ -142,8 +174,8 @@ describe('test query actions', () => {
       },
     ];
 
-    store.dispatch(updateQuerySortOrder(newSortOrder));
-    let actions = store.getActions();
+    await store.dispatch(updateQuerySortOrder(newSortOrder));
+    const actions = store.getActions();
     expect(actions[0]).toEqual(expectedActions[0]);
   });
 });

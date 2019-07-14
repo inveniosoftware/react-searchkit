@@ -8,13 +8,14 @@
 
 import _ from 'lodash';
 import Qs from 'qs';
-import { SearchApi } from './SearchApi';
+import { InvenioSearchApi } from './InvenioSearchApi';
 
 /** Default suggestions request serializer */
 class InvenioSuggestionRequestSerializer {
   constructor(queryField) {
     this.queryField = queryField;
   }
+
   /**
    * Return a serialized version of the app state `query` for the API backend.
    * @param {object} stateQuery the `query` state to serialize
@@ -37,13 +38,13 @@ class InvenioSuggestionResponseSerializer {
     this.responseFieldPath = responseField.split('.');
   }
 
-  _serializeSuggestions(responseHits) {
+  _serializeSuggestions = responseHits => {
     return Array.from(
       new Set(
         responseHits.map(hit => _.get(hit.metadata, this.responseFieldPath))
       )
     );
-  }
+  };
 
   /**
    * Return a serialized version of the API backend response for the app state `suggestions`.
@@ -56,8 +57,8 @@ class InvenioSuggestionResponseSerializer {
   };
 }
 
-/**  */
-export class InvenioSuggestionApi extends SearchApi {
+/** Default Invenio Suggestion API adapter */
+export class InvenioSuggestionApi extends InvenioSearchApi {
   constructor(config = {}) {
     super(config);
     this.requestSerializer =
