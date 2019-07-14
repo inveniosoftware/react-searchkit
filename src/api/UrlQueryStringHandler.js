@@ -1,6 +1,6 @@
 /*
  * This file is part of React-SearchKit.
- * Copyright (C) 2018 CERN.
+ * Copyright (C) 2018-2019 CERN.
  *
  * React-SearchKit is free software; you can redistribute it and/or modify it
  * under the terms of the MIT License; see LICENSE file for more details.
@@ -13,6 +13,12 @@ import _isNil from 'lodash/isNil';
 const pushHistory = query => {
   if (window.history.pushState) {
     window.history.pushState({ path: query }, '', query);
+  }
+};
+
+const replaceHistory = query => {
+  if (window.history.replaceState) {
+    window.history.replaceState({ path: query }, '', query);
   }
 };
 
@@ -30,7 +36,7 @@ class UrlParser {
         if (value !== 'undefined') {
           parsedValue = value;
         } else {
-          console.error(`Cannot parse value ${value} for param ${key}.`);
+          console.error(`Cannot parse value ${value}.`);
         }
       }
     }
@@ -58,13 +64,13 @@ export class ParamValidator {
   /**
    * Return true if the param value is valid, false otherwise
    * @param {object} queryState the `query` state
-   * @param {boolean} updateUrlParams a flag to push the new updated version of `query` state to the URL query string
+   * @param {boolean} updateUrlQueryString a flag to push the new updated version of `query` state to the URL query string
    */
   isValid = (key, value) => true;
 }
 
 /** Object responsible to update the URL query string and parse it to update the app state */
-export class UrlParamsApi {
+export class UrlQueryStringHandler {
   constructor(config = {}) {
     this.urlParamsMapping = config.urlParamsMapping || {
       queryString: 'q',
@@ -76,6 +82,7 @@ export class UrlParamsApi {
       aggregations: 'aggr',
     };
 
+    this.withHistory = config.withHistory || true;
     this.paramValidator = config.paramValidator || new ParamValidator();
     this.urlParser = config.urlParser || new UrlParser();
 
@@ -86,7 +93,7 @@ export class UrlParamsApi {
     });
   }
 
-  _transformQueryToUrlParams(queryState) {
+  _transformQueryToUrlParams = queryState => {
     const params = {};
     Object.keys(queryState)
       .filter(stateKey => stateKey in this.urlParamsMapping)
@@ -110,9 +117,9 @@ export class UrlParamsApi {
       addQueryPrefix: true,
       skipNulls: true,
     });
-  }
+  };
 
-  _mergeParamsIntoState(params, queryState) {
+  _mergeParamsIntoState = (params, queryState) => {
     Object.keys(params).forEach(paramKey => {
       const stateKey = this.fromParamsMapping[paramKey];
       if (this.paramValidator.isValid(paramKey, params[paramKey])) {
@@ -122,20 +129,17 @@ export class UrlParamsApi {
       }
     });
     return queryState;
-  }
+  };
 
   /**
    * Return a new version of the given `query` state with updated values parsed from the URL query string.
    * @param {object} queryState the `query` state
-   * @param {boolean} pushUpdate a flag to push the new updated version of `query` state to the URL query string.
-   *                             Normally false when setting the initial state on app load, true otherwise.
    */
-  get = (queryState, pushUpdate) => {
+  get = queryState => {
     const currentParams = this.urlParser.parse(window.location.search);
     const newQueryState = this._mergeParamsIntoState(currentParams, queryState);
-    if (pushUpdate) {
-      this.set(newQueryState);
-    }
+    const newUrlParams = this._transformQueryToUrlParams(newQueryState);
+    replaceHistory(newUrlParams);
     return newQueryState;
   };
 
@@ -145,6 +149,6 @@ export class UrlParamsApi {
    */
   set = stateQuery => {
     const newUrlParams = this._transformQueryToUrlParams(stateQuery);
-    pushHistory(newUrlParams);
+    this.withHistory ? pushHistory(newUrlParams) : replaceHistory(newUrlParams);
   };
 }

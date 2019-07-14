@@ -1,59 +1,68 @@
 /*
  * This file is part of React-SearchKit.
- * Copyright (C) 2018 CERN.
+ * Copyright (C) 2018-2019 CERN.
  *
  * React-SearchKit is free software; you can redistribute it and/or modify it
  * under the terms of the MIT License; see LICENSE file for more details.
  */
 
 import React, { Component } from 'react';
-import { createProvider } from 'react-redux';
+import { Provider } from 'react-redux';
 import PropTypes from 'prop-types';
-import { configureStore, storeKey } from '@app/store';
-import { SearchApi, UrlParamsApi } from '@app';
+import { configureStore } from '@app/store';
+import { UrlQueryStringHandler } from '@app';
+import { Bootstrap } from '@app/components/Bootstrap';
 import 'semantic-ui-css/semantic.min.css';
-import { UrlParamsProvider } from '@app/components/UrlParamsProvider';
-
-const Provider = createProvider(storeKey);
 
 export class ReactSearchKit extends Component {
   constructor(props) {
     super(props);
     const appConfig = {
-      searchApi: props.searchApi || new SearchApi(props.searchConfig),
-      suggestionApi: props.suggestionApi,
-      urlParamsApi:
-        props.urlParamsApi || new UrlParamsApi(props.urlParamsConfig),
+      searchApi: props.searchApi,
+      urlQueryStringHandler: props.persistentUrl.enabled
+        ? props.persistentUrl.customHandler ||
+          new UrlQueryStringHandler(props.persistentUrl.overrideConfig)
+        : null,
       defaultSortByOnEmptyQuery: props.defaultSortByOnEmptyQuery,
     };
     this.store = configureStore(appConfig);
   }
 
   render() {
-    const { searchOnLoad } = this.props;
+    const { searchOnInit } = this.props;
 
     return (
       <Provider store={this.store}>
-        <UrlParamsProvider searchOnLoad={searchOnLoad}>
-          {this.props.children}
-        </UrlParamsProvider>
+        <Bootstrap searchOnInit={searchOnInit}>{this.props.children}</Bootstrap>
       </Provider>
     );
   }
 }
 
 ReactSearchKit.propTypes = {
-  searchConfig: PropTypes.object,
-  searchApi: PropTypes.func,
-  suggestionApi: PropTypes.object,
-  urlParamsConfig: PropTypes.object,
-  urlParamsApi: PropTypes.func,
-  searchOnLoad: PropTypes.bool,
+  searchApi: PropTypes.object.isRequired,
+  persistentUrl: PropTypes.shape({
+    enabled: PropTypes.bool,
+    overrideConfig: PropTypes.shape({
+      withHistory: PropTypes.bool,
+      urlParamsMapping: PropTypes.object,
+      paramValidator: PropTypes.object,
+      urlParser: PropTypes.object,
+    }),
+    customHandler: PropTypes.object,
+  }),
+  searchOnInit: PropTypes.bool,
   defaultSortByOnEmptyQuery: PropTypes.string,
 };
 
 ReactSearchKit.defaultProps = {
-  searchOnLoad: true,
-  suggestionApi: null,
+  persistentUrl: {
+    enabled: true,
+    overrideConfig: {
+      withHistory: true,
+    },
+    customHandler: null,
+  },
+  searchOnInit: true,
   defaultSortByOnEmptyQuery: null,
 };

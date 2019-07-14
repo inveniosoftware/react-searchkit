@@ -1,6 +1,6 @@
 /*
  * This file is part of React-SearchKit.
- * Copyright (C) 2018 CERN.
+ * Copyright (C) 2018-2019 CERN.
  *
  * React-SearchKit is free software; you can redistribute it and/or modify it
  * under the terms of the MIT License; see LICENSE file for more details.
@@ -35,20 +35,17 @@ export const setInitialState = initialState => {
   };
 };
 
-export const setQueryFromUrl = (searchOnLoad, updateUrlParams) => {
+export const onAppInitialized = searchOnInit => {
   return async (dispatch, getState, config) => {
-    if (config.urlParamsApi) {
+    if (config.urlQueryStringHandler) {
       const queryState = _cloneDeep(getState().query);
-      const newStateQuery = config.urlParamsApi.get(
-        queryState,
-        updateUrlParams
-      );
+      const newStateQuery = config.urlQueryStringHandler.get(queryState);
       dispatch({
         type: SET_STATE_FROM_URL,
         payload: newStateQuery,
       });
     }
-    if (searchOnLoad) {
+    if (searchOnInit) {
       await dispatch(executeQuery(false));
     }
   };
@@ -85,7 +82,7 @@ export const updateQuerySortOrder = sortOrderValue => {
 export const updateQueryPaginationPage = page => {
   return async dispatch => {
     dispatch({ type: SET_QUERY_PAGINATION_PAGE, payload: page });
-    await dispatch(executeQuery(true, false));
+    await dispatch(executeQuery());
   };
 };
 
@@ -108,14 +105,14 @@ export const updateQueryAggregation = aggregation => {
 
 export const updateResultsLayout = layout => {
   return async (dispatch, getState, config) => {
-    let urlParamsApi = config.urlParamsApi;
-    if (urlParamsApi) {
+    const urlQueryStringHandler = config.urlQueryStringHandler;
+    if (urlQueryStringHandler) {
       await dispatch({
         type: RESULTS_UPDATE_LAYOUT,
         payload: layout,
       });
-      let newStateQuery = getState().query;
-      urlParamsApi.set(newStateQuery);
+      const newStateQuery = getState().query;
+      urlQueryStringHandler.set(newStateQuery);
     } else {
       dispatch({
         type: RESULTS_UPDATE_LAYOUT,
@@ -134,14 +131,14 @@ export const resetQuery = () => {
   };
 };
 
-export const executeQuery = (updateUrlParams = true) => {
+export const executeQuery = (updateUrlQueryString = true) => {
   return async (dispatch, getState, config) => {
     const queryState = _cloneDeep(getState().query);
     const searchApi = config.searchApi;
-    const urlParamsApi = config.urlParamsApi;
+    const urlQueryStringHandler = config.urlQueryStringHandler;
 
-    if (urlParamsApi && updateUrlParams) {
-      urlParamsApi.set(queryState);
+    if (urlQueryStringHandler && updateUrlQueryString) {
+      urlQueryStringHandler.set(queryState);
     }
 
     dispatch({ type: RESULTS_LOADING });
@@ -156,6 +153,7 @@ export const executeQuery = (updateUrlParams = true) => {
         },
       });
     } catch (reason) {
+      console.error(reason);
       dispatch({ type: RESULTS_FETCH_ERROR, payload: reason });
     }
   };
@@ -179,7 +177,6 @@ export const executeSuggestionQuery = () => {
 
     try {
       const response = await suggestionApi.search(queryState);
-      //Iterate through response and get titles
       dispatch({
         type: SET_QUERY_SUGGESTIONS,
         payload: {
