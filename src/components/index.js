@@ -23,3 +23,4 @@ export { ResultsPerPage } from './ResultsPerPage';
 export { SearchBar } from './SearchBar';
 export { SortBy } from './SortBy';
 export { SortOrder } from './SortOrder';
+export { withQueryComponent } from './Query/Query';
