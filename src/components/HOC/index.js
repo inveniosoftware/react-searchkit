@@ -1,0 +1,1 @@
+export { withQueryState } from './withQueryState';
