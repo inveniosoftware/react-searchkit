@@ -131,7 +131,7 @@ class Demo extends Component {
             <Container>
               <Grid relaxed style={{ padding: '2em 0' }}>
                 <Grid.Row columns={2}>
-                  <Grid.Column width={3}>
+                  <Grid.Column width={4}>
                     <Aggregator
                       title="File types"
                       field="file_type"
@@ -154,7 +154,7 @@ class Demo extends Component {
                     />
                     <br />
                   </Grid.Column>
-                  <Grid.Column width={13}>
+                  <Grid.Column width={12}>
                     <ResultsLoader>
                       <EmptyResults />
                       <Error />

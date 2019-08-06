@@ -6,6 +6,7 @@
  * under the terms of the MIT License; see LICENSE file for more details.
  */
 
+import React from 'react';
 import { createStore, applyMiddleware } from 'redux';
 import { connect } from 'react-redux';
 import { composeWithDevTools } from 'redux-devtools-extension';
@@ -24,11 +25,14 @@ export function configureStore(appConfig) {
   );
 }
 
+const ReactSearchkitContext = React.createContext();
+
 function connectExtended(mapStateToProps, mapDispatchToProps, mergeProps) {
   return connect(
     mapStateToProps,
     mapDispatchToProps,
-    mergeProps
+    mergeProps,
+    { context: ReactSearchkitContext }
   );
 }
 

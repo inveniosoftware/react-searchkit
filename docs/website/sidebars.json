@@ -23,7 +23,8 @@
       "components/active-aggregations",
       "components/aggregator",
       "components/error",
-      "components/empty-results"
+      "components/empty-results",
+      "components/with-query-state"
     ],
     "Extending": ["create-your-component", "extend-state"]
   }
