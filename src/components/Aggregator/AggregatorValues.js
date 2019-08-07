@@ -35,19 +35,22 @@ export default class AggregatorValues extends Component {
 
         const label = `${_capitalize(aggrValue.name)} (${aggrValue.total})`;
 
-        const checkboxItem = (<Checkbox
-          label={label}
-          value={aggrValue.key}
-          checked={checked}
-          onClick={_onUserSelectionChange}
-        />);
+        const checkboxItem = (
+          <Checkbox
+            label={label}
+            value={aggrValue.key}
+            checked={checked}
+            onClick={_onUserSelectionChange}
+          />
+        );
 
         let nestedAgg;
         if (values[key].hasNestedField) {
           nestedAgg = (
-          <List>
-            {this.buildAggregations(fieldName, values[key], userSelection)}
-          </List>);
+            <List>
+              {this.buildAggregations(fieldName, values[key], userSelection)}
+            </List>
+          );
         }
 
         return (
@@ -75,7 +78,11 @@ export default class AggregatorValues extends Component {
     const values = this.props.values;
     const userSelection = this.props.userSelection;
 
-    const allAgggregations = this.buildAggregations(this.field, values, userSelection);
+    const allAgggregations = this.buildAggregations(
+      this.field,
+      values,
+      userSelection
+    );
 
     return <List>{allAgggregations}</List>;
   }
@@ -83,7 +90,7 @@ export default class AggregatorValues extends Component {
 
 AggregatorValues.propTypes = {
   field: PropTypes.string.isRequired,
-  values: PropTypes.array.isRequired,
+  values: PropTypes.object.isRequired,
   userSelection: PropTypes.array.isRequired,
   onUserSelectionChange: PropTypes.func.isRequired,
   renderElement: PropTypes.func,

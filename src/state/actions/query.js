@@ -9,8 +9,8 @@
 import _cloneDeep from 'lodash/cloneDeep';
 import {
   SET_QUERY_COMPONENT_INITIAL_STATE,
-  SET_STATE_FROM_URL,
   SET_QUERY_STRING,
+  SET_QUERY_SORTING,
   SET_QUERY_SORT_BY,
   SET_QUERY_SORT_ORDER,
   SET_QUERY_PAGINATION_PAGE,
@@ -36,15 +36,7 @@ export const setInitialState = initialState => {
 };
 
 export const onAppInitialized = searchOnInit => {
-  return async (dispatch, getState, config) => {
-    if (config.urlQueryStringHandler) {
-      const queryState = _cloneDeep(getState().query);
-      const newStateQuery = config.urlQueryStringHandler.get(queryState);
-      dispatch({
-        type: SET_STATE_FROM_URL,
-        payload: newStateQuery,
-      });
-    }
+  return async dispatch => {
     if (searchOnInit) {
       await dispatch(executeQuery(false));
     }
@@ -58,6 +50,16 @@ export const updateQueryString = queryString => {
       payload: queryString,
     });
 
+    await dispatch(executeQuery());
+  };
+};
+
+export const updateQuerySorting = (sortByValue, sortOrderValue) => {
+  return async dispatch => {
+    dispatch({
+      type: SET_QUERY_SORTING,
+      payload: { sortBy: sortByValue, sortOrder: sortOrderValue },
+    });
     await dispatch(executeQuery());
   };
 };
