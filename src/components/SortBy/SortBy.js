@@ -9,7 +9,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Dropdown } from 'semantic-ui-react';
-import _find from 'lodash/find';
 import { ShouldRender } from '@app/components/ShouldRender';
 
 export default class SortBy extends Component {

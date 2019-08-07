@@ -14,7 +14,6 @@ import {
   RESULTS_FETCH_SUCCESS,
   RESULTS_LOADING,
   SET_QUERY_COMPONENT_INITIAL_STATE,
-  SET_STATE_FROM_URL,
   SET_QUERY_STRING,
   SET_QUERY_SORT_BY,
   SET_QUERY_SORT_ORDER,
@@ -73,54 +72,8 @@ describe('test query actions', () => {
     expect(actions[0]).toEqual(expectedActions[0]);
   });
 
-  it('initializes the app setting the query state from the url query string', async () => {
-    const queryStringOnLoad = [
-      'q=this is my message',
-      'sort=bestmatch',
-      'order=asc',
-      'p=1',
-      's=10',
-      'unknown=invalid',
-    ];
-    // set the url query string
-    window.history.pushState(
-      {},
-      'Test Title',
-      `/test.html?${queryStringOnLoad.join('&')}`
-    );
-
-    const expectedQueryState = {
-      ...initialState,
-      queryString: 'this is my message',
-      sortBy: 'bestmatch',
-      sortOrder: 'asc',
-      page: 1,
-      size: 10,
-    };
-    const expectedActions = [
-      {
-        type: SET_STATE_FROM_URL,
-        payload: expectedQueryState,
-      },
-    ];
-
-    await store.dispatch(onAppInitialized(false));
-    const actions = store.getActions();
-    expect(actions[0]).toEqual(expectedActions[0]);
-  });
-
   it('executes a search after app init', async () => {
-    // // set the url query string
-    // window.history.pushState(
-    //   {},
-    //   'Test Title',
-    //   `/test.html?${queryStringOnLoad.join('&')}`
-    // );
-
     const expectedActions = [
-      {
-        type: SET_STATE_FROM_URL,
-      },
       {
         type: RESULTS_LOADING,
       },
@@ -134,7 +87,6 @@ describe('test query actions', () => {
 
     expect(actions[0].type).toEqual(expectedActions[0].type);
     expect(actions[1].type).toEqual(expectedActions[1].type);
-    expect(actions[2].type).toEqual(expectedActions[2].type);
   });
 
   it('updates the query state with a new query string', async () => {

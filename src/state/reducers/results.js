@@ -1,6 +1,6 @@
 /*
  * This file is part of React-SearchKit.
- * Copyright (C) 2018 CERN.
+ * Copyright (C) 2018-2019 CERN.
  *
  * React-SearchKit is free software; you can redistribute it and/or modify it
  * under the terms of the MIT License; see LICENSE file for more details.
@@ -12,17 +12,7 @@ import {
   RESULTS_FETCH_ERROR,
 } from '@app/state/types';
 
-const initialState = {
-  loading: false,
-  data: {
-    hits: [],
-    total: 0,
-    aggregations: {},
-  },
-  error: {},
-};
-
-export default (state = initialState, action) => {
+export default (state = {}, action) => {
   switch (action.type) {
     case RESULTS_LOADING:
       return {

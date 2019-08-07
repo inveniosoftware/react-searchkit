@@ -9,6 +9,7 @@
 import {
   SET_QUERY_COMPONENT_INITIAL_STATE,
   SET_QUERY_STRING,
+  SET_QUERY_SORTING,
   SET_QUERY_SORT_BY,
   SET_QUERY_SORT_ORDER,
   SET_QUERY_PAGINATION_PAGE,
@@ -17,27 +18,22 @@ import {
   SET_QUERY_SUGGESTIONS,
   SET_SUGGESTION_STRING,
   CLEAR_QUERY_SUGGESTIONS,
-  SET_STATE_FROM_URL,
   RESULTS_UPDATE_LAYOUT,
   RESET_QUERY,
 } from '@app/state/types';
 import { updateQueryAggregation } from '../selectors';
 
-const initialState = {
-  queryString: '',
-  suggestions: [],
-  sortBy: null,
-  sortOrder: null,
-  page: -1,
-  size: -1,
-  aggregations: [],
-  layout: null,
-};
-
-export default (state = initialState, action) => {
+export default (state = {}, action) => {
   switch (action.type) {
     case SET_QUERY_STRING:
       return { ...state, queryString: action.payload, page: 1 };
+    case SET_QUERY_SORTING:
+      return {
+        ...state,
+        sortBy: action.payload.sortBy,
+        sortOrder: action.payload.sortOrder,
+        page: 1,
+      };
     case SET_QUERY_SORT_BY:
       return {
         ...state,
@@ -85,11 +81,6 @@ export default (state = initialState, action) => {
       return {
         ...state,
         suggestionString: action.payload,
-      };
-    case SET_STATE_FROM_URL:
-      return {
-        ...state,
-        ...action.payload,
       };
     case SET_QUERY_COMPONENT_INITIAL_STATE:
       return {

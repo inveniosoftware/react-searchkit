@@ -8,7 +8,17 @@
 
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { Card, Dropdown, Input, Checkbox, Sidebar, Segment, Menu, Header, Accordion } from 'semantic-ui-react';
+import {
+  Card,
+  Dropdown,
+  Input,
+  Checkbox,
+  Sidebar,
+  Segment,
+  Menu,
+  Header,
+  Accordion,
+} from 'semantic-ui-react';
 import AggregatorValues from './AggregatorValues';
 
 export default class Aggregator extends Component {
@@ -25,18 +35,11 @@ export default class Aggregator extends Component {
     this.updateQueryAggregation(aggregation);
   };
 
-  _renderElement = (
-    title,
-    resultsAggregations,
-    aggregations,
-    customProps
-  ) => {
+  _renderElement = (title, resultsAggregations, aggregations, customProps) => {
     return resultsAggregations !== undefined ? (
       <Card>
         <Card.Content header={title} />
-        <Card.Content>
-          {aggregations}
-        </Card.Content>
+        <Card.Content>{aggregations}</Card.Content>
       </Card>
     ) : null;
   };
@@ -44,7 +47,7 @@ export default class Aggregator extends Component {
   render() {
     const { userSelectionAggregations, resultsAggregations } = this.props;
     const current = userSelectionAggregations || [];
-    const results = resultsAggregations[this.field] || [];
+    const results = resultsAggregations[this.field] || {};
 
     // user selection for this specific aggregator
     const userSelection = current.filter(
@@ -52,22 +55,22 @@ export default class Aggregator extends Component {
     );
 
     const aggregations = (
-        <AggregatorValues
-          field={this.field}
-          values={results}
-          userSelection={userSelection}
-          onUserSelectionChange={this.onUserSelectionChange}
-        />
-    )
+      <AggregatorValues
+        field={this.field}
+        values={results}
+        userSelection={userSelection}
+        onUserSelectionChange={this.onUserSelectionChange}
+      />
+    );
 
     return (
-    <div>
+      <div>
         {this.renderElement(
           this.title,
           results,
           aggregations,
-          this.customProps)
-        }
+          this.customProps
+        )}
       </div>
     );
   }

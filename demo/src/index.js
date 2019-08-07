@@ -25,7 +25,7 @@ import {
   ResultsLoader,
 } from '@app/components';
 import { Results } from './Results';
-import { InvenioSearchApi } from '@app/api';
+import { InvenioSearchApi } from '@app/api/contrib/invenio';
 
 class Demo extends Component {
   constructor(props) {
@@ -68,20 +68,29 @@ class Demo extends Component {
   };
 
   render() {
-    const sortByValues = [
+    const sortValues = [
       {
-        text: 'Best Match',
-        value: 'bestmatch',
+        text: 'Most viewed',
+        sortBy: 'mostviewed',
+        sortOrder: 'asc',
+        defaultOnEmptyString: true,
+      },
+      {
+        text: 'Least viewed',
+        sortBy: 'mostviewed',
+        sortOrder: 'desc',
       },
       {
         text: 'Newest',
-        value: 'mostrecent',
+        sortBy: 'mostrecent',
+        sortOrder: 'asc',
+        default: true,
       },
-    ];
-
-    const sortOrderValues = [
-      { text: 'asc', value: 'asc' },
-      { text: 'desc', value: 'desc' },
+      {
+        text: 'Oldest',
+        sortBy: 'mostrecent',
+        sortOrder: 'desc',
+      },
     ];
 
     const resultsPerPageValues = [
@@ -159,8 +168,7 @@ class Demo extends Component {
                       <EmptyResults />
                       <Error />
                       <Results
-                        sortByValues={sortByValues}
-                        sortOrderValues={sortOrderValues}
+                        sortValues={sortValues}
                         resultsPerPageValues={resultsPerPageValues}
                       />
                     </ResultsLoader>

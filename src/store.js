@@ -18,21 +18,48 @@ const composeEnhancers = composeWithDevTools({
   name: 'React-SearchKit',
 });
 
+const initialQueryState = {
+  queryString: '',
+  suggestions: [],
+  sortBy: null,
+  sortOrder: null,
+  page: -1,
+  size: -1,
+  aggregations: [],
+  layout: null,
+};
+
+const initialResultsState = {
+  loading: false,
+  data: {
+    hits: [],
+    total: 0,
+    aggregations: {},
+  },
+  error: {},
+};
+
 export function configureStore(appConfig) {
+  // configure the initial state
+  const preloadedQueryState = appConfig.urlQueryStringHandler
+    ? appConfig.urlQueryStringHandler.get(initialQueryState)
+    : {};
+  const preloadedState = {
+    query: preloadedQueryState,
+    results: initialResultsState,
+  };
   return createStore(
     rootReducer,
+    preloadedState,
     composeEnhancers(applyMiddleware(thunk.withExtraArgument(appConfig)))
   );
 }
-
-const ReactSearchkitContext = React.createContext();
 
 function connectExtended(mapStateToProps, mapDispatchToProps, mergeProps) {
   return connect(
     mapStateToProps,
     mapDispatchToProps,
-    mergeProps,
-    { context: ReactSearchkitContext }
+    mergeProps
   );
 }
 

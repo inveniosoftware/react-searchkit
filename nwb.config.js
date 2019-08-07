@@ -13,6 +13,7 @@ module.exports = {
     umd: false,
   },
   babel: {
+    env: { targets: '> 0.25%, not dead' }, // https://babeljs.io/docs/en/babel-preset-env#targets
     plugins: [
       [
         'module-resolver',
@@ -23,6 +24,14 @@ module.exports = {
           },
         },
       ],
+      [
+        '@babel/plugin-transform-runtime',
+        {
+          regenerator: true,
+        },
+      ],
+      '@babel/plugin-proposal-class-properties',
     ],
+    presets: '@babel/preset-react',
   },
 };

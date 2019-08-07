@@ -8,7 +8,7 @@
 
 import MockAdapter from 'axios-mock-adapter';
 import Qs from 'qs';
-import { InvenioSearchApi } from '@app/api';
+import { InvenioSearchApi } from '@app/api/contrib/invenio';
 
 describe('test Invenio search api class', () => {
   it('should use passed configuration', async () => {

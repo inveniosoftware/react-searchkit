@@ -7,10 +7,8 @@
  */
 
 import axios from 'axios';
-import {
-  InvenioRequestSerializer,
-  InvenioResponseSerializer,
-} from '@app/contrib/invenio/serializers';
+import { InvenioRequestSerializer } from './InvenioRequestSerializer';
+import { InvenioResponseSerializer } from './InvenioResponseSerializer';
 
 /** Default Invenio Search API adapter */
 export class InvenioSearchApi {
