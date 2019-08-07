@@ -1,6 +1,6 @@
 {
   "name": "react-searchkit",
-  "version": "0.5.0",
+  "version": "0.6.0",
   "description": "React components to build your search UI application",
   "main": "lib/index.js",
   "module": "es/index.js",
