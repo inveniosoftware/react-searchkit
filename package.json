@@ -2,21 +2,19 @@
   "name": "react-searchkit",
   "version": "0.6.0",
   "description": "React components to build your search UI application",
-  "main": "lib/index.js",
+  "main": "dist/index.js",
   "module": "es/index.js",
   "files": [
     "css",
     "es",
-    "lib",
+    "dist",
     "umd"
   ],
   "scripts": {
-    "build": "nwb build-react-component",
-    "build:watch": "nodemon -w src -x 'rm .babelrc &> /dev/null; nwb build-react-component --no-demo'",
-    "clean": "nwb clean-module && nwb clean-demo",
-    "prepublishOnly": "npm run build",
-    "start": "nwb serve-react-demo",
-    "test": "jest",
+    "start": "react-scripts start",
+    "build": "rm -rf dist && NODE_ENV=production babel src/lib --out-dir dist --copy-files --ignore __tests__,spec.js,test.js,__snapshots__",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject",
     "test:watch": "jest --watch",
     "coverage": "jest --coverage",
     "lint": "eslint src/**/*.js"
@@ -28,44 +26,23 @@
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
     "react-redux": "^7.1",
+    "react-scripts": "3.0.1",
     "redux": "^4.0.4",
-    "redux-devtools-extension": "^2.13.8",
     "redux-thunk": "^2.3.0",
     "semantic-ui-css": "^2.4.1",
     "semantic-ui-react": "^0.87.3"
   },
   "peerDependencies": {
-    "react": "16.x",
-    "react-dom": "16.x"
+    "react": "^16.8.6",
+    "react-dom": "^16.8.6"
   },
   "devDependencies": {
-    "@babel/cli": "^7.5.0",
-    "@babel/core": "^7.5.4",
-    "@babel/node": "^7.5.0",
-    "@babel/plugin-proposal-class-properties": "^7.5.0",
-    "@babel/plugin-transform-runtime": "^7.5.0",
-    "@babel/preset-env": "^7.5.4",
-    "@babel/preset-react": "^7.0.0",
-    "@babel/register": "^7.4.4",
+    "@babel/cli": "^7.5.5",
     "axios-mock-adapter": "^1.17.0",
-    "babel-eslint": "^10.0.2",
-    "babel-loader": "^8.0.6",
-    "babel-plugin-module-resolver": "^3.2.0",
-    "eslint": "^6.0.1",
-    "eslint-config-prettier": "^6.0.0",
-    "eslint-config-standard": "^13.0.1",
-    "eslint-plugin-import": "^2.18.0",
-    "eslint-plugin-jest": "^22.7.2",
-    "eslint-plugin-node": "^9.1.0",
-    "eslint-plugin-promise": "^4.2.1",
-    "eslint-plugin-react": "^7.14.2",
-    "eslint-plugin-standard": "^4.0.0",
-    "expect": "^24.8.0",
-    "jest": "^24.8.0",
-    "nodemon": "^1.19.1",
-    "nwb": "0.23.x",
-    "react-test-renderer": "^16.8.6",
-    "redux-mock-store": "^1.5.3"
+    "expect": "^24.7.1",
+    "jest": "^24.7.1",
+    "redux-mock-store": "^1.5.3",
+    "redux-devtools-extension": "^2.13.8"
   },
   "author": {
     "name": "CERN",
@@ -84,14 +61,19 @@
     "search",
     "react search"
   ],
-  "jest": {
-    "modulePathIgnorePatterns": [
-      "<rootDir>/node_modules",
-      "<rootDir>/.history"
+  "eslintConfig": {
+    "extends": "react-app"
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
     ],
-    "moduleNameMapper": {
-      "@app(.*)": "<rootDir>/src/$1"
-    },
-    "testURL": "https://www.something.com/test.html"
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
   }
 }

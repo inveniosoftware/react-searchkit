@@ -6,8 +6,4 @@
  * under the terms of the MIT License; see LICENSE file for more details.
  */
 
-import React from 'react';
-import ReactDOM from 'react-dom';
-import App from './App';
-
-ReactDOM.render(<App />, document.getElementById('root'));
+export * from './invenio';
