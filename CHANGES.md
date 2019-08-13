@@ -1,5 +1,12 @@
 # Changes
 
+Version 0.7.0 (released 2019-08-013)
+* nwb is not anymore mantained and it is obsolete with many security
+    issues
+* create-react-app is now used for development
+* babel cli is used for building the library, but is not optimal. It
+  will require the integration of a build system with ad-hoc configuration
+
 Version 0.6.0 (released 2019-08-07)
 * Added withQueryState component exposing redux query state to external components
 
