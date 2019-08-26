@@ -1,5 +1,8 @@
 # Changes
 
+Version 0.9.0 (released 2019-08-26)
+* Fixed babel absolute runtimes when publishing the library on npmjs
+
 Version 0.8.0 (released 2019-08-26)
 * Dependencies upgrade
 * Fixed build with babel
