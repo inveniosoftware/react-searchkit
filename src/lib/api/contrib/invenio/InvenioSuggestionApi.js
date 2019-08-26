@@ -6,11 +6,11 @@
  * under the terms of the MIT License; see LICENSE file for more details.
  */
 
-import _ from 'lodash';
+import _get from 'lodash/get';
+import _hasIn from 'lodash/hasIn';
 import Qs from 'qs';
 import { InvenioSearchApi } from './InvenioSearchApi';
 
-/** Default suggestions request serializer */
 class InvenioSuggestionRequestSerializer {
   constructor(queryField) {
     this.queryField = queryField;
@@ -32,7 +32,6 @@ class InvenioSuggestionRequestSerializer {
   };
 }
 
-/** Default suggestions response serializer */
 class InvenioSuggestionResponseSerializer {
   constructor(responseField) {
     this.responseFieldPath = responseField.split('.');
@@ -41,7 +40,7 @@ class InvenioSuggestionResponseSerializer {
   _serializeSuggestions = responseHits => {
     return Array.from(
       new Set(
-        responseHits.map(hit => _.get(hit.metadata, this.responseFieldPath))
+        responseHits.map(hit => _get(hit.metadata, this.responseFieldPath))
       )
     );
   };
@@ -57,15 +56,39 @@ class InvenioSuggestionResponseSerializer {
   };
 }
 
-/** Default Invenio Suggestion API adapter */
 export class InvenioSuggestionApi extends InvenioSearchApi {
-  constructor(config = {}) {
-    super(config);
-    this.requestSerializer =
-      config.requestSerializer ||
-      new InvenioSuggestionRequestSerializer(this.config.queryField);
-    this.responseSerializer =
-      config.responseSerializer ||
-      new InvenioSuggestionResponseSerializer(this.config.responseField);
+  validateConfig(config) {
+    super.validateConfig(config);
+
+    if (!_hasIn(config, 'invenio.suggestions.queryField')) {
+      throw new Error(
+        'InvenioSuggestionApi config: `invenio.suggestions.queryField` is required.'
+      );
+    }
+    if (!_hasIn(config, 'invenio.suggestions.responseField')) {
+      throw new Error(
+        'InvenioSuggestionApi config: `invenio.suggestions.queryField` is responseField.'
+      );
+    }
+  }
+
+  initSerializers(config) {
+    const requestSerializerCls = _get(
+      config,
+      'invenio.requestSerializer',
+      InvenioSuggestionRequestSerializer
+    );
+    const responseSerializerCls = _get(
+      config,
+      'invenio.responseSerializer',
+      InvenioSuggestionResponseSerializer
+    );
+
+    this.requestSerializer = new requestSerializerCls(
+      config.invenio.suggestions.queryField
+    );
+    this.responseSerializer = new responseSerializerCls(
+      config.invenio.suggestions.responseField
+    );
   }
 }

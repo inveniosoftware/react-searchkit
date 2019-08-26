@@ -10,6 +10,7 @@ import _ from 'lodash';
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Input } from 'semantic-ui-react';
+import './AutocompleteSearchBar.scss';
 
 class AutocompleteSearchBar extends Component {
   constructor(props) {
@@ -50,7 +51,6 @@ class AutocompleteSearchBar extends Component {
   };
 
   _renderSuggestions(querySuggestions) {
-    // Define actions
     const onSuggestionSelected = async suggestion => {
       await this.setState({
         currentValue: suggestion,
@@ -59,7 +59,6 @@ class AutocompleteSearchBar extends Component {
       this.executeSearch();
     };
 
-    //Render Element
     if (querySuggestions.length === 0) {
       return null;
     }
@@ -82,7 +81,6 @@ class AutocompleteSearchBar extends Component {
     onInputChange,
     executeSearch
   ) {
-    // Define actions
     const onBtnSearchClick = (event, input) => {
       executeSearch();
     };
@@ -92,7 +90,6 @@ class AutocompleteSearchBar extends Component {
       }
     };
 
-    //Render Element
     return (
       <div className="AutoCompleteText">
         <Input

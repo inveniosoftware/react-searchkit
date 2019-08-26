@@ -108,7 +108,7 @@ class App extends Component {
     ];
 
     const searchApi = new InvenioSearchApi({
-      baseURL: 'https://zenodo.org/api/records/',
+      url: 'https://zenodo.org/api/records/',
       timeout: 5000,
       headers: { Accept: 'application/vnd.zenodo.v1+json' },
     });

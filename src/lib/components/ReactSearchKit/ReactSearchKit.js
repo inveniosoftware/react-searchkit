@@ -19,6 +19,7 @@ export class ReactSearchKit extends Component {
     super(props);
     const appConfig = {
       searchApi: props.searchApi,
+      suggestionApi: props.suggestionApi,
       urlQueryStringHandler: props.persistentUrl.enabled
         ? props.persistentUrl.customHandler ||
           new UrlQueryStringHandler(props.persistentUrl.overrideConfig)
@@ -40,7 +41,8 @@ export class ReactSearchKit extends Component {
 }
 
 ReactSearchKit.propTypes = {
-  searchApi: PropTypes.object.isRequired,
+  searchApi: PropTypes.object,
+  suggestionApi: PropTypes.object,
   persistentUrl: PropTypes.shape({
     enabled: PropTypes.bool,
     overrideConfig: PropTypes.shape({
@@ -56,6 +58,8 @@ ReactSearchKit.propTypes = {
 };
 
 ReactSearchKit.defaultProps = {
+  searchApi: null,
+  suggestionApi: null,
   persistentUrl: {
     enabled: true,
     overrideConfig: {

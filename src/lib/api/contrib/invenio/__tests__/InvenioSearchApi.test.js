@@ -10,24 +10,37 @@ import MockAdapter from 'axios-mock-adapter';
 import Qs from 'qs';
 import { InvenioSearchApi } from '../';
 
+class MockedRequestSerializer {
+  serialize(params) {
+    return Qs.stringify(params);
+  }
+}
+
+class MockedResponseSerializer {
+  serialize(payload) {
+    return payload;
+  }
+}
+
 describe('test Invenio search api class', () => {
   it('should use passed configuration', async () => {
-    const mockedRequestSerializer = {
-      serialize: params => Qs.stringify(params),
-    };
-    const mockedResponseSerializer = { serialize: payload => payload };
-
     const searchApi = new InvenioSearchApi({
       url: 'https://mydomain.test.com/api/',
       timeout: 5000,
       headers: { Accept: 'application/json' },
-      requestSerializer: mockedRequestSerializer,
-      responseSerializer: mockedResponseSerializer,
+      invenio: {
+        requestSerializer: MockedRequestSerializer,
+        responseSerializer: MockedResponseSerializer,
+      },
     });
     const mockedAxios = new MockAdapter(searchApi.http);
 
     const requestPayload = { q: 'test' };
-    expect(searchApi.responseSerializer).toEqual(mockedResponseSerializer);
+    const mockedRequestSerializer = new MockedRequestSerializer();
+    expect(searchApi.requestSerializer).toEqual(mockedRequestSerializer);
+    expect(searchApi.responseSerializer).toEqual(
+      new MockedResponseSerializer()
+    );
 
     const mockedResponse = { hits: [{ result: '1' }] };
     mockedAxios.onAny().reply(200, mockedResponse);
