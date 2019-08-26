@@ -1,5 +1,10 @@
 # Changes
 
+Version 0.8.0 (released 2019-08-26)
+* Dependencies upgrade
+* Fixed build with babel
+* Changed configuration for Invenio backend APIs
+
 Version 0.7.0 (released 2019-08-13)
 * Replaced nwb with create-react-app since nwb is not anymore maintained and it comes with many security vulnerabilities
 * create-react-app is now used for development, babel to build the library
