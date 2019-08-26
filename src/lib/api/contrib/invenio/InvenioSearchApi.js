@@ -6,22 +6,45 @@
  * under the terms of the MIT License; see LICENSE file for more details.
  */
 
+import _get from 'lodash/get';
+import _hasIn from 'lodash/hasIn';
 import axios from 'axios';
 import { InvenioRequestSerializer } from './InvenioRequestSerializer';
 import { InvenioResponseSerializer } from './InvenioResponseSerializer';
 
-/** Default Invenio Search API adapter */
 export class InvenioSearchApi {
-  constructor(config = {}) {
-    this.responseSerializer =
-      config.responseSerializer || new InvenioResponseSerializer();
+  constructor(config) {
+    this.validateConfig(config);
+    this.initSerializers(config);
+    this.initAxios(config);
+  }
 
-    const requestSerializer =
-      config.requestSerializer || new InvenioRequestSerializer();
+  validateConfig(config) {
+    if (!_hasIn(config, 'url')) {
+      throw new Error('InvenioSearchApi config: `url` field is required.');
+    }
+  }
 
-    // create an Axios instance with the given config
+  initSerializers(config) {
+    const requestSerializerCls = _get(
+      config,
+      'invenio.requestSerializer',
+      InvenioRequestSerializer
+    );
+    const responseSerializerCls = _get(
+      config,
+      'invenio.responseSerializer',
+      InvenioResponseSerializer
+    );
+
+    this.requestSerializer = new requestSerializerCls();
+    this.responseSerializer = new responseSerializerCls();
+  }
+
+  initAxios(config) {
+    delete config.invenio;
     const axiosConfig = {
-      paramsSerializer: requestSerializer.serialize,
+      paramsSerializer: this.requestSerializer.serialize,
       baseURL: config.url, // transform URL to baseURL to have clean external APIs
       ...config,
     };

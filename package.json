@@ -2,17 +2,14 @@
   "name": "react-searchkit",
   "version": "0.7.0",
   "description": "React components to build your search UI application",
-  "main": "dist/index.js",
-  "module": "es/index.js",
+  "module": "lib/index.js",
   "files": [
-    "css",
-    "es",
-    "dist",
-    "umd"
+    "lib"
   ],
   "scripts": {
     "start": "react-scripts start",
-    "build": "rm -rf dist && NODE_ENV=production babel src/lib --out-dir dist --copy-files --ignore __tests__,spec.js,test.js,__snapshots__",
+    "build": "rimraf lib && BABEL_ENV=production babel src/lib --out-dir lib --copy-files && npm run build:clean",
+    "build:clean": "rimraf lib/src/*.spec.js lib/**/*.test.js lib/src/**/__snapshots__ lib/**/__tests__",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "test:watch": "jest --watch",
@@ -21,38 +18,42 @@
   },
   "dependencies": {
     "axios": "^0.19.0",
-    "lodash": "^4.17.14",
-    "qs": "^6.7.0",
-    "react": "^16.8.6",
-    "react-dom": "^16.8.6",
+    "lodash": "^4.17.15",
+    "node-sass": "^4.12.0",
+    "qs": "^6.8.0",
+    "react": "^16.9.0",
+    "react-dom": "^16.9.0",
     "react-redux": "^7.1",
-    "react-scripts": "3.0.1",
+    "react-scripts": "3.1.1",
     "redux": "^4.0.4",
     "redux-thunk": "^2.3.0",
     "semantic-ui-css": "^2.4.1",
-    "semantic-ui-react": "^0.87.3"
+    "semantic-ui-react": "^0.88.0"
   },
   "peerDependencies": {
-    "react": "^16.8.6",
-    "react-dom": "^16.8.6"
+    "react": "^16.9.0",
+    "react-dom": "^16.9.0"
   },
   "devDependencies": {
     "@babel/cli": "^7.5.5",
     "axios-mock-adapter": "^1.17.0",
-    "expect": "^24.7.1",
-    "jest": "^24.7.1",
+    "expect": "^24.8.0",
     "redux-mock-store": "^1.5.3",
-    "redux-devtools-extension": "^2.13.8"
+    "redux-devtools-extension": "^2.13.8",
+    "rimraf": "^3.0.0"
   },
   "author": {
     "name": "CERN",
     "email": "info@inveniosoftware.org"
   },
   "homepage": "https://inveniosoftware.github.io/react-searchkit/",
+  "bugs": {
+    "url": "https://github.com/inveniosoftware/react-searchkit/issues"
+  },
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/inveniosoftware/react-searchkit"
+    "url": "https://github.com/inveniosoftware/react-searchkit.git"
   },
   "keywords": [
     "react",
