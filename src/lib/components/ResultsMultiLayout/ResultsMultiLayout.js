@@ -8,7 +8,8 @@
 
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { ResultsList, ResultsGrid } from '../';
+import { ResultsList } from '../ResultsList';
+import { ResultsGrid } from '../ResultsGrid';
 import { ShouldRender } from '../ShouldRender';
 
 export default class ResultsMultiLayout extends Component {
