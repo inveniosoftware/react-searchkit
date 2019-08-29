@@ -2,18 +2,19 @@
   "name": "react-searchkit",
   "version": "0.9.0",
   "description": "React components to build your search UI application",
-  "module": "lib/index.js",
+  "main": "dist/cjs/index.js",
+  "module": "dist/es/index.js",
+  "jsnext:main": "dist/es/index.js",
   "files": [
-    "lib"
+    "dist"
   ],
   "scripts": {
     "start": "react-scripts start",
-    "build": "rimraf lib && BABEL_ENV=production babel src/lib --out-dir lib --copy-files && npm run build:clean",
-    "build:clean": "rimraf lib/src/*.spec.js lib/**/*.test.js lib/src/**/__snapshots__ lib/**/__tests__",
+    "build": "rimraf dist && NODE_ENV=production rollup -c",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "test:watch": "jest --watch",
-    "coverage": "jest --coverage",
+    "test:coverage": "jest --coverage --forceExit --colors",
     "lint": "eslint src/**/*.js"
   },
   "dependencies": {
@@ -36,12 +37,19 @@
   },
   "devDependencies": {
     "@babel/cli": "^7.5.5",
-    "@babel/runtime": "^7.5.5",
+    "@svgr/rollup": "^4.3.2",
     "axios-mock-adapter": "^1.17.0",
     "expect": "^24.8.0",
     "redux-devtools-extension": "^2.13.8",
     "redux-mock-store": "^1.5.3",
-    "rimraf": "^3.0.0"
+    "rimraf": "^3.0.0",
+    "rollup": "^1.20.3",
+    "rollup-plugin-babel": "^4.3.3",
+    "rollup-plugin-commonjs": "^10.1.0",
+    "rollup-plugin-node-resolve": "^5.2.0",
+    "rollup-plugin-peer-deps-external": "^2.2.0",
+    "rollup-plugin-postcss": "^2.0.3",
+    "rollup-plugin-url": "^2.2.2"
   },
   "author": {
     "name": "CERN",
