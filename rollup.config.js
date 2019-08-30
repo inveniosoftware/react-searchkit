@@ -1,10 +1,9 @@
-import svgr from '@svgr/rollup';
 import babel from 'rollup-plugin-babel';
 import commonjs from 'rollup-plugin-commonjs';
+import localResolve from 'rollup-plugin-local-resolve';
 import resolve from 'rollup-plugin-node-resolve';
-import external from 'rollup-plugin-peer-deps-external';
+import peerDepsExternal from 'rollup-plugin-peer-deps-external';
 import postcss from 'rollup-plugin-postcss';
-import url from 'rollup-plugin-url';
 
 import pkg from './package.json';
 
@@ -18,21 +17,19 @@ export default {
     },
     {
       file: pkg.module,
-      format: 'es',
+      format: 'esm',
+      exports: 'named',
       sourcemap: true,
     },
   ],
   plugins: [
+    peerDepsExternal(),
     postcss({
       plugins: [],
       minimize: true,
       sourceMap: 'inline',
     }),
-    external({
-      includeDependencies: true,
-    }),
-    url(),
-    svgr(),
+    localResolve(),
     resolve(),
     babel({
       presets: ['react-app'],

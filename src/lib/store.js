@@ -8,14 +8,9 @@
 
 import { createStore, applyMiddleware } from 'redux';
 import { connect } from 'react-redux';
-import { composeWithDevTools } from 'redux-devtools-extension';
 import thunk from 'redux-thunk';
 
 import rootReducer from './state/reducers';
-
-const composeEnhancers = composeWithDevTools({
-  name: 'React-SearchKit',
-});
 
 const initialQueryState = {
   queryString: '',
@@ -50,7 +45,7 @@ export function configureStore(appConfig) {
   return createStore(
     rootReducer,
     preloadedState,
-    composeEnhancers(applyMiddleware(thunk.withExtraArgument(appConfig)))
+    applyMiddleware(thunk.withExtraArgument(appConfig))
   );
 }
 
