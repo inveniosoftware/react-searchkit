@@ -1,5 +1,9 @@
 # Changes
 
+Version 0.11.0 (released 2019-08-30)
+* Moved all dev dependencies to peer dependencies
+* Removed for the time being the `redux-devtools-extension` because it is wrongly transformed from CommonJS to ES modules
+
 Version 0.10.0 (released 2019-08-30)
 * Changed lib build system to use Rollup instead of Babel to be able to build the CommonJS version too
 
