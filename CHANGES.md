@@ -1,5 +1,9 @@
 # Changes
 
+Version 0.12.0 (released 2019-09-10)
+* Fixed bug to prevent state mutation when getting URL args
+* Renamed component withQueryState to withState
+
 Version 0.11.0 (released 2019-08-30)
 * Moved all dev dependencies to peer dependencies
 * Removed for the time being the `redux-devtools-extension` because it is wrongly transformed from CommonJS to ES modules
