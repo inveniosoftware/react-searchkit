@@ -1,1 +1,1 @@
-export { withQueryState } from './withQueryState';
+export { withState } from './withState';

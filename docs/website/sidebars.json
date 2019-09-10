@@ -24,7 +24,7 @@
       "components/aggregator",
       "components/error",
       "components/empty-results",
-      "components/with-query-state"
+      "components/with-state"
     ],
     "Extending": ["create-your-component", "extend-state"]
   }

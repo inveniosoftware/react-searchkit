@@ -9,6 +9,7 @@
 import Qs from 'qs';
 import _isNaN from 'lodash/isNaN';
 import _isNil from 'lodash/isNil';
+import _cloneDeep from 'lodash/cloneDeep';
 
 const pushHistory = query => {
   if (window.history.pushState) {
@@ -120,15 +121,16 @@ export class UrlQueryStringHandler {
   };
 
   _mergeParamsIntoState = (params, queryState) => {
+    const _queryState = _cloneDeep(queryState);
     Object.keys(params).forEach(paramKey => {
       const stateKey = this.fromParamsMapping[paramKey];
       if (this.paramValidator.isValid(paramKey, params[paramKey])) {
-        if (stateKey in queryState) {
-          queryState[stateKey] = params[paramKey];
+        if (stateKey in _queryState) {
+          _queryState[stateKey] = params[paramKey];
         }
       }
     });
-    return queryState;
+    return _queryState;
   };
 
   /**

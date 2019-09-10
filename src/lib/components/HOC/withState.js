@@ -9,7 +9,7 @@
 import React from 'react';
 import { connect } from '../../store';
 
-export function withQueryState(Component) {
+export function withState(Component) {
   const WrappedComponent = ({ dispatch, ...props }) => <Component {...props} />;
   const mapStateToProps = state => ({
     currentQueryState: state.query,
