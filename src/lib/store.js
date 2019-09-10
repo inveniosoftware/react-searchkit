@@ -12,28 +12,28 @@ import thunk from 'redux-thunk';
 
 import rootReducer from './state/reducers';
 
-const initialQueryState = {
-  queryString: '',
-  suggestions: [],
-  sortBy: null,
-  sortOrder: null,
-  page: -1,
-  size: -1,
-  aggregations: [],
-  layout: null,
-};
-
-const initialResultsState = {
-  loading: false,
-  data: {
-    hits: [],
-    total: 0,
-    aggregations: {},
-  },
-  error: {},
-};
-
 export function configureStore(appConfig) {
+  const initialQueryState = {
+    queryString: '',
+    suggestions: [],
+    sortBy: null,
+    sortOrder: null,
+    page: -1,
+    size: -1,
+    aggregations: [],
+    layout: null,
+  };
+
+  const initialResultsState = {
+    loading: false,
+    data: {
+      hits: [],
+      total: 0,
+      aggregations: {},
+    },
+    error: {},
+  };
+
   // configure the initial state
   const preloadedQueryState = appConfig.urlQueryStringHandler
     ? appConfig.urlQueryStringHandler.get(initialQueryState)

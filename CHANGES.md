@@ -23,7 +23,7 @@ Version 0.6.0 (released 2019-08-07)
 * Added withQueryState component exposing redux query state to external components
 
 Version 0.5.0 (released 2019-06-27)
-* Added Searchbar component with autocompletion
+* Added SearchBar component with autocompletion
 
 Version 0.4.0 (released 2019-04-24)
 * Updated nested aggregation code

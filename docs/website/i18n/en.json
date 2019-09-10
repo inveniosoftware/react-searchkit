@@ -53,8 +53,8 @@
       "components/sort-order": {
         "title": "SortOrder"
       },
-      "components/with-query-state": {
-        "title": "withQueryState"
+      "components/with-state": {
+        "title": "withState"
       },
       "connect-your-rest-apis": {
         "title": "Connect Your REST APIs"
