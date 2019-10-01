@@ -12,7 +12,6 @@ import PropTypes from 'prop-types';
 import { configureStore } from '../../store';
 import { UrlQueryStringHandler } from '../..//api';
 import { Bootstrap } from '../Bootstrap';
-import 'semantic-ui-css/semantic.min.css';
 
 export class ReactSearchKit extends Component {
   constructor(props) {
