@@ -1,5 +1,9 @@
 # Changes
 
+Version 0.13.0 (released 2019-10-01)
+* Removed Semantic-UI import from the library and moved to the demo app
+* Upgraded create-react-app to 3.1.2
+
 Version 0.12.0 (released 2019-09-10)
 * Fixed bug to prevent state mutation when getting URL args
 * Renamed component withQueryState to withState
