@@ -1,0 +1,23 @@
+proxy:
+  build: ./nginx
+  links:
+    - es
+  ports:
+    - "5000:5000"
+es:
+  image: docker.elastic.co/elasticsearch/elasticsearch-oss:7.4.0
+  restart: "always"
+  environment:
+    - bootstrap.memory_lock=true
+    - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
+    - discovery.type=single-node
+    - http.cors.enabled=true
+    - http.cors.allow-origin=*
+  ulimits:
+    memlock:
+      soft: -1
+      hard: -1
+  mem_limit: 1g
+  ports:
+    - "9200:9200"
+    - "9300:9300"

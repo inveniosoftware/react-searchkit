@@ -8,36 +8,27 @@
 
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import _truncate from 'lodash/truncate';
-import { Item, Label } from 'semantic-ui-react';
+import { Item } from 'semantic-ui-react';
 import { ShouldRender } from '../ShouldRender';
 
 export default class ResultsList extends Component {
   constructor(props) {
     super(props);
     this.renderElement = props.renderElement || this._renderElement;
+    this.renderListItem = props.renderListItem || this._renderListItem;
   }
 
-  _renderResult(result, index) {
-    const metadata = result.metadata;
-    const keywords = metadata.keywords || [];
-    const labels = keywords.map((keyword, index) => (
-      <Label key={index} content={keyword} />
-    ));
-
+  _renderListItem(result, index) {
     return (
-      <Item key={index} href={`#${metadata.recid}`}>
+      <Item key={index} href={`#${result.id}`}>
         <Item.Image
           size="small"
-          src={result.imageSrc || 'https://via.placeholder.com/200'}
+          src={result.imgSrc || 'http://placehold.it/200'}
         />
 
         <Item.Content>
-          <Item.Header>{metadata.title.title || metadata.title}</Item.Header>
-          <Item.Description>
-            {_truncate(metadata.description, { length: 200 })}
-          </Item.Description>
-          <Item.Extra>{labels}</Item.Extra>
+          <Item.Header>{result.title}</Item.Header>
+          <Item.Description>{result.description}</Item.Description>
         </Item.Content>
       </Item>
     );
@@ -45,7 +36,7 @@ export default class ResultsList extends Component {
 
   _renderElement(results) {
     const _results = results.map((result, index) =>
-      this._renderResult(result, index)
+      this.renderListItem(result, index)
     );
 
     return (
@@ -70,8 +61,10 @@ ResultsList.propTypes = {
   totalResults: PropTypes.number.isRequired,
   results: PropTypes.array.isRequired,
   renderElement: PropTypes.func,
+  renderListItem: PropTypes.func,
 };
 
 ResultsList.defaultProps = {
   renderElement: null,
+  renderListItem: null,
 };
