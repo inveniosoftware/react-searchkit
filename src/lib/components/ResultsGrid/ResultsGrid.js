@@ -8,7 +8,6 @@
 
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import _truncate from 'lodash/truncate';
 import { Card, Image } from 'semantic-ui-react';
 import { ShouldRender } from '../ShouldRender';
 
@@ -16,19 +15,16 @@ export default class ResultsGrid extends Component {
   constructor(props) {
     super(props);
     this.renderElement = props.renderElement || this._renderElement;
+    this.renderGridItem = props.renderGridItem || this._renderGridItem;
   }
 
-  _renderResult(result, index) {
-    let metadata = result.metadata;
+  _renderGridItem(result, index) {
     return (
-      <Card fluid key={index} href={`#${metadata.recid}`}>
-        <Image src={result.imageSrc || 'https://via.placeholder.com/200'} />
+      <Card fluid key={index} href={`#${result.id}`}>
+        <Image src={result.imgSrc || 'http://placehold.it/200'} />
         <Card.Content>
-          <Card.Header>{metadata.title.title || metadata.title}</Card.Header>
-          <Card.Meta>{metadata.publication_date}</Card.Meta>
-          <Card.Description>
-            {_truncate(metadata.description, { length: 200 })}
-          </Card.Description>
+          <Card.Header>{result.title}</Card.Header>
+          <Card.Description>{result.description}</Card.Description>
         </Card.Content>
       </Card>
     );
@@ -36,7 +32,7 @@ export default class ResultsGrid extends Component {
 
   _renderElement(results, resultsPerRow) {
     const _results = results.map((result, index) =>
-      this._renderResult(result, index)
+      this.renderGridItem(result, index)
     );
 
     return <Card.Group itemsPerRow={resultsPerRow}>{_results}</Card.Group>;
@@ -59,9 +55,11 @@ ResultsGrid.propTypes = {
   totalResults: PropTypes.number.isRequired,
   results: PropTypes.array.isRequired,
   renderElement: PropTypes.func,
+  renderGridItem: PropTypes.func,
 };
 
 ResultsGrid.defaultProps = {
   resultsPerRow: 3,
   renderElement: null,
+  renderGridItem: null,
 };

@@ -1,0 +1,45 @@
+{
+  "mappings": {
+    "properties": {
+      "id": {
+        "type": "keyword"
+      },
+      "index": {
+        "type": "short"
+      },
+      "guid": {
+        "type": "keyword"
+      },
+      "picture": {
+        "type": "keyword"
+      },
+      "age": {
+        "type": "short"
+      },
+      "first_name": {
+        "type": "text"
+      },
+      "last_name": {
+        "type": "text"
+      },
+      "phone": {
+        "type": "text"
+      },
+      "address": {
+        "type": "text"
+      },
+      "about": {
+        "type": "text"
+      },
+      "registered": {
+        "type": "text"
+      },
+      "location": {
+        "type": "geo_point"
+      },
+      "tags": {
+        "type": "keyword"
+      }
+    }
+  }
+}

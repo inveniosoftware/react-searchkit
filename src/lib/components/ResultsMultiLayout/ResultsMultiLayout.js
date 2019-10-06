@@ -1,6 +1,6 @@
 /*
  * This file is part of React-SearchKit.
- * Copyright (C) 2018 CERN.
+ * Copyright (C) 2018-2019 CERN.
  *
  * React-SearchKit is free software; you can redistribute it and/or modify it
  * under the terms of the MIT License; see LICENSE file for more details.
@@ -13,9 +13,15 @@ import { ResultsGrid } from '../ResultsGrid';
 import { ShouldRender } from '../ShouldRender';
 
 export default class ResultsMultiLayout extends Component {
-  renderResultsList(layout) {
-    return layout === 'list' ? <ResultsList /> : <ResultsGrid />;
+  constructor(props) {
+    super(props);
+    this.renderElement = props.renderElement || this._renderElement;
+    this.ResultsListCmp = props.resultsListCmp || ResultsList;
+    this.ResultsGridCmp = props.resultsGridCmp || ResultsGrid;
   }
+
+  _renderElement = layout =>
+    layout === 'list' ? <this.ResultsListCmp /> : <this.ResultsGridCmp />;
 
   render() {
     const { loading, totalResults, currentLayout } = this.props;
@@ -23,7 +29,7 @@ export default class ResultsMultiLayout extends Component {
       <ShouldRender
         condition={currentLayout != null && !loading && totalResults > 0}
       >
-        {this.renderResultsList(currentLayout)}
+        {this.renderElement(currentLayout)}
       </ShouldRender>
     );
   }
@@ -32,8 +38,14 @@ export default class ResultsMultiLayout extends Component {
 ResultsMultiLayout.propTypes = {
   totalResults: PropTypes.number.isRequired,
   currentLayout: PropTypes.string,
+  renderElement: PropTypes.func,
+  resultsListCmp: PropTypes.elementType,
+  resultsGridCmp: PropTypes.elementType,
 };
 
 ResultsMultiLayout.defaultProps = {
   currentLayout: null,
+  renderElement: null,
+  resultsListCmp: null,
+  resultsGridCmp: null,
 };

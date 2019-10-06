@@ -37,9 +37,12 @@ export default class Sort extends Component {
       option => 'defaultOnEmptyString' in option && option.defaultOnEmptyString
     );
     this.defaultValueOnEmptyString = {
-      sortBy: defaultValueOnEmptyString.sortBy || this.options[0].sortBy,
-      sortOrder:
-        defaultValueOnEmptyString.sortOrder || this.options[0].sortOrder,
+      sortBy: defaultValueOnEmptyString
+        ? defaultValueOnEmptyString.sortBy
+        : this.options[0].sortBy,
+      sortOrder: defaultValueOnEmptyString
+        ? defaultValueOnEmptyString.sortOrder
+        : this.options[0].sortOrder,
     };
   }
 
