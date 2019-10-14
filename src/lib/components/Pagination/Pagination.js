@@ -38,7 +38,8 @@ export default class Pagination extends Component {
     currentSize,
     totalResults,
     onPageChange,
-    options
+    options,
+    ...extraParams
   ) => {
     const pages = Math.ceil(totalResults / currentSize);
     const boundaryRangeCount = options.boundaryRangeCount;
@@ -64,6 +65,7 @@ export default class Pagination extends Component {
         lastItem={showLast ? undefined : null}
         prevItem={showPrev ? undefined : null}
         nextItem={showNext ? undefined : null}
+        {...extraParams}
       />
     );
   };
