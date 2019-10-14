@@ -28,7 +28,7 @@ export default class Aggregator extends Component {
   _renderElement = (title, resultsAggregations, aggregations, customProps) => {
     return resultsAggregations !== undefined ? (
       <Card>
-        <Card.Content header={title} />
+        <Card.Header>{title}</Card.Header>
         <Card.Content>{aggregations}</Card.Content>
       </Card>
     ) : null;
