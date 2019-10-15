@@ -1,5 +1,9 @@
 # Changes
 
+Version 0.14.0 (released 2019-10-15)
+* added multi-layout support fo search results
+* changed params passing to pagination and display of search result card 
+
 Version 0.13.0 (released 2019-10-01)
 * Removed Semantic-UI import from the library and moved to the demo app
 * Upgraded create-react-app to 3.1.2
