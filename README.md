@@ -20,7 +20,7 @@ Main features:
 
 * ready-to-use collection of UI components
 * configurable REST API endpoint and serialization
-* configurable URL parameters handling
+* configurable URL parameters handling for deep linking
 
 ![React-SearchKit screenshot](docs/website/static/img/screenshot.png)
 
@@ -28,13 +28,15 @@ Main features:
 
 You can find a collection of examples in the `src/demos` folder:
 
-* ElasticSearch, an example on how to query ElasticSearch (see below)
-* Zenodo.org, an example on how to query an Invenio 3 web service
+* Elasticsearch, an example on how to query Elasticsearch (see below)
+* Zenodo.org, an example on how to query an Invenio 3 instance
 * CERN Videos, another Invenio 3 example
 
-### ElasticSearch
+Install dependencies and run the React app to try them out (see steps below).
 
-To run the ElasticSearch backend for the demo, you can use Docker. There is a docker-compose available with `nginx` as reverse proxy and ElasticSearch 7.
+### Elasticsearch
+
+To run the Elasticsearch backend for the demo, you can use Docker. A `docker-compose` file with `ES 7` and `nginx` as reverse proxy is available and ready to use.
 Run the services:
 
 ```bash

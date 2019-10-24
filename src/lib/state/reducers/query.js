@@ -14,14 +14,14 @@ import {
   SET_QUERY_SORT_ORDER,
   SET_QUERY_PAGINATION_PAGE,
   SET_QUERY_PAGINATION_SIZE,
-  SET_QUERY_AGGREGATION,
+  SET_QUERY_FILTERS,
   SET_QUERY_SUGGESTIONS,
   SET_SUGGESTION_STRING,
   CLEAR_QUERY_SUGGESTIONS,
   RESULTS_UPDATE_LAYOUT,
   RESET_QUERY,
 } from '../types';
-import { updateQueryAggregation } from '../selectors';
+import { updateQueryFilters } from '../selectors';
 
 export default (state = {}, action) => {
   switch (action.type) {
@@ -57,14 +57,11 @@ export default (state = {}, action) => {
         size: action.payload,
         page: 1,
       };
-    case SET_QUERY_AGGREGATION: {
+    case SET_QUERY_FILTERS: {
       return {
         ...state,
         page: 1,
-        aggregations: updateQueryAggregation(
-          action.payload,
-          state.aggregations
-        ),
+        filters: updateQueryFilters(action.payload, state.filters),
       };
     }
     case SET_QUERY_SUGGESTIONS:
@@ -97,7 +94,7 @@ export default (state = {}, action) => {
         ...state,
         queryString: '',
         page: 1,
-        aggregations: [],
+        filters: [],
       };
     default:
       return state;

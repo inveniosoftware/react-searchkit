@@ -80,12 +80,13 @@ export class UrlQueryStringHandler {
       page: 'p',
       size: 's',
       layout: 'l',
-      aggregations: 'aggr',
+      filters: 'f',
     };
 
     this.withHistory = config.withHistory || true;
     this.paramValidator = config.paramValidator || new ParamValidator();
     this.urlParser = config.urlParser || new UrlParser();
+    this.filterSeparator = config.filterSeparator || '+';
 
     // build the serializer from URL params to state by flipping the url params serializer
     this.fromParamsMapping = {};
@@ -93,6 +94,16 @@ export class UrlQueryStringHandler {
       this.fromParamsMapping[this.urlParamsMapping[stateKey]] = stateKey;
     });
   }
+
+  _filterToString = filter => {
+    let childFilter = '';
+    if (filter.length === 3) {
+      childFilter = this.filterSeparator.concat(
+        this._filterToString(filter[2])
+      );
+    }
+    return `${filter[0]}:${filter[1]}${childFilter}`;
+  };
 
   _transformQueryToUrlParams = queryState => {
     const params = {};
@@ -110,24 +121,68 @@ export class UrlQueryStringHandler {
       })
       .forEach(stateKey => {
         const paramKey = this.urlParamsMapping[stateKey];
-        params[paramKey] = queryState[stateKey];
+        if (stateKey === 'filters') {
+          params[paramKey] = queryState[stateKey].map(filter =>
+            this._filterToString(filter)
+          );
+        } else {
+          params[paramKey] = queryState[stateKey];
+        }
       });
 
     // will omit undefined and null values from the query
     return Qs.stringify(params, {
       addQueryPrefix: true,
       skipNulls: true,
+      indices: false, // for filters
     });
   };
 
-  _mergeParamsIntoState = (params, queryState) => {
-    const _queryState = _cloneDeep(queryState);
-    Object.keys(params).forEach(paramKey => {
-      const stateKey = this.fromParamsMapping[paramKey];
-      if (this.paramValidator.isValid(paramKey, params[paramKey])) {
-        if (stateKey in _queryState) {
-          _queryState[stateKey] = params[paramKey];
+  _filterToObj = filterStr => {
+    const childAggPos = filterStr.indexOf(this.filterSeparator);
+    const hasChild = childAggPos > -1;
+
+    const aggNamePos = filterStr.indexOf(':');
+    if (aggNamePos === -1) {
+      return [];
+    }
+    const aggName = filterStr.slice(0, aggNamePos);
+    const end = hasChild ? childAggPos : filterStr.length;
+    const value = filterStr.slice(aggNamePos + 1, end);
+    let filterList = [aggName, value];
+    if (hasChild) {
+      const childFilter = filterStr.slice(childAggPos + 1, filterStr.length);
+      filterList.push(this._filterToObj(childFilter));
+    }
+    return filterList;
+  };
+
+  _transformUrlParamsToQuery = urlParamsObj => {
+    const result = {};
+    Object.keys(urlParamsObj).forEach(paramKey => {
+      if (this.paramValidator.isValid(paramKey, urlParamsObj[paramKey])) {
+        const queryStateKey = this.fromParamsMapping[paramKey];
+        if (queryStateKey === 'filters') {
+          if (!Array.isArray(urlParamsObj[paramKey])) {
+            urlParamsObj[paramKey] = [urlParamsObj[paramKey]];
+          }
+
+          result[queryStateKey] = urlParamsObj[paramKey].map(filter =>
+            this._filterToObj(filter)
+          );
+        } else {
+          result[queryStateKey] = urlParamsObj[paramKey];
         }
+      }
+    });
+    return result;
+  };
+
+  _mergeParamsIntoState = (urlStateObj, queryState) => {
+    const _queryState = _cloneDeep(queryState);
+    Object.keys(urlStateObj).forEach(stateKey => {
+      if (stateKey in _queryState) {
+        _queryState[stateKey] = urlStateObj[stateKey];
       }
     });
     return _queryState;
@@ -138,8 +193,9 @@ export class UrlQueryStringHandler {
    * @param {object} queryState the `query` state
    */
   get = queryState => {
-    const currentParams = this.urlParser.parse(window.location.search);
-    const newQueryState = this._mergeParamsIntoState(currentParams, queryState);
+    const urlParamsObj = this.urlParser.parse(window.location.search);
+    const urlStateObj = this._transformUrlParamsToQuery(urlParamsObj);
+    const newQueryState = this._mergeParamsIntoState(urlStateObj, queryState);
     const newUrlParams = this._transformQueryToUrlParams(newQueryState);
     replaceHistory(newUrlParams);
     return newQueryState;

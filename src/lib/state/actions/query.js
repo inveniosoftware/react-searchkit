@@ -15,7 +15,7 @@ import {
   SET_QUERY_SORT_ORDER,
   SET_QUERY_PAGINATION_PAGE,
   SET_QUERY_PAGINATION_SIZE,
-  SET_QUERY_AGGREGATION,
+  SET_QUERY_FILTERS,
   SET_QUERY_SUGGESTIONS,
   SET_SUGGESTION_STRING,
   CLEAR_QUERY_SUGGESTIONS,
@@ -95,11 +95,11 @@ export const updateQueryPaginationSize = size => {
   };
 };
 
-export const updateQueryAggregation = aggregation => {
+export const updateQueryFilters = filters => {
   return async dispatch => {
     dispatch({
-      type: SET_QUERY_AGGREGATION,
-      payload: aggregation,
+      type: SET_QUERY_FILTERS,
+      payload: filters,
     });
     await dispatch(executeQuery());
   };

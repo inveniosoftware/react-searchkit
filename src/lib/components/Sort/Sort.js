@@ -113,7 +113,7 @@ export default class Sort extends Component {
           currentSortBy !== null &&
           currentSortOrder !== null &&
           !loading &&
-          totalResults > 1
+          totalResults > 0
         }
       >
         {this.renderElement(

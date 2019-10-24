@@ -53,7 +53,7 @@ export default class SortOrder extends Component {
     const { currentSortOrder, loading, totalResults } = this.props;
     return (
       <ShouldRender
-        condition={currentSortOrder !== null && !loading && totalResults > 1}
+        condition={currentSortOrder !== null && !loading && totalResults > 0}
       >
         {this.renderElement(currentSortOrder, this.options, this.onChange)}
       </ShouldRender>

@@ -11,7 +11,7 @@ import { Container, Grid, Accordion, Menu } from 'semantic-ui-react';
 import {
   ReactSearchKit,
   SearchBar,
-  Aggregator,
+  BucketAggregation,
   EmptyResults,
   Error,
   ResultsLoader,
@@ -114,6 +114,7 @@ export class App extends Component {
         searchApi={searchApi}
         persistentUrl={{ enabled: true }}
         searchOnInit={true}
+        withRouter={true}
       >
         <Container>
           <Grid>
@@ -128,25 +129,32 @@ export class App extends Component {
           <Grid relaxed style={{ padding: '2em 0' }}>
             <Grid.Row columns={2}>
               <Grid.Column width={4}>
-                <Aggregator
+                <BucketAggregation
                   title="File types"
-                  field="file_type"
-                  customProps={{ index: 0 }}
-                  renderElement={this.renderAccordionAggregations}
+                  agg={{
+                    field: 'file_type',
+                    aggName: 'file_type',
+                  }}
                 />
                 <br />
-                <Aggregator
+                <BucketAggregation
                   title="Keywords"
-                  field="keywords"
-                  customProps={{ index: 1 }}
-                  renderElement={this.renderAccordionAggregations}
+                  agg={{
+                    field: 'keywords',
+                    aggName: 'keywords',
+                  }}
                 />
                 <br />
-                <Aggregator
+                <BucketAggregation
                   title="Types"
-                  field="type"
-                  customProps={{ index: 2 }}
-                  renderElement={this.renderAccordionAggregations}
+                  agg={{
+                    field: 'resource_type.type',
+                    aggName: 'type',
+                    childAgg: {
+                      field: 'resource_type.subtype',
+                      aggName: 'subtype',
+                    },
+                  }}
                 />
                 <br />
               </Grid.Column>

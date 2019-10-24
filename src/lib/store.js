@@ -20,7 +20,7 @@ export function configureStore(appConfig) {
     sortOrder: null,
     page: -1,
     size: -1,
-    aggregations: [],
+    filters: [],
     layout: null,
   };
 

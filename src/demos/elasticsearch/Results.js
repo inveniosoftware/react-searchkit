@@ -10,6 +10,7 @@ import React, { Component } from 'react';
 import { Grid, Card, Image, Item } from 'semantic-ui-react';
 import _truncate from 'lodash/truncate';
 import {
+  ActiveFilters,
   Count,
   LayoutSwitcher,
   Pagination,
@@ -35,10 +36,6 @@ const SpanWithMargin = ({ text, margin }) => {
 };
 
 export class Results extends Component {
-  constructor(props) {
-    super(props);
-  }
-
   renderResultsListItem = (result, index) => {
     return (
       <Item key={index} href={`#${result.id}`}>
@@ -83,7 +80,10 @@ export class Results extends Component {
       <ResultsGrid renderGridItem={this.renderResultsGridItem} />
     );
     return total ? (
-      <div>
+      <>
+        <Grid relaxed>
+          <ActiveFilters />
+        </Grid>
         <Grid relaxed verticalAlign="middle">
           <Grid.Column width={8}>
             <SpanWithMargin text="Found" margin="right" />
@@ -103,7 +103,7 @@ export class Results extends Component {
         <Grid relaxed verticalAlign="middle" textAlign="center">
           <Pagination />
         </Grid>
-      </div>
+      </>
     ) : null;
   }
 }
