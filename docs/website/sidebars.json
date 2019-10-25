@@ -5,6 +5,7 @@
       "main-concepts",
       "connect-your-rest-apis",
       "using-url-parameters",
+      "filters-aggregations",
       "ui-customisation"
     ],
     "Components": [

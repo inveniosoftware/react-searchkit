@@ -1,23 +1,33 @@
-proxy:
-  build: ./nginx
-  links:
-    - es
-  ports:
-    - "5000:5000"
-es:
-  image: docker.elastic.co/elasticsearch/elasticsearch-oss:7.4.0
-  restart: "always"
-  environment:
-    - bootstrap.memory_lock=true
-    - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
-    - discovery.type=single-node
-    - http.cors.enabled=true
-    - http.cors.allow-origin=*
-  ulimits:
-    memlock:
-      soft: -1
-      hard: -1
-  mem_limit: 1g
-  ports:
-    - "9200:9200"
-    - "9300:9300"
+version: '3.1'
+
+services:
+  proxy:
+    build: ./nginx
+    container_name: react-searchkit-nginx
+    links:
+      - es
+    ports:
+      - "5000:5000"
+  es:
+    image: docker.elastic.co/elasticsearch/elasticsearch-oss:7.4.0
+    container_name: react-searchkit-es
+    restart: "always"
+    volumes:
+      - esdata01:/usr/share/elasticsearch/data
+    environment:
+      - bootstrap.memory_lock=true
+      - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
+      - discovery.type=single-node
+      - http.cors.enabled=true
+      - http.cors.allow-origin=*
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
+    ports:
+      - "9200:9200"
+      - "9300:9300"
+
+volumes:
+  esdata01:
+

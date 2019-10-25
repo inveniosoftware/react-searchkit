@@ -65,6 +65,9 @@
       "extend-state": {
         "title": "Extend State"
       },
+      "filters-aggregations": {
+        "title": "Filters And Aggregations"
+      },
       "getting-started": {
         "title": "Getting Started"
       },

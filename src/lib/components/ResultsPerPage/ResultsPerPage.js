@@ -66,12 +66,13 @@ ResultsPerPage.propTypes = {
   loading: PropTypes.bool.isRequired,
   totalResults: PropTypes.number.isRequired,
   values: PropTypes.array.isRequired,
-  defaultValue: PropTypes.number.isRequired,
+  defaultValue: PropTypes.number,
   updateQuerySize: PropTypes.func.isRequired,
   setInitialState: PropTypes.func.isRequired,
   renderElement: PropTypes.func,
 };
 
 ResultsPerPage.defaultProps = {
+  defaultValue: 10,
   renderElement: null,
 };

@@ -10,6 +10,7 @@ import React, { Component } from 'react';
 import { Grid, Card, Image, Item } from 'semantic-ui-react';
 import _truncate from 'lodash/truncate';
 import {
+  ActiveFilters,
   Count,
   LayoutSwitcher,
   Pagination,
@@ -35,13 +36,9 @@ const SpanWithMargin = ({ text, margin }) => {
 };
 
 export class Results extends Component {
-  constructor(props) {
-    super(props);
-  }
-
   renderResultsListItem = (result, index) => {
     return (
-      <Item key={index} href={`#${result.id}`}>
+      <Item key={index} href={`#`}>
         <Item.Image
           size="small"
           src={result.picture || 'http://placehold.it/200'}
@@ -60,7 +57,7 @@ export class Results extends Component {
 
   renderResultsGridItem(result, index) {
     return (
-      <Card fluid key={index} href={`#${result.id}`}>
+      <Card fluid key={index} href={`#`}>
         <Image src={result.picture || 'http://placehold.it/200'} />
         <Card.Content>
           <Card.Header>
@@ -83,14 +80,16 @@ export class Results extends Component {
       <ResultsGrid renderGridItem={this.renderResultsGridItem} />
     );
     return total ? (
-      <div>
+      <>
+        <Grid relaxed>
+          <ActiveFilters />
+        </Grid>
         <Grid relaxed verticalAlign="middle">
           <Grid.Column width={8}>
             <SpanWithMargin text="Found" margin="right" />
             <Count />
           </Grid.Column>
           <Grid.Column width={8} textAlign="right">
-            <SpanWithMargin text="results per page" />
             <LayoutSwitcher defaultLayout="grid" />
           </Grid.Column>
         </Grid>
@@ -103,7 +102,7 @@ export class Results extends Component {
         <Grid relaxed verticalAlign="middle" textAlign="center">
           <Pagination />
         </Grid>
-      </div>
+      </>
     ) : null;
   }
 }

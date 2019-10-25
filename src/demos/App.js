@@ -43,6 +43,10 @@ export default class App extends Component {
     this.state = { activeDemo: null };
   }
 
+  resetUrlParams = () => {
+    window.history.pushState({}, document.title, '/');
+  };
+
   renderHeader = () => {
     const { activeDemo } = this.state;
     const demoMenus = Object.keys(demos).map(key => (
@@ -66,6 +70,7 @@ export default class App extends Component {
               header
               onClick={() => {
                 this.setState({ activeDemo: null });
+                this.resetUrlParams();
               }}
             >
               React-SearchKit
@@ -112,7 +117,9 @@ export default class App extends Component {
   };
 
   render = () => {
-    window.history.pushState({}, document.title, '/');
+    if (!this.state.activeDemo) {
+      this.resetUrlParams();
+    }
     return (
       <>
         {this.renderHeader()}

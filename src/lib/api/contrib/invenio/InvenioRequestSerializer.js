@@ -7,48 +7,59 @@
  */
 
 import Qs from 'qs';
+import _extend from 'lodash/extend';
 
 /** Default backend request serializer */
 export class InvenioRequestSerializer {
-  _addAggregations(getParams, aggregations) {
-    aggregations.forEach(aggregation => {
-      const rootKey = Object.keys(aggregation)[0];
+  _addFilter = (filter, filterUrlParams) => {
+    if (!Array.isArray(filter)) {
+      throw new Error(
+        `Filter value "${filter}" in query state must be an array.`
+      );
+    }
+    if (!(filter.length === 2 || filter.length === 3)) {
+      throw new Error(
+        `Filter value "${filter}" in query state must be an array of 2 or 3 elements`
+      );
+    }
+    const aggName = filter[0];
+    const fieldValue = filter[1];
+    filterUrlParams[aggName] = fieldValue;
+    const hasChild = filter.length === 3;
+    if (hasChild) {
+      this._addFilter(filter[2], filterUrlParams);
+    }
+  };
 
-      /**
-       * The selection represent any one of the aggregation values clicked at any level of depth.
-       * Its value is the whole path e.g. for Type -> Publication -> (Subtype)Article
-       * the value will be type.publication.subtype.article from which the array will be created
-       * @type {string[]}
-       */
-      const selection = aggregation[rootKey]['value'].split('.');
-
-      /**
-       * For each category:name pair (e.g. subtype:article) in the path
-       * add it to the request if not already present
-       */
-      for (let i = 0, j = 1; j <= selection.length; i += 2, j += 2) {
-        const key = selection[i];
-        const value = selection[j];
-        key in getParams
-          ? getParams[key].push(value)
-          : (getParams[key] = [value]);
-      }
+  _addFilters = filters => {
+    if (!Array.isArray(filters)) {
+      throw new Error(`Filters query state "${filters}" must be an array.`);
+    }
+    /**
+     * input: [
+     *   [ 'type_agg', 'value1' ]
+     *   [ 'type_agg', 'value2', [ 'subtype_agg', 'a value' ] ]
+     * ]
+     */
+    const filterUrlParams = {};
+    filters.forEach(filter => {
+      this._addFilter(filter, filterUrlParams);
     });
-  }
+    /**
+     * output: {
+     *  type_agg: 'value1'.
+     *  subtype_agg: 'a value'
+     * }
+     */
+    return filterUrlParams;
+  };
 
   /**
    * Return a serialized version of the app state `query` for the API backend.
    * @param {object} stateQuery the `query` state to serialize
    */
   serialize = stateQuery => {
-    const {
-      queryString,
-      sortBy,
-      sortOrder,
-      page,
-      size,
-      aggregations,
-    } = stateQuery;
+    const { queryString, sortBy, sortOrder, page, size, filters } = stateQuery;
 
     const getParams = {};
     if (queryString !== null) {
@@ -67,7 +78,8 @@ export class InvenioRequestSerializer {
     if (size > 0) {
       getParams['size'] = size;
     }
-    this._addAggregations(getParams, aggregations);
+    const filterParams = this._addFilters(filters);
+    _extend(getParams, filterParams);
 
     return Qs.stringify(getParams, { arrayFormat: 'repeat' });
   };

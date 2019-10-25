@@ -18,9 +18,9 @@ export function configureStore(appConfig) {
     suggestions: [],
     sortBy: null,
     sortOrder: null,
-    page: -1,
-    size: -1,
-    aggregations: [],
+    page: 1,
+    size: 10,
+    filters: [],
     layout: null,
   };
 
@@ -35,9 +35,9 @@ export function configureStore(appConfig) {
   };
 
   // configure the initial state
-  const preloadedQueryState = appConfig.urlQueryStringHandler
-    ? appConfig.urlQueryStringHandler.get(initialQueryState)
-    : {};
+  const preloadedQueryState = appConfig.urlHandlerApi
+    ? appConfig.urlHandlerApi.get(initialQueryState)
+    : initialQueryState;
   const preloadedState = {
     query: preloadedQueryState,
     results: initialResultsState,

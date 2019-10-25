@@ -6,4 +6,6 @@
  * under the terms of the MIT License; see LICENSE file for more details.
  */
 
+export { ESRequestSerializer } from './ESRequestSerializer';
+export { ESResponseSerializer } from './ESResponseSerializer';
 export { ESSearchApi } from './ESSearchApi';

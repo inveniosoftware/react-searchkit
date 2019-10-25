@@ -1,12 +1,12 @@
 /*
  * This file is part of React-SearchKit.
- * Copyright (C) 2018 CERN.
+ * Copyright (C) 2018-2019 CERN.
  *
  * React-SearchKit is free software; you can redistribute it and/or modify it
  * under the terms of the MIT License; see LICENSE file for more details.
  */
 
-import { updateQueryAggregation } from '../../selectors/query';
+import { updateQueryFilters } from '../../selectors/query';
 
 /**
  * Test scenario
@@ -28,259 +28,208 @@ import { updateQueryAggregation } from '../../selectors/query';
  *  - Software
  */
 
-describe('queries with first level aggregations.', () => {
+describe('queries with first level filters.', () => {
   test('query with `type: Publication` should be added when not in the state.', () => {
-    const state = [{ file_type: { value: 'pdf' } }];
-    const query = { type: { value: 'Publication' } };
+    const state = [['file_type', 'pdf']];
+    const query = ['type', 'Publication'];
 
-    const newState = updateQueryAggregation(query, state);
-    expect(newState).toEqual([
-      { file_type: { value: 'pdf' } },
-      { type: { value: 'Publication' } },
-    ]);
+    const newState = updateQueryFilters(query, state);
+
+    expect(newState).toEqual([['file_type', 'pdf'], ['type', 'Publication']]);
   });
 
   test('query with `type: Publication` should be added when another `type` is already in the state.', () => {
-    const state = [
-      { file_type: { value: 'pdf' } },
-      { type: { value: 'Image' } },
-    ];
-    const query = { type: { value: 'Publication' } };
+    const state = [['file_type', 'pdf'], ['type', 'Image']];
+    const query = ['type', 'Publication'];
 
-    const newState = updateQueryAggregation(query, state);
+    const newState = updateQueryFilters(query, state);
+
     expect(newState).toEqual([
-      { file_type: { value: 'pdf' } },
-      { type: { value: 'Image' } },
-      { type: { value: 'Publication' } },
+      ['file_type', 'pdf'],
+      ['type', 'Image'],
+      ['type', 'Publication'],
     ]);
   });
 
   test('query with `type: Image` should remove it from the state when it is already there.', () => {
     const state = [
-      { file_type: { value: 'pdf' } },
-      { type: { value: 'Image' } },
-      { type: { value: 'Publication' } },
+      ['file_type', 'pdf'],
+      ['type', 'Image'],
+      ['type', 'Publication'],
     ];
-    const query = { type: { value: 'Image' } };
+    const query = ['type', 'Image'];
 
-    const newState = updateQueryAggregation(query, state);
-    expect(newState).toEqual([
-      { file_type: { value: 'pdf' } },
-      { type: { value: 'Publication' } },
-    ]);
+    const newState = updateQueryFilters(query, state);
+
+    expect(newState).toEqual([['file_type', 'pdf'], ['type', 'Publication']]);
   });
 });
 
-describe('queries with second level aggregations.', () => {
+describe('queries with second level filters.', () => {
   test('query with `subtype: Other` should be added when not in the state.', () => {
-    const state = [
-      { file_type: { value: 'pdf' } },
-      { type: { value: 'Image' } },
-    ];
-    const query = {
-      type: { value: 'Publication', subtype: { value: 'Other' } },
-    };
+    const state = [['file_type', 'pdf'], ['type', 'Image']];
+    const query = ['type', 'Publication', ['subtype', 'Other']];
 
-    const newState = updateQueryAggregation(query, state);
+    const newState = updateQueryFilters(query, state);
+
     expect(newState).toEqual([
-      { file_type: { value: 'pdf' } },
-      { type: { value: 'Image' } },
-      { type: { value: 'Publication', subtype: { value: 'Other' } } },
+      ['file_type', 'pdf'],
+      ['type', 'Image'],
+      ['type', 'Publication', ['subtype', 'Other']],
     ]);
   });
 
   test('query with `type` should remove from the state any children query.', () => {
     const state = [
-      { file_type: { value: 'pdf' } },
-      { type: { value: 'Image' } },
-      { type: { value: 'Publication', subtype: { value: 'Other' } } },
-      { type: { value: 'Publication', subtype: { value: 'Report' } } },
-      { type: { value: 'Publication', subtype: { value: 'Article' } } },
+      ['file_type', 'pdf'],
+      ['type', 'Image'],
+      ['type', 'Publication', ['subtype', 'Other']],
+      ['type', 'Publication', ['subtype', 'Report']],
+      ['type', 'Publication', ['subtype', 'Article']],
     ];
-    const query = {
-      type: { value: 'Publication' },
-    };
+    const query = ['type', 'Publication'];
 
-    const newState = updateQueryAggregation(query, state);
-    expect(newState).toEqual([
-      { file_type: { value: 'pdf' } },
-      { type: { value: 'Image' } },
-      { type: { value: 'Publication' } },
-    ]);
+    const newState = updateQueryFilters(query, state);
+
+    expect(newState).toEqual([['file_type', 'pdf'], ['type', 'Image']]);
   });
 
   test('query with `subtype: Other` should remove any query with the parent `type: Publication`.', () => {
     const state = [
-      { file_type: { value: 'pdf' } },
-      { type: { value: 'Image' } },
-      { type: { value: 'Publication' } },
+      ['file_type', 'pdf'],
+      ['type', 'Image'],
+      ['type', 'Publication'],
     ];
-    const query = {
-      type: { value: 'Publication', subtype: { value: 'Other' } },
-    };
+    const query = ['type', 'Publication', ['subtype', 'Other']];
 
-    const newState = updateQueryAggregation(query, state);
+    const newState = updateQueryFilters(query, state);
+
     expect(newState).toEqual([
-      { file_type: { value: 'pdf' } },
-      { type: { value: 'Image' } },
-      { type: { value: 'Publication', subtype: { value: 'Other' } } },
+      ['file_type', 'pdf'],
+      ['type', 'Image'],
+      ['type', 'Publication', ['subtype', 'Other']],
     ]);
   });
 
   test('query with `subtype: Other` should remove it from the state when it is already there.', () => {
     const state = [
-      { file_type: { value: 'pdf' } },
-      { type: { value: 'Image' } },
-      { type: { value: 'Publication', subtype: { value: 'Other' } } },
+      ['file_type', 'pdf'],
+      ['type', 'Image'],
+      ['type', 'Publication', ['subtype', 'Other']],
     ];
-    const query = {
-      type: { value: 'Publication', subtype: { value: 'Other' } },
-    };
+    const query = ['type', 'Publication', ['subtype', 'Other']];
 
-    const newState = updateQueryAggregation(query, state);
+    const newState = updateQueryFilters(query, state);
+
     expect(newState).toEqual([
-      { file_type: { value: 'pdf' } },
-      { type: { value: 'Image' } },
+      ['file_type', 'pdf'],
+      ['type', 'Image'],
+      ['type', 'Publication'],
     ]);
   });
 });
 
-describe('queries with third level aggregations.', () => {
+describe('queries with third level filters.', () => {
   test('query with `subsubtype: Public reports` should be added when not in the state.', () => {
     const state = [
-      { file_type: { value: 'png' } },
-      { file_type: { value: 'pdf' } },
-      { type: { value: 'Image' } },
-      { type: { value: 'Publication', subtype: { value: 'Article' } } },
+      ['file_type', 'png'],
+      ['file_type', 'pdf'],
+      ['type', 'Image'],
     ];
-    const query = {
-      type: {
-        value: 'Publication',
-        subtype: { value: 'Report', subsubtype: { value: 'Public reports' } },
-      },
-    };
+    const query = ['type', 'Publication', ['subtype', 'Report']];
 
-    const newState = updateQueryAggregation(query, state);
+    const newState = updateQueryFilters(query, state);
+
     expect(newState).toEqual([
-      { file_type: { value: 'png' } },
-      { file_type: { value: 'pdf' } },
-      { type: { value: 'Image' } },
-      { type: { value: 'Publication', subtype: { value: 'Article' } } },
-      {
-        type: {
-          value: 'Publication',
-          subtype: {
-            value: 'Report',
-            subsubtype: { value: 'Public reports' },
-          },
-        },
-      },
+      ['file_type', 'png'],
+      ['file_type', 'pdf'],
+      ['type', 'Image'],
+      ['type', 'Publication', ['subtype', 'Report']],
     ]);
   });
 
   test('query with `subtype: Report` should remove from the state any child query with `subsubtype`', () => {
     const state = [
-      { file_type: { value: 'png' } },
-      { file_type: { value: 'pdf' } },
-      { type: { value: 'Image' } },
-      {
-        type: {
-          value: 'Publication',
-          subtype: { value: 'Report', subsubtype: { value: 'Restricted' } },
-        },
-      },
-      {
-        type: {
-          value: 'Publication',
-          subtype: { value: 'Report', subsubtype: { value: 'Public' } },
-        },
-      },
+      ['file_type', 'png'],
+      ['file_type', 'pdf'],
+      ['type', 'Image'],
+      [
+        'type',
+        'Publication',
+        ['subtype', 'Report', ['subsubtype', 'Restricted']],
+      ],
+      ['type', 'Publication', ['subtype', 'Report', ['subsubtype', 'Public']]],
     ];
-    const query = {
-      type: {
-        value: 'Publication',
-        subtype: { value: 'Report' },
-      },
-    };
+    const query = ['type', 'Publication', ['subtype', 'Report']];
 
-    const newState = updateQueryAggregation(query, state);
+    const newState = updateQueryFilters(query, state);
+
     expect(newState).toEqual([
-      { file_type: { value: 'png' } },
-      { file_type: { value: 'pdf' } },
-      { type: { value: 'Image' } },
-      { type: { value: 'Publication', subtype: { value: 'Report' } } },
+      ['file_type', 'png'],
+      ['file_type', 'pdf'],
+      ['type', 'Image'],
+      ['type', 'Publication'],
     ]);
   });
 
   test('query with `type: Publication` should remove from the state any child query with `subtype` or `subsubtype`', () => {
     const state = [
-      { file_type: { value: 'png' } },
-      { file_type: { value: 'pdf' } },
-      { type: { value: 'Image' } },
-      {
-        type: {
-          value: 'Publication',
-          subtype: { value: 'Report', subsubtype: { value: 'Restricted' } },
-        },
-      },
+      ['file_type', 'png'],
+      ['file_type', 'pdf'],
+      ['type', 'Image'],
+      [
+        'type',
+        'Publication',
+        ['subtype', 'Report', ['subsubtype', 'Restricted']],
+      ],
     ];
-    const query = {
-      type: {
-        value: 'Publication',
-      },
-    };
+    const query = ['type', 'Publication'];
 
-    const newState = updateQueryAggregation(query, state);
+    const newState = updateQueryFilters(query, state);
+
     expect(newState).toEqual([
-      { file_type: { value: 'png' } },
-      { file_type: { value: 'pdf' } },
-      { type: { value: 'Image' } },
-      { type: { value: 'Publication' } },
+      ['file_type', 'png'],
+      ['file_type', 'pdf'],
+      ['type', 'Image'],
     ]);
   });
 
   test('query with `subsubtype: Report` should remove it from the state when it is already there.', () => {
     const state = [
-      { file_type: { value: 'pdf' } },
-      { type: { value: 'Image' } },
-      {
-        type: {
-          value: 'Publication',
-          subtype: { value: 'Report', subsubtype: { value: 'Public reports' } },
-        },
-      },
+      ['file_type', 'pdf'],
+      ['type', 'Image'],
+      [
+        'type',
+        'Publication',
+        ['subtype', 'Report', ['subsubtype', 'Public reports']],
+      ],
     ];
-    const query = {
-      type: {
-        value: 'Publication',
-        subtype: { value: 'Report', subsubtype: { value: 'Public reports' } },
-      },
-    };
+    const query = [
+      'type',
+      'Publication',
+      ['subtype', 'Report', ['subsubtype', 'Public reports']],
+    ];
 
-    const newState = updateQueryAggregation(query, state);
+    const newState = updateQueryFilters(query, state);
+
     expect(newState).toEqual([
-      { file_type: { value: 'pdf' } },
-      { type: { value: 'Image' } },
+      ['file_type', 'pdf'],
+      ['type', 'Image'],
+      ['type', 'Publication', ['subtype', 'Report']],
     ]);
   });
 });
 
 describe('user clears previous selections', () => {
   const state = [
-    { type: { value: 'Publication', subtype: { value: 'Article' } } },
-    {
-      type: {
-        value: 'Publication',
-        subtype: { value: 'Report', subsubtype: { value: 'Public' } },
-      },
-    },
-    { type: { value: 'Image' } },
-    { file_type: { value: 'pdf' } },
+    ['type', 'Publication', ['subtype', 'Report', ['subsubtype', 'Public']]],
+    ['file_type', 'pdf'],
   ];
 
   test('`type` selections are removed when user unselects it', () => {
-    const query = { type: { value: '' } };
-    const newState = updateQueryAggregation(query, state);
-    expect(newState).toEqual([{ file_type: { value: 'pdf' } }]);
+    const query = ['type', 'Publication'];
+    const newState = updateQueryFilters(query, state);
+
+    expect(newState).toEqual([['file_type', 'pdf']]);
   });
 });
