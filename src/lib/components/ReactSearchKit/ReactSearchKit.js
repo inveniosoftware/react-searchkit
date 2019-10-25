@@ -12,6 +12,8 @@ import PropTypes from 'prop-types';
 import { configureStore } from '../../store';
 import { UrlQueryStringHandler } from '../..//api';
 import { Bootstrap } from '../Bootstrap';
+import _isObject from 'lodash/isObject';
+import _isFunction from 'lodash/isFunction';
 
 export class ReactSearchKit extends Component {
   constructor(props) {
@@ -28,6 +30,16 @@ export class ReactSearchKit extends Component {
     this.store = configureStore(appConfig);
   }
 
+  componentDidMount() {
+    if (_isObject(this.props.history) && _isFunction(this.props.history.listen)) {
+      this.unlisten = this.props.history.listen((location, action) => {
+        console.log("on route change");
+        console.log(location)
+        console.log(action)
+      });
+    }
+  }
+
   render() {
     const { searchOnInit } = this.props;
 
@@ -36,6 +48,13 @@ export class ReactSearchKit extends Component {
         <Bootstrap searchOnInit={searchOnInit}>{this.props.children}</Bootstrap>
       </Provider>
     );
+  }
+
+  componentWillUnmount() {
+    this.unlisten && this.unlisten();
+    if (this.unlisten) {
+      console.log('listen');
+    }
   }
 }
 
@@ -54,6 +73,9 @@ ReactSearchKit.propTypes = {
   }),
   searchOnInit: PropTypes.bool,
   defaultSortByOnEmptyQuery: PropTypes.string,
+  history: PropTypes.shape({
+    listen: PropTypes.func.isRequired,
+  }
 };
 
 ReactSearchKit.defaultProps = {
@@ -68,4 +90,5 @@ ReactSearchKit.defaultProps = {
   },
   searchOnInit: true,
   defaultSortByOnEmptyQuery: null,
+  history: null,
 };

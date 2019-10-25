@@ -7,7 +7,7 @@
  */
 
 import React, { Component } from 'react';
-import { Grid, Card, Image, Item } from 'semantic-ui-react';
+import { Grid, Card, Image, Item, Button } from 'semantic-ui-react';
 import _truncate from 'lodash/truncate';
 import {
   ActiveFilters,
@@ -35,8 +35,23 @@ const SpanWithMargin = ({ text, margin }) => {
   return <span style={style}>{text}</span>;
 };
 
+class TagsComponent extends Component {
+  render() {
+    return this.props.result.tags.map((tag, index) => (
+      <Button key={index} size="mini" onClick={this.onClick}>
+        {tag}
+      </Button>
+    ));
+  }
+}
+
 export class Results extends Component {
   renderResultsListItem = (result, index) => {
+    const tags = result.tags.map((tag, index) => (
+      <Button key={index} size="mini">
+        {tag}
+      </Button>
+    ));
     return (
       <Item key={index} href={`#${result.id}`}>
         <Item.Image
@@ -50,12 +65,18 @@ export class Results extends Component {
           <Item.Description>
             {_truncate(result.about, { length: 200 })}
           </Item.Description>
+          <Item.Extra>{tags}</Item.Extra>
         </Item.Content>
       </Item>
     );
   };
 
   renderResultsGridItem(result, index) {
+    const tags = result.tags.map((tag, index) => (
+      <Button key={index} size="mini">
+        {tag}
+      </Button>
+    ));
     return (
       <Card fluid key={index} href={`#${result.id}`}>
         <Image src={result.picture || 'http://placehold.it/200'} />
@@ -67,6 +88,7 @@ export class Results extends Component {
             {_truncate(result.about, { length: 200 })}
           </Card.Description>
         </Card.Content>
+        <Card.Content extra>{tags}</Card.Content>
       </Card>
     );
   }
@@ -91,7 +113,7 @@ export class Results extends Component {
           </Grid.Column>
           <Grid.Column width={8} textAlign="right">
             <SpanWithMargin text="results per page" />
-            <LayoutSwitcher defaultLayout="grid" />
+            <LayoutSwitcher defaultLayout="list" />
           </Grid.Column>
         </Grid>
         <Grid relaxed style={{ padding: '2em 0' }}>

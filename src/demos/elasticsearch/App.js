@@ -8,6 +8,8 @@
 
 import React, { Component } from 'react';
 import { Container, Grid, Menu, Label } from 'semantic-ui-react';
+import { withRouter } from 'react-router';
+import { BrowserRouter } from 'react-router-dom';
 import {
   BucketAggregation,
   ReactSearchKit,
@@ -67,17 +69,25 @@ const customAggValueCmp = (
   );
 };
 
+const ReactSearchKitWithRouter = withRouter(ReactSearchKit);
+
 export class App extends Component {
   render() {
     return (
-      <div>
-        <ReactSearchKit
+      <BrowserRouter>
+        <ReactSearchKitWithRouter
           searchApi={searchApi}
           persistentUrl={{ enabled: true }}
           searchOnInit={true}
         >
           <Container>
             <Grid>
+              <Grid.Row>
+                <Grid.Column textAlign="center">
+                  A simple demo with a few customized components and React
+                  Router aware.
+                </Grid.Column>
+              </Grid.Row>
               <Grid.Row>
                 <Grid.Column width={3} />
                 <Grid.Column width={10}>
@@ -118,8 +128,8 @@ export class App extends Component {
               </Grid.Row>
             </Grid>
           </Container>
-        </ReactSearchKit>
-      </div>
+        </ReactSearchKitWithRouter>
+      </BrowserRouter>
     );
   }
 }

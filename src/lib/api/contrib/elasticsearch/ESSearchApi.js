@@ -14,6 +14,7 @@ import { ESResponseSerializer } from './ESResponseSerializer';
 
 export class ESSearchApi {
   constructor(config) {
+    console.log('constructor');
     this.validateConfig(config);
     this.initSerializers(config);
     this.initAxios(config);
