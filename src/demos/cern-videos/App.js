@@ -11,7 +11,7 @@ import { Container, Grid, Accordion, Menu } from 'semantic-ui-react';
 import {
   ReactSearchKit,
   SearchBar,
-  Aggregator,
+  BucketAggregation,
   EmptyResults,
   Error,
   ResultsLoader,
@@ -94,11 +94,7 @@ export class App extends Component {
 
   render() {
     return (
-      <ReactSearchKit
-        searchApi={searchApi}
-        persistentUrl={{ enabled: true }}
-        searchOnInit={true}
-      >
+      <ReactSearchKit searchApi={searchApi} urlHandlerApi={{ enabled: false }}>
         <Container>
           <Grid>
             <Grid.Row>
@@ -112,25 +108,28 @@ export class App extends Component {
           <Grid relaxed style={{ padding: '2em 0' }}>
             <Grid.Row columns={2}>
               <Grid.Column width={4}>
-                <Aggregator
+                <BucketAggregation
                   title="Categories"
-                  field="category"
-                  customProps={{ index: 0 }}
-                  renderElement={this.renderAccordionAggregations}
+                  agg={{
+                    field: 'category',
+                    aggName: 'category',
+                  }}
                 />
                 <br />
-                <Aggregator
+                <BucketAggregation
                   title="Languages"
-                  field="language"
-                  customProps={{ index: 1 }}
-                  renderElement={this.renderAccordionAggregations}
+                  agg={{
+                    field: 'language',
+                    aggName: 'language',
+                  }}
                 />
                 <br />
-                <Aggregator
+                <BucketAggregation
                   title="Types"
-                  field="type"
-                  customProps={{ index: 2 }}
-                  renderElement={this.renderAccordionAggregations}
+                  agg={{
+                    field: 'type',
+                    aggName: 'type',
+                  }}
                 />
                 <br />
               </Grid.Column>

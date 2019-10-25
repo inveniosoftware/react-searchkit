@@ -3,43 +3,56 @@ id: connect-your-rest-apis
 title: Connect Your REST APIs
 ---
 
-React-SearchKit comes out of the box with a working connection to [Invenio](https://inveniosoftware.org) REST APIs. However, the React-SearchKit has been designed to allow connecting any other REST APIs.
+React-SearchKit comes out of the box with a working adapter for [Elasticsearch 7](https://www.elastic.co/) and [Invenio](https://inveniosoftware.org) REST APIs. However, the library has been designed to allow the creation of custom adapters to plug in any REST API service.
 
-There are 2 ways of defining the connection to your REST APIs:
+There are 2 ways of connecting your REST APIs:
 
-* configure simple parameters, like URL, headers, request and response serializers.
-* have full control on API requests/responses and implement your own connector.
+* if you plan to use one of the available, just configure URL, headers, request and response serializers via props.
+* if you have a different backend or you need full control on API requests/responses, you can implement your own adapter.
 
-## Configure SearchAPI
+## Use one of the available
 
-The `SearchAPI` object can be configured by injecting the prop `searchConfig` in the main component `ReactSearchKit`. The provided configuration will be then passed directly to the [axios](https://github.com/axios/axios) instance used under the hood to perform network request.
+The `Elasticsearch` adapter can be configured by passing an object. The configuration will be injected directly in the [axios](https://github.com/axios/axios) instance used under the hood to perform network requests.
 
 ```jsx
-<ReactSearchKit
-  searchConfig={{
-    url: 'https://api.myendpoint.org/',
-    timeout: 5000,
-    headers: {},
-  }}
->
+const searchApi = new ESSearchAPI({
+  url: 'https://my.es.backend.org/search/',
+  timeout: 5000
+});
+
+<ReactSearchKit searchApi={searchApi}>
   ...
 </ReactSearchKit>
 ```
 
-> Note: the `searchConfig` fields need to be named as `axios` expect them.
+> Note: the configuration fields need to be named as `axios` expects them.
+
+The `Invenio` adapter works in a very similar way:
+
+```jsx
+const searchApi = new InvenioSearchApi({
+  url: 'https://zenodo.org/api/records/',
+  timeout: 5000,
+  headers: { Accept: 'application/vnd.zenodo.v1+json' },
+});
+
+<ReactSearchKit searchApi={searchApi}>
+  ...
+</ReactSearchKit>
+```
 
 ### Serialization
 
 You can define your own `requestSerializer` and `responseSerializer` objects. They will be called before the request to serialize the user input and after to serialize the REST API response.
 
-The `requestSerializer` implements the `serialize` method called with the `query` state as parameter and it returns the payload used by `axios` to perform the network request.
+The `requestSerializer` implements the `serialize` method accepting the `query` state as parameter: its responsibility is to transform the query state to the request payload used by `axios` to perform the network request.
 For example, an implementation of the request serializer could be:
 
 ```js
 class MyRequestSerializer {
   serialize = stateQuery => {
     const { queryString, sortBy, sortOrder, page, size, aggregations } = stateQuery;
-    const payload = ... // map the parameters to your request payload
+    const payload = ... // map the parameters to the request payload
     return payload;
   }
 }
@@ -49,7 +62,7 @@ The `responseSerializer` implements the `serialize` method called with the `axio
 
 * `hits`: the list of results
 * `total`: the number of results
-* `aggregations`: an object with results groups (it will be explained later on)
+* `aggregations`: an object with results groups (see more details in the related part of the documentation)
 
 For example, an implementation of the response serializer could be:
 
@@ -57,41 +70,42 @@ For example, an implementation of the response serializer could be:
 class MyResponseSerializer {
   serialize = payload => {
     return {
-      hits: [ ... ],
-      total: ...
+      hits: payload.results.map(result => ...),
+      total: payload.results.length,
       aggregations: {}
     }
   }
 }
 ```
 
-Serializers are injected in the main component:
+Custom serializers can then be injected in the configuration of the adapter:
 
 ```jsx
-const myRequestSerializer = new MyRequestSerializer();
-const myResponseSerializer = new MyResponseSerializer();
+const MyRequestSerializer = new MyRequestSerializer();
+const MyResponseSerializer = new MyResponseSerializer();
 
-<ReactSearchKit
-  searchConfig={{
-    url: 'https://api.myendpoint.org/',
-    timeout: 5000,
-    headers: {},
-    requestSerializer: myRequestSerializer,
-    responseSerializer: myResponseSerializer,
-  }}
->
+const searchApi = new ESSearchAPI({
+  url: 'https://my.es.backend.org/search/',
+  timeout: 5000,
+  es: {
+    requestSerializer: MyRequestSerializer,
+    responseSerializer: MyResponseSerializer,
+  },
+});
+
+<ReactSearchKit searchApi={searchApi}>
   ...
 </ReactSearchKit>
 ```
 
 ---
 
-## Implement a new connector
+## Implement a new adapter
 
-If you need to have full control on the network request/response, you can implement your own connector.
-The object needs to implement a `search` method expecting the `query` state as parameter and returning a result object as documented in the `responseSerializer` above.
+If you need to have full control on the network request/response, you can implement your own adapter.
+The object needs to implement a `search` method expecting the `query` state as parameter and return a result object as documented in the `responseSerializer` above.
 
-For example, a new connector could be:
+For example, a new adapter could be:
 
 ```js
 class MySearchAPI {
@@ -109,14 +123,12 @@ class MySearchAPI {
 }
 ```
 
-The new connector is injected in the main component:
+The new adapter is injected as prop in the main component:
 
 ```jsx
 const mySearchApi = new MySearchAPI();
 
-<ReactSearchKit
-  searchApi={mySearchApi}
->
+<ReactSearchKit searchApi={mySearchApi}>
   ...
 </ReactSearchKit>
 ```
@@ -125,5 +137,5 @@ const mySearchApi = new MySearchAPI();
 
 ## TL;DR
 
-* You can override specific config providing a `searchConfig` object injected as prop in the main component
-* You can implement your own API connector by implementing the same interface as `SearchAPI` and inject it as prop `searchApi` in the main component
+* You can use available adapters and provide your own configuration
+* You can create your own API adapter by implementing a new class and inject it as prop `searchApi` in the main component

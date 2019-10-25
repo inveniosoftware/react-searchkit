@@ -10,7 +10,7 @@ import React, { Component } from 'react';
 import { Provider } from 'react-redux';
 import PropTypes from 'prop-types';
 import { configureStore } from '../../store';
-import { UrlQueryStringHandler } from '../..//api';
+import { UrlHandlerApi } from '../../api';
 import { Bootstrap } from '../Bootstrap';
 
 export class ReactSearchKit extends Component {
@@ -19,9 +19,9 @@ export class ReactSearchKit extends Component {
     const appConfig = {
       searchApi: props.searchApi,
       suggestionApi: props.suggestionApi,
-      urlQueryStringHandler: props.persistentUrl.enabled
-        ? props.persistentUrl.customHandler ||
-          new UrlQueryStringHandler(props.persistentUrl.overrideConfig)
+      urlHandlerApi: props.urlHandlerApi.enabled
+        ? props.urlHandlerApi.customHandler ||
+          new UrlHandlerApi(props.urlHandlerApi.overrideConfig)
         : null,
       defaultSortByOnEmptyQuery: props.defaultSortByOnEmptyQuery,
     };
@@ -42,12 +42,12 @@ export class ReactSearchKit extends Component {
 ReactSearchKit.propTypes = {
   searchApi: PropTypes.object,
   suggestionApi: PropTypes.object,
-  persistentUrl: PropTypes.shape({
+  urlHandlerApi: PropTypes.shape({
     enabled: PropTypes.bool,
     overrideConfig: PropTypes.shape({
       withHistory: PropTypes.bool,
       urlParamsMapping: PropTypes.object,
-      paramValidator: PropTypes.object,
+      urlParamValidator: PropTypes.object,
       urlParser: PropTypes.object,
     }),
     customHandler: PropTypes.object,
@@ -59,7 +59,7 @@ ReactSearchKit.propTypes = {
 ReactSearchKit.defaultProps = {
   searchApi: null,
   suggestionApi: null,
-  persistentUrl: {
+  urlHandlerApi: {
     enabled: true,
     overrideConfig: {
       withHistory: true,

@@ -39,6 +39,17 @@
       },
       "tags": {
         "type": "keyword"
+      },
+      "employee_type": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "type": "keyword"
+          },
+          "subtype": {
+            "type": "keyword"
+          }
+        }
       }
     }
   }

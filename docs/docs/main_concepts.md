@@ -18,9 +18,9 @@ The application is split in 3 main parts:
 Components interact with the app using the standard Redux data flow. Each component is connected to part of the application state and receives only the data and the actions that it needs and should responsible for.
 For example, the `SearchBar` component receives the current query string stored in the state and can perform the action to update it.
 
-Some components do have also extra properties, such as default values. For example, the `SortBy` component receive a prop `defaultValue`: when mounting the component, the action to set the initial state for `sortBy` will be called.
+Some components do have also extra properties, such as default values. For example, the `SortBy` component receive a prop `defaultValue`: when mounting the component, a specific action will be fired to set the provided value as the initial state for the `sortBy` field.
 
-You can find the list of components in the [Components](components/react_searck_kit.md) section.
+You can find the list of components in the [Components](components/react_search_kit.md) section.
 
 ### Look And Feel
 
@@ -34,7 +34,7 @@ Read the [UI Customisation](ui_customisation.md) documentation for a detailed gu
 
 The application state is divided in 2 parts:
 
-* `query`: it contains the user selections, the input for a search action
+* `query`: it contains the user selections, all input for a search action
 * `results`: it contains the results after an API call, the output of a search action
 
 ```js
@@ -43,9 +43,9 @@ state = {
         queryString: '',
         sortBy: null,
         sortOrder: null,
-        page: null,
-        size: null,
-        aggregations: [],
+        page: 1,
+        size: 10,
+        filters: [],
         layout: null,
     },
     results: {
@@ -60,7 +60,7 @@ state = {
 }
 ```
 
-> Important: the app state is a fixed structure that can be changed by the components only through the available Redux actions. If you have the need to add extra state, follow the [Custom State](custom_state.md) guide.
+> Important: the app state is a fixed structure. Each value can be changed by the components only through the available Redux actions. If you have the need to add extra state, follow the [Extend State](extend_state.md) guide.
 
 ### Query
 
@@ -72,41 +72,41 @@ The `query` state stores the user selection and it has the following structure:
 * `sortBy`: a string to store by which field results should be sort.
 * `sortOrder`: a string to store in which order the results are sort, for example `ascending` or `descending`.
 * `layout`: a string to store how the list of results is displayed, for example `list` or `grid`.
-* `aggregations`: a complex array to store for which group of aggregations the results are shown.
+* `filters`: a complex array to store the user selected filters for the available aggregations. Filters and aggregations will be explained later on in the guide.
 
-Each component accesses to the fields of the app state it needs, renders the UI component according to the user selection and react to user input by calling predefined actions which will change the state.
+Each component accesses to the fields of the app state that it needs, renders the UI component according to the user selection and react to user input by calling predefined actions.
 
-> Note: even if the structure of the state is rigid, not all values are used or set by the app. Depending on which component you are going to use or implement, only a subset of the state is changed. It is the responsibility of the API layer to decide what state fields to use when performing the request.
+> Note: even if the structure of the state is rigid, not all values are used or set by the app. Depending on which component you are going to use or implement, only a subset of the state is changed. It is the responsibility of the API layer to decide what state fields to use when performing the APIs request.
 
 ### Results
 
-The `results` state stores the results retrieved in response to a REST APIs request and it has the following structure:
+The `results` state stores the results retrieved in response to a HTTP search request and it has the following structure:
 
 * `loading`: a boolean to store if the network request is happening
 * `data`:
     * `hits`: an array to store all results.
     * `total`: an integer to store the total number of results, normally it should correspond to `hits.length`.
-    * `aggregations`: an object to store the groups of results. Aggregations will be explained later on in the guide.
-* `error`: an object to store what went wrong in the last network call to provide value feedback to the user.
+    * `aggregations`: an object to store the groups of results. Filters and aggregations will be explained later on in the guide.
+* `error`: an object to store what went wrong in the last network request, useful to provide a feedback to the user.
 
-API responses will update this part of the state. Components that are connected to specific part of the `results` state will be automatically re-rendered with the values.
+API responses will update this part of the state. Components that are connected to specific part of the `results` state will be automatically re-rendered on each HTTP request.
 
 ---
 
 ## API
 
-The API layer contains 2 components:
+The API layer is composed of:
 
-* `SearchAPI`: an object to serialize the `query` state to search requests for your REST APIs and serialize back responses to change the `results` state.
-* `UrlParamsAPI`: an object to serialize the `query` state to update the browser URL query string and vice versa.
+* `SearchAPI`: adapter for HTTP requests. Available in 2 flavors, for Elasticsearch and Invenio, it is responsible of serializing the `query` state to search requests for your REST APIs and serialize back responses to mutate the `results` state.
+* `UrlHandlerApi`: an object capable of serializing the `query` state to the URL query string and vice versa, very useful for deep linking.
 
-> Note: given that the state is rigid, it is very important that the serialization of the responses complies with the `results` state structure.
+> Note: given the structure of the Redux state, responses serialization must be adapted to the `results` state structure.
 
-The concept around `SearchAPI` and `UrlParamsAPI` will be explained in the next guides.
+The concept around `SearchAPI` and `UrlHandlerApi` will be explained more in details in the next guides.
 
 ---
 
 ## TL;DR
 
-* UI Components change the `query` state through Redux actions in response to user inputs. They receive `results` after a REST APIs search through props injected automatically by Redux.
+* UI Components change the `query` state through Redux actions in response to user inputs. They receive the updated `results` state after a REST APIs search through props injected automatically by Redux.
 * The REST APIs implementation is responsible of serializing the `query` state in a format understandable by your REST APIs and serialize the response back to change the `results` state.

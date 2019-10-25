@@ -24,10 +24,10 @@ import {
   updateQuerySortBy,
   updateQuerySortOrder,
 } from '../../actions';
-import { UrlQueryStringHandler } from '../../../api';
+import { UrlHandlerApi } from '../../../api';
 
 const config = {
-  urlQueryStringHandler: new UrlQueryStringHandler(),
+  urlHandlerApi: new UrlHandlerApi(),
   searchApi: {
     search: query => ({
       aggregations: [],

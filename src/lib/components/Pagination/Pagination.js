@@ -14,8 +14,8 @@ import { ShouldRender } from '../ShouldRender';
 export default class Pagination extends Component {
   constructor(props) {
     super(props);
-
-    this.updateQueryPage = this.props.updateQueryPage;
+    this.defaultValue = props.defaultValue;
+    this.updateQueryPage = props.updateQueryPage;
     this.setInitialState = props.setInitialState;
     this.renderElement = props.renderElement || this._renderElement;
   }
@@ -23,7 +23,7 @@ export default class Pagination extends Component {
   componentDidMount() {
     if (this.props.currentPage === -1) {
       this.setInitialState({
-        page: 1,
+        page: this.defaultValue,
       });
     }
   }
@@ -77,7 +77,6 @@ export default class Pagination extends Component {
       currentSize,
       options,
     } = this.props;
-
     return (
       <ShouldRender
         condition={
@@ -110,6 +109,7 @@ Pagination.propTypes = {
     showPrev: PropTypes.bool,
     showNext: PropTypes.bool,
   }),
+  defaultValue: PropTypes.number,
   renderElement: PropTypes.func,
 };
 
@@ -123,5 +123,6 @@ Pagination.defaultProps = {
     showPrev: true,
     showNext: true,
   },
+  defaultValue: 10,
   renderElement: null,
 };

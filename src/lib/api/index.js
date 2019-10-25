@@ -7,4 +7,4 @@
  */
 
 export * from './contrib';
-export { UrlQueryStringHandler } from './UrlQueryStringHandler';
+export { UrlHandlerApi } from './UrlHandlerApi';

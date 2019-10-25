@@ -48,9 +48,7 @@ class Header extends React.Component {
                       Get Started
                     </Button>
                     <Button
-                      href={`${
-                        siteConfig.baseUrl
-                      }docs/components/react-searchkit`}
+                      href={`${siteConfig.baseUrl}docs/components/react-searchkit`}
                     >
                       Discover components
                     </Button>
@@ -91,18 +89,18 @@ class Home extends React.Component {
               contents={[
                 {
                   title: 'Ready To Use',
-                  content: `Build your search UI mixing together the available components. Override the default
-                  look and feel of each component and provide your own look and feel.`,
+                  content: `Compose your search UI choosing between any of the available components. Override the
+                  default look and feel of each component and provide yours.`,
                 },
                 {
                   title: 'Fully Configurable',
-                  content: `Use React-SearchKit with your search REST API endpoint by providing your
-                  configuration or implementation. Customize the way user selections are persisted in the URL query string.`,
+                  content: `Use React-SearchKit with your search REST API endpoint or Elasticsearch by providing your
+                  configuration or implementation. Deep linking comes out of the box.`,
                 },
                 {
                   title: 'Extensible',
                   content:
-                    'Create new components in a simple way and plug them to the other already available components.',
+                    'Create new components in a simple way and plug them to the other already available ones.',
                 },
               ]}
             />

@@ -3,28 +3,30 @@ id: using-url-parameters
 title: Using URL Parameters
 ---
 
-React-SearchKit can update URL query string parameters with the user selections so URLs can be shared to perform the same search.
+React-SearchKit can update URL query string parameters with the user selections to enable deep linking.
 
 The URL parameters handling behaves in a similar way as the REST API: when the `query` state is updated by any component, it is serialized and the URL query string is updated.
 When the URL query string changes, React-SearchKit serializes it to the `query` state triggering automatically an update of all mounted components.
 
-See how the URL parameters change on user input:
+See how the URL query string changes on user input:
 
 ![Screenshot showing the URL parameters](assets/url_params.gif)
 
 ## How it works
 
-When loading React-SearchKit, the URL is parsed and each parameters value is persistent into the `query` state, defining the initial values.
+When loading React-SearchKit, the URL is parsed and each parameter's value is persisted in the `query` state, defining the initial values.
 When the user changes any search criteria using the available components, the `query` state is updated. The URL is then updated accordingly.
 
-## Configure UrlParamsAPI
+## Configure UrlHandlerApi
 
-React-SearchKit uses as default implementation `UrlParamsAPI` to serialize the `query` state to the URL query string.
+React-SearchKit uses as default implementation `UrlHandlerApi` to serialize the `query` state to the URL query string.
 You can configure the way parameters are serialized by injecting custom configuration:
 
 * `urlParamsMapping`: an object to map each `query` state field to an URL parameter
-* `paramValidator`: an object to validate each parameter and value before updating the `query` state
+* `urlParamValidator`: a class to validate each parameter's value before updating the `query` state
 * `urlParser`: an object to parse the URL query string and perform sanitation.
+* `withHistory`: `true` if each change of `query` state will push a new state to the browser history. `false` if instead URL query string is changed without pushing new states to the browser history.
+* `urlFilterSeparator`: character(s) separator to be used when serializing filters with children to URL parameters. By default `+`.
 
 ### Provide a new mapping
 
@@ -37,7 +39,7 @@ By default, the mapping is the following:
   page: 'p',
   size: 's',
   layout: 'l',
-  aggregations: 'aggr'
+  filters: 'f'
 }
 ```
 
@@ -51,14 +53,14 @@ const myUrlParamsMapping = {
   page: 'page',
   size: 'size',
   layout: 'display',
-  aggregations: 'a'
+  filters: 'filter'
 }
 ```
 
 ### Provide a validator
 
 The parameters validator is called when loading React-SearchKit and parsing the URL to persist parameters values into the `query` state.
-Implement an object with a `isValid` method that returns true if the given param and value is valid, for example:
+The class must implement a method `isValid` that returns `true` if the given param and value is valid, for example:
 
 ```js
 class MyParamValidator {
@@ -90,19 +92,28 @@ class MyUrlParser {
 }
 ```
 
+### Disable deep linking
+
+Deep linking can be disabled by setting to `false` the `persistentUrl.enabled` config variable.
+
 ### Inject the new configuration
 
-You can inject overridden configuration in an object named `urlParamsConfig`.
+You can inject overridden configuration in an object named `persistentUrl`.
 
 ```jsx
 const myParamValidator = new MyParamValidator();
 const myUrlParser = new MyUrlParser();
 
 <ReactSearchKit
-  urlParamsConfig={{
-    urlParamsMapping: myUrlParamsMapping,
-    paramValidator: myParamValidator,
-    urlParser: myUrlParser,
+  searchApi={...}
+  persistentUrl={{
+    enabled: true,
+    overrideConfig: {
+      withHistory: false,
+      urlParamsMapping: {...},
+      urlParamValidator: myParamValidator,
+      urlParser: myUrlParser,
+    }
   }}
 >
   ...
@@ -146,7 +157,9 @@ You can provide the new implementation in the main component.
 const myUrlParamsHandler = new MyUrlParamsHandler();
 
 <ReactSearchKit
-  urlParamsApi={myUrlParamsHandler}
+  persistentUrl={{
+    customHandler=myUrlParamsHandler
+  }}
 >
   ...
 </ReactSearchKit>
@@ -156,5 +169,5 @@ const myUrlParamsHandler = new MyUrlParamsHandler();
 
 ## TL;DR
 
-* You can override specific config providing a `urlParamsConfig` object injected as prop in the main component
-* You can implement your own URL handler by implementing the same interface as `UrlParamsApi` and inject it as prop `urlParamsApi` in the main component
+* You can override specific config providing a `persistentUrl` object injected as prop in the main component
+* You can implement your own URL handler by implementing the same interface as `UrlHandlerApi` and inject it as prop `customHandler` in the main component

@@ -15,7 +15,7 @@ import {
   SET_QUERY_SORT_ORDER,
   SET_QUERY_PAGINATION_PAGE,
   SET_QUERY_PAGINATION_SIZE,
-  SET_QUERY_AGGREGATION,
+  SET_QUERY_FILTERS,
   SET_QUERY_SUGGESTIONS,
   SET_SUGGESTION_STRING,
   CLEAR_QUERY_SUGGESTIONS,
@@ -95,11 +95,11 @@ export const updateQueryPaginationSize = size => {
   };
 };
 
-export const updateQueryAggregation = aggregation => {
+export const updateQueryFilters = filters => {
   return async dispatch => {
     dispatch({
-      type: SET_QUERY_AGGREGATION,
-      payload: aggregation,
+      type: SET_QUERY_FILTERS,
+      payload: filters,
     });
     await dispatch(executeQuery());
   };
@@ -107,14 +107,14 @@ export const updateQueryAggregation = aggregation => {
 
 export const updateResultsLayout = layout => {
   return async (dispatch, getState, config) => {
-    const urlQueryStringHandler = config.urlQueryStringHandler;
-    if (urlQueryStringHandler) {
+    const urlHandlerApi = config.urlHandlerApi;
+    if (urlHandlerApi) {
       await dispatch({
         type: RESULTS_UPDATE_LAYOUT,
         payload: layout,
       });
       const newStateQuery = getState().query;
-      urlQueryStringHandler.set(newStateQuery);
+      urlHandlerApi.set(newStateQuery);
     } else {
       dispatch({
         type: RESULTS_UPDATE_LAYOUT,
@@ -137,10 +137,10 @@ export const executeQuery = (updateUrlQueryString = true) => {
   return async (dispatch, getState, config) => {
     const queryState = _cloneDeep(getState().query);
     const searchApi = config.searchApi;
-    const urlQueryStringHandler = config.urlQueryStringHandler;
+    const urlHandlerApi = config.urlHandlerApi;
 
-    if (urlQueryStringHandler && updateUrlQueryString) {
-      urlQueryStringHandler.set(queryState);
+    if (urlHandlerApi && updateUrlQueryString) {
+      urlHandlerApi.set(queryState);
     }
 
     dispatch({ type: RESULTS_LOADING });
