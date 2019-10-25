@@ -40,13 +40,13 @@ export default class BucketAggregation extends Component {
     );
   };
 
-  _renderElement = (title, valuesCmp) => {
-    return valuesCmp ? (
+  _renderElement = (title, containerCmp) => {
+    return containerCmp ? (
       <Card>
         <Card.Content>
           <Card.Header>{title}</Card.Header>
         </Card.Content>
-        <Card.Content>{valuesCmp}</Card.Content>
+        <Card.Content>{containerCmp}</Card.Content>
       </Card>
     ) : null;
   };

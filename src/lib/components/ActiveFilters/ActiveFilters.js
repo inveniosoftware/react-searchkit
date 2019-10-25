@@ -35,14 +35,14 @@ export default class ActiveFilters extends Component {
     };
   };
 
-  _renderElement = filters => {
+  _renderElement = (filters, removeActiveFilter) => {
     return filters.map((filter, index) => {
       const { label, activeFilter } = this._getLabel(filter);
       return (
         <Label
           image
           key={index}
-          onClick={() => this.updateQueryFilters(activeFilter)}
+          onClick={() => removeActiveFilter(activeFilter)}
         >
           {label}
           <Icon name="delete" />
@@ -53,7 +53,9 @@ export default class ActiveFilters extends Component {
 
   render() {
     const filters = this.props.filters;
-    return filters.length ? this.renderElement(filters) : null;
+    return filters.length
+      ? this.renderElement(filters, this.updateQueryFilters)
+      : null;
   }
 }
 

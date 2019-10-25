@@ -20,9 +20,15 @@ const searchApi = new ESSearchAPI({
   timeout: 5000
 });
 
-<ReactSearchKit searchApi={searchApi}>
-  ...
-</ReactSearchKit>
+class App extends Component {
+  render() {
+    return (
+      <ReactSearchKit searchApi={searchApi}>
+        ...
+      </ReactSearchKit>
+    )
+  }
+}
 ```
 
 > Note: the configuration fields need to be named as `axios` expects them.
@@ -36,9 +42,15 @@ const searchApi = new InvenioSearchApi({
   headers: { Accept: 'application/vnd.zenodo.v1+json' },
 });
 
-<ReactSearchKit searchApi={searchApi}>
-  ...
-</ReactSearchKit>
+class App extends Component {
+  render() {
+    return (
+      <ReactSearchKit searchApi={searchApi}>
+        ...
+      </ReactSearchKit>
+    )
+  }
+}
 ```
 
 ### Serialization
@@ -93,9 +105,15 @@ const searchApi = new ESSearchAPI({
   },
 });
 
-<ReactSearchKit searchApi={searchApi}>
-  ...
-</ReactSearchKit>
+class App extends Component {
+  render() {
+    return (
+      <ReactSearchKit searchApi={searchApi}>
+        ...
+      </ReactSearchKit>
+    )
+  }
+}
 ```
 
 ---
@@ -128,9 +146,15 @@ The new adapter is injected as prop in the main component:
 ```jsx
 const mySearchApi = new MySearchAPI();
 
-<ReactSearchKit searchApi={mySearchApi}>
-  ...
-</ReactSearchKit>
+class App extends Component {
+  render() {
+    return (
+      <ReactSearchKit searchApi={mySearchApi}>
+        ...
+      </ReactSearchKit>
+    )
+  }
+}
 ```
 
 ---

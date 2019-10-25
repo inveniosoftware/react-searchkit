@@ -95,7 +95,7 @@ class Home extends React.Component {
                 {
                   title: 'Fully Configurable',
                   content: `Use React-SearchKit with your search REST API endpoint or Elasticsearch by providing your
-                  configuration or implementation. Deep linking comes out of the box.`,
+                  configuration or implementation. Customize deep linking and integrate with React Router.`,
                 },
                 {
                   title: 'Extensible',

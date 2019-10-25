@@ -6,7 +6,7 @@
  * under the terms of the MIT License; see LICENSE file for more details.
  */
 
-import { ESRequestSerializer } from '../';
+import { ESRequestSerializer } from '.';
 
 describe('test ESRequestSerializer serializer', () => {
   const serializer = new ESRequestSerializer();

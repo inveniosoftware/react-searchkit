@@ -16,15 +16,15 @@ import {
   SET_QUERY_STRING,
   SET_QUERY_SORT_BY,
   SET_QUERY_SORT_ORDER,
-} from '../../types';
+} from '../types';
 import {
   setInitialState,
   onAppInitialized,
   updateQueryString,
   updateQuerySortBy,
   updateQuerySortOrder,
-} from '../../actions';
-import { UrlHandlerApi } from '../../../api';
+} from '.';
+import { UrlHandlerApi } from '../../api';
 
 const config = {
   urlHandlerApi: new UrlHandlerApi(),

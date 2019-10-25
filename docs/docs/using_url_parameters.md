@@ -25,7 +25,7 @@ You can configure the way parameters are serialized by injecting custom configur
 * `urlParamsMapping`: an object to map each `query` state field to an URL parameter
 * `urlParamValidator`: a class to validate each parameter's value before updating the `query` state
 * `urlParser`: an object to parse the URL query string and perform sanitation.
-* `withHistory`: `true` if each change of `query` state will push a new state to the browser history. `false` if instead URL query string is changed without pushing new states to the browser history.
+* `keepHistory`: `true` if each change of `query` state will push a new state to the browser history. `false` if instead URL query string is changed without pushing new states to the browser history.
 * `urlFilterSeparator`: character(s) separator to be used when serializing filters with children to URL parameters. By default `+`.
 
 ### Provide a new mapping
@@ -94,11 +94,11 @@ class MyUrlParser {
 
 ### Disable deep linking
 
-Deep linking can be disabled by setting to `false` the `persistentUrl.enabled` config variable.
+Deep linking can be disabled by setting to `false` the `urlHandlerApi.enabled` config variable.
 
 ### Inject the new configuration
 
-You can inject overridden configuration in an object named `persistentUrl`.
+You can inject overridden configuration in an object named `urlHandlerApi`.
 
 ```jsx
 const myParamValidator = new MyParamValidator();
@@ -106,10 +106,10 @@ const myUrlParser = new MyUrlParser();
 
 <ReactSearchKit
   searchApi={...}
-  persistentUrl={{
+  urlHandlerApi={{
     enabled: true,
     overrideConfig: {
-      withHistory: false,
+      keepHistory: false,
       urlParamsMapping: {...},
       urlParamValidator: myParamValidator,
       urlParser: myUrlParser,
@@ -157,8 +157,9 @@ You can provide the new implementation in the main component.
 const myUrlParamsHandler = new MyUrlParamsHandler();
 
 <ReactSearchKit
-  persistentUrl={{
-    customHandler=myUrlParamsHandler
+  urlHandlerApi={{
+    enabled: true
+    customHandler: myUrlParamsHandler
   }}
 >
   ...
@@ -167,7 +168,45 @@ const myUrlParamsHandler = new MyUrlParamsHandler();
 
 ---
 
+## React Router history integration
+
+React-SearchKit can integrate with [React Router history](https://github.com/ReactTraining/history) library. This is useful when any React component in your app (external to React-SearchKit) changes URL search parameters and you expect that a search is triggered.
+
+For example, if a component changes the query parameters to `?q=react`, then a new search with the query string value `react` should be triggered.
+
+To achieve this, you can inject the `history` object to the main `<ReactSearchKit>` component. A new listener will be automatically added and from now on any change to the URL parameters will trigger a search.
+
+> React-SearchKit will **not** listen to changes to `window.location` object. You will have to use `React Router history` in your app and inject it in React-SearchKit.
+
+```jsx
+import React, { Component } from 'react';
+import { createBrowserHistory } from 'history';
+import { ReactSearchKit, InvenioSearchApi } from 'react-searchkit';
+
+const history = createBrowserHistory();
+
+const searchApi = new InvenioSearchApi({
+  url: 'https://zenodo.org/api/records/',
+  timeout: 5000,
+  headers: { Accept: 'application/vnd.zenodo.v1+json' },
+});
+
+class App extends Component {
+  render() {
+    return (
+      <ReactSearchKit searchApi={searchApi} history={history}>
+        <h1>My search UI</h1>
+      </ReactSearchKit>
+    );
+  }
+}
+```
+
+---
+
 ## TL;DR
 
-* You can override specific config providing a `persistentUrl` object injected as prop in the main component
-* You can implement your own URL handler by implementing the same interface as `UrlHandlerApi` and inject it as prop `customHandler` in the main component
+* You can enabled or disable deep linking with a flag
+* You can override specific config providing a `urlHandlerApi` configuration object as prop
+* You can implement your own URL handler by implementing the same interface as `UrlHandlerApi` and injecting it as prop `customHandler`
+* You can trigger searches by changing URL parameters using the `history` library

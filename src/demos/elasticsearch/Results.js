@@ -7,7 +7,7 @@
  */
 
 import React, { Component } from 'react';
-import { Grid, Card, Image, Item } from 'semantic-ui-react';
+import { Grid, Card, Image, Item, Button } from 'semantic-ui-react';
 import _truncate from 'lodash/truncate';
 import {
   ActiveFilters,
@@ -18,6 +18,7 @@ import {
   ResultsList,
   ResultsGrid,
 } from '../../lib/components';
+import history from './history';
 
 const SpanWithMargin = ({ text, margin }) => {
   const size = '0.5em';
@@ -35,6 +36,27 @@ const SpanWithMargin = ({ text, margin }) => {
   return <span style={style}>{text}</span>;
 };
 
+class Tags extends Component {
+  onClick = (event, value) => {
+    history.push({
+      search: `${window.location.search}&f=tags_agg:${value}`,
+    });
+    event.preventDefault();
+  };
+
+  render() {
+    return this.props.tags.map((tag, index) => (
+      <Button
+        key={index}
+        size="mini"
+        onClick={event => this.onClick(event, tag)}
+      >
+        {tag}
+      </Button>
+    ));
+  }
+}
+
 export class Results extends Component {
   renderResultsListItem = (result, index) => {
     return (
@@ -50,6 +72,9 @@ export class Results extends Component {
           <Item.Description>
             {_truncate(result.about, { length: 200 })}
           </Item.Description>
+          <Item.Extra>
+            <Tags tags={result.tags} />
+          </Item.Extra>
         </Item.Content>
       </Item>
     );
@@ -66,6 +91,9 @@ export class Results extends Component {
           <Card.Description>
             {_truncate(result.about, { length: 200 })}
           </Card.Description>
+        </Card.Content>
+        <Card.Content extra>
+          <Tags tags={result.tags} />
         </Card.Content>
       </Card>
     );

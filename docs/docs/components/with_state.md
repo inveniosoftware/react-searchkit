@@ -7,7 +7,7 @@ title: withState
 
 The component receives the up-to-date state every time something is changed.
 
-**Note**: do **not** mutate the state inside your wrapped component!
+> Do **not** mutate the state inside your wrapped component!
 
 ## Usage
 
@@ -24,5 +24,6 @@ class _StateLogger extends Component {
     );
   }
 }
+
 const StateLogger = withState(_StateLogger);
 ```

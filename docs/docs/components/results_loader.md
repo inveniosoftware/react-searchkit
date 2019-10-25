@@ -23,8 +23,7 @@ title: ResultsLoader
 <ResultsGrid renderElement={renderLoader} />
 ```
 
-The function `renderElement` is called every time the loading state changes to `true`. When the state is `false`, then
-the component is not displayed.
+The function `renderElement` is called every time the loading state changes to `true`. When the state is `false`, then the component is not displayed.
 
 ```jsx
 renderLoader = () => {

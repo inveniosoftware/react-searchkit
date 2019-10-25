@@ -7,7 +7,7 @@
  */
 
 import Qs from 'qs';
-import { UrlHandlerApi } from '../';
+import { UrlHandlerApi } from '.';
 
 class MockedUrlParser {
   parse = (queryString = '') => {
@@ -33,7 +33,7 @@ describe('test UrlHandlerApi', () => {
         layout: 'l1',
         filters: 'f1',
       };
-      const expectedWithHistory = false;
+      const expectedKeepHistory = false;
       const expectedUrlParamValidator = new MockedUrlParamValidator();
       const expectedUrlParser = new MockedUrlParser();
       const expectedUrlFilterSeparator = '-';
@@ -47,7 +47,7 @@ describe('test UrlHandlerApi', () => {
 
       const handler = new UrlHandlerApi({
         urlParamsMapping: expectedUrlParamsMapping,
-        withHistory: expectedWithHistory,
+        keepHistory: expectedKeepHistory,
         urlParamValidator: expectedUrlParamValidator,
         urlParser: expectedUrlParser,
         urlFilterSeparator: expectedUrlFilterSeparator,
@@ -57,7 +57,7 @@ describe('test UrlHandlerApi', () => {
       expect(handler.fromUrlParamsMapping).toMatchObject(
         expectedFromUrlParamsMapping
       );
-      expect(handler.withHistory).toBe(expectedWithHistory);
+      expect(handler.keepHistory).toBe(expectedKeepHistory);
       expect(handler.urlParamValidator).toBe(expectedUrlParamValidator);
       expect(handler.urlParser).toBe(expectedUrlParser);
       expect(handler.urlFilterSeparator).toBe(expectedUrlFilterSeparator);
@@ -66,7 +66,7 @@ describe('test UrlHandlerApi', () => {
     it('should throw error when wrong configuration provided', () => {
       expect(() => {
         new UrlHandlerApi({
-          withHistory: 'history',
+          keepHistory: 'history',
         });
       }).toThrow();
 
@@ -97,8 +97,7 @@ describe('test UrlHandlerApi', () => {
 
     describe('test get url params', () => {
       it('should merge the current query state with the url params', () => {
-        const validURLSearch =
-          '?q=test&f=category%3Avideo%2Bvideo%3Anew&f=type%3Apdf';
+        const validURLSearch = '?q=test&f=category%3Avideo';
         window.location.search = validURLSearch;
 
         const currentQueryState = {
@@ -110,7 +109,7 @@ describe('test UrlHandlerApi', () => {
 
         expect(newQueryState).toMatchObject({
           queryString: 'test',
-          filters: [['category', 'video', ['video', 'new']], ['type', 'pdf']],
+          filters: [['category', 'video']],
         });
         expect(window.history.pushState).toHaveBeenCalledTimes(0);
         expect(window.history.replaceState).toHaveBeenCalledWith(
@@ -171,7 +170,7 @@ describe('test UrlHandlerApi', () => {
           page: 1,
           size: 10,
         };
-        const handler = new UrlHandlerApi({ withHistory: false });
+        const handler = new UrlHandlerApi({ keepHistory: false });
         handler.set(currentQueryState);
 
         const newValidURLSearch = `?q=&p=1&s=10`;
@@ -200,6 +199,25 @@ describe('test UrlHandlerApi', () => {
           queryString: 'test',
           filters: [['category', 'video', ['video', 'new']], ['type', 'pdf']],
         });
+      });
+    });
+
+    describe('test filters errors', () => {
+      it('should throw an error when wrong format', () => {
+        window.location.search = '?q=test&f=category-video';
+
+        const currentQueryState = {
+          queryString: '',
+          filters: [],
+        };
+
+        const handler = new UrlHandlerApi({
+          urlFilterSeparator: '-',
+        });
+
+        expect(() => {
+          handler.get(currentQueryState);
+        }).toThrow();
       });
     });
   });

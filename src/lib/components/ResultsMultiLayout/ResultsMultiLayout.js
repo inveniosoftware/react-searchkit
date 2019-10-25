@@ -39,8 +39,8 @@ ResultsMultiLayout.propTypes = {
   totalResults: PropTypes.number.isRequired,
   currentLayout: PropTypes.string,
   renderElement: PropTypes.func,
-  resultsListCmp: PropTypes.elementType,
-  resultsGridCmp: PropTypes.elementType,
+  resultsListCmp: PropTypes.func,
+  resultsGridCmp: PropTypes.func,
 };
 
 ResultsMultiLayout.defaultProps = {

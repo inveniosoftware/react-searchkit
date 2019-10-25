@@ -12,8 +12,6 @@
     "build": "rimraf dist && NODE_ENV=production rollup -c",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "test:watch": "jest --watch",
-    "test:coverage": "jest --coverage --forceExit --colors",
     "lint": "eslint src/**/*.js"
   },
   "dependencies": {},
@@ -36,7 +34,12 @@
     "@svgr/rollup": "^4.3.2",
     "axios": "^0.19.0",
     "axios-mock-adapter": "^1.17.0",
+    "coveralls": "^3.0.7",
+    "enzyme": "^3.10.0",
+    "enzyme-adapter-react-16": "^1.15.1",
+    "enzyme-to-json": "^3.4.3",
     "expect": "^24.8.0",
+    "history": "^4.10.1",
     "lodash": "^4.17.15",
     "node-sass": "^4.12.0",
     "qs": "^6.8.0",
@@ -55,7 +58,7 @@
     "rollup-plugin-node-resolve": "^5.2.0",
     "rollup-plugin-peer-deps-external": "^2.2.0",
     "rollup-plugin-postcss": "^2.0.3",
-    "rollup-plugin-url": "^2.2.2",
+    "rollup-plugin-url": "^3.0.0",
     "semantic-ui-css": "^2.4.1",
     "semantic-ui-react": "^0.88.0"
   },
@@ -92,6 +95,14 @@
       "last 1 chrome version",
       "last 1 firefox version",
       "last 1 safari version"
+    ]
+  },
+  "engines": {
+    "node": ">=10.0.0"
+  },
+  "jest": {
+    "snapshotSerializers": [
+      "enzyme-to-json/serializer"
     ]
   }
 }

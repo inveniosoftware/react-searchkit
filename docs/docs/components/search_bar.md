@@ -5,7 +5,7 @@ title: SearchBar
 
 `SearchBar` renders an input box for queries and a Search button.
 
-As default behaviour, the search can be triggered clicking on the button or pressing the `enter` keystroke.
+As default behavior, the search can be triggered clicking on the button or pressing the `enter` keystroke.
 
 ## Usage
 
@@ -53,5 +53,4 @@ renderSearchBar = (placeholder, currentQueryString, onInputChange, executeSearch
 
 * **executeSearch** `function`
 
-  A function to be called to perform a search. It does not accept any parameter, as it will use the current query
-  string to perform the search.
+  A function to be called to perform a search. It does not accept any parameter, as it will use the current query string to perform the search.

@@ -8,7 +8,7 @@
 
 import MockAdapter from 'axios-mock-adapter';
 import Qs from 'qs';
-import { InvenioSearchApi } from '../';
+import { InvenioSearchApi } from '.';
 
 class MockedRequestSerializer {
   serialize(params) {
