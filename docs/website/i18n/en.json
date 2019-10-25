@@ -5,11 +5,11 @@
     "previous": "Previous",
     "tagline": "A simple yet powerful UI search kit built with React",
     "docs": {
-      "components/active-aggregations": {
-        "title": "ActiveAggregations"
+      "components/active-filters": {
+        "title": "ActiveFilters"
       },
-      "components/aggregator": {
-        "title": "Aggregator"
+      "components/bucket-aggregation": {
+        "title": "BucketAggregation"
       },
       "components/count": {
         "title": "Count"
@@ -52,6 +52,9 @@
       },
       "components/sort-order": {
         "title": "SortOrder"
+      },
+      "components/sort": {
+        "title": "Sort"
       },
       "components/with-state": {
         "title": "withState"

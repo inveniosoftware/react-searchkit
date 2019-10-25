@@ -9,6 +9,7 @@
 import _cloneDeep from 'lodash/cloneDeep';
 import {
   SET_QUERY_COMPONENT_INITIAL_STATE,
+  SET_QUERY_STATE_URL_EXTERNALLY_CHANGED,
   SET_QUERY_STRING,
   SET_QUERY_SORTING,
   SET_QUERY_SORT_BY,
@@ -38,7 +39,27 @@ export const setInitialState = initialState => {
 export const onAppInitialized = searchOnInit => {
   return async dispatch => {
     if (searchOnInit) {
-      await dispatch(executeQuery(false));
+      await dispatch(executeQuery({ shouldUpdateUrlQueryString: false }));
+    }
+  };
+};
+
+export const onBrowserHistoryExternallyChanged = () => {
+  return async (dispatch, getState, config) => {
+    const urlHandlerApi = config.urlHandlerApi;
+    if (urlHandlerApi) {
+      const currentStateQuery = getState().query;
+      const newStateQuery = urlHandlerApi.get(currentStateQuery);
+      dispatch({
+        type: SET_QUERY_STATE_URL_EXTERNALLY_CHANGED,
+        payload: newStateQuery,
+      });
+      await dispatch(
+        executeQuery({
+          shouldUpdateUrlQueryString: false,
+          shouldReplaceUrlQueryString: true,
+        })
+      );
     }
   };
 };
@@ -133,14 +154,21 @@ export const resetQuery = () => {
   };
 };
 
-export const executeQuery = (updateUrlQueryString = true) => {
+export const executeQuery = ({
+  shouldUpdateUrlQueryString = true,
+  shouldReplaceUrlQueryString = false,
+} = {}) => {
   return async (dispatch, getState, config) => {
     const queryState = _cloneDeep(getState().query);
     const searchApi = config.searchApi;
     const urlHandlerApi = config.urlHandlerApi;
 
-    if (urlHandlerApi && updateUrlQueryString) {
-      urlHandlerApi.set(queryState);
+    if (urlHandlerApi) {
+      if (shouldReplaceUrlQueryString) {
+        urlHandlerApi.replace(queryState);
+      } else if (shouldUpdateUrlQueryString) {
+        urlHandlerApi.set(queryState);
+      }
     }
 
     dispatch({ type: RESULTS_LOADING });

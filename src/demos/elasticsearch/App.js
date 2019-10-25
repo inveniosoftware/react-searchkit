@@ -20,6 +20,7 @@ import {
 import { Results } from './Results';
 import { DemoESRequestSerializer } from './DemoESRequestSerializer';
 import { ESSearchApi } from '../../lib/api/contrib/elasticsearch';
+import history from './history';
 
 const OnResults = withState(Results);
 
@@ -31,12 +32,12 @@ const searchApi = new ESSearchApi({
   },
 });
 
-const customAggComp = (title, valuesCmp) => {
-  return valuesCmp ? (
+const customAggComp = (title, containerCmp) => {
+  return containerCmp ? (
     <Menu vertical>
       <Menu.Item>
         <Menu.Header>{title}</Menu.Header>
-        {valuesCmp}
+        {containerCmp}
       </Menu.Item>
     </Menu>
   ) : null;
@@ -70,52 +71,50 @@ const customAggValueCmp = (
 export class App extends Component {
   render() {
     return (
-      <div>
-        <ReactSearchKit searchApi={searchApi}>
-          <Container>
-            <Grid>
-              <Grid.Row>
-                <Grid.Column width={3} />
-                <Grid.Column width={10}>
-                  <SearchBar />
-                </Grid.Column>
-                <Grid.Column width={3} />
-              </Grid.Row>
-            </Grid>
-            <Grid relaxed style={{ padding: '2em 0' }}>
-              <Grid.Row columns={2}>
-                <Grid.Column width={4}>
-                  <BucketAggregation
-                    title="Tags"
-                    agg={{ field: 'tags', aggName: 'tags_agg' }}
-                    renderElement={customAggComp}
-                    renderValuesContainerElement={customAggValuesContainerCmp}
-                    renderValueElement={customAggValueCmp}
-                  />
-                  <BucketAggregation
-                    title="Employee Types"
-                    agg={{
-                      field: 'employee_type.type',
-                      aggName: 'type_agg',
-                      childAgg: {
-                        field: 'employee_type.subtype',
-                        aggName: 'subtype_agg',
-                      },
-                    }}
-                  />
-                </Grid.Column>
-                <Grid.Column width={12}>
-                  <ResultsLoader>
-                    <EmptyResults />
-                    <Error />
-                    <OnResults />
-                  </ResultsLoader>
-                </Grid.Column>
-              </Grid.Row>
-            </Grid>
-          </Container>
-        </ReactSearchKit>
-      </div>
+      <ReactSearchKit searchApi={searchApi} history={history}>
+        <Container>
+          <Grid>
+            <Grid.Row>
+              <Grid.Column width={3} />
+              <Grid.Column width={10}>
+                <SearchBar />
+              </Grid.Column>
+              <Grid.Column width={3} />
+            </Grid.Row>
+          </Grid>
+          <Grid relaxed style={{ padding: '2em 0' }}>
+            <Grid.Row columns={2}>
+              <Grid.Column width={4}>
+                <BucketAggregation
+                  title="Tags"
+                  agg={{ field: 'tags', aggName: 'tags_agg' }}
+                  renderElement={customAggComp}
+                  renderValuesContainerElement={customAggValuesContainerCmp}
+                  renderValueElement={customAggValueCmp}
+                />
+                <BucketAggregation
+                  title="Employee Types"
+                  agg={{
+                    field: 'employee_type.type',
+                    aggName: 'type_agg',
+                    childAgg: {
+                      field: 'employee_type.subtype',
+                      aggName: 'subtype_agg',
+                    },
+                  }}
+                />
+              </Grid.Column>
+              <Grid.Column width={12}>
+                <ResultsLoader>
+                  <EmptyResults />
+                  <Error />
+                  <OnResults />
+                </ResultsLoader>
+              </Grid.Column>
+            </Grid.Row>
+          </Grid>
+        </Container>
+      </ReactSearchKit>
     );
   }
 }

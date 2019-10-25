@@ -26,6 +26,10 @@ The component is **not** displayed while executing the search query or if there 
 
   The default value to pre-select when rendering the component. For example, `20`.
 
+* **renderElement** `function` *optional*
+
+  An optional function to override the default rendered component.
+
 ## Usage when overriding template
 
 ```jsx

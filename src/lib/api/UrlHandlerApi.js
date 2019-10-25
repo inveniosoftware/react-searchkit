@@ -88,11 +88,11 @@ export class UrlHandlerApi {
           filters: 'f',
         };
 
-    this.withHistory =
-      config.withHistory !== undefined ? config.withHistory : true;
-    if (!_isBoolean(this.withHistory)) {
+    this.keepHistory =
+      config.keepHistory !== undefined ? config.keepHistory : true;
+    if (!_isBoolean(this.keepHistory)) {
       throw new Error(
-        `"withHistory configuration must be a boolean, ${this.withHistory} provided.`
+        `"keepHistory configuration must be a boolean, ${this.keepHistory} provided.`
       );
     }
 
@@ -240,7 +240,20 @@ export class UrlHandlerApi {
    * @param {object} stateQuery the `query` state
    */
   set = stateQuery => {
+    if (this.keepHistory) {
+      const newUrlParams = this._mapQueryStateToUrlParams(stateQuery);
+      pushHistory(newUrlParams);
+    } else {
+      this.replace(stateQuery);
+    }
+  };
+
+  /**
+   * Replace the URL query string parameters from the given `query` state
+   * @param {object} stateQuery the `query` state
+   */
+  replace = stateQuery => {
     const newUrlParams = this._mapQueryStateToUrlParams(stateQuery);
-    this.withHistory ? pushHistory(newUrlParams) : replaceHistory(newUrlParams);
+    replaceHistory(newUrlParams);
   };
 }

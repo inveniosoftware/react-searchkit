@@ -25,6 +25,7 @@ export class ReactSearchKit extends Component {
         : null,
       defaultSortByOnEmptyQuery: props.defaultSortByOnEmptyQuery,
     };
+    this.historyListen = props.history ? props.history.listen : null;
     this.store = configureStore(appConfig);
   }
 
@@ -33,19 +34,25 @@ export class ReactSearchKit extends Component {
 
     return (
       <Provider store={this.store}>
-        <Bootstrap searchOnInit={searchOnInit}>{this.props.children}</Bootstrap>
+        <Bootstrap
+          searchOnInit={searchOnInit}
+          historyListen={this.historyListen}
+        >
+          {this.props.children}
+        </Bootstrap>
       </Provider>
     );
   }
 }
 
 ReactSearchKit.propTypes = {
-  searchApi: PropTypes.object,
+  searchApi: PropTypes.object.isRequired,
   suggestionApi: PropTypes.object,
   urlHandlerApi: PropTypes.shape({
-    enabled: PropTypes.bool,
+    enabled: PropTypes.bool.isRequired,
     overrideConfig: PropTypes.shape({
-      withHistory: PropTypes.bool,
+      keepHistory: PropTypes.bool,
+      urlFilterSeparator: PropTypes.string,
       urlParamsMapping: PropTypes.object,
       urlParamValidator: PropTypes.object,
       urlParser: PropTypes.object,
@@ -54,18 +61,19 @@ ReactSearchKit.propTypes = {
   }),
   searchOnInit: PropTypes.bool,
   defaultSortByOnEmptyQuery: PropTypes.string,
+  history: PropTypes.shape({
+    listen: PropTypes.func.isRequired,
+  }),
 };
 
 ReactSearchKit.defaultProps = {
-  searchApi: null,
   suggestionApi: null,
   urlHandlerApi: {
     enabled: true,
-    overrideConfig: {
-      withHistory: true,
-    },
+    overrideConfig: {},
     customHandler: null,
   },
   searchOnInit: true,
   defaultSortByOnEmptyQuery: null,
+  history: null,
 };

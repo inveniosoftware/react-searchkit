@@ -6,7 +6,7 @@
  * under the terms of the MIT License; see LICENSE file for more details.
  */
 
-import { updateQueryFilters } from '../../selectors/query';
+import { updateQueryFilters } from './query';
 
 /**
  * Test scenario

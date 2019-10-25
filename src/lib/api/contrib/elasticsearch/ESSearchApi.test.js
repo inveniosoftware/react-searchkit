@@ -8,7 +8,7 @@
 
 import MockAdapter from 'axios-mock-adapter';
 import Qs from 'qs';
-import { ESSearchApi } from '../';
+import { ESSearchApi } from '.';
 
 class MockedRequestSerializer {
   serialize(params) {

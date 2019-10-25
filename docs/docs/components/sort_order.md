@@ -32,7 +32,7 @@ The component is **not** displayed while executing the search query or if there 
 <SortOrder renderElement={renderSortOrder} />
 ```
 
-The function `renderElement` is called every time results or currentSortOrder change.
+The function `renderElement` is called every time `results` or `sortOrder` change.
 
 ```jsx
 renderSortOrder = (currentSortOrder, options, onValueChange) => {

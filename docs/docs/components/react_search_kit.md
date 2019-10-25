@@ -11,8 +11,7 @@ It provides state and configuration to the application.
 
 ```jsx
 <ReactSearchKit
-  searchConfig={apiConfig}
-  urlParamsConfig={urlConfig}
+  searchApi={searchApi}
 >
   ... React-SearchKit components ...
 </ReactSearchKit>
@@ -22,23 +21,34 @@ See the [complete guide](main_concepts.md) for detailed information.
 
 ## Props
 
-* **searchConfig** `object` *optional*
+* **searchApi** `object` *required*
 
-  An object containing configuration for the default REST API endpoint connector.
+  An instance of the adapter class for your search backend.
 
-* **searchApi** `object` *optional*
+* **urlHandlerApi** `object` *optional*
 
-  An instance of a class to override the default implementation of the REST API endpoint connector.
+  An object containing configuration for handling URL parameters:
 
-* **urlParamsConfig** `object` *optional*
+  * **enabled** `boolean`: `true` if URL parameters should be updated `false` otherwise. Default `true`.
+  * **overrideConfig** `object`:
 
-  An object containing configuration for the default URL parameters handler.
+      * **keepHistory** `boolean`: `true` if each change of the URL parameters should push a new state to the browser history, `false` if it should replace it instead. Default `true`.
+      * **urlFilterSeparator** `object`: a character(s) to override the default character defined in `UrlHandlerApi`, used when separating child filters.
+      * **urlParamsMapping** `object`: an object to override the default mapping defined in `UrlHandlerApi`, used when serializing each query state field to an URL parameter.
+      * **urlParamValidator** `object`: an object to override the default implementation of `UrlParamValidator` in `UrlHandlerApi`.
+      * **urlParser** `object`: an object to override the default implementation of `UrlParser` in `UrlHandlerApi`.
 
-* **urlParamsApi** `object` *optional*
+  * **customHandler** `object`: override entirely the default class `UrlHandlerApi`.
 
-  An instance of a class to override the default implementation of the URL parameters handler.
-
-* **searchOnLoad** `boolean` *optional*
+* **searchOnInit** `object` *optional*
 
   A boolean to perform a search when the application is mounted. Default `true`.
+
+* **defaultSortByOnEmptyQuery** `boolean` *optional*
+
+  A boolean to define a default `sort by` value when the query string is empty. This is useful when the results sorting should be different when the user inserts a query string or not (e.g. `most recent` or `most relevant` first).
+
+* **history** `object` *optional*
+
+  The [React Router history](https://github.com/ReactTraining/history) object to add a new listener to the browser history to perform searches on URL parameters changed.
 

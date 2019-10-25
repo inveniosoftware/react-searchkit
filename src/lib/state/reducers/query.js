@@ -8,6 +8,7 @@
 
 import {
   SET_QUERY_COMPONENT_INITIAL_STATE,
+  SET_QUERY_STATE_URL_EXTERNALLY_CHANGED,
   SET_QUERY_STRING,
   SET_QUERY_SORTING,
   SET_QUERY_SORT_BY,
@@ -80,6 +81,11 @@ export default (state = {}, action) => {
         suggestionString: action.payload,
       };
     case SET_QUERY_COMPONENT_INITIAL_STATE:
+      return {
+        ...state,
+        ...action.payload,
+      };
+    case SET_QUERY_STATE_URL_EXTERNALLY_CHANGED:
       return {
         ...state,
         ...action.payload,

@@ -69,12 +69,15 @@ class SearchBar extends Component {
 }
 
 SearchBar.propTypes = {
-  queryString: PropTypes.string,
+  placeholder: PropTypes.string,
+  queryString: PropTypes.string.isRequired,
   updateQueryString: PropTypes.func.isRequired,
   renderElement: PropTypes.func,
 };
 
 SearchBar.defaultProps = {
+  placeholder: '',
+  queryString: '',
   renderElement: null,
 };
 

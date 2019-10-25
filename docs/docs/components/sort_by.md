@@ -36,7 +36,7 @@ The component is **not** displayed while executing the search query or if there 
 <SortBy renderElement={renderSortBy} />
 ```
 
-The function `renderElement` is called every time results or currentSortBy change.
+The function `renderElement` is called every time `results` or `sortBy` change.
 
 ```jsx
 renderSortBy = (currentSortBy, options, onValueChange) => {

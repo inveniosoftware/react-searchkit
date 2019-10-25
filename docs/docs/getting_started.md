@@ -67,12 +67,14 @@ const searchApi = new InvenioSearchApi({
   headers: { Accept: 'application/vnd.zenodo.v1+json' },
 });
 
-render() {
-  return (
-    <ReactSearchKit searchApi={searchApi}>
-      <h1>My search UI</h1>
-    </ReactSearchKit>
-  );
+class App extends Component {
+  render() {
+    return (
+      <ReactSearchKit searchApi={searchApi}>
+        <h1>My search UI</h1>
+      </ReactSearchKit>
+    );
+  }
 }
 ```
 
