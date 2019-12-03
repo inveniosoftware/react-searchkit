@@ -49,6 +49,24 @@ export class InvenioSearchApi {
       ...config,
     };
     this.http = axios.create(axiosConfig);
+    if (config.interceptors) {
+      this.addInterceptors(config.interceptors);
+    }
+  }
+
+  addInterceptors(interceptors) {
+    if (interceptors.request) {
+      this.http.interceptors.request.use(
+        interceptors.request.resolve,
+        interceptors.request.reject
+      );
+    }
+    if (interceptors.response) {
+      this.http.interceptors.response.use(
+        interceptors.response.resolve,
+        interceptors.response.reject
+      );
+    }
   }
 
   /**
