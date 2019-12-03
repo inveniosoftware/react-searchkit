@@ -1,8 +1,11 @@
 # Changes
 
+Version 0.16.0 (released 2019-12-04)
+* added configuration for passing axios interceptors in `InvenioSearchApi`
+
 Version 0.14.0 (released 2019-10-15)
 * added multi-layout support fo search results
-* changed params passing to pagination and display of search result card 
+* changed params passing to pagination and display of search result card
 
 Version 0.13.0 (released 2019-10-01)
 * Removed Semantic-UI import from the library and moved to the demo app
