@@ -14,15 +14,22 @@ import { ESResponseSerializer } from './ESResponseSerializer';
 
 export class ESSearchApi {
   constructor(config) {
-    this.validateConfig(config);
+    this.axiosConfig = _get(config, 'axios', {});
+    this.validateAxiosConfig();
     this.initSerializers(config);
-    this.initAxios(config);
+    this.initInterceptors(config);
+    this.initAxios();
   }
 
-  validateConfig(config) {
-    if (!_hasIn(config, 'url')) {
+  validateAxiosConfig() {
+    if (!_hasIn(this.axiosConfig, 'url')) {
       throw new Error('ESSearchApi config: `node` field is required.');
     }
+  }
+
+  initInterceptors(config) {
+    this.requestInterceptor = _get(config, 'interceptors.request', undefined);
+    this.responseInterceptor = _get(config, 'interceptors.response', undefined);
   }
 
   initSerializers(config) {
@@ -41,13 +48,24 @@ export class ESSearchApi {
     this.responseSerializer = new responseSerializerCls();
   }
 
-  initAxios(config) {
-    delete config.es;
-    const axiosConfig = {
-      baseURL: config.url,
-      ...config,
-    };
-    this.http = axios.create(axiosConfig);
+  initAxios() {
+    this.http = axios.create(this.axiosConfig);
+    this.addInterceptors();
+  }
+
+  addInterceptors() {
+    if (this.requestInterceptor) {
+      this.http.interceptors.request.use(
+        this.requestInterceptor.resolve,
+        this.requestInterceptor.reject
+      );
+    }
+    if (this.responseInterceptor) {
+      this.http.interceptors.request.use(
+        this.responseInterceptor.resolve,
+        this.responseInterceptor.reject
+      );
+    }
   }
 
   /**

@@ -14,15 +14,22 @@ import { InvenioResponseSerializer } from './InvenioResponseSerializer';
 
 export class InvenioSearchApi {
   constructor(config) {
-    this.validateConfig(config);
+    this.axiosConfig = _get(config, 'axios', {});
+    this.validateAxiosConfig();
     this.initSerializers(config);
-    this.initAxios(config);
+    this.initInterceptors(config);
+    this.initAxios();
   }
 
-  validateConfig(config) {
-    if (!_hasIn(config, 'url')) {
+  validateAxiosConfig() {
+    if (!_hasIn(this.axiosConfig, 'url')) {
       throw new Error('InvenioSearchApi config: `url` field is required.');
     }
+  }
+
+  initInterceptors(config) {
+    this.requestInterceptor = _get(config, 'interceptors.request', undefined);
+    this.responseInterceptor = _get(config, 'interceptors.response', undefined);
   }
 
   initSerializers(config) {
@@ -41,30 +48,26 @@ export class InvenioSearchApi {
     this.responseSerializer = new responseSerializerCls();
   }
 
-  initAxios(config) {
-    delete config.invenio;
+  initAxios() {
     const axiosConfig = {
       paramsSerializer: this.requestSerializer.serialize,
-      baseURL: config.url, // transform URL to baseURL to have clean external APIs
-      ...config,
+      ...this.axiosConfig,
     };
     this.http = axios.create(axiosConfig);
-    if (config.interceptors) {
-      this.addInterceptors(config.interceptors);
-    }
+    this.addInterceptors();
   }
 
-  addInterceptors(interceptors) {
-    if (interceptors.request) {
+  addInterceptors() {
+    if (this.requestInterceptor) {
       this.http.interceptors.request.use(
-        interceptors.request.resolve,
-        interceptors.request.reject
+        this.requestInterceptor.resolve,
+        this.requestInterceptor.reject
       );
     }
-    if (interceptors.response) {
-      this.http.interceptors.response.use(
-        interceptors.response.resolve,
-        interceptors.response.reject
+    if (this.responseInterceptor) {
+      this.http.interceptors.request.use(
+        this.responseInterceptor.resolve,
+        this.responseInterceptor.reject
       );
     }
   }

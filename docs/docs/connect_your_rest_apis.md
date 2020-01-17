@@ -16,8 +16,10 @@ The `Elasticsearch` adapter can be configured by passing an object. The configur
 
 ```jsx
 const searchApi = new ESSearchAPI({
-  url: 'https://my.es.backend.org/search/',
-  timeout: 5000
+  axios: {
+    url: 'https://my.es.backend.org/search/',
+    timeout: 5000,
+  }
 });
 
 class App extends Component {
@@ -37,9 +39,11 @@ The `Invenio` adapter works in a very similar way:
 
 ```jsx
 const searchApi = new InvenioSearchApi({
-  url: 'https://zenodo.org/api/records/',
-  timeout: 5000,
-  headers: { Accept: 'application/vnd.zenodo.v1+json' },
+  axios: {
+    url: 'https://zenodo.org/api/records/',
+    timeout: 5000,
+    headers: { Accept: 'application/vnd.zenodo.v1+json' },
+  }
 });
 
 class App extends Component {
@@ -97,8 +101,10 @@ const MyRequestSerializer = new MyRequestSerializer();
 const MyResponseSerializer = new MyResponseSerializer();
 
 const searchApi = new ESSearchAPI({
-  url: 'https://my.es.backend.org/search/',
-  timeout: 5000,
+  axios: {
+    url: 'https://my.es.backend.org/search/',
+    timeout: 5000,
+  },
   es: {
     requestSerializer: MyRequestSerializer,
     responseSerializer: MyResponseSerializer,

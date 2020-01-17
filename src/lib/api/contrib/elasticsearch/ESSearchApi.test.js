@@ -25,9 +25,11 @@ class MockedResponseSerializer {
 describe('test ESSearchApi class', () => {
   it('should use the provided configuration', async () => {
     const searchApi = new ESSearchApi({
-      url: 'https://mydomain.test.com/api/',
-      timeout: 5000,
-      headers: { Accept: 'application/json' },
+      axios: {
+        url: 'https://mydomain.test.com/api/',
+        timeout: 5000,
+        headers: { Accept: 'application/json' },
+      },
       es: {
         requestSerializer: MockedRequestSerializer,
         responseSerializer: MockedResponseSerializer,
@@ -48,11 +50,32 @@ describe('test ESSearchApi class', () => {
     expect(mockedAxios.history.post.length).toBe(1);
 
     const request = mockedAxios.history.post[0];
-    expect(request.baseURL).toBe('https://mydomain.test.com/api/');
+    expect(request.url).toBe('https://mydomain.test.com/api/');
     expect(request.method).toBe('post');
     expect(request.timeout).toBe(5000);
     expect(request.data).toEqual('q=test');
 
     expect(response).toEqual(mockedResponse);
+  });
+
+  it('should properly use relative URLs', async () => {
+    const searchApi = new ESSearchApi({
+      axios: {
+        url: '/api/records',
+      },
+      es: {
+        requestSerializer: MockedRequestSerializer,
+        responseSerializer: MockedResponseSerializer,
+      },
+    });
+    const mockedAxios = new MockAdapter(searchApi.http);
+
+    const mockedResponse = { hits: [{ result: '1' }] };
+    mockedAxios.onAny().reply(200, mockedResponse);
+    await searchApi.search({ q: 'test' });
+    expect(mockedAxios.history.post.length).toBe(1);
+
+    const request = mockedAxios.history.post[0];
+    expect(request.url).toBe('/api/records');
   });
 });

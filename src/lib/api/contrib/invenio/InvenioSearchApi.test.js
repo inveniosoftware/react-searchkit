@@ -25,9 +25,11 @@ class MockedResponseSerializer {
 describe('test InvenioSearchApi class', () => {
   it('should use the provided configuration', async () => {
     const searchApi = new InvenioSearchApi({
-      url: 'https://mydomain.test.com/api/',
-      timeout: 5000,
-      headers: { Accept: 'application/json' },
+      axios: {
+        url: 'https://mydomain.test.com/api/',
+        timeout: 5000,
+        headers: { Accept: 'application/json' },
+      },
       invenio: {
         requestSerializer: MockedRequestSerializer,
         responseSerializer: MockedResponseSerializer,
@@ -48,7 +50,7 @@ describe('test InvenioSearchApi class', () => {
     expect(mockedAxios.history.get.length).toBe(1);
 
     const request = mockedAxios.history.get[0];
-    expect(request.baseURL).toBe('https://mydomain.test.com/api/');
+    expect(request.url).toBe('https://mydomain.test.com/api/');
     expect(request.method).toBe('get');
     expect(request.timeout).toBe(5000);
     expect(request.headers).toEqual({ Accept: 'application/json' });
@@ -56,5 +58,22 @@ describe('test InvenioSearchApi class', () => {
     expect(request.paramsSerializer).toBe(mockedRequestSerializer.serialize);
 
     expect(response).toEqual(mockedResponse);
+  });
+
+  it('should properly use relative URLs', async () => {
+    const searchApi = new InvenioSearchApi({
+      axios: {
+        url: '/api/records',
+      },
+    });
+    const mockedAxios = new MockAdapter(searchApi.http);
+
+    const mockedResponse = { hits: [{ result: '1' }] };
+    mockedAxios.onAny().reply(200, mockedResponse);
+    await searchApi.search({ q: 'test' });
+    expect(mockedAxios.history.get.length).toBe(1);
+
+    const request = mockedAxios.history.get[0];
+    expect(request.url).toBe('/api/records');
   });
 });
