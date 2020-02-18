@@ -25,8 +25,9 @@ export class ReactSearchKit extends Component {
         : null,
       defaultSortByOnEmptyQuery: props.defaultSortByOnEmptyQuery,
     };
-    this.historyListen = props.history ? props.history.listen : null;
     this.store = configureStore(appConfig);
+    this.appName = props.appName;
+    this.eventListenerEnabled = props.eventListenerEnabled;
   }
 
   render() {
@@ -36,7 +37,8 @@ export class ReactSearchKit extends Component {
       <Provider store={this.store}>
         <Bootstrap
           searchOnInit={searchOnInit}
-          historyListen={this.historyListen}
+          appName={this.appName}
+          eventListenerEnabled={this.eventListenerEnabled}
         >
           {this.props.children}
         </Bootstrap>
@@ -61,9 +63,8 @@ ReactSearchKit.propTypes = {
   }),
   searchOnInit: PropTypes.bool,
   defaultSortByOnEmptyQuery: PropTypes.string,
-  history: PropTypes.shape({
-    listen: PropTypes.func.isRequired,
-  }),
+  appName: PropTypes.string,
+  eventListenerEnabled: PropTypes.bool,
 };
 
 ReactSearchKit.defaultProps = {
@@ -75,5 +76,6 @@ ReactSearchKit.defaultProps = {
   },
   searchOnInit: true,
   defaultSortByOnEmptyQuery: null,
-  history: null,
+  appName: 'RSK',
+  eventListenerEnabled: false,
 };

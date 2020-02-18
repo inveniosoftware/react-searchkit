@@ -48,7 +48,6 @@ describe('test ReactSearchKit component', () => {
       })
     );
     expect(UrlHandlerApi.mock.calls[0]).toMatchObject({});
-    expect(rsk.historyListen).toBe(undefined);
   });
 
   it('should use disable UrlHandlerApi when enabled value if false', () => {
@@ -141,19 +140,16 @@ describe('test ReactSearchKit component', () => {
   });
 
   it('should inject configuration to Bootstrap when provided', () => {
-    const historyListen = () => {};
-    const historyFunc = {
-      listen: historyListen,
-    };
     const rsk = shallow(
       <ReactSearchKit
         searchApi={searchApi}
         searchOnInit={false}
-        history={historyFunc}
+        appName={'myApp'}
       />
     );
     const cmp = rsk.childAt(0);
     expect(cmp.prop('searchOnInit')).toBe(false);
-    expect(cmp.prop('historyListen')).toBe(historyListen);
+    expect(cmp.prop('appName')).toBe('myApp');
+    expect(cmp.prop('eventListenerEnabled')).toBe(false);
   });
 });

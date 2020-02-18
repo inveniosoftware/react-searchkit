@@ -9,11 +9,11 @@
 import _cloneDeep from 'lodash/cloneDeep';
 import {
   SET_QUERY_COMPONENT_INITIAL_STATE,
-  SET_QUERY_STATE_URL_EXTERNALLY_CHANGED,
   SET_QUERY_STRING,
   SET_QUERY_SORTING,
   SET_QUERY_SORT_BY,
   SET_QUERY_SORT_ORDER,
+  SET_QUERY_STATE,
   SET_QUERY_PAGINATION_PAGE,
   SET_QUERY_PAGINATION_SIZE,
   SET_QUERY_FILTERS,
@@ -37,92 +37,71 @@ export const setInitialState = initialState => {
 };
 
 export const onAppInitialized = searchOnInit => {
-  return async dispatch => {
+  return dispatch => {
     if (searchOnInit) {
-      await dispatch(executeQuery({ shouldUpdateUrlQueryString: false }));
-    }
-  };
-};
-
-export const onBrowserHistoryExternallyChanged = () => {
-  return async (dispatch, getState, config) => {
-    const urlHandlerApi = config.urlHandlerApi;
-    if (urlHandlerApi) {
-      const currentStateQuery = getState().query;
-      const newStateQuery = urlHandlerApi.get(currentStateQuery);
-      dispatch({
-        type: SET_QUERY_STATE_URL_EXTERNALLY_CHANGED,
-        payload: newStateQuery,
-      });
-      await dispatch(
-        executeQuery({
-          shouldUpdateUrlQueryString: false,
-          shouldReplaceUrlQueryString: true,
-        })
-      );
+      dispatch(executeQuery({ shouldUpdateUrlQueryString: false }));
     }
   };
 };
 
 export const updateQueryString = queryString => {
-  return async dispatch => {
+  return dispatch => {
     dispatch({
       type: SET_QUERY_STRING,
       payload: queryString,
     });
-
-    await dispatch(executeQuery());
+    dispatch(executeQuery());
   };
 };
 
 export const updateQuerySorting = (sortByValue, sortOrderValue) => {
-  return async dispatch => {
+  return dispatch => {
     dispatch({
       type: SET_QUERY_SORTING,
       payload: { sortBy: sortByValue, sortOrder: sortOrderValue },
     });
-    await dispatch(executeQuery());
+    dispatch(executeQuery());
   };
 };
 
 export const updateQuerySortBy = sortByValue => {
-  return async dispatch => {
+  return dispatch => {
     dispatch({
       type: SET_QUERY_SORT_BY,
       payload: sortByValue,
     });
-    await dispatch(executeQuery());
+    dispatch(executeQuery());
   };
 };
 
 export const updateQuerySortOrder = sortOrderValue => {
-  return async dispatch => {
+  return dispatch => {
     dispatch({ type: SET_QUERY_SORT_ORDER, payload: sortOrderValue });
-    await dispatch(executeQuery());
+    dispatch(executeQuery());
   };
 };
 
 export const updateQueryPaginationPage = page => {
-  return async dispatch => {
+  return dispatch => {
     dispatch({ type: SET_QUERY_PAGINATION_PAGE, payload: page });
-    await dispatch(executeQuery());
+    dispatch(executeQuery());
   };
 };
 
 export const updateQueryPaginationSize = size => {
-  return async dispatch => {
+  return dispatch => {
     dispatch({ type: SET_QUERY_PAGINATION_SIZE, payload: size });
-    await dispatch(executeQuery());
+    dispatch(executeQuery());
   };
 };
 
 export const updateQueryFilters = filters => {
-  return async dispatch => {
+  return dispatch => {
     dispatch({
       type: SET_QUERY_FILTERS,
       payload: filters,
     });
-    await dispatch(executeQuery());
+    dispatch(executeQuery());
   };
 };
 
@@ -146,11 +125,11 @@ export const updateResultsLayout = layout => {
 };
 
 export const resetQuery = () => {
-  return async dispatch => {
+  return dispatch => {
     dispatch({
       type: RESET_QUERY,
     });
-    await dispatch(executeQuery());
+    dispatch(executeQuery());
   };
 };
 
@@ -190,13 +169,12 @@ export const executeQuery = ({
 };
 
 export const updateSuggestions = suggestionString => {
-  return async dispatch => {
+  return dispatch => {
     dispatch({
       type: SET_SUGGESTION_STRING,
       payload: suggestionString,
     });
-
-    await dispatch(executeSuggestionQuery());
+    dispatch(executeSuggestionQuery());
   };
 };
 
@@ -227,5 +205,15 @@ export const clearSuggestions = () => {
         suggestions: [],
       },
     });
+  };
+};
+
+export const updateQueryState = queryState => {
+  return dispatch => {
+    dispatch({
+      type: SET_QUERY_STATE,
+      payload: queryState,
+    });
+    dispatch(executeQuery());
   };
 };

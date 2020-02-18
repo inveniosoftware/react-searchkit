@@ -12,17 +12,21 @@ import thunk from 'redux-thunk';
 
 import rootReducer from './state/reducers';
 
+export const INITIAL_STORE_STATE = {
+  queryString: '',
+  suggestions: [],
+  sortBy: null,
+  sortOrder: null,
+  page: 1,
+  size: 10,
+  filters: [],
+  layout: null,
+};
+
+export const STORE_KEYS = Object.keys(INITIAL_STORE_STATE);
+
 export function configureStore(appConfig) {
-  const initialQueryState = {
-    queryString: '',
-    suggestions: [],
-    sortBy: null,
-    sortOrder: null,
-    page: 1,
-    size: 10,
-    filters: [],
-    layout: null,
-  };
+  const initialQueryState = INITIAL_STORE_STATE;
 
   const initialResultsState = {
     loading: false,
@@ -50,11 +54,7 @@ export function configureStore(appConfig) {
 }
 
 function connectExtended(mapStateToProps, mapDispatchToProps, mergeProps) {
-  return connect(
-    mapStateToProps,
-    mapDispatchToProps,
-    mergeProps
-  );
+  return connect(mapStateToProps, mapDispatchToProps, mergeProps);
 }
 
 export { connectExtended as connect };

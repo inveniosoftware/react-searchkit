@@ -12,20 +12,29 @@ import PropTypes from 'prop-types';
 export default class Bootstrap extends Component {
   constructor(props) {
     super(props);
-
+    this.appName = props.appName;
     this.searchOnInit = props.searchOnInit;
-    this.historyListen = props.historyListen;
+    this.eventListenerEnabled = props.eventListenerEnabled;
     this.onAppInitialized = props.onAppInitialized;
-    this.onBrowserHistoryExternallyChanged =
-      props.onBrowserHistoryExternallyChanged;
     this.searchOnUrlQueryStringChanged = props.searchOnUrlQueryStringChanged;
   }
 
+  updateQueryState = query => this.props.updateQueryState(query);
+
+  onQueryChanged = ({ detail: payload }) => {
+    const appReceiverName = payload.appName || this.appName;
+    if (appReceiverName === this.appName) {
+      this.updateQueryState(payload.searchQuery);
+    } else {
+      console.debug(
+        `RSK app ${this.appName}: ignore event sent for app ${appReceiverName}...`
+      );
+    }
+  };
+
   componentDidMount() {
-    if (this.historyListen) {
-      this.historyUnlisten = this.historyListen(() => {
-        this.onBrowserHistoryExternallyChanged();
-      });
+    if (this.eventListenerEnabled) {
+      window.addEventListener('queryChanged', this.onQueryChanged);
     }
 
     window.onpopstate = () => {
@@ -42,15 +51,16 @@ export default class Bootstrap extends Component {
   componentWillUnmount() {
     this.historyUnlisten && this.historyUnlisten();
     window.onpopstate = () => {};
+    window.removeEventListener('queryChanged', this.onQueryChanged);
   }
 }
 
 Bootstrap.propTypes = {
   searchOnInit: PropTypes.bool,
-  historyListen: PropTypes.func,
+  eventListenerEnabled: PropTypes.bool,
+  appName: PropTypes.string,
 };
 
 Bootstrap.defaultProps = {
   searchOnInit: true,
-  historyListen: null,
 };

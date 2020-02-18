@@ -48,7 +48,10 @@ See the [complete guide](main_concepts.md) for detailed information.
 
   A boolean to define a default `sort by` value when the query string is empty. This is useful when the results sorting should be different when the user inserts a query string or not (e.g. `most recent` or `most relevant` first).
 
-* **history** `object` *optional*
+* **appName** `string` *optional*
 
-  The [React Router history](https://github.com/ReactTraining/history) object to add a new listener to the browser history to perform searches on URL parameters changed.
+  A name identifier to distinguish uniquely the application. Default `RSK`.
 
+* **eventListenerEnabled** `boolean` *optional*
+
+  If `true` the application listens to the `queryChanged` event else if `false` no listener is registered. When this event is emitted the application triggers a search based on the payload that is passed to the event at the emission time. Default `false`.

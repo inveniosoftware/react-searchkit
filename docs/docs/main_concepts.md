@@ -106,6 +106,66 @@ The concept around `SearchAPI` and `UrlHandlerApi` will be explained more in det
 
 ---
 
+---
+
+## Events
+
+You can control the app state externally using available events in `React-SearchKit`:
+
+* `queryChanged`: `React-SearchKit` listens to this event and updates the `query` state based on the payload of the event. `React-SearchKit` will ignore any field that is passed and is not part of the store's keys.
+
+> Note: By default `React-SearchKit` is not registering any event. To enable this behaviour you need to pass in the root component the below variable:
+
+```jsx
+class MyReactSearchKit extends Component {
+  render() {
+    return (
+      <ReactSearchKit {...this.props} eventListenerEnabled={true}>
+        {this.props.children}
+      </ReactSearchKit>
+    );
+  }
+}
+```
+
+In order to trigger the `queryChanged` event you can use the `onQueryChanged` emitter function that is part the `React-SearchKit` library. For example:
+
+
+```jsx
+import { onQueryChanged } from 'react-searchkit';
+
+class MyExternalApp extends Component {
+    render() {
+        return (
+        <Button onClick={() => onQueryChanged({queryString: 'search'})}>Trigger Search</Button>
+        );
+    }
+}
+
+class MyReactSearchKit extends Component {
+  render() {
+    return (
+      <ReactSearchKit {...requiredProps} searchOnInit={false} eventListenerEnabled={true}>
+        {this.props.children}
+      </ReactSearchKit>
+    );
+  }
+}
+
+class MyApp extends Component {
+    render() {
+        return (
+            <>
+                <MyExternalApp />
+                <MyReactSearchKit />
+            </>
+        )
+    }
+}
+```
+
+---
+
 ## TL;DR
 
 * UI Components change the `query` state through Redux actions in response to user inputs. They receive the updated `results` state after a REST APIs search through props injected automatically by Redux.
