@@ -8,7 +8,6 @@
 
 import {
   SET_QUERY_COMPONENT_INITIAL_STATE,
-  SET_QUERY_STATE_URL_EXTERNALLY_CHANGED,
   SET_QUERY_STRING,
   SET_QUERY_SORTING,
   SET_QUERY_SORT_BY,
@@ -17,12 +16,14 @@ import {
   SET_QUERY_PAGINATION_SIZE,
   SET_QUERY_FILTERS,
   SET_QUERY_SUGGESTIONS,
+  SET_QUERY_STATE,
   SET_SUGGESTION_STRING,
   CLEAR_QUERY_SUGGESTIONS,
   RESULTS_UPDATE_LAYOUT,
   RESET_QUERY,
 } from '../types';
-import { updateQueryFilters } from '../selectors';
+import { updateQueryFilters, updateQueryState } from '../selectors';
+import { STORE_KEYS } from '../../store';
 
 export default (state = {}, action) => {
   switch (action.type) {
@@ -85,10 +86,10 @@ export default (state = {}, action) => {
         ...state,
         ...action.payload,
       };
-    case SET_QUERY_STATE_URL_EXTERNALLY_CHANGED:
+    case SET_QUERY_STATE:
       return {
         ...state,
-        ...action.payload,
+        ...updateQueryState(state, action.payload, STORE_KEYS),
       };
     case RESULTS_UPDATE_LAYOUT:
       return {

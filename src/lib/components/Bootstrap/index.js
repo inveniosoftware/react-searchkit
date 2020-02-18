@@ -9,20 +9,16 @@
 import { connect } from '../../store';
 import {
   onAppInitialized as _onAppInitialized,
-  onBrowserHistoryExternallyChanged,
   executeQuery,
+  updateQueryState,
 } from '../../state/actions';
 import BootstrapComponent from './Bootstrap';
 
 const mapDispatchToProps = dispatch => ({
   onAppInitialized: searchOnInit => dispatch(_onAppInitialized(searchOnInit)),
-  onBrowserHistoryExternallyChanged: () =>
-    dispatch(onBrowserHistoryExternallyChanged()),
+  updateQueryState: queryState => dispatch(updateQueryState(queryState)),
   searchOnUrlQueryStringChanged: () =>
     dispatch(executeQuery({ shouldUpdateUrlQueryString: false })),
 });
 
-export const Bootstrap = connect(
-  null,
-  mapDispatchToProps
-)(BootstrapComponent);
+export const Bootstrap = connect(null, mapDispatchToProps)(BootstrapComponent);

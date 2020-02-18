@@ -168,42 +168,6 @@ const myUrlParamsHandler = new MyUrlParamsHandler();
 
 ---
 
-## React Router history integration
-
-React-SearchKit can integrate with [React Router history](https://github.com/ReactTraining/history) library. This is useful when any React component in your app (external to React-SearchKit) changes URL search parameters and you expect that a search is triggered.
-
-For example, if a component changes the query parameters to `?q=react`, then a new search with the query string value `react` should be triggered.
-
-To achieve this, you can inject the `history` object to the main `<ReactSearchKit>` component. A new listener will be automatically added and from now on any change to the URL parameters will trigger a search.
-
-> React-SearchKit will **not** listen to changes to `window.location` object. You will have to use `React Router history` in your app and inject it in React-SearchKit.
-
-```jsx
-import React, { Component } from 'react';
-import { createBrowserHistory } from 'history';
-import { ReactSearchKit, InvenioSearchApi } from 'react-searchkit';
-
-const history = createBrowserHistory();
-
-const searchApi = new InvenioSearchApi({
-  url: 'https://zenodo.org/api/records/',
-  timeout: 5000,
-  headers: { Accept: 'application/vnd.zenodo.v1+json' },
-});
-
-class App extends Component {
-  render() {
-    return (
-      <ReactSearchKit searchApi={searchApi} history={history}>
-        <h1>My search UI</h1>
-      </ReactSearchKit>
-    );
-  }
-}
-```
-
----
-
 ## TL;DR
 
 * You can enabled or disable deep linking with a flag

@@ -20,7 +20,6 @@ import {
 import { Results } from './Results';
 import { DemoESRequestSerializer } from './DemoESRequestSerializer';
 import { ESSearchApi } from '../../lib/api/contrib/elasticsearch';
-import history from './history';
 
 const OnResults = withState(Results);
 
@@ -71,7 +70,7 @@ const customAggValueCmp = (
 export class App extends Component {
   render() {
     return (
-      <ReactSearchKit searchApi={searchApi} history={history}>
+      <ReactSearchKit searchApi={searchApi}>
         <Container>
           <Grid>
             <Grid.Row>

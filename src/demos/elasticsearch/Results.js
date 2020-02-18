@@ -18,7 +18,6 @@ import {
   ResultsList,
   ResultsGrid,
 } from '../../lib/components';
-import history from './history';
 
 const SpanWithMargin = ({ text, margin }) => {
   const size = '0.5em';
@@ -38,7 +37,7 @@ const SpanWithMargin = ({ text, margin }) => {
 
 class Tags extends Component {
   onClick = (event, value) => {
-    history.push({
+    window.history.push({
       search: `${window.location.search}&f=tags_agg:${value}`,
     });
     event.preventDefault();

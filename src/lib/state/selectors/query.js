@@ -8,7 +8,7 @@
 
 import Qs from 'qs';
 import _isEmpty from 'lodash/isEmpty';
-
+import _pick from 'lodash/pick';
 /**
  * Return true if the first string starts and contains the second.
  * @param {string} first a string
@@ -101,4 +101,15 @@ export const updateQueryFilters = (queryFilter, stateFilters) => {
    * convert back to lists
    */
   return filteredStrStates.map(strState => parse(strState));
+};
+
+export const updateQueryState = (oldState, newState, storeKeys) => {
+  let pickedState = _pick(newState, storeKeys);
+  if ('filters' in pickedState) {
+    pickedState['filters'] = updateQueryFilters(
+      pickedState.filters,
+      oldState.filters
+    );
+  }
+  return pickedState;
 };

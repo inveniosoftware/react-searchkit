@@ -25,7 +25,6 @@ export default class ResultsList extends Component {
           size="small"
           src={result.imgSrc || 'http://placehold.it/200'}
         />
-
         <Item.Content>
           <Item.Header>{result.title}</Item.Header>
           <Item.Description>{result.description}</Item.Description>
