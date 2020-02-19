@@ -1,5 +1,10 @@
 # Changes
 
+Version 0.17.0 (released 2020-02-19)
+* Added event listener to trigger search from external app
+* Removed `history` prop and related code/doc
+* Updated react deps
+
 Version 0.16.0 (released 2019-12-04)
 * added configuration for passing axios interceptors in `InvenioSearchApi`
 
