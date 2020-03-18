@@ -15,7 +15,7 @@ There are 2 ways of connecting your REST APIs:
 The `Elasticsearch` adapter can be configured by passing an object. The configuration will be injected directly in the [axios](https://github.com/axios/axios) instance used under the hood to perform network requests.
 
 ```jsx
-const searchApi = new ESSearchAPI({
+const searchApi = new ESSearchApi({
   axios: {
     url: 'https://my.es.backend.org/search/',
     timeout: 5000,
