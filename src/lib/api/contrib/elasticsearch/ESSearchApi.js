@@ -19,6 +19,7 @@ export class ESSearchApi {
     this.initSerializers(config);
     this.initInterceptors(config);
     this.initAxios();
+    this.search = this.search.bind(this);
   }
 
   validateAxiosConfig() {
@@ -72,12 +73,12 @@ export class ESSearchApi {
    * Perform the backend request to search and return the serialized list of results for the app state `results`.
    * @param {string} stateQuery the `query` state with the user input
    */
-  search = async stateQuery => {
+  async search(stateQuery) {
     const payload = this.requestSerializer.serialize(stateQuery);
     const response = await this.http.request({
       method: 'POST',
       data: payload,
     });
     return this.responseSerializer.serialize(response.data);
-  };
+  }
 }

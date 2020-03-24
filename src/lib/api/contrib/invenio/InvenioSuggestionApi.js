@@ -14,13 +14,14 @@ import { InvenioSearchApi } from './InvenioSearchApi';
 class InvenioSuggestionRequestSerializer {
   constructor(queryField) {
     this.queryField = queryField;
+    this.serialize = this.serialize.bind(this);
   }
 
   /**
    * Return a serialized version of the app state `query` for the API backend.
    * @param {object} stateQuery the `query` state to serialize
    */
-  serialize = stateQuery => {
+  serialize(stateQuery) {
     const { suggestionString } = stateQuery;
 
     const getParams = {};
@@ -29,12 +30,13 @@ class InvenioSuggestionRequestSerializer {
     }
 
     return Qs.stringify(getParams, { arrayFormat: 'repeat', encode: false });
-  };
+  }
 }
 
 class InvenioSuggestionResponseSerializer {
   constructor(responseField) {
     this.responseFieldPath = responseField.split('.');
+    this.serialize = this.serialize.bind(this);
   }
 
   _serializeSuggestions = responseHits => {
@@ -49,11 +51,11 @@ class InvenioSuggestionResponseSerializer {
    * Return a serialized version of the API backend response for the app state `suggestions`.
    * @param {object} payload the backend response payload
    */
-  serialize = payload => {
+  serialize(payload) {
     return {
       suggestions: this._serializeSuggestions(payload.hits.hits || []),
     };
-  };
+  }
 }
 
 export class InvenioSuggestionApi extends InvenioSearchApi {

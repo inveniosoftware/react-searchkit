@@ -7,15 +7,19 @@
  */
 
 export class ESResponseSerializer {
+  constructor() {
+    this.serialize = this.serialize.bind(this);
+  }
+
   /**
    * Return a serialized version of the API backend response for the app state `results`.
    * @param {object} payload the backend response payload
    */
-  serialize = payload => {
+  serialize(payload) {
     return {
       aggregations: payload.aggregations || {},
       hits: payload.hits.hits.map(hit => hit._source),
       total: payload.hits.total.value,
     };
-  };
+  }
 }

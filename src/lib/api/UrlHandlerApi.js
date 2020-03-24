@@ -28,6 +28,10 @@ const replaceHistory = query => {
 
 /** Default URL parser implementation */
 class UrlParser {
+  constructor() {
+    this.parse = this.parse.bind(this);
+  }
+
   _sanitizeParamValue = value => {
     let parsedValue = parseInt(value);
     if (_isNaN(parsedValue)) {
@@ -51,7 +55,7 @@ class UrlParser {
    * Parse the URL query string and return an object with all the params.
    * @param {string} queryString the query string to parse
    */
-  parse = (queryString = '') => {
+  parse(queryString = '') {
     const parsedParams = Qs.parse(queryString, { ignoreQueryPrefix: true });
     const params = {};
     Object.entries(parsedParams).forEach(entry => {
@@ -60,7 +64,7 @@ class UrlParser {
       params[key] = this._sanitizeParamValue(value);
     });
     return params;
-  };
+  }
 }
 
 /** Default implementation for a param validator class */
@@ -113,6 +117,10 @@ export class UrlHandlerApi {
     Object.keys(this.urlParamsMapping).forEach(stateKey => {
       this.fromUrlParamsMapping[this.urlParamsMapping[stateKey]] = stateKey;
     });
+
+    this.get = this.get.bind(this);
+    this.set = this.set.bind(this);
+    this.replace = this.replace.bind(this);
   }
 
   /**
@@ -226,34 +234,34 @@ export class UrlHandlerApi {
    * Return a new version of the given `query` state with updated values parsed from the URL query string.
    * @param {object} queryState the `query` state
    */
-  get = queryState => {
+  get(queryState) {
     const urlParamsObj = this.urlParser.parse(window.location.search);
     const urlStateObj = this._mapUrlParamsToQueryState(urlParamsObj);
     const newQueryState = this._mergeParamsIntoState(urlStateObj, queryState);
     const newUrlParams = this._mapQueryStateToUrlParams(newQueryState);
     replaceHistory(newUrlParams);
     return newQueryState;
-  };
+  }
 
   /**
    * Update the URL query string parameters from the given `query` state
    * @param {object} stateQuery the `query` state
    */
-  set = stateQuery => {
+  set(stateQuery) {
     if (this.keepHistory) {
       const newUrlParams = this._mapQueryStateToUrlParams(stateQuery);
       pushHistory(newUrlParams);
     } else {
       this.replace(stateQuery);
     }
-  };
+  }
 
   /**
    * Replace the URL query string parameters from the given `query` state
    * @param {object} stateQuery the `query` state
    */
-  replace = stateQuery => {
+  replace(stateQuery) {
     const newUrlParams = this._mapQueryStateToUrlParams(stateQuery);
     replaceHistory(newUrlParams);
-  };
+  }
 }

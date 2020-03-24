@@ -11,6 +11,10 @@ import _extend from 'lodash/extend';
 
 /** Default backend request serializer */
 export class InvenioRequestSerializer {
+  constructor() {
+    this.serialize = this.serialize.bind(this);
+  }
+
   _addFilter = (filter, filterUrlParams) => {
     if (!Array.isArray(filter)) {
       throw new Error(
@@ -58,7 +62,7 @@ export class InvenioRequestSerializer {
    * Return a serialized version of the app state `query` for the API backend.
    * @param {object} stateQuery the `query` state to serialize
    */
-  serialize = stateQuery => {
+  serialize(stateQuery) {
     const { queryString, sortBy, sortOrder, page, size, filters } = stateQuery;
 
     const getParams = {};
@@ -82,5 +86,5 @@ export class InvenioRequestSerializer {
     _extend(getParams, filterParams);
 
     return Qs.stringify(getParams, { arrayFormat: 'repeat' });
-  };
+  }
 }

@@ -40,11 +40,10 @@ describe('test ReactSearchKit component', () => {
   it('should use default configuration', () => {
     const rsk = shallow(<ReactSearchKit searchApi={searchApi} />);
 
-    const mockUrlHandlerApi = new UrlHandlerApi();
     expect(configureStore).toBeCalledWith(
       expect.objectContaining({
         searchApi: searchApi,
-        urlHandlerApi: mockUrlHandlerApi,
+        urlHandlerApi: UrlHandlerApi.mock.instances[0],
       })
     );
     expect(UrlHandlerApi.mock.calls[0]).toMatchObject({});
@@ -94,11 +93,10 @@ describe('test ReactSearchKit component', () => {
       />
     );
 
-    const mockUrlHandlerApi = new UrlHandlerApi();
     expect(configureStore).toBeCalledWith(
       expect.objectContaining({
         searchApi: searchApi,
-        urlHandlerApi: mockUrlHandlerApi,
+        urlHandlerApi: UrlHandlerApi.mock.instances[0],
       })
     );
     expect(UrlHandlerApi.mock.calls[0][0]).toMatchObject({

@@ -19,6 +19,7 @@ export class InvenioSearchApi {
     this.initSerializers(config);
     this.initInterceptors(config);
     this.initAxios();
+    this.search = this.search.bind(this);
   }
 
   validateAxiosConfig() {
@@ -76,10 +77,10 @@ export class InvenioSearchApi {
    * Perform the backend request to search and return the serialized list of results for the app state `results`.
    * @param {string} stateQuery the `query` state with the user input
    */
-  search = async stateQuery => {
+  async search(stateQuery) {
     const response = await this.http.request({
       params: stateQuery,
     });
     return this.responseSerializer.serialize(response.data);
-  };
+  }
 }
