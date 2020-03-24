@@ -9,11 +9,15 @@
 import _isEmpty from 'lodash/isEmpty';
 
 export class ESRequestSerializer {
+  constructor() {
+    this.serialize = this.serialize.bind(this);
+  }
+
   /**
    * Return a serialized version of the app state `query` for the API backend.
    * @param {object} stateQuery the `query` state to serialize
    */
-  serialize = stateQuery => {
+  serialize(stateQuery) {
     const { queryString, sortBy, sortOrder, page, size } = stateQuery;
 
     const bodyParams = {};
@@ -41,5 +45,5 @@ export class ESRequestSerializer {
     }
 
     return bodyParams;
-  };
+  }
 }
