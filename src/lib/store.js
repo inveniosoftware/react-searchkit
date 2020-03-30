@@ -12,6 +12,7 @@ import thunk from 'redux-thunk';
 
 import { INITIAL_STORE_STATE } from './storeConfig';
 import rootReducer from './state/reducers';
+import { INITIAL_STORE_STATE } from './storeConfig';
 
 export function configureStore(appConfig) {
   const initialQueryState = INITIAL_STORE_STATE;
