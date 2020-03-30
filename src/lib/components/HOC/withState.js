@@ -8,6 +8,7 @@
 
 import React from 'react';
 import { connect } from '../../store';
+import { updateQueryState } from '../../state/actions';
 
 export function withState(Component) {
   const WrappedComponent = ({ dispatch, ...props }) => <Component {...props} />;
@@ -16,8 +17,9 @@ export function withState(Component) {
     currentResultsState: state.results,
   });
 
-  return connect(
-    mapStateToProps,
-    null
-  )(WrappedComponent);
+  const mapDispatchToProps = dispatch => ({
+    updateQueryState: queryState => dispatch(updateQueryState(queryState)),
+  });
+
+  return connect(mapStateToProps, mapDispatchToProps)(WrappedComponent);
 }

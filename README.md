@@ -18,9 +18,9 @@ React-SearchKit is a React library that allows you to build in an easy way your 
 
 Main features:
 
-* ready-to-use collection of UI components
-* configurable REST API endpoint and serialization
-* configurable URL parameters handling for deep linking
+- ready-to-use collection of UI components
+- configurable REST API endpoint and serialization
+- configurable URL parameters handling for deep linking
 
 ![React-SearchKit screenshot](docs/website/static/img/screenshot.png)
 
@@ -28,9 +28,9 @@ Main features:
 
 You can find a collection of examples in the `src/demos` folder:
 
-* Elasticsearch, an example on how to query Elasticsearch (see below)
-* Zenodo.org, an example on how to query an Invenio 3 instance
-* CERN Videos, another Invenio 3 example
+- Elasticsearch, an example on how to query Elasticsearch (see below)
+- Zenodo.org, an example on how to query an Invenio 3 instance
+- CERN Videos, another Invenio 3 example
 
 Install dependencies and run the React app to try them out (see steps below).
 
@@ -40,19 +40,21 @@ To run the Elasticsearch backend for the demo, you can use Docker. A `docker-com
 Run the services:
 
 ```bash
-$ cd src/demos/elasticsearch/docker
-$ docker-compose up
+cd src/demos/elasticsearch/docker
+docker-compose up
 ```
 
 Then, init the demo data:
 
 ```bash
-$ curl -XPUT 'http://localhost:9200/random?pretty' -H 'Content-Type: application/json' -d @es7-mappings.json
-$ curl -XPOST 'http://localhost:9200/random/_bulk' -H 'Content-Type: application/json' --data-binary @es-random-data.json
-$ curl -XGET 'http://localhost:9200/random/_count?pretty'
+curl -XPUT 'http://localhost:9200/random?pretty' -H 'Content-Type: application/json' -d @es7-mappings.json
+curl -XPOST 'http://localhost:9200/random/_bulk' -H 'Content-Type: application/json' --data-binary @es-random-data.json
+curl -XGET 'http://localhost:9200/random/_count?pretty'
 ```
 
 Demo data have been randomly generated using <https://next.json-generator.com>.
+
+> In case you want to clear your elastic search from data you can use `curl -X DELETE 'http://localhost:9200/_all'`
 
 ## Developer guide
 
@@ -60,24 +62,24 @@ React-SearchKit uses [create-react-app](https://create-react-app.dev/) as develo
 
 Install the library:
 
-```
+```bash
 npm install
 ```
 
 Start the demo application:
 
-```
+```bash
 npm start
 ```
 
 The library uses [Jest](https://jestjs.io/) as test runner. To run the tests:
 
-```
+```bash
 npm test
 ```
 
 The library uses `rollup` to build a final version inside the `/dist` folder and it will build CommonJS and ES Modules versions:
 
-```
-npm build
+```bash
+npm run build
 ```

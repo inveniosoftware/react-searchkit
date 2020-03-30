@@ -24,8 +24,10 @@ import { ESSearchApi } from '../../lib/api/contrib/elasticsearch';
 const OnResults = withState(Results);
 
 const searchApi = new ESSearchApi({
-  url: 'http://localhost:5000/random/_search',
-  timeout: 5000,
+  axios: {
+    url: 'http://localhost:5000/random/_search',
+    timeout: 5000,
+  },
   es: {
     requestSerializer: DemoESRequestSerializer,
   },

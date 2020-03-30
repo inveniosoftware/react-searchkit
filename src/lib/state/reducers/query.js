@@ -23,7 +23,7 @@ import {
   RESET_QUERY,
 } from '../types';
 import { updateQueryFilters, updateQueryState } from '../selectors';
-import { STORE_KEYS } from '../../store';
+import { STORE_KEYS } from '../../storeConfig';
 
 export default (state = {}, action) => {
   switch (action.type) {
