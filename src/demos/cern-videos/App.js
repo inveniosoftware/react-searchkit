@@ -48,8 +48,10 @@ const resultsPerPageValues = [
 ];
 
 const searchApi = new InvenioSearchApi({
-  url: 'https://videos.cern.ch/api/records/',
-  timeout: 5000,
+  axios: {
+    url: 'https://videos.cern.ch/api/records/',
+    timeout: 5000,
+  },
 });
 
 export class App extends Component {

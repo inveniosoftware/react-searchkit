@@ -63,9 +63,11 @@ const resultsPerPageValues = [
 ];
 
 const searchApi = new InvenioSearchApi({
-  url: 'https://zenodo.org/api/records/',
-  timeout: 5000,
-  headers: { Accept: 'application/vnd.zenodo.v1+json' },
+  axios: {
+    url: 'https://zenodo.org/api/records/',
+    timeout: 5000,
+    headers: { Accept: 'application/vnd.zenodo.v1+json' },
+  },
 });
 
 export class App extends Component {

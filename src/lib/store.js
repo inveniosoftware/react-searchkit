@@ -11,25 +11,13 @@ import { connect } from 'react-redux';
 import thunk from 'redux-thunk';
 
 import rootReducer from './state/reducers';
-
-export const INITIAL_STORE_STATE = {
-  queryString: '',
-  suggestions: [],
-  sortBy: null,
-  sortOrder: null,
-  page: 1,
-  size: 10,
-  filters: [],
-  layout: null,
-};
-
-export const STORE_KEYS = Object.keys(INITIAL_STORE_STATE);
+import { INITIAL_STORE_STATE } from './storeConfig';
 
 export function configureStore(appConfig) {
   const initialQueryState = INITIAL_STORE_STATE;
 
   const initialResultsState = {
-    loading: false,
+    loading: true,
     data: {
       hits: [],
       total: 0,
