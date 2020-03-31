@@ -24,6 +24,7 @@ export class ReactSearchKit extends Component {
           new UrlHandlerApi(props.urlHandlerApi.overrideConfig)
         : null,
       defaultSortByOnEmptyQuery: props.defaultSortByOnEmptyQuery,
+      searchOnInit: props.searchOnInit,
     };
     this.store = configureStore(appConfig);
     this.appName = props.appName;
