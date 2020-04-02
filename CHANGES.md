@@ -1,51 +1,74 @@
 # Changes
 
+Version 0.18.0 (released 2020-04-02)
+
+* Fixed axios url config override.
+* Updated axios dependency to 0.19.2.
+* Fixed documentation typos.
+* Replaced arrow functions with class methods.
+* Set initialLoading to true
+* Exposed function`updateQueryState` with `withState` HOC.
+* Support for multiple filters in `updateQueryState`.
+
 Version 0.17.0 (released 2020-02-19)
+
 * Added event listener to trigger search from external app
 * Removed `history` prop and related code/doc
 * Updated react deps
 
 Version 0.16.0 (released 2019-12-04)
+
 * added configuration for passing axios interceptors in `InvenioSearchApi`
 
 Version 0.14.0 (released 2019-10-15)
+
 * added multi-layout support fo search results
 * changed params passing to pagination and display of search result card
 
 Version 0.13.0 (released 2019-10-01)
+
 * Removed Semantic-UI import from the library and moved to the demo app
 * Upgraded create-react-app to 3.1.2
 
 Version 0.12.0 (released 2019-09-10)
+
 * Fixed bug to prevent state mutation when getting URL args
 * Renamed component withQueryState to withState
 
 Version 0.11.0 (released 2019-08-30)
+
 * Moved all dev dependencies to peer dependencies
 * Removed for the time being the `redux-devtools-extension` because it is wrongly transformed from CommonJS to ES modules
 
 Version 0.10.0 (released 2019-08-30)
+
 * Changed lib build system to use Rollup instead of Babel to be able to build the CommonJS version too
 
 Version 0.9.0 (released 2019-08-26)
+
 * Fixed babel absolute runtimes when publishing the library on npmjs
 
 Version 0.8.0 (released 2019-08-26) -- deprecated on npmjs
+
 * Dependencies upgrade
 * Fixed build with babel
 * Changed configuration for Invenio backend APIs
 
 Version 0.7.0 (released 2019-08-13)
+
 * Replaced nwb with create-react-app since nwb is not anymore maintained and it comes with many security vulnerabilities
 * create-react-app is now used for development, babel to build the library
 
 Version 0.6.0 (released 2019-08-07)
+
 * Added withQueryState component exposing redux query state to external components
 
 Version 0.5.0 (released 2019-06-27)
+
 * Added SearchBar component with autocompletion
 
 Version 0.4.0 (released 2019-04-24)
+
 * Updated nested aggregation code
 * Change in how selected aggregations are displayed
 * Updated response/request serializers
