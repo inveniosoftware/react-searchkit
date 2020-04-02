@@ -35,11 +35,17 @@ describe('queries with first level filters.', () => {
 
     const newState = updateQueryFilters(query, state);
 
-    expect(newState).toEqual([['file_type', 'pdf'], ['type', 'Publication']]);
+    expect(newState).toEqual([
+      ['file_type', 'pdf'],
+      ['type', 'Publication'],
+    ]);
   });
 
   test('query with `type: Publication` should be added when another `type` is already in the state.', () => {
-    const state = [['file_type', 'pdf'], ['type', 'Image']];
+    const state = [
+      ['file_type', 'pdf'],
+      ['type', 'Image'],
+    ];
     const query = ['type', 'Publication'];
 
     const newState = updateQueryFilters(query, state);
@@ -61,13 +67,19 @@ describe('queries with first level filters.', () => {
 
     const newState = updateQueryFilters(query, state);
 
-    expect(newState).toEqual([['file_type', 'pdf'], ['type', 'Publication']]);
+    expect(newState).toEqual([
+      ['file_type', 'pdf'],
+      ['type', 'Publication'],
+    ]);
   });
 });
 
 describe('queries with second level filters.', () => {
   test('query with `subtype: Other` should be added when not in the state.', () => {
-    const state = [['file_type', 'pdf'], ['type', 'Image']];
+    const state = [
+      ['file_type', 'pdf'],
+      ['type', 'Image'],
+    ];
     const query = ['type', 'Publication', ['subtype', 'Other']];
 
     const newState = updateQueryFilters(query, state);
@@ -91,7 +103,10 @@ describe('queries with second level filters.', () => {
 
     const newState = updateQueryFilters(query, state);
 
-    expect(newState).toEqual([['file_type', 'pdf'], ['type', 'Image']]);
+    expect(newState).toEqual([
+      ['file_type', 'pdf'],
+      ['type', 'Image'],
+    ]);
   });
 
   test('query with `subtype: Other` should remove any query with the parent `type: Publication`.', () => {
@@ -231,5 +246,55 @@ describe('user clears previous selections', () => {
     const newState = updateQueryFilters(query, state);
 
     expect(newState).toEqual([['file_type', 'pdf']]);
+  });
+});
+
+describe('user submits multiple filters as input', () => {
+  test('query with `file_type: txt` should be added when not in the state.', () => {
+    const state = [];
+    const query = [['file_type', 'txt']];
+    const newState = updateQueryFilters(query, state);
+    expect(newState).toEqual([['file_type', 'txt']]);
+  });
+
+  test('query removes existing `file_type: pdf` and adds `file_type: txt`.', () => {
+    const state = [['file_type', 'pdf']];
+    const query = [
+      ['file_type', 'pdf'],
+      ['file_type', 'txt'],
+    ];
+    const newState = updateQueryFilters(query, state);
+    expect(newState).toEqual([['file_type', 'txt']]);
+  });
+
+  test('query removes existing `file_type: pdf` from state.', () => {
+    const state = [['file_type', 'pdf']];
+    const query = [['file_type', 'pdf']];
+    const newState = updateQueryFilters(query, state);
+    expect(newState).toEqual([]);
+  });
+
+  test('query with `subtype: Report` should remove from the state any child query with `subsubtype`', () => {
+    const state = [
+      ['file_type', 'png'],
+      ['file_type', 'pdf'],
+      ['type', 'Image'],
+      [
+        'type',
+        'Publication',
+        ['subtype', 'Report', ['subsubtype', 'Restricted']],
+      ],
+      ['type', 'Publication', ['subtype', 'Report', ['subsubtype', 'Public']]],
+    ];
+    const query = [['type', 'Publication', ['subtype', 'Report']]];
+
+    const newState = updateQueryFilters(query, state);
+
+    expect(newState).toEqual([
+      ['file_type', 'png'],
+      ['file_type', 'pdf'],
+      ['type', 'Image'],
+      ['type', 'Publication'],
+    ]);
   });
 });
