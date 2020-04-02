@@ -7,8 +7,12 @@
  */
 
 import Qs from 'qs';
+import _forEach from 'lodash/forEach';
+import _head from 'lodash/head';
+import _isArray from 'lodash/isArray';
 import _isEmpty from 'lodash/isEmpty';
 import _pick from 'lodash/pick';
+
 /**
  * Return true if the first string starts and contains the second.
  * @param {string} first a string
@@ -39,8 +43,7 @@ function removeLastChild(arr) {
   return [];
 }
 
-export const updateQueryFilters = (queryFilter, stateFilters) => {
-  if (_isEmpty(queryFilter)) return;
+function updateFilter(queryFilter, stateFilters) {
   /**
    * convert query and state to strings so they can be compared
    */
@@ -101,6 +104,25 @@ export const updateQueryFilters = (queryFilter, stateFilters) => {
    * convert back to lists
    */
   return filteredStrStates.map(strState => parse(strState));
+}
+
+export const updateQueryFilters = (queryFilter, stateFilters) => {
+  if (_isEmpty(queryFilter)) return;
+
+  /** If we have one filter as query = ['file_type', 'pdf'] */
+  if (!_isArray(_head(queryFilter))) {
+    return updateFilter(queryFilter, stateFilters);
+  }
+
+  /** If we have an array of filters as query we apply the filters one by one.
+   * e.g. query = [['file_type', 'pdf'], ['file_type', 'txt']]
+   */
+  let tempStateFilters = stateFilters;
+  _forEach(
+    queryFilter,
+    filter => (tempStateFilters = updateFilter(filter, tempStateFilters))
+  );
+  return tempStateFilters;
 };
 
 export const updateQueryState = (oldState, newState, storeKeys) => {
