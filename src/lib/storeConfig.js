@@ -7,14 +7,14 @@
  */
 
 export const INITIAL_STORE_STATE = {
-    queryString: '',
-    suggestions: [],
-    sortBy: null,
-    sortOrder: null,
-    page: 1,
-    size: 10,
-    filters: [],
-    layout: null,
-  };
+  queryString: '',
+  suggestions: [],
+  sortBy: null,
+  sortOrder: null,
+  page: -1,
+  size: -1,
+  filters: [],
+  layout: null,
+};
 
 export const STORE_KEYS = Object.keys(INITIAL_STORE_STATE);
