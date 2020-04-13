@@ -49,13 +49,31 @@ export default class ResultsPerPage extends Component {
     this.updateQuerySize(value);
   };
 
+  renderSpanWithMargin = (text, margin) => {
+    const size = '0.5em';
+    let style;
+    switch (margin) {
+      case 'left':
+        style = { marginLeft: size };
+        break;
+      case 'right':
+        style = { marginRight: size };
+        break;
+      default:
+        style = { margin: `0 ${size}` };
+    }
+    return <span style={style}>{text}</span>;
+  };
+
   render() {
-    const { loading, currentSize, totalResults } = this.props;
+    const { loading, currentSize, totalResults, prefix, suffix } = this.props;
     return (
       <ShouldRender
         condition={!loading && totalResults > 0 && currentSize !== -1}
       >
+        {this.renderSpanWithMargin(prefix, 'right')}
         {this.renderElement(currentSize, this.options, this.onChange)}
+        {this.renderSpanWithMargin(suffix)}
       </ShouldRender>
     );
   }
@@ -70,6 +88,8 @@ ResultsPerPage.propTypes = {
   updateQuerySize: PropTypes.func.isRequired,
   setInitialState: PropTypes.func.isRequired,
   renderElement: PropTypes.func,
+  prefix: PropTypes.string,
+  suffix: PropTypes.string,
 };
 
 ResultsPerPage.defaultProps = {

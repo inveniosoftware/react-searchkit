@@ -30,6 +30,14 @@ The component is **not** displayed while executing the search query or if there 
 
   An optional function to override the default rendered component.
 
+- **prefix** `String` _optional_
+
+  An optional string to be displayed before the number of results.
+
+- **suffix** `String` _optional_
+
+  An optional string to be displayed after the number of results.
+
 ## Usage when overriding template
 
 ```jsx

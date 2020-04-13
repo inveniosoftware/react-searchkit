@@ -21,22 +21,6 @@ import {
   Sort,
 } from '../../lib/components';
 
-const SpanWithMargin = ({ text, margin }) => {
-  const size = '0.5em';
-  let style;
-  switch (margin) {
-    case 'left':
-      style = { marginLeft: size };
-      break;
-    case 'right':
-      style = { marginRight: size };
-      break;
-    default:
-      style = { margin: `0 ${size}` };
-  }
-  return <span style={style}>{text}</span>;
-};
-
 export class Results extends Component {
   constructor(props) {
     super(props);
@@ -93,18 +77,16 @@ export class Results extends Component {
         </Grid>
         <Grid relaxed verticalAlign="middle">
           <Grid.Column width={8}>
-            <SpanWithMargin text="Found" margin="right" />
-            <Count />
-            <SpanWithMargin text="results sorted by" />
+            <Count prefix="Found" suffix="results sorted by" />
             <Sort values={this.sortValues} />
           </Grid.Column>
           <Grid.Column width={8} textAlign="right">
-            <SpanWithMargin text="Show" margin="right" />
             <ResultsPerPage
+              prefix="Show"
               values={this.resultsPerPageValues}
               defaultValue={10}
+              suffix="results per page"
             />
-            <SpanWithMargin text="results per page" />
             <LayoutSwitcher defaultLayout="list" />
           </Grid.Column>
         </Grid>
