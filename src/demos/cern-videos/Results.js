@@ -78,14 +78,16 @@ export class Results extends Component {
         </Grid>
         <Grid relaxed verticalAlign="middle">
           <Grid.Column width={8}>
-            <Count prefix="Found" suffix="results" />
-            <Sort values={this.sortValues} prefix="sorted by" />
+            <Count label={(val) => <> Found {val} results</>} />
+            <Sort
+              values={this.sortValues}
+              label={(val) => <> sorted by {val}</>}
+            />
           </Grid.Column>
           <Grid.Column width={8} textAlign="right">
             <ResultsPerPage
-              prefix="Show"
-              suffix="results per page"
               values={this.resultsPerPageValues}
+              label={(val) => <> Show {val} results per page</>}
               defaultValue={10}
             />
             <LayoutSwitcher defaultLayout="grid" />

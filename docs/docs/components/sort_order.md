@@ -26,13 +26,10 @@ The component is **not** displayed while executing the search query or if there 
 
   The default value to pre-select when rendering the component. For example, `"desc"`.
 
-- **prefix** `String` _optional_
+- **label** `function` _optional_
 
-  An optional string to be displayed before the sort order values.
-
-- **suffix** `String` _optional_
-
-  An optional string to be displayed after the sort order values.
+  An optional function to wrap the component with a prefix and suffix string. <br />
+  E.g. `label={(val) => <> sorted by {val}</>}`
 
 ## Usage when overriding template
 

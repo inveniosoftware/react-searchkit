@@ -30,13 +30,10 @@ The component is **not** displayed while executing the search query or if there 
 
   An optional function to override the default rendered component.
 
-- **prefix** `String` _optional_
+- **label** `function` _optional_
 
-  An optional string to be displayed before the number of results.
-
-- **suffix** `String` _optional_
-
-  An optional string to be displayed after the number of results.
+  An optional function to wrap the component with a prefix and suffix string. <br />
+  E.g. `label={(val) => <> Show {val} results per page</>}`
 
 ## Usage when overriding template
 

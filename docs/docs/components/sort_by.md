@@ -30,13 +30,10 @@ The component is **not** displayed while executing the search query or if there 
 
   Value to use when executing a search with an empty query string. When searching with an empty query, users normally expect most recent results, while searching with a defined query string, best match or any other sorting field. Default value: the value of `defaultValue` prop.
 
-- **prefix** `String` _optional_
+- **label** `function` _optional_
 
-  An optional string to be displayed before the sort options.
-
-- **suffix** `String` _optional_
-
-  An optional string to be displayed after the sort options.
+  An optional function to wrap the component with a prefix and suffix string. <br />
+  E.g. `label={(val) => <> sorted by {val}</>}`
 
 ## Usage when overriding template
 

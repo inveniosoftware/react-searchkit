@@ -90,30 +90,14 @@ export default class Sort extends Component {
     );
   };
 
-  onChange = value => {
+  onChange = (value) => {
     if (
       value ===
       this._computeValue(this.props.currentSortBy, this.props.currentSortOrder)
     )
       return;
-    const selected = this.options.find(option => option.value === value);
+    const selected = this.options.find((option) => option.value === value);
     this.updateQuerySorting(selected.sortBy, selected.sortOrder);
-  };
-
-  renderSpanWithMargin = (text, margin) => {
-    const size = '0.5em';
-    let style;
-    switch (margin) {
-      case 'left':
-        style = { marginLeft: size };
-        break;
-      case 'right':
-        style = { marginRight: size };
-        break;
-      default:
-        style = { margin: `0 ${size}` };
-    }
-    return <span style={style}>{text}</span>;
   };
 
   render() {
@@ -122,9 +106,9 @@ export default class Sort extends Component {
       currentSortOrder,
       loading,
       totalResults,
-      prefix,
-      suffix,
+      label,
     } = this.props;
+    const size = '0.5em';
     return (
       <ShouldRender
         condition={
@@ -134,14 +118,16 @@ export default class Sort extends Component {
           totalResults > 0
         }
       >
-        {prefix && this.renderSpanWithMargin(prefix, 'right')}
-        {this.renderElement(
-          currentSortBy,
-          currentSortOrder,
-          this.options,
-          this.onChange
-        )}
-        {suffix && this.renderSpanWithMargin(suffix)}
+        <span style={({ marginLeft: size }, { marginRight: size })}>
+          {label(
+            this.renderElement(
+              currentSortBy,
+              currentSortOrder,
+              this.options,
+              this.onChange
+            )
+          )}
+        </span>
       </ShouldRender>
     );
   }
@@ -156,12 +142,12 @@ Sort.propTypes = {
   updateQuerySorting: PropTypes.func.isRequired,
   setInitialState: PropTypes.func.isRequired,
   renderElement: PropTypes.func,
-  prefix: PropTypes.string,
-  suffix: PropTypes.string,
+  label: PropTypes.func,
 };
 
 Sort.defaultProps = {
   currentSortBy: null,
   currentSortOrder: null,
   renderElement: null,
+  label: (val) => val,
 };

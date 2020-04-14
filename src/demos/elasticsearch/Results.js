@@ -97,7 +97,7 @@ export class Results extends Component {
         </Grid>
         <Grid relaxed verticalAlign="middle">
           <Grid.Column width={8}>
-            <Count prefix="Found" />
+            <Count label={(val) => <> Found {val}</>} />
           </Grid.Column>
           <Grid.Column width={8} textAlign="right">
             <LayoutSwitcher defaultLayout="grid" />

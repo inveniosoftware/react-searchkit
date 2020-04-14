@@ -21,29 +21,14 @@ export default class Count extends Component {
     return <Label color={'blue'}>{totalResults}</Label>;
   }
 
-  renderSpanWithMargin = (text, margin) => {
-    const size = '0.5em';
-    let style;
-    switch (margin) {
-      case 'left':
-        style = { marginLeft: size };
-        break;
-      case 'right':
-        style = { marginRight: size };
-        break;
-      default:
-        style = { margin: `0 ${size}` };
-    }
-    return <span style={style}>{text}</span>;
-  };
-
   render() {
-    const { loading, totalResults, prefix, suffix } = this.props;
+    const { loading, totalResults, label } = this.props;
+    const size = '0.5em';
     return (
       <ShouldRender condition={!loading && totalResults > 0}>
-        {prefix && this.renderSpanWithMargin(prefix, 'right')}
-        {this.renderElement(totalResults)}
-        {suffix && this.renderSpanWithMargin(suffix)}
+        <span style={({ marginLeft: size }, { marginRight: size })}>
+          {label(this.renderElement(totalResults))}
+        </span>
       </ShouldRender>
     );
   }
@@ -53,10 +38,10 @@ Count.propTypes = {
   loading: PropTypes.bool.isRequired,
   totalResults: PropTypes.number.isRequired,
   renderElement: PropTypes.func,
-  prefix: PropTypes.string,
-  suffix: PropTypes.string,
+  label: PropTypes.func,
 };
 
 Count.defaultProps = {
   renderElement: null,
+  label: (val) => val,
 };
