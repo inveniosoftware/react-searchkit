@@ -1,5 +1,10 @@
 # Changes
 
+Version 0.19.0 (released 2020-04-14)
+
+* Add `label` prop to wrap components with a `prefix` and/or `suffix` text.
+* Fix a bug with wrong Redux initial state.
+
 Version 0.18.0 (released 2020-04-02)
 
 * Fixed axios url config override.
