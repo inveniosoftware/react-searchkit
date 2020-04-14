@@ -21,6 +21,11 @@ The component is **not** displayed while executing the search query or if there 
 
   An optional function to override the default rendered component.
 
+- **label** `function` _optional_
+
+  An optional function to wrap the component with a prefix and suffix string. <br />
+  E.g. `label={(cmp) => <> Found {cmp} results</>} />`
+
 ## Usage when overriding template
 
 ```jsx

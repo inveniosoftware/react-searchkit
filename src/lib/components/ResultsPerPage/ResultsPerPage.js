@@ -50,12 +50,12 @@ export default class ResultsPerPage extends Component {
   };
 
   render() {
-    const { loading, currentSize, totalResults } = this.props;
+    const { loading, currentSize, totalResults, label } = this.props;
     return (
       <ShouldRender
         condition={!loading && totalResults > 0 && currentSize !== -1}
       >
-        {this.renderElement(currentSize, this.options, this.onChange)}
+        {label(this.renderElement(currentSize, this.options, this.onChange))}
       </ShouldRender>
     );
   }
@@ -70,9 +70,11 @@ ResultsPerPage.propTypes = {
   updateQuerySize: PropTypes.func.isRequired,
   setInitialState: PropTypes.func.isRequired,
   renderElement: PropTypes.func,
+  label: PropTypes.func,
 };
 
 ResultsPerPage.defaultProps = {
   defaultValue: 10,
   renderElement: null,
+  label: (cmp) => cmp,
 };

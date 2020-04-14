@@ -21,22 +21,6 @@ import {
   Sort,
 } from '../../lib/components';
 
-const SpanWithMargin = ({ text, margin }) => {
-  const size = '0.5em';
-  let style;
-  switch (margin) {
-    case 'left':
-      style = { marginLeft: size };
-      break;
-    case 'right':
-      style = { marginRight: size };
-      break;
-    default:
-      style = { margin: `0 ${size}` };
-  }
-  return <span style={style}>{text}</span>;
-};
-
 export class Results extends Component {
   constructor(props) {
     super(props);
@@ -94,18 +78,22 @@ export class Results extends Component {
         </Grid>
         <Grid relaxed verticalAlign="middle">
           <Grid.Column width={8}>
-            <SpanWithMargin text="Found" margin="right" />
-            <Count />
-            <SpanWithMargin text="results sorted by" />
-            <Sort values={this.sortValues} />
+            <span style={({ marginLeft: '0.5em' }, { marginRight: '0.5em' })}>
+              <Count label={(cmp) => <> Found {cmp} results</>} />
+              <Sort
+                values={this.sortValues}
+                label={(cmp) => <> sorted by {cmp}</>}
+              />
+            </span>
           </Grid.Column>
           <Grid.Column width={8} textAlign="right">
-            <SpanWithMargin text="Show" margin="right" />
-            <ResultsPerPage
-              values={this.resultsPerPageValues}
-              defaultValue={10}
-            />
-            <SpanWithMargin text="results per page" />
+            <span style={({ marginLeft: '0.5em' }, { marginRight: '0.5em' })}>
+              <ResultsPerPage
+                values={this.resultsPerPageValues}
+                label={(cmp) => <> Show {cmp} results per page</>}
+                defaultValue={10}
+              />
+            </span>
             <LayoutSwitcher defaultLayout="grid" />
           </Grid.Column>
         </Grid>

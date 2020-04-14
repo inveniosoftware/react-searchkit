@@ -22,10 +22,10 @@ export default class Count extends Component {
   }
 
   render() {
-    const { loading, totalResults } = this.props;
+    const { loading, totalResults, label } = this.props;
     return (
       <ShouldRender condition={!loading && totalResults > 0}>
-        {this.renderElement(totalResults)}
+        {label(this.renderElement(totalResults))}
       </ShouldRender>
     );
   }
@@ -35,8 +35,10 @@ Count.propTypes = {
   loading: PropTypes.bool.isRequired,
   totalResults: PropTypes.number.isRequired,
   renderElement: PropTypes.func,
+  label: PropTypes.func,
 };
 
 Count.defaultProps = {
   renderElement: null,
+  label: (cmp) => cmp,
 };

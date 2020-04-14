@@ -90,13 +90,13 @@ export default class Sort extends Component {
     );
   };
 
-  onChange = value => {
+  onChange = (value) => {
     if (
       value ===
       this._computeValue(this.props.currentSortBy, this.props.currentSortOrder)
     )
       return;
-    const selected = this.options.find(option => option.value === value);
+    const selected = this.options.find((option) => option.value === value);
     this.updateQuerySorting(selected.sortBy, selected.sortOrder);
   };
 
@@ -106,6 +106,7 @@ export default class Sort extends Component {
       currentSortOrder,
       loading,
       totalResults,
+      label,
     } = this.props;
     return (
       <ShouldRender
@@ -116,11 +117,13 @@ export default class Sort extends Component {
           totalResults > 0
         }
       >
-        {this.renderElement(
-          currentSortBy,
-          currentSortOrder,
-          this.options,
-          this.onChange
+        {label(
+          this.renderElement(
+            currentSortBy,
+            currentSortOrder,
+            this.options,
+            this.onChange
+          )
         )}
       </ShouldRender>
     );
@@ -136,10 +139,12 @@ Sort.propTypes = {
   updateQuerySorting: PropTypes.func.isRequired,
   setInitialState: PropTypes.func.isRequired,
   renderElement: PropTypes.func,
+  label: PropTypes.func,
 };
 
 Sort.defaultProps = {
   currentSortBy: null,
   currentSortOrder: null,
   renderElement: null,
+  label: (cmp) => cmp,
 };

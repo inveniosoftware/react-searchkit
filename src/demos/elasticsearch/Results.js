@@ -19,22 +19,6 @@ import {
   ResultsGrid,
 } from '../../lib/components';
 
-const SpanWithMargin = ({ text, margin }) => {
-  const size = '0.5em';
-  let style;
-  switch (margin) {
-    case 'left':
-      style = { marginLeft: size };
-      break;
-    case 'right':
-      style = { marginRight: size };
-      break;
-    default:
-      style = { margin: `0 ${size}` };
-  }
-  return <span style={style}>{text}</span>;
-};
-
 class Tags extends Component {
   onClick = (event, value) => {
     window.history.push({
@@ -113,8 +97,9 @@ export class Results extends Component {
         </Grid>
         <Grid relaxed verticalAlign="middle">
           <Grid.Column width={8}>
-            <SpanWithMargin text="Found" margin="right" />
-            <Count />
+            <span style={({ marginLeft: '0.5em' }, { marginRight: '0.5em' })}>
+              <Count label={(cmp) => <> Found {cmp}</>} />
+            </span>
           </Grid.Column>
           <Grid.Column width={8} textAlign="right">
             <LayoutSwitcher defaultLayout="grid" />
