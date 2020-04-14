@@ -10,6 +10,12 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "rimraf dist && NODE_ENV=production rollup -c",
+    "edit-linked-package": "json -I -f ./dist/package.json -e 'this.module=\"esm/index.js\", this.main=\"cjs/index.js\"' ",
+    "prelink-dist": "cp package.json ./dist && npm run edit-linked-package",
+    "link-dist": "cd dist && npm link",
+    "postlink-dist": "cd dist && rm -rf node_modules",
+    "unlink-dist": "cd dist && npm unlink && rm package*",
+    "watch": "NODE_ENV=development rollup --watch -c",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "lint": "eslint src/**/*.js"
@@ -39,6 +45,7 @@
     "enzyme-adapter-react-16": "^1.15.1",
     "enzyme-to-json": "^3.4.3",
     "expect": "^24.8.0",
+    "json": "^9.0.6",
     "lodash": "^4.17.15",
     "node-sass": "^4.12.0",
     "qs": "^6.8.0",
