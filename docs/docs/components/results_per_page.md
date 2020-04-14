@@ -33,7 +33,7 @@ The component is **not** displayed while executing the search query or if there 
 - **label** `function` _optional_
 
   An optional function to wrap the component with a prefix and suffix string. <br />
-  E.g. `label={(val) => <> Show {val} results per page</>}`
+  E.g. `label={(cmp) => <> Show {cmp} results per page</>}`
 
 ## Usage when overriding template
 

@@ -108,7 +108,6 @@ export default class Sort extends Component {
       totalResults,
       label,
     } = this.props;
-    const size = '0.5em';
     return (
       <ShouldRender
         condition={
@@ -118,16 +117,14 @@ export default class Sort extends Component {
           totalResults > 0
         }
       >
-        <span style={({ marginLeft: size }, { marginRight: size })}>
-          {label(
-            this.renderElement(
-              currentSortBy,
-              currentSortOrder,
-              this.options,
-              this.onChange
-            )
-          )}
-        </span>
+        {label(
+          this.renderElement(
+            currentSortBy,
+            currentSortOrder,
+            this.options,
+            this.onChange
+          )
+        )}
       </ShouldRender>
     );
   }
@@ -149,5 +146,5 @@ Sort.defaultProps = {
   currentSortBy: null,
   currentSortOrder: null,
   renderElement: null,
-  label: (val) => val,
+  label: (cmp) => cmp,
 };

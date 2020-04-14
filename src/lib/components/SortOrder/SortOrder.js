@@ -51,16 +51,13 @@ export default class SortOrder extends Component {
 
   render() {
     const { currentSortOrder, loading, totalResults, label } = this.props;
-    const size = '0.5em';
     return (
       <ShouldRender
         condition={currentSortOrder !== null && !loading && totalResults > 0}
       >
-        <span style={({ marginLeft: size }, { marginRight: size })}>
-          {label(
-            this.renderElement(currentSortOrder, this.options, this.onChange)
-          )}
-        </span>
+        {label(
+          this.renderElement(currentSortOrder, this.options, this.onChange)
+        )}
       </ShouldRender>
     );
   }
@@ -81,5 +78,5 @@ SortOrder.propTypes = {
 SortOrder.defaultProps = {
   currentSortOrder: null,
   renderElement: null,
-  label: (val) => val,
+  label: (cmp) => cmp,
 };

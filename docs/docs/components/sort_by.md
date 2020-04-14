@@ -33,7 +33,7 @@ The component is **not** displayed while executing the search query or if there 
 - **label** `function` _optional_
 
   An optional function to wrap the component with a prefix and suffix string. <br />
-  E.g. `label={(val) => <> sorted by {val}</>}`
+  E.g. `label={(cmp) => <> sorted by {cmp}</>}`
 
 ## Usage when overriding template
 

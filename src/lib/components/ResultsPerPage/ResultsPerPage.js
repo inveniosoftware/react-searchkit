@@ -51,14 +51,11 @@ export default class ResultsPerPage extends Component {
 
   render() {
     const { loading, currentSize, totalResults, label } = this.props;
-    const size = '0.5em';
     return (
       <ShouldRender
         condition={!loading && totalResults > 0 && currentSize !== -1}
       >
-        <span style={({ marginLeft: size }, { marginRight: size })}>
-          {label(this.renderElement(currentSize, this.options, this.onChange))}
-        </span>
+        {label(this.renderElement(currentSize, this.options, this.onChange))}
       </ShouldRender>
     );
   }
@@ -79,5 +76,5 @@ ResultsPerPage.propTypes = {
 ResultsPerPage.defaultProps = {
   defaultValue: 10,
   renderElement: null,
-  label: (val) => val,
+  label: (cmp) => cmp,
 };

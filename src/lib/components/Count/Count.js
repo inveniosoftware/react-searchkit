@@ -23,12 +23,9 @@ export default class Count extends Component {
 
   render() {
     const { loading, totalResults, label } = this.props;
-    const size = '0.5em';
     return (
       <ShouldRender condition={!loading && totalResults > 0}>
-        <span style={({ marginLeft: size }, { marginRight: size })}>
-          {label(this.renderElement(totalResults))}
-        </span>
+        {label(this.renderElement(totalResults))}
       </ShouldRender>
     );
   }
@@ -43,5 +40,5 @@ Count.propTypes = {
 
 Count.defaultProps = {
   renderElement: null,
-  label: (val) => val,
+  label: (cmp) => cmp,
 };

@@ -78,18 +78,22 @@ export class Results extends Component {
         </Grid>
         <Grid relaxed verticalAlign="middle">
           <Grid.Column width={8}>
-            <Count label={(val) => <> Found {val} results</>} />
-            <Sort
-              values={this.sortValues}
-              label={(val) => <> sorted by {val}</>}
-            />
+            <span style={({ marginLeft: '0.5em' }, { marginRight: '0.5em' })}>
+              <Count label={(cmp) => <> Found {cmp} results</>} />
+              <Sort
+                values={this.sortValues}
+                label={(cmp) => <> sorted by {cmp}</>}
+              />
+            </span>
           </Grid.Column>
           <Grid.Column width={8} textAlign="right">
-            <ResultsPerPage
-              values={this.resultsPerPageValues}
-              label={(val) => <> Show {val} results per page</>}
-              defaultValue={10}
-            />
+            <span style={({ marginLeft: '0.5em' }, { marginRight: '0.5em' })}>
+              <ResultsPerPage
+                values={this.resultsPerPageValues}
+                label={(cmp) => <> Show {cmp} results per page</>}
+                defaultValue={10}
+              />
+            </span>
             <LayoutSwitcher defaultLayout="grid" />
           </Grid.Column>
         </Grid>

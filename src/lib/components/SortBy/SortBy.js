@@ -55,16 +55,11 @@ export default class SortBy extends Component {
 
   render() {
     const { currentSortBy, loading, totalResults, label } = this.props;
-    const size = '0.5em';
     return (
       <ShouldRender
         condition={currentSortBy !== null && !loading && totalResults > 0}
       >
-        <span style={({ marginLeft: size }, { marginRight: size })}>
-          {label(
-            this.renderElement(currentSortBy, this.options, this.onChange)
-          )}
-        </span>
+        {label(this.renderElement(currentSortBy, this.options, this.onChange))}
       </ShouldRender>
     );
   }
@@ -88,5 +83,5 @@ SortBy.defaultProps = {
   defaultValueOnEmptyString: null,
   currentSortBy: null,
   renderElement: null,
-  label: (val) => val,
+  label: (cmp) => cmp,
 };
