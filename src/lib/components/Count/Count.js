@@ -41,9 +41,9 @@ export default class Count extends Component {
     const { loading, totalResults, prefix, suffix } = this.props;
     return (
       <ShouldRender condition={!loading && totalResults > 0}>
-        {this.renderSpanWithMargin(prefix, 'right')}
+        {prefix && this.renderSpanWithMargin(prefix, 'right')}
         {this.renderElement(totalResults)}
-        {this.renderSpanWithMargin(suffix)}
+        {suffix && this.renderSpanWithMargin(suffix)}
       </ShouldRender>
     );
   }

@@ -49,13 +49,37 @@ export default class SortOrder extends Component {
     this.updateQuerySortOrder(value);
   };
 
+  renderSpanWithMargin = (text, margin) => {
+    const size = '0.5em';
+    let style;
+    switch (margin) {
+      case 'left':
+        style = { marginLeft: size };
+        break;
+      case 'right':
+        style = { marginRight: size };
+        break;
+      default:
+        style = { margin: `0 ${size}` };
+    }
+    return <span style={style}>{text}</span>;
+  };
+
   render() {
-    const { currentSortOrder, loading, totalResults } = this.props;
+    const {
+      currentSortOrder,
+      loading,
+      totalResults,
+      prefix,
+      suffix,
+    } = this.props;
     return (
       <ShouldRender
         condition={currentSortOrder !== null && !loading && totalResults > 0}
       >
+        {prefix && this.renderSpanWithMargin(prefix, 'right')}
         {this.renderElement(currentSortOrder, this.options, this.onChange)}
+        {suffix && this.renderSpanWithMargin(suffix)}
       </ShouldRender>
     );
   }
@@ -70,6 +94,8 @@ SortOrder.propTypes = {
   updateQuerySortOrder: PropTypes.func.isRequired,
   setInitialState: PropTypes.func.isRequired,
   renderElement: PropTypes.func,
+  prefix: PropTypes.string,
+  suffix: PropTypes.string,
 };
 
 SortOrder.defaultProps = {

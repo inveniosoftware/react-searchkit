@@ -53,13 +53,31 @@ export default class SortBy extends Component {
     this.updateQuerySortBy(value);
   };
 
+  renderSpanWithMargin = (text, margin) => {
+    const size = '0.5em';
+    let style;
+    switch (margin) {
+      case 'left':
+        style = { marginLeft: size };
+        break;
+      case 'right':
+        style = { marginRight: size };
+        break;
+      default:
+        style = { margin: `0 ${size}` };
+    }
+    return <span style={style}>{text}</span>;
+  };
+
   render() {
-    const { currentSortBy, loading, totalResults } = this.props;
+    const { currentSortBy, loading, totalResults, prefix, suffix } = this.props;
     return (
       <ShouldRender
         condition={currentSortBy !== null && !loading && totalResults > 0}
       >
+        {prefix && this.renderSpanWithMargin(prefix, 'right')}
         {this.renderElement(currentSortBy, this.options, this.onChange)}
+        {suffix && this.renderSpanWithMargin(suffix)}
       </ShouldRender>
     );
   }
@@ -76,6 +94,8 @@ SortBy.propTypes = {
   updateQuerySortBy: PropTypes.func.isRequired,
   setInitialState: PropTypes.func.isRequired,
   renderElement: PropTypes.func,
+  prefix: PropTypes.string,
+  suffix: PropTypes.string,
 };
 
 SortBy.defaultProps = {

@@ -100,12 +100,30 @@ export default class Sort extends Component {
     this.updateQuerySorting(selected.sortBy, selected.sortOrder);
   };
 
+  renderSpanWithMargin = (text, margin) => {
+    const size = '0.5em';
+    let style;
+    switch (margin) {
+      case 'left':
+        style = { marginLeft: size };
+        break;
+      case 'right':
+        style = { marginRight: size };
+        break;
+      default:
+        style = { margin: `0 ${size}` };
+    }
+    return <span style={style}>{text}</span>;
+  };
+
   render() {
     const {
       currentSortBy,
       currentSortOrder,
       loading,
       totalResults,
+      prefix,
+      suffix,
     } = this.props;
     return (
       <ShouldRender
@@ -116,12 +134,14 @@ export default class Sort extends Component {
           totalResults > 0
         }
       >
+        {prefix && this.renderSpanWithMargin(prefix, 'right')}
         {this.renderElement(
           currentSortBy,
           currentSortOrder,
           this.options,
           this.onChange
         )}
+        {suffix && this.renderSpanWithMargin(suffix)}
       </ShouldRender>
     );
   }
@@ -136,6 +156,8 @@ Sort.propTypes = {
   updateQuerySorting: PropTypes.func.isRequired,
   setInitialState: PropTypes.func.isRequired,
   renderElement: PropTypes.func,
+  prefix: PropTypes.string,
+  suffix: PropTypes.string,
 };
 
 Sort.defaultProps = {

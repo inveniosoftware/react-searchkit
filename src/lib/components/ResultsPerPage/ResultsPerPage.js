@@ -71,9 +71,9 @@ export default class ResultsPerPage extends Component {
       <ShouldRender
         condition={!loading && totalResults > 0 && currentSize !== -1}
       >
-        {this.renderSpanWithMargin(prefix, 'right')}
+        {prefix && this.renderSpanWithMargin(prefix, 'right')}
         {this.renderElement(currentSize, this.options, this.onChange)}
-        {this.renderSpanWithMargin(suffix)}
+        {suffix && this.renderSpanWithMargin(suffix)}
       </ShouldRender>
     );
   }
