@@ -9,17 +9,52 @@
 import React, { Component } from 'react';
 import { Grid, Card, Image, Item } from 'semantic-ui-react';
 import _truncate from 'lodash/truncate';
+import { overrideStore } from 'react-overridable';
 import {
   ActiveFilters,
   Count,
   LayoutSwitcher,
   Pagination,
   ResultsMultiLayout,
-  ResultsList,
-  ResultsGrid,
   ResultsPerPage,
   Sort,
 } from '../../lib/components';
+
+const ZenodoResultsListItem = ({ result, index }) => {
+  const metadata = result.metadata;
+  return (
+    <Item key={index} href={`#`}>
+      <Item.Image
+        size="small"
+        src={result.imageSrc || 'http://placehold.it/200'}
+      />
+      <Item.Content>
+        <Item.Header>{metadata.title}</Item.Header>
+        <Item.Description>
+          {_truncate(metadata.description, { length: 200 })}
+        </Item.Description>
+      </Item.Content>
+    </Item>
+  );
+};
+
+const ZenodoResultsGridItem = ({ result, index }) => {
+  const metadata = result.metadata;
+  return (
+    <Card fluid key={index} href={`#`}>
+      <Image src={result.imageSrc || 'http://placehold.it/200'} />
+      <Card.Content>
+        <Card.Header>{metadata.title}</Card.Header>
+        <Card.Description>
+          {_truncate(metadata.description, { length: 200 })}
+        </Card.Description>
+      </Card.Content>
+    </Card>
+  );
+};
+
+overrideStore.override('ResultsList.item', ZenodoResultsListItem);
+overrideStore.override('ResultsGrid.item', ZenodoResultsGridItem);
 
 export class Results extends Component {
   constructor(props) {
@@ -29,47 +64,8 @@ export class Results extends Component {
     this.resultsPerPageValues = this.props.resultsPerPageValues;
   }
 
-  renderResultsListItem = (result, index) => {
-    const metadata = result.metadata;
-    return (
-      <Item key={index} href={`#`}>
-        <Item.Image
-          size="small"
-          src={result.imageSrc || 'http://placehold.it/200'}
-        />
-        <Item.Content>
-          <Item.Header>{metadata.title}</Item.Header>
-          <Item.Description>
-            {_truncate(metadata.description, { length: 200 })}
-          </Item.Description>
-        </Item.Content>
-      </Item>
-    );
-  };
-
-  renderResultsGridItem(result, index) {
-    const metadata = result.metadata;
-    return (
-      <Card fluid key={index} href={`#`}>
-        <Image src={result.imageSrc || 'http://placehold.it/200'} />
-        <Card.Content>
-          <Card.Header>{metadata.title}</Card.Header>
-          <Card.Description>
-            {_truncate(metadata.description, { length: 200 })}
-          </Card.Description>
-        </Card.Content>
-      </Card>
-    );
-  }
-
   render() {
     const { total } = this.props.currentResultsState.data;
-    const CustomResultsListCmp = () => (
-      <ResultsList renderListItem={this.renderResultsListItem} />
-    );
-    const CustomResultsGridCmp = () => (
-      <ResultsGrid renderGridItem={this.renderResultsGridItem} />
-    );
     return total ? (
       <div>
         <Grid relaxed>
@@ -78,7 +74,7 @@ export class Results extends Component {
         <Grid relaxed verticalAlign="middle">
           <Grid.Column width={8}>
             <span style={({ marginLeft: '0.5em' }, { marginRight: '0.5em' })}>
-              <Count label={(cmp) => <> Found {cmp} results</>} />
+              <Count label={(cmp) => <>Found {cmp} results</>} />
               <Sort
                 values={this.sortValues}
                 label={(cmp) => <> sorted by {cmp}</>}
@@ -90,17 +86,14 @@ export class Results extends Component {
               <ResultsPerPage
                 values={this.resultsPerPageValues}
                 defaultValue={10}
-                label={(cmp) => <> Show {cmp} results per page</>}
+                label={(cmp) => <>Show {cmp} results per page</>}
               />
             </span>
             <LayoutSwitcher defaultLayout="list" />
           </Grid.Column>
         </Grid>
         <Grid relaxed style={{ padding: '2em 0' }}>
-          <ResultsMultiLayout
-            resultsListCmp={CustomResultsListCmp}
-            resultsGridCmp={CustomResultsGridCmp}
-          />
+          <ResultsMultiLayout />
         </Grid>
         <Grid relaxed verticalAlign="middle" textAlign="center">
           <Pagination />

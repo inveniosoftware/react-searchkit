@@ -9,23 +9,15 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Label } from 'semantic-ui-react';
+import { Overridable } from 'react-overridable';
 import { ShouldRender } from '../ShouldRender';
 
 export default class Count extends Component {
-  constructor(props) {
-    super(props);
-    this.renderElement = props.renderElement || this._renderElement;
-  }
-
-  _renderElement(totalResults) {
-    return <Label color={'blue'}>{totalResults}</Label>;
-  }
-
   render() {
     const { loading, totalResults, label } = this.props;
     return (
       <ShouldRender condition={!loading && totalResults > 0}>
-        {label(this.renderElement(totalResults))}
+        {label(<Element totalResults={totalResults} />)}
       </ShouldRender>
     );
   }
@@ -34,11 +26,15 @@ export default class Count extends Component {
 Count.propTypes = {
   loading: PropTypes.bool.isRequired,
   totalResults: PropTypes.number.isRequired,
-  renderElement: PropTypes.func,
   label: PropTypes.func,
 };
 
 Count.defaultProps = {
-  renderElement: null,
   label: (cmp) => cmp,
 };
+
+const Element = ({ totalResults }) => (
+  <Overridable id="Count.element" totalResults={totalResults}>
+    <Label color={'blue'}>{totalResults}</Label>
+  </Overridable>
+);

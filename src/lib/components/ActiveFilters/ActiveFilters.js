@@ -9,17 +9,15 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Label, Icon } from 'semantic-ui-react';
+import { Overridable } from 'react-overridable';
 
 export default class ActiveFilters extends Component {
   constructor(props) {
     super(props);
     this.updateQueryFilters = props.updateQueryFilters;
-    this.renderElement = props.renderElement || this._renderElement;
-    this.renderActiveFilters =
-      props.renderActiveFilters || this._renderActiveFilters;
   }
 
-  _getLabel = filter => {
+  _getLabel = (filter) => {
     const aggName = filter[0];
     let value = filter[1];
     let currentFilter = [aggName, value];
@@ -35,27 +33,17 @@ export default class ActiveFilters extends Component {
     };
   };
 
-  _renderElement = (filters, removeActiveFilter) => {
-    return filters.map((filter, index) => {
-      const { label, activeFilter } = this._getLabel(filter);
-      return (
-        <Label
-          image
-          key={index}
-          onClick={() => removeActiveFilter(activeFilter)}
-        >
-          {label}
-          <Icon name="delete" />
-        </Label>
-      );
-    });
-  };
-
   render() {
     const filters = this.props.filters;
-    return filters.length
-      ? this.renderElement(filters, this.updateQueryFilters)
-      : null;
+    return (
+      !!filters.length && (
+        <Element
+          filters={filters}
+          removeActiveFilter={this.updateQueryFilters}
+          getLabel={this._getLabel}
+        />
+      )
+    );
   }
 }
 
@@ -67,4 +55,27 @@ ActiveFilters.propTypes = {
 
 ActiveFilters.defaultProps = {
   renderElement: null,
+};
+
+const Element = (props) => {
+  const { filters, removeActiveFilter, getLabel } = props;
+  return (
+    <Overridable id="ActiveFilters.element" {...props}>
+      <>
+        {filters.map((filter, index) => {
+          const { label, activeFilter } = getLabel(filter);
+          return (
+            <Label
+              image
+              key={index}
+              onClick={() => removeActiveFilter(activeFilter)}
+            >
+              {label}
+              <Icon name="delete" />
+            </Label>
+          );
+        })}
+      </>
+    </Overridable>
+  );
 };

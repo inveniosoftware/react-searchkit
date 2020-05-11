@@ -10,6 +10,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Card } from 'semantic-ui-react';
 import _get from 'lodash/get';
+import { Overridable } from 'react-overridable';
 import BucketAggregationValues from './BucketAggregationValues';
 
 export default class BucketAggregation extends Component {
@@ -18,10 +19,10 @@ export default class BucketAggregation extends Component {
     this.title = props.title;
     this.agg = props.agg;
     this.updateQueryFilters = props.updateQueryFilters;
-    this.renderElement = props.renderElement || this._renderElement;
+    this.overridableName = props.overridableName;
   }
 
-  onFilterClicked = filter => {
+  onFilterClicked = (filter) => {
     this.updateQueryFilters(filter);
   };
 
@@ -40,25 +41,14 @@ export default class BucketAggregation extends Component {
     );
   };
 
-  _renderElement = (title, containerCmp) => {
-    return containerCmp ? (
-      <Card>
-        <Card.Content>
-          <Card.Header>{title}</Card.Header>
-        </Card.Content>
-        <Card.Content>{containerCmp}</Card.Content>
-      </Card>
-    ) : null;
-  };
-
-  _getSelectedFilters = userSelectionFilters => {
+  _getSelectedFilters = (userSelectionFilters) => {
     // get selected filters for this field only
     return userSelectionFilters.filter(
-      filter => filter[0] === this.agg.aggName
+      (filter) => filter[0] === this.agg.aggName
     );
   };
 
-  _getResultBuckets = resultsAggregations => {
+  _getResultBuckets = (resultsAggregations) => {
     // get buckets of this field
     const thisAggs = _get(resultsAggregations, this.agg.aggName, {});
     return 'buckets' in thisAggs ? thisAggs['buckets'] : [];
@@ -71,7 +61,13 @@ export default class BucketAggregation extends Component {
     const valuesCmp = resultBuckets.length
       ? this._renderValues(resultBuckets, selectedFilters)
       : null;
-    return this.renderElement(this.title, valuesCmp);
+    return (
+      <Element
+        title={this.title}
+        containerCmp={valuesCmp}
+        overridableName={this.overridableName}
+      />
+    );
   }
 }
 
@@ -85,13 +81,34 @@ BucketAggregation.propTypes = {
   userSelectionFilters: PropTypes.array.isRequired,
   resultsAggregations: PropTypes.object.isRequired,
   updateQueryFilters: PropTypes.func.isRequired,
-  renderElement: PropTypes.func,
   renderValuesContainerElement: PropTypes.func,
   renderValueElement: PropTypes.func,
+  overridableName: PropTypes.string,
 };
 
 BucketAggregation.defaultProps = {
-  renderElement: null,
   renderValuesContainerElement: null,
   renderValueElement: null,
+  overridableName: '',
+};
+
+const Element = (props) => {
+  const { title, containerCmp, overridableName } = props;
+  return (
+    containerCmp && (
+      <Overridable
+        id={`BucketAggregation.element${
+          overridableName && `.${overridableName}`
+        }`}
+        {...props}
+      >
+        <Card>
+          <Card.Content>
+            <Card.Header>{title}</Card.Header>
+          </Card.Content>
+          <Card.Content>{containerCmp}</Card.Content>
+        </Card>
+      </Overridable>
+    )
+  );
 };

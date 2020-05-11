@@ -9,6 +9,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Dropdown } from 'semantic-ui-react';
+import { Overridable } from 'react-overridable';
 import { ShouldRender } from '../ShouldRender';
 
 export default class Sort extends Component {
@@ -17,16 +18,15 @@ export default class Sort extends Component {
     this.options = props.values;
     this.updateQuerySorting = props.updateQuerySorting;
     this.setInitialState = props.setInitialState;
-    this.renderElement = props.renderElement || this._renderElement;
 
     this.options.forEach(
-      option =>
+      (option) =>
         (option['value'] = this._computeValue(option.sortBy, option.sortOrder))
     );
 
     // compute default value for sort field and sort order
     const defaultValue = this.options.find(
-      option => 'default' in option && option.default
+      (option) => 'default' in option && option.default
     );
     this.defaultValue = {
       sortBy: defaultValue.sortBy || this.options[0].sortBy,
@@ -34,7 +34,8 @@ export default class Sort extends Component {
     };
 
     const defaultValueOnEmptyString = this.options.find(
-      option => 'defaultOnEmptyString' in option && option.defaultOnEmptyString
+      (option) =>
+        'defaultOnEmptyString' in option && option.defaultOnEmptyString
     );
     this.defaultValueOnEmptyString = {
       sortBy: defaultValueOnEmptyString
@@ -65,31 +66,6 @@ export default class Sort extends Component {
     return `${sortBy}-${sortOrder}`;
   };
 
-  _renderElement = (
-    currentSortBy,
-    currentSortOrder,
-    options,
-    onValueChange
-  ) => {
-    const selected = this._computeValue(currentSortBy, currentSortOrder);
-    const _options = options.map((element, index) => {
-      return {
-        key: index,
-        text: element.text,
-        value: element.value,
-      };
-    });
-    return (
-      <Dropdown
-        selection
-        compact
-        options={_options}
-        value={selected}
-        onChange={(e, { value }) => onValueChange(value)}
-      />
-    );
-  };
-
   onChange = (value) => {
     if (
       value ===
@@ -118,12 +94,13 @@ export default class Sort extends Component {
         }
       >
         {label(
-          this.renderElement(
-            currentSortBy,
-            currentSortOrder,
-            this.options,
-            this.onChange
-          )
+          <Element
+            currentSortBy={currentSortBy}
+            currentSortOrder={currentSortOrder}
+            options={this.options}
+            onValueChange={this.onChange}
+            computeValue={this._computeValue}
+          />
         )}
       </ShouldRender>
     );
@@ -138,13 +115,40 @@ Sort.propTypes = {
   totalResults: PropTypes.number.isRequired,
   updateQuerySorting: PropTypes.func.isRequired,
   setInitialState: PropTypes.func.isRequired,
-  renderElement: PropTypes.func,
   label: PropTypes.func,
 };
 
 Sort.defaultProps = {
   currentSortBy: null,
   currentSortOrder: null,
-  renderElement: null,
   label: (cmp) => cmp,
+};
+
+const Element = (props) => {
+  const {
+    currentSortBy,
+    currentSortOrder,
+    options,
+    onValueChange,
+    computeValue,
+  } = props;
+  const selected = computeValue(currentSortBy, currentSortOrder);
+  const _options = options.map((element, index) => {
+    return {
+      key: index,
+      text: element.text,
+      value: element.value,
+    };
+  });
+  return (
+    <Overridable id="Sort.element" {...props}>
+      <Dropdown
+        selection
+        compact
+        options={_options}
+        value={selected}
+        onChange={(e, { value }) => onValueChange(value)}
+      />
+    </Overridable>
+  );
 };

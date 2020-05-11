@@ -9,6 +9,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Menu, Icon } from 'semantic-ui-react';
+import { Overridable } from 'react-overridable';
 import { ShouldRender } from '../ShouldRender';
 
 export default class LayoutSwitcher extends Component {
@@ -17,14 +18,59 @@ export default class LayoutSwitcher extends Component {
     this.defaultValue = this.props.defaultLayout;
     this.updateLayout = props.updateLayout;
     this.setInitialState = props.setInitialState;
-    this.renderElement = props.renderElement || this._renderElement;
   }
 
-  _renderElement = (currentLayout, onLayoutChange) => {
-    const clickHandler = (event, { name }) => {
-      onLayoutChange(name);
-    };
+  componentDidMount() {
+    if (this.props.currentLayout === null) {
+      this.setInitialState({
+        layout: this.defaultValue,
+      });
+    }
+  }
+
+  onLayoutChange = (layoutName) => {
+    this.updateLayout(layoutName);
+  };
+
+  render() {
+    const { currentLayout, loading, totalResults } = this.props;
     return (
+      <ShouldRender
+        condition={currentLayout !== null && !loading && totalResults > 0}
+      >
+        <Element
+          currentLayout={currentLayout}
+          onLayoutChange={this.onLayoutChange}
+        />
+      </ShouldRender>
+    );
+  }
+}
+
+LayoutSwitcher.propTypes = {
+  defaultLayout: PropTypes.oneOf(['list', 'grid']),
+  updateLayout: PropTypes.func.isRequired,
+  setInitialState: PropTypes.func.isRequired,
+  loading: PropTypes.bool.isRequired,
+  currentLayout: PropTypes.string,
+  totalResults: PropTypes.number.isRequired,
+};
+
+LayoutSwitcher.defaultProps = {
+  defaultLayout: 'list',
+  currentLayout: null,
+};
+
+const Element = ({ currentLayout, onLayoutChange }) => {
+  const clickHandler = (event, { name }) => {
+    onLayoutChange(name);
+  };
+  return (
+    <Overridable
+      id="LayoutSwitcher.element"
+      currentLayout={currentLayout}
+      onLayoutChange={onLayoutChange}
+    >
       <Menu compact icon>
         <Menu.Item
           name="list"
@@ -41,45 +87,6 @@ export default class LayoutSwitcher extends Component {
           <Icon name="grid layout" />
         </Menu.Item>
       </Menu>
-    );
-  };
-
-  componentDidMount() {
-    if (this.props.currentLayout === null) {
-      this.setInitialState({
-        layout: this.defaultValue,
-      });
-    }
-  }
-
-  onLayoutChange = layoutName => {
-    this.updateLayout(layoutName);
-  };
-
-  render() {
-    const { currentLayout, loading, totalResults } = this.props;
-    return (
-      <ShouldRender
-        condition={currentLayout !== null && !loading && totalResults > 0}
-      >
-        {this.renderElement(currentLayout, this.onLayoutChange)}
-      </ShouldRender>
-    );
-  }
-}
-
-LayoutSwitcher.propTypes = {
-  defaultLayout: PropTypes.oneOf(['list', 'grid']),
-  updateLayout: PropTypes.func.isRequired,
-  setInitialState: PropTypes.func.isRequired,
-  loading: PropTypes.bool.isRequired,
-  currentLayout: PropTypes.string,
-  totalResults: PropTypes.number.isRequired,
-  renderElement: PropTypes.func,
-};
-
-LayoutSwitcher.defaultProps = {
-  defaultLayout: 'list',
-  currentLayout: null,
-  renderElement: null,
+    </Overridable>
+  );
 };

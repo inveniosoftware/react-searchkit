@@ -32,7 +32,7 @@ class Tags extends Component {
       <Button
         key={index}
         size="mini"
-        onClick={event => this.onClick(event, tag)}
+        onClick={(event) => this.onClick(event, tag)}
       >
         {tag}
       </Button>
@@ -98,7 +98,7 @@ export class Results extends Component {
         <Grid relaxed verticalAlign="middle">
           <Grid.Column width={8}>
             <span style={({ marginLeft: '0.5em' }, { marginRight: '0.5em' })}>
-              <Count label={(cmp) => <> Found {cmp}</>} />
+              <Count label={(cmp) => <>Found {cmp}</>} />
             </span>
           </Grid.Column>
           <Grid.Column width={8} textAlign="right">

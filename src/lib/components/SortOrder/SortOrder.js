@@ -9,6 +9,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Dropdown } from 'semantic-ui-react';
+import { Overridable } from 'react-overridable';
 import { ShouldRender } from '../ShouldRender';
 
 export default class SortOrder extends Component {
@@ -18,7 +19,6 @@ export default class SortOrder extends Component {
     this.defaultValue = this.props.defaultValue;
     this.updateQuerySortOrder = props.updateQuerySortOrder;
     this.setInitialState = props.setInitialState;
-    this.renderElement = props.renderElement || this._renderElement;
   }
 
   componentDidMount() {
@@ -29,22 +29,7 @@ export default class SortOrder extends Component {
     }
   }
 
-  _renderElement = (currentSortOrder, options, onValueChange) => {
-    const _options = options.map((element, index) => {
-      return { key: index, text: element.text, value: element.value };
-    });
-    return (
-      <Dropdown
-        selection
-        compact
-        options={_options}
-        value={currentSortOrder}
-        onChange={(e, { value }) => onValueChange(value)}
-      />
-    );
-  };
-
-  onChange = value => {
+  onChange = (value) => {
     if (value === this.props.currentSortOrder) return;
     this.updateQuerySortOrder(value);
   };
@@ -56,7 +41,11 @@ export default class SortOrder extends Component {
         condition={currentSortOrder !== null && !loading && totalResults > 0}
       >
         {label(
-          this.renderElement(currentSortOrder, this.options, this.onChange)
+          <Element
+            currentSortOrder={currentSortOrder}
+            options={this.options}
+            onValueChange={this.onChange}
+          />
         )}
       </ShouldRender>
     );
@@ -71,12 +60,28 @@ SortOrder.propTypes = {
   totalResults: PropTypes.number.isRequired,
   updateQuerySortOrder: PropTypes.func.isRequired,
   setInitialState: PropTypes.func.isRequired,
-  renderElement: PropTypes.func,
   label: PropTypes.func,
 };
 
 SortOrder.defaultProps = {
   currentSortOrder: null,
-  renderElement: null,
   label: (cmp) => cmp,
+};
+
+const Element = (props) => {
+  const { currentSortOrder, options, onValueChange } = props;
+  const _options = options.map((element, index) => {
+    return { key: index, text: element.text, value: element.value };
+  });
+  return (
+    <Overridable id="SortOrder.element" {...props}>
+      <Dropdown
+        selection
+        compact
+        options={_options}
+        value={currentSortOrder}
+        onChange={(e, { value }) => onValueChange(value)}
+      />
+    </Overridable>
+  );
 };

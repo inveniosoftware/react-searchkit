@@ -9,6 +9,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Pagination as Paginator } from 'semantic-ui-react';
+import { Overridable } from 'react-overridable';
 import { ShouldRender } from '../ShouldRender';
 
 export default class Pagination extends Component {
@@ -17,7 +18,6 @@ export default class Pagination extends Component {
     this.defaultValue = props.defaultValue;
     this.updateQueryPage = props.updateQueryPage;
     this.setInitialState = props.setInitialState;
-    this.renderElement = props.renderElement || this._renderElement;
   }
 
   componentDidMount() {
@@ -28,47 +28,11 @@ export default class Pagination extends Component {
     }
   }
 
-  onPageChange = activePage => {
+  onPageChange = (activePage) => {
     if (activePage === this.props.currentPage) return;
     this.updateQueryPage(activePage);
   };
 
-  _renderElement = (
-    currentPage,
-    currentSize,
-    totalResults,
-    onPageChange,
-    options,
-    ...extraParams
-  ) => {
-    const pages = Math.ceil(totalResults / currentSize);
-    const boundaryRangeCount = options.boundaryRangeCount;
-    const siblingRangeCount = options.siblingRangeCount;
-    const showEllipsis = options.showEllipsis;
-    const showFirst = options.showFirst;
-    const showLast = options.showLast;
-    const showPrev = options.showPrev;
-    const showNext = options.showNext;
-    const _onPageChange = (event, { activePage }) => {
-      onPageChange(activePage);
-    };
-
-    return (
-      <Paginator
-        activePage={currentPage}
-        totalPages={pages}
-        onPageChange={_onPageChange}
-        boundaryRange={boundaryRangeCount}
-        siblingRange={siblingRangeCount}
-        ellipsisItem={showEllipsis ? undefined : null}
-        firstItem={showFirst ? undefined : null}
-        lastItem={showLast ? undefined : null}
-        prevItem={showPrev ? undefined : null}
-        nextItem={showNext ? undefined : null}
-        {...extraParams}
-      />
-    );
-  };
   render() {
     const {
       loading,
@@ -83,13 +47,13 @@ export default class Pagination extends Component {
           !loading && currentPage > -1 && currentSize > -1 && totalResults > 0
         }
       >
-        {this.renderElement(
-          currentPage,
-          currentSize,
-          totalResults,
-          this.onPageChange,
-          options
-        )}
+        <Element
+          currentPage={currentPage}
+          currentSize={currentSize}
+          totalResults={totalResults}
+          onPageChange={this.onPageChange}
+          options={options}
+        />
       </ShouldRender>
     );
   }
@@ -125,4 +89,44 @@ Pagination.defaultProps = {
   },
   defaultValue: 10,
   renderElement: null,
+};
+
+const Element = (props) => {
+  const {
+    currentPage,
+    currentSize,
+    totalResults,
+    onPageChange,
+    options,
+    ...extraParams
+  } = props;
+  const pages = Math.ceil(totalResults / currentSize);
+  const boundaryRangeCount = options.boundaryRangeCount;
+  const siblingRangeCount = options.siblingRangeCount;
+  const showEllipsis = options.showEllipsis;
+  const showFirst = options.showFirst;
+  const showLast = options.showLast;
+  const showPrev = options.showPrev;
+  const showNext = options.showNext;
+  const _onPageChange = (event, { activePage }) => {
+    onPageChange(activePage);
+  };
+
+  return (
+    <Overridable id="Pagination.element" {...props}>
+      <Paginator
+        activePage={currentPage}
+        totalPages={pages}
+        onPageChange={_onPageChange}
+        boundaryRange={boundaryRangeCount}
+        siblingRange={siblingRangeCount}
+        ellipsisItem={showEllipsis ? undefined : null}
+        firstItem={showFirst ? undefined : null}
+        lastItem={showLast ? undefined : null}
+        prevItem={showPrev ? undefined : null}
+        nextItem={showNext ? undefined : null}
+        {...extraParams}
+      />
+    </Overridable>
+  );
 };

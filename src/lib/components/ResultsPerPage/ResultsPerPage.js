@@ -9,6 +9,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Dropdown } from 'semantic-ui-react';
+import { Overridable } from 'react-overridable';
 import { ShouldRender } from '../ShouldRender';
 
 export default class ResultsPerPage extends Component {
@@ -18,7 +19,6 @@ export default class ResultsPerPage extends Component {
     this.defaultValue = props.defaultValue;
     this.updateQuerySize = this.props.updateQuerySize;
     this.setInitialState = props.setInitialState;
-    this.renderElement = props.renderElement || this._renderElement;
   }
 
   componentDidMount() {
@@ -29,22 +29,7 @@ export default class ResultsPerPage extends Component {
     }
   }
 
-  _renderElement = (currentSize, options, onValueChange) => {
-    const _options = options.map((element, index) => {
-      return { key: index, text: element.text, value: element.value };
-    });
-    return (
-      <Dropdown
-        inline
-        compact
-        options={_options}
-        value={currentSize}
-        onChange={(e, { value }) => onValueChange(value)}
-      />
-    );
-  };
-
-  onChange = value => {
+  onChange = (value) => {
     if (value === this.props.currentSize) return;
     this.updateQuerySize(value);
   };
@@ -55,7 +40,13 @@ export default class ResultsPerPage extends Component {
       <ShouldRender
         condition={!loading && totalResults > 0 && currentSize !== -1}
       >
-        {label(this.renderElement(currentSize, this.options, this.onChange))}
+        {label(
+          <Element
+            currentSize={currentSize}
+            options={this.options}
+            onValueChange={this.onChange}
+          />
+        )}
       </ShouldRender>
     );
   }
@@ -69,12 +60,28 @@ ResultsPerPage.propTypes = {
   defaultValue: PropTypes.number,
   updateQuerySize: PropTypes.func.isRequired,
   setInitialState: PropTypes.func.isRequired,
-  renderElement: PropTypes.func,
   label: PropTypes.func,
 };
 
 ResultsPerPage.defaultProps = {
   defaultValue: 10,
-  renderElement: null,
   label: (cmp) => cmp,
+};
+
+const Element = (props) => {
+  const { currentSize, options, onValueChange } = props;
+  const _options = options.map((element, index) => {
+    return { key: index, text: element.text, value: element.value };
+  });
+  return (
+    <Overridable id="ResultsPerPage.element" {...props}>
+      <Dropdown
+        inline
+        compact
+        options={_options}
+        value={currentSize}
+        onChange={(e, { value }) => onValueChange(value)}
+      />
+    </Overridable>
+  );
 };

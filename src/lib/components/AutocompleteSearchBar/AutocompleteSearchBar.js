@@ -10,6 +10,7 @@ import _ from 'lodash';
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Input } from 'semantic-ui-react';
+import { Overridable } from 'react-overridable';
 import './AutocompleteSearchBar.scss';
 
 class AutocompleteSearchBar extends Component {
@@ -26,19 +27,17 @@ class AutocompleteSearchBar extends Component {
     this.state = {
       currentValue: this.props.queryString || '',
     };
-    this.renderElement = props.renderElement || this._renderElement;
-    this.renderSuggestions = props.renderSuggestions || this._renderSuggestions;
     this.handleAutocompleteChange =
       props.handleAutocompleteChange || this._handleAutocompleteChange;
   }
 
-  _handleAutocompleteChange = suggestionString => {
+  _handleAutocompleteChange = (suggestionString) => {
     if (suggestionString.length >= this.minCharsToAutocomplete) {
       this.updateSuggestions(suggestionString);
     }
   };
 
-  onInputChange = async queryString => {
+  onInputChange = async (queryString) => {
     await this.setState({
       currentValue: queryString,
     });
@@ -50,47 +49,62 @@ class AutocompleteSearchBar extends Component {
     this.updateQueryString(this.state.currentValue);
   };
 
-  _renderSuggestions(querySuggestions) {
-    const onSuggestionSelected = async suggestion => {
-      await this.setState({
-        currentValue: suggestion,
-      });
-      this.clearSuggestions();
-      this.executeSearch();
-    };
-
-    if (querySuggestions.length === 0) {
-      return null;
-    }
-
+  render() {
+    const { placeholder, suggestions } = this.props;
     return (
-      <ul>
-        {querySuggestions.map(text => (
-          <li onClick={() => onSuggestionSelected(text)} key={text}>
-            {text}
-          </li>
-        ))}
-      </ul>
+      <Element
+        placeholder={placeholder}
+        queryString={this.state.currentValue}
+        querySuggestions={suggestions}
+        onInputChange={this.onInputChange}
+        executeSearch={this.executeSearch}
+      />
     );
   }
+}
 
-  _renderElement(
+AutocompleteSearchBar.propTypes = {
+  queryString: PropTypes.string,
+  updateQueryString: PropTypes.func.isRequired,
+  updateSuggestions: PropTypes.func.isRequired,
+  clearSuggestions: PropTypes.func.isRequired,
+  handleAutocompleteChange: PropTypes.func,
+  debounce: PropTypes.bool,
+  debounceTime: PropTypes.number,
+  placeholder: PropTypes.string,
+  minCharsToAutocomplete: PropTypes.number,
+};
+
+AutocompleteSearchBar.defaultProps = {
+  handleAutocompleteChange: null,
+  placeholder: 'Type something',
+  minCharsToAutocomplete: 3,
+};
+
+const AutocompleteSearchBarUncontrolled = (props) => (
+  <AutocompleteSearchBar key={props.queryString} {...props} />
+);
+export default AutocompleteSearchBarUncontrolled;
+
+const Element = (props) => {
+  const {
     placeholder,
     queryString,
     querySuggestions,
     onInputChange,
-    executeSearch
-  ) {
-    const onBtnSearchClick = (event, input) => {
+    executeSearch,
+  } = props;
+  const onBtnSearchClick = (event, input) => {
+    executeSearch();
+  };
+  const onKeyPress = (event, input) => {
+    if (event.key === 'Enter') {
       executeSearch();
-    };
-    const onKeyPress = (event, input) => {
-      if (event.key === 'Enter') {
-        executeSearch();
-      }
-    };
+    }
+  };
 
-    return (
+  return (
+    <Overridable id="AutocompleteSearchBar.element" {...props}>
       <div className="AutoCompleteText">
         <Input
           action={{
@@ -105,46 +119,35 @@ class AutocompleteSearchBar extends Component {
           value={queryString}
           onKeyPress={onKeyPress}
         />
-        {this.renderSuggestions(querySuggestions)}
+        <Suggestions querySuggestions={querySuggestions} />
       </div>
-    );
-  }
-
-  render() {
-    const { placeholder, suggestions } = this.props;
-    return this.renderElement(
-      placeholder,
-      this.state.currentValue,
-      suggestions,
-      this.onInputChange,
-      this.executeSearch
-    );
-  }
-}
-
-AutocompleteSearchBar.propTypes = {
-  queryString: PropTypes.string,
-  updateQueryString: PropTypes.func.isRequired,
-  updateSuggestions: PropTypes.func.isRequired,
-  clearSuggestions: PropTypes.func.isRequired,
-  renderElement: PropTypes.func,
-  renderSuggestions: PropTypes.func,
-  handleAutocompleteChange: PropTypes.func,
-  debounce: PropTypes.bool,
-  debounceTime: PropTypes.number,
-  placeholder: PropTypes.string,
-  minCharsToAutocomplete: PropTypes.number,
+    </Overridable>
+  );
 };
 
-AutocompleteSearchBar.defaultProps = {
-  renderElement: null,
-  renderSuggestions: null,
-  handleAutocompleteChange: null,
-  placeholder: 'Type something',
-  minCharsToAutocomplete: 3,
-};
+const Suggestions = (props) => {
+  const { querySuggestions } = props;
+  const onSuggestionSelected = async (suggestion) => {
+    await this.setState({
+      currentValue: suggestion,
+    });
+    this.clearSuggestions();
+    this.executeSearch();
+  };
 
-const AutocompleteSearchBarUncontrolled = props => (
-  <AutocompleteSearchBar key={props.queryString} {...props} />
-);
-export default AutocompleteSearchBarUncontrolled;
+  if (querySuggestions.length === 0) {
+    return null;
+  }
+
+  return (
+    <Overridable id="AutocompleteSearchBar.suggestions" {...props}>
+      <ul>
+        {querySuggestions.map((text) => (
+          <li onClick={() => onSuggestionSelected(text)} key={text}>
+            {text}
+          </li>
+        ))}
+      </ul>
+    </Overridable>
+  );
+};

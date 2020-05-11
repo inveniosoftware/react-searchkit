@@ -6,28 +6,21 @@
  * under the terms of the MIT License; see LICENSE file for more details.
  */
 
-import React, { Component } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import { Loader } from 'semantic-ui-react';
+import { Overridable } from 'react-overridable';
 
-export default class ResultsLoader extends Component {
-  constructor(props) {
-    super(props);
-    this.renderElement = props.renderElement || this._renderElement;
-  }
-
-  _renderElement = () => <Loader active size="huge" inline="centered" />;
-
-  render() {
-    return this.props.loading ? this.renderElement() : this.props.children;
-  }
+export default function ResultsLoader({ children, loading }) {
+  return loading ? <Element /> : children;
 }
 
 ResultsLoader.propTypes = {
   loading: PropTypes.bool.isRequired,
-  renderElement: PropTypes.func,
 };
 
-ResultsLoader.defaultProps = {
-  renderElement: null,
-};
+const Element = () => (
+  <Overridable id="ResultsLoader.element">
+    <Loader active size="huge" inline="centered" />
+  </Overridable>
+);

@@ -132,6 +132,7 @@ export class App extends Component {
                     field: 'file_type',
                     aggName: 'file_type',
                   }}
+                  overridableName="filetype"
                 />
                 <br />
                 <BucketAggregation

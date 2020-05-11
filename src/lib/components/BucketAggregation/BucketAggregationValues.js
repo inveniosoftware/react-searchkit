@@ -9,6 +9,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Checkbox, List } from 'semantic-ui-react';
+import { Overridable } from 'react-overridable';
 
 export default class BucketAggregationValues extends Component {
   constructor(props) {
@@ -17,17 +18,13 @@ export default class BucketAggregationValues extends Component {
     this.aggName = props.aggName;
     this.childAgg = props.childAgg;
     this.onFilterClicked = props.onFilterClicked;
-    this.renderContainerElement =
-      props.renderContainerElement || this._renderContainerElement;
-    this.renderValueElement =
-      props.renderValueElement || this._renderValueElement;
   }
 
   _isSelected = (aggName, value, selectedFilters) => {
     // return True there is at least one filter that has this value
     return (
       selectedFilters.filter(
-        filter => filter[0] === aggName && filter[1] === value
+        (filter) => filter[0] === aggName && filter[1] === value
       ).length >= 1
     );
   };
@@ -38,7 +35,7 @@ export default class BucketAggregationValues extends Component {
     let selectedChildFilters = [];
     if (hasChildAggregation) {
       const childBuckets = bucket[this.childAgg['aggName']]['buckets'];
-      selectedFilters.forEach(filter => {
+      selectedFilters.forEach((filter) => {
         const isThisAggregation = filter[0] === this.aggName;
         const isThisValue = filter[1] === bucket.key;
         const hasChild = filter.length === 3;
@@ -46,7 +43,7 @@ export default class BucketAggregationValues extends Component {
           selectedChildFilters.push(filter[2]);
         }
       });
-      const onFilterClicked = value => {
+      const onFilterClicked = (value) => {
         this.onFilterClicked([this.aggName, bucket.key, value]);
       };
       return (
@@ -57,59 +54,36 @@ export default class BucketAggregationValues extends Component {
           aggName={this.childAgg.aggName}
           childAgg={this.childAgg.childAgg}
           onFilterClicked={onFilterClicked}
-          renderContainerElement={this.renderContainerElement}
-          renderValueElement={this.renderValueElement}
         />
       );
     }
     return null;
   };
 
-  _renderValueElement = (
-    bucket,
-    isSelected,
-    onFilterClicked,
-    getChildAggCmps
-  ) => {
-    const label = `${bucket.key} (${bucket.doc_count})`;
-    const childAggCmps = getChildAggCmps(bucket);
-    return (
-      <List.Item key={bucket.key}>
-        <Checkbox
-          label={label}
-          value={bucket.key}
-          onClick={() => onFilterClicked(bucket.key)}
-          checked={isSelected}
-        />
-        {childAggCmps}
-      </List.Item>
-    );
-  };
-
-  _renderContainerElement = valuesCmp => <List>{valuesCmp}</List>;
-
   render() {
     const { buckets, selectedFilters } = this.props;
 
-    const valuesCmp = buckets.map(bucket => {
+    const valuesCmp = buckets.map((bucket) => {
       const isSelected = this._isSelected(
         this.aggName,
         bucket.key,
         selectedFilters
       );
-      const onFilterClicked = value => {
+      const onFilterClicked = (value) => {
         this.onFilterClicked([this.aggName, value]);
       };
-      const getChildAggCmps = bucket =>
+      const getChildAggCmps = (bucket) =>
         this.getChildAggCmps(bucket, selectedFilters);
-      return this.renderValueElement(
-        bucket,
-        isSelected,
-        onFilterClicked,
-        getChildAggCmps
+      return (
+        <ValueElement
+          bucket={bucket}
+          isSelected={isSelected}
+          onFilterClicked={onFilterClicked}
+          getChildAggCmps={getChildAggCmps}
+        />
       );
     });
-    return this.renderContainerElement(valuesCmp);
+    return <ContainerElement valuesCmp={valuesCmp} />;
   }
 }
 
@@ -124,11 +98,29 @@ BucketAggregationValues.propTypes = {
     childAgg: PropTypes.object,
   }),
   onFilterClicked: PropTypes.func.isRequired,
-  renderContainerElement: PropTypes.func,
-  renderValueElement: PropTypes.func,
 };
 
-BucketAggregationValues.defaultProps = {
-  renderContainerElement: null,
-  renderValueElement: null,
+const ValueElement = (props) => {
+  const { bucket, isSelected, onFilterClicked, getChildAggCmps } = props;
+  const label = `${bucket.key} (${bucket.doc_count})`;
+  const childAggCmps = getChildAggCmps(bucket);
+  return (
+    <Overridable id="BucketAggregationValue.element" {...props}>
+      <List.Item key={bucket.key}>
+        <Checkbox
+          label={label}
+          value={bucket.key}
+          onClick={() => onFilterClicked(bucket.key)}
+          checked={isSelected}
+        />
+        {childAggCmps}
+      </List.Item>
+    </Overridable>
+  );
 };
+
+const ContainerElement = ({ valuesCmp }) => (
+  <Overridable id="BucketAggregationContainer.element" valuesCmp={valuesCmp}>
+    <List>{valuesCmp}</List>
+  </Overridable>
+);
