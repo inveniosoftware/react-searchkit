@@ -12,6 +12,7 @@ import PropTypes from 'prop-types';
 import { Input } from 'semantic-ui-react';
 import { Overridable } from 'react-overridable';
 import './AutocompleteSearchBar.scss';
+import { buildUID } from '../../util';
 
 class AutocompleteSearchBar extends Component {
   constructor(props) {
@@ -50,7 +51,7 @@ class AutocompleteSearchBar extends Component {
   };
 
   render() {
-    const { placeholder, suggestions } = this.props;
+    const { placeholder, suggestions, overridableUID } = this.props;
     return (
       <Element
         placeholder={placeholder}
@@ -58,6 +59,7 @@ class AutocompleteSearchBar extends Component {
         querySuggestions={suggestions}
         onInputChange={this.onInputChange}
         executeSearch={this.executeSearch}
+        overridableUID={overridableUID}
       />
     );
   }
@@ -73,12 +75,14 @@ AutocompleteSearchBar.propTypes = {
   debounceTime: PropTypes.number,
   placeholder: PropTypes.string,
   minCharsToAutocomplete: PropTypes.number,
+  overridableUID: PropTypes.string,
 };
 
 AutocompleteSearchBar.defaultProps = {
   handleAutocompleteChange: null,
   placeholder: 'Type something',
   minCharsToAutocomplete: 3,
+  overridableUID: '',
 };
 
 const AutocompleteSearchBarUncontrolled = (props) => (
@@ -86,7 +90,7 @@ const AutocompleteSearchBarUncontrolled = (props) => (
 );
 export default AutocompleteSearchBarUncontrolled;
 
-const Element = (props) => {
+const Element = ({ overridableUID, ...props }) => {
   const {
     placeholder,
     queryString,
@@ -104,7 +108,10 @@ const Element = (props) => {
   };
 
   return (
-    <Overridable id="AutocompleteSearchBar.element" {...props}>
+    <Overridable
+      id={buildUID('AutocompleteSearchBar.element', overridableUID)}
+      {...props}
+    >
       <div className="AutoCompleteText">
         <Input
           action={{
@@ -119,13 +126,16 @@ const Element = (props) => {
           value={queryString}
           onKeyPress={onKeyPress}
         />
-        <Suggestions querySuggestions={querySuggestions} />
+        <Suggestions
+          querySuggestions={querySuggestions}
+          overridableUID={overridableUID}
+        />
       </div>
     </Overridable>
   );
 };
 
-const Suggestions = (props) => {
+const Suggestions = ({ overridableUID, ...props }) => {
   const { querySuggestions } = props;
   const onSuggestionSelected = async (suggestion) => {
     await this.setState({
@@ -140,7 +150,10 @@ const Suggestions = (props) => {
   }
 
   return (
-    <Overridable id="AutocompleteSearchBar.suggestions" {...props}>
+    <Overridable
+      id={buildUID('AutocompleteSearchBar.suggestions', overridableUID)}
+      {...props}
+    >
       <ul>
         {querySuggestions.map((text) => (
           <li onClick={() => onSuggestionSelected(text)} key={text}>

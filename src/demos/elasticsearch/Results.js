@@ -9,14 +9,13 @@
 import React, { Component } from 'react';
 import { Grid, Card, Image, Item, Button } from 'semantic-ui-react';
 import _truncate from 'lodash/truncate';
+import { overrideStore } from 'react-overridable';
 import {
   ActiveFilters,
   Count,
   LayoutSwitcher,
   Pagination,
   ResultsMultiLayout,
-  ResultsList,
-  ResultsGrid,
 } from '../../lib/components';
 
 class Tags extends Component {
@@ -40,56 +39,59 @@ class Tags extends Component {
   }
 }
 
-export class Results extends Component {
-  renderResultsListItem = (result, index) => {
-    return (
-      <Item key={index} href={`#`}>
-        <Item.Image
-          size="small"
-          src={result.picture || 'http://placehold.it/200'}
-        />
-        <Item.Content>
-          <Item.Header>
-            {result.first_name} {result.last_name}
-          </Item.Header>
-          <Item.Description>
-            {_truncate(result.about, { length: 200 })}
-          </Item.Description>
-          <Item.Extra>
-            <Tags tags={result.tags} />
-          </Item.Extra>
-        </Item.Content>
-      </Item>
-    );
-  };
-
-  renderResultsGridItem(result, index) {
-    return (
-      <Card fluid key={index} href={`#`}>
-        <Image src={result.picture || 'http://placehold.it/200'} />
-        <Card.Content>
-          <Card.Header>
-            {result.first_name} {result.last_name}
-          </Card.Header>
-          <Card.Description>
-            {_truncate(result.about, { length: 200 })}
-          </Card.Description>
-        </Card.Content>
-        <Card.Content extra>
+const ElasticSearchResultsListItem = ({ result, index }) => {
+  return (
+    <Item key={index} href={`#`}>
+      <Item.Image
+        size="small"
+        src={result.picture || 'http://placehold.it/200'}
+      />
+      <Item.Content>
+        <Item.Header>
+          {result.first_name} {result.last_name}
+        </Item.Header>
+        <Item.Description>
+          {_truncate(result.about, { length: 200 })}
+        </Item.Description>
+        <Item.Extra>
           <Tags tags={result.tags} />
-        </Card.Content>
-      </Card>
-    );
-  }
+        </Item.Extra>
+      </Item.Content>
+    </Item>
+  );
+};
 
+const ElasticSearchResultsGridItem = ({ result, index }) => {
+  return (
+    <Card fluid key={index} href={`#`}>
+      <Image src={result.picture || 'http://placehold.it/200'} />
+      <Card.Content>
+        <Card.Header>
+          {result.first_name} {result.last_name}
+        </Card.Header>
+        <Card.Description>
+          {_truncate(result.about, { length: 200 })}
+        </Card.Description>
+      </Card.Content>
+      <Card.Content extra>
+        <Tags tags={result.tags} />
+      </Card.Content>
+    </Card>
+  );
+};
+
+overrideStore.override(
+  'ResultsList.item.elasticsearch',
+  ElasticSearchResultsListItem
+);
+overrideStore.override(
+  'ResultsGrid.item.elasticsearch',
+  ElasticSearchResultsGridItem
+);
+
+export class Results extends Component {
   render() {
     const { total } = this.props.currentResultsState.data;
-    const CustomResultsListCmp = () => (
-      <ResultsList renderListItem={this.renderResultsListItem} />
-    );
-    const CustomResultsGridCmp = () => (
-      <ResultsGrid renderGridItem={this.renderResultsGridItem} />
-    );
     return total ? (
       <>
         <Grid relaxed>
@@ -106,10 +108,7 @@ export class Results extends Component {
           </Grid.Column>
         </Grid>
         <Grid relaxed style={{ padding: '2em 0' }}>
-          <ResultsMultiLayout
-            resultsListCmp={CustomResultsListCmp}
-            resultsGridCmp={CustomResultsGridCmp}
-          />
+          <ResultsMultiLayout overridableUID="elasticsearch" />
         </Grid>
         <Grid relaxed verticalAlign="middle" textAlign="center">
           <Pagination />

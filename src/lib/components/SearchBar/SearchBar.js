@@ -10,6 +10,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Input } from 'semantic-ui-react';
 import { Overridable } from 'react-overridable';
+import { buildUID } from '../../util';
 
 class SearchBar extends Component {
   constructor(props) {
@@ -31,13 +32,14 @@ class SearchBar extends Component {
   };
 
   render() {
-    const { placeholder } = this.props;
+    const { placeholder, overridableUID } = this.props;
     return (
       <Element
         placeholder={placeholder}
         queryString={this.state.currentValue}
         onInputChange={this.onInputChange}
         executeSearch={this.executeSearch}
+        overridableUID={overridableUID}
       />
     );
   }
@@ -47,11 +49,13 @@ SearchBar.propTypes = {
   placeholder: PropTypes.string,
   queryString: PropTypes.string.isRequired,
   updateQueryString: PropTypes.func.isRequired,
+  overridableUID: PropTypes.string,
 };
 
 SearchBar.defaultProps = {
   placeholder: '',
   queryString: '',
+  overridableUID: '',
 };
 
 const SearchBarUncontrolled = (props) => (
@@ -59,7 +63,7 @@ const SearchBarUncontrolled = (props) => (
 );
 export default SearchBarUncontrolled;
 
-const Element = (props) => {
+const Element = ({ overridableUID, ...props }) => {
   const {
     placeholder: passedPlaceholder,
     queryString,
@@ -76,7 +80,7 @@ const Element = (props) => {
     }
   };
   return (
-    <Overridable id="SearchBar.element" {...props}>
+    <Overridable id={buildUID('SearchBar.element', overridableUID)} {...props}>
       <Input
         action={{
           content: 'Search',

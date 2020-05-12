@@ -9,17 +9,59 @@
 import React, { Component } from 'react';
 import { Grid, Card, Image, Item } from 'semantic-ui-react';
 import _truncate from 'lodash/truncate';
+import { overrideStore } from 'react-overridable';
 import {
   ActiveFilters,
   Count,
   LayoutSwitcher,
   Pagination,
   ResultsMultiLayout,
-  ResultsList,
-  ResultsGrid,
   ResultsPerPage,
   Sort,
 } from '../../lib/components';
+
+const CERNVideosResultsListItem = ({ result, index }) => {
+  const metadata = result.metadata;
+  return (
+    <Item key={index} href={`#${metadata.recid}`}>
+      <Item.Image
+        size="small"
+        src={result.imageSrc || 'http://placehold.it/200'}
+      />
+      <Item.Content>
+        <Item.Header>{metadata.title.title}</Item.Header>
+        <Item.Description>
+          {_truncate(metadata.description, { length: 200 })}
+        </Item.Description>
+      </Item.Content>
+    </Item>
+  );
+};
+
+const CERNVideosResultsGridItem = ({ result, index }) => {
+  const metadata = result.metadata;
+  return (
+    <Card fluid key={index} href={`#${metadata.recid}`}>
+      <Image src={result.imageSrc || 'http://placehold.it/200'} />
+      <Card.Content>
+        <Card.Header>{metadata.title.title}</Card.Header>
+        <Card.Meta>{metadata.publication_date}</Card.Meta>
+        <Card.Description>
+          {_truncate(metadata.description, { length: 200 })}
+        </Card.Description>
+      </Card.Content>
+    </Card>
+  );
+};
+
+overrideStore.override(
+  'ResultsList.item.cernvideos',
+  CERNVideosResultsListItem
+);
+overrideStore.override(
+  'ResultsGrid.item.cernvideos',
+  CERNVideosResultsGridItem
+);
 
 export class Results extends Component {
   constructor(props) {
@@ -29,48 +71,8 @@ export class Results extends Component {
     this.resultsPerPageValues = this.props.resultsPerPageValues;
   }
 
-  renderResultsListItem = (result, index) => {
-    const metadata = result.metadata;
-    return (
-      <Item key={index} href={`#${metadata.recid}`}>
-        <Item.Image
-          size="small"
-          src={result.imageSrc || 'http://placehold.it/200'}
-        />
-        <Item.Content>
-          <Item.Header>{metadata.title.title}</Item.Header>
-          <Item.Description>
-            {_truncate(metadata.description, { length: 200 })}
-          </Item.Description>
-        </Item.Content>
-      </Item>
-    );
-  };
-
-  renderResultsGridItem(result, index) {
-    const metadata = result.metadata;
-    return (
-      <Card fluid key={index} href={`#${metadata.recid}`}>
-        <Image src={result.imageSrc || 'http://placehold.it/200'} />
-        <Card.Content>
-          <Card.Header>{metadata.title.title}</Card.Header>
-          <Card.Meta>{metadata.publication_date}</Card.Meta>
-          <Card.Description>
-            {_truncate(metadata.description, { length: 200 })}
-          </Card.Description>
-        </Card.Content>
-      </Card>
-    );
-  }
-
   render() {
     const { total } = this.props.currentResultsState.data;
-    const CustomResultsListCmp = () => (
-      <ResultsList renderListItem={this.renderResultsListItem} />
-    );
-    const CustomResultsGridCmp = () => (
-      <ResultsGrid renderGridItem={this.renderResultsGridItem} />
-    );
     return total ? (
       <div>
         <Grid relaxed>
@@ -98,10 +100,7 @@ export class Results extends Component {
           </Grid.Column>
         </Grid>
         <Grid relaxed style={{ padding: '2em 0' }}>
-          <ResultsMultiLayout
-            resultsListCmp={CustomResultsListCmp}
-            resultsGridCmp={CustomResultsGridCmp}
-          />
+          <ResultsMultiLayout overridableUID="cernvideos" />
         </Grid>
         <Grid relaxed verticalAlign="middle" textAlign="center">
           <Pagination />

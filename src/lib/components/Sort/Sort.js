@@ -11,6 +11,7 @@ import PropTypes from 'prop-types';
 import { Dropdown } from 'semantic-ui-react';
 import { Overridable } from 'react-overridable';
 import { ShouldRender } from '../ShouldRender';
+import { buildUID } from '../../util';
 
 export default class Sort extends Component {
   constructor(props) {
@@ -83,6 +84,7 @@ export default class Sort extends Component {
       loading,
       totalResults,
       label,
+      overridableUID,
     } = this.props;
     return (
       <ShouldRender
@@ -100,6 +102,7 @@ export default class Sort extends Component {
             options={this.options}
             onValueChange={this.onChange}
             computeValue={this._computeValue}
+            overridableUID={overridableUID}
           />
         )}
       </ShouldRender>
@@ -116,15 +119,17 @@ Sort.propTypes = {
   updateQuerySorting: PropTypes.func.isRequired,
   setInitialState: PropTypes.func.isRequired,
   label: PropTypes.func,
+  overridableUID: PropTypes.string,
 };
 
 Sort.defaultProps = {
   currentSortBy: null,
   currentSortOrder: null,
   label: (cmp) => cmp,
+  overridableUID: '',
 };
 
-const Element = (props) => {
+const Element = ({ overridableUID, ...props }) => {
   const {
     currentSortBy,
     currentSortOrder,
@@ -141,7 +146,7 @@ const Element = (props) => {
     };
   });
   return (
-    <Overridable id="Sort.element" {...props}>
+    <Overridable id={buildUID('Sort.element', overridableUID)} {...props}>
       <Dropdown
         selection
         compact

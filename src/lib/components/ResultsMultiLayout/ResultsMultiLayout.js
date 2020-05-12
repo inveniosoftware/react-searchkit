@@ -12,17 +12,19 @@ import { Overridable } from 'react-overridable';
 import { ResultsList } from '../ResultsList';
 import { ResultsGrid } from '../ResultsGrid';
 import { ShouldRender } from '../ShouldRender';
+import { buildUID } from '../../util';
 
 export default function ResultsMultiLayout({
   loading,
   totalResults,
   currentLayout,
+  overridableUID,
 }) {
   return (
     <ShouldRender
       condition={currentLayout != null && !loading && totalResults > 0}
     >
-      <Element layout={currentLayout} />
+      <Element layout={currentLayout} overridableUID={overridableUID} />
     </ShouldRender>
   );
 }
@@ -30,19 +32,25 @@ export default function ResultsMultiLayout({
 ResultsMultiLayout.propTypes = {
   totalResults: PropTypes.number.isRequired,
   currentLayout: PropTypes.string,
+  overridableUID: PropTypes.string,
 };
 
 ResultsMultiLayout.defaultProps = {
   currentLayout: null,
+  overridableUID: '',
 };
 
-const Element = ({ layout }) => (
+const Element = ({ layout, overridableUID }) => (
   <Overridable
-    id="ResultsMultiLayout.element"
+    id={buildUID('ResultsMultiLayout.element', overridableUID)}
     layout={layout}
     ResultsList={ResultsList}
     ResultsGrid={ResultsGrid}
   >
-    {layout === 'list' ? <ResultsList /> : <ResultsGrid />}
+    {layout === 'list' ? (
+      <ResultsList overridableUID={overridableUID} />
+    ) : (
+      <ResultsGrid overridableUID={overridableUID} />
+    )}
   </Overridable>
 );

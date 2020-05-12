@@ -12,6 +12,7 @@ import { Segment, Header, Icon, Button } from 'semantic-ui-react';
 import _isEmpty from 'lodash/isEmpty';
 import { Overridable } from 'react-overridable';
 import { ShouldRender } from '../ShouldRender';
+import { buildUID } from '../../util';
 
 export default class EmptyResults extends Component {
   constructor(props) {
@@ -20,12 +21,22 @@ export default class EmptyResults extends Component {
   }
 
   render() {
-    const { loading, totalResults, error, queryString } = this.props;
+    const {
+      loading,
+      totalResults,
+      error,
+      queryString,
+      overridableUID,
+    } = this.props;
     return (
       <ShouldRender
         condition={!loading && _isEmpty(error) && totalResults === 0}
       >
-        <Element queryString={queryString} resetQuery={this.resetQuery} />
+        <Element
+          queryString={queryString}
+          resetQuery={this.resetQuery}
+          overridableUID={overridableUID}
+        />
       </ShouldRender>
     );
   }
@@ -37,16 +48,21 @@ EmptyResults.propTypes = {
   error: PropTypes.object.isRequired,
   queryString: PropTypes.string,
   resetQuery: PropTypes.func.isRequired,
+  overridableUID: PropTypes.string,
 };
 
 EmptyResults.defaultProps = {
   queryString: '',
+  overridableUID: '',
 };
 
-const Element = (props) => {
+const Element = ({ overridableUID, ...props }) => {
   const { queryString, resetQuery } = props;
   return (
-    <Overridable id="EmptyResults.element" {...props}>
+    <Overridable
+      id={buildUID('EmptyResults.element', overridableUID)}
+      {...props}
+    >
       <Segment placeholder textAlign="center">
         <Header icon>
           <Icon name="search" />

@@ -11,13 +11,19 @@ import PropTypes from 'prop-types';
 import { Label } from 'semantic-ui-react';
 import { Overridable } from 'react-overridable';
 import { ShouldRender } from '../ShouldRender';
+import { buildUID } from '../../util';
 
 export default class Count extends Component {
   render() {
-    const { loading, totalResults, label } = this.props;
+    const { loading, totalResults, label, overridableUID } = this.props;
     return (
       <ShouldRender condition={!loading && totalResults > 0}>
-        {label(<Element totalResults={totalResults} />)}
+        {label(
+          <Element
+            totalResults={totalResults}
+            overridableUID={overridableUID}
+          />
+        )}
       </ShouldRender>
     );
   }
@@ -27,14 +33,19 @@ Count.propTypes = {
   loading: PropTypes.bool.isRequired,
   totalResults: PropTypes.number.isRequired,
   label: PropTypes.func,
+  overridableUID: PropTypes.string,
 };
 
 Count.defaultProps = {
   label: (cmp) => cmp,
+  overridableUID: '',
 };
 
-const Element = ({ totalResults }) => (
-  <Overridable id="Count.element" totalResults={totalResults}>
+const Element = ({ totalResults, overridableUID }) => (
+  <Overridable
+    id={buildUID('Count.element', overridableUID)}
+    totalResults={totalResults}
+  >
     <Label color={'blue'}>{totalResults}</Label>
   </Overridable>
 );

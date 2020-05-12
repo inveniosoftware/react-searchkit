@@ -11,11 +11,17 @@ import PropTypes from 'prop-types';
 import { Item } from 'semantic-ui-react';
 import { Overridable } from 'react-overridable';
 import { ShouldRender } from '../ShouldRender';
+import { buildUID } from '../../util';
 
-export default function ResultsList({ loading, totalResults, results }) {
+export default function ResultsList({
+  loading,
+  totalResults,
+  results,
+  overridableUID,
+}) {
   return (
     <ShouldRender condition={!loading && totalResults > 0}>
-      <Element results={results} />
+      <Element results={results} overridableUID={overridableUID} />
     </ShouldRender>
   );
 }
@@ -24,10 +30,19 @@ ResultsList.propTypes = {
   loading: PropTypes.bool.isRequired,
   totalResults: PropTypes.number.isRequired,
   results: PropTypes.array.isRequired,
+  overridableUID: PropTypes.string,
 };
 
-const ListItem = ({ result, index }) => (
-  <Overridable id="ResultsList.item" result={result} index={index}>
+ResultsList.defaultProps = {
+  overridableUID: '',
+};
+
+const ListItem = ({ result, index, overridableUID }) => (
+  <Overridable
+    id={buildUID('ResultsList.item', overridableUID)}
+    result={result}
+    index={index}
+  >
     <Item key={index} href={`#${result.id}`}>
       <Item.Image
         size="small"
@@ -41,13 +56,21 @@ const ListItem = ({ result, index }) => (
   </Overridable>
 );
 
-const Element = ({ results }) => {
+const Element = ({ results, overridableUID }) => {
   const _results = results.map((result, index) => (
-    <ListItem result={result} index={index} key={index} />
+    <ListItem
+      result={result}
+      index={index}
+      key={index}
+      overridableUID={overridableUID}
+    />
   ));
 
   return (
-    <Overridable id="ResultsList.container" results={_results}>
+    <Overridable
+      id={buildUID('ResultsList.container', overridableUID)}
+      results={_results}
+    >
       <Item.Group divided relaxed link>
         {_results}
       </Item.Group>

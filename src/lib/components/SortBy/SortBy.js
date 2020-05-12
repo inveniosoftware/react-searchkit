@@ -11,6 +11,7 @@ import PropTypes from 'prop-types';
 import { Dropdown } from 'semantic-ui-react';
 import { Overridable } from 'react-overridable';
 import { ShouldRender } from '../ShouldRender';
+import { buildUID } from '../../util';
 
 export default class SortBy extends Component {
   constructor(props) {
@@ -39,7 +40,13 @@ export default class SortBy extends Component {
   };
 
   render() {
-    const { currentSortBy, loading, totalResults, label } = this.props;
+    const {
+      currentSortBy,
+      loading,
+      totalResults,
+      label,
+      overridableUID,
+    } = this.props;
     return (
       <ShouldRender
         condition={currentSortBy !== null && !loading && totalResults > 0}
@@ -49,6 +56,7 @@ export default class SortBy extends Component {
             currentSortBy={currentSortBy}
             options={this.options}
             onValueChange={this.onChange}
+            overridableUID={overridableUID}
           />
         )}
       </ShouldRender>
@@ -67,21 +75,23 @@ SortBy.propTypes = {
   updateQuerySortBy: PropTypes.func.isRequired,
   setInitialState: PropTypes.func.isRequired,
   label: PropTypes.func,
+  overridableUID: PropTypes.string,
 };
 
 SortBy.defaultProps = {
   defaultValueOnEmptyString: null,
   currentSortBy: null,
   label: (cmp) => cmp,
+  overridableUID: '',
 };
 
-const Element = (props) => {
+const Element = ({ overridableUID, ...props }) => {
   const { currentSortBy, options, onValueChange } = props;
   const _options = options.map((element, index) => {
     return { key: index, text: element.text, value: element.value };
   });
   return (
-    <Overridable id="SortBy.element" {...props}>
+    <Overridable id={buildUID('SortBy.element', overridableUID)} {...props}>
       <Dropdown
         selection
         compact

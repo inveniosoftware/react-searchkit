@@ -10,6 +10,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Checkbox, List } from 'semantic-ui-react';
 import { Overridable } from 'react-overridable';
+import { buildUID } from '../../util';
 
 export default class BucketAggregationValues extends Component {
   constructor(props) {
@@ -61,7 +62,7 @@ export default class BucketAggregationValues extends Component {
   };
 
   render() {
-    const { buckets, selectedFilters } = this.props;
+    const { buckets, selectedFilters, overridableUID } = this.props;
 
     const valuesCmp = buckets.map((bucket) => {
       const isSelected = this._isSelected(
@@ -76,14 +77,18 @@ export default class BucketAggregationValues extends Component {
         this.getChildAggCmps(bucket, selectedFilters);
       return (
         <ValueElement
+          key={bucket.key}
           bucket={bucket}
           isSelected={isSelected}
           onFilterClicked={onFilterClicked}
           getChildAggCmps={getChildAggCmps}
+          overridableUID={overridableUID}
         />
       );
     });
-    return <ContainerElement valuesCmp={valuesCmp} />;
+    return (
+      <ContainerElement valuesCmp={valuesCmp} overridableUID={overridableUID} />
+    );
   }
 }
 
@@ -98,14 +103,28 @@ BucketAggregationValues.propTypes = {
     childAgg: PropTypes.object,
   }),
   onFilterClicked: PropTypes.func.isRequired,
+  overridableUID: PropTypes.string,
+};
+
+BucketAggregationValues.defaultProps = {
+  overridableUID: '',
 };
 
 const ValueElement = (props) => {
-  const { bucket, isSelected, onFilterClicked, getChildAggCmps } = props;
+  const {
+    bucket,
+    isSelected,
+    onFilterClicked,
+    getChildAggCmps,
+    overridableUID,
+  } = props;
   const label = `${bucket.key} (${bucket.doc_count})`;
   const childAggCmps = getChildAggCmps(bucket);
   return (
-    <Overridable id="BucketAggregationValue.element" {...props}>
+    <Overridable
+      id={buildUID('BucketAggregationValues.element', overridableUID)}
+      {...props}
+    >
       <List.Item key={bucket.key}>
         <Checkbox
           label={label}
@@ -119,8 +138,11 @@ const ValueElement = (props) => {
   );
 };
 
-const ContainerElement = ({ valuesCmp }) => (
-  <Overridable id="BucketAggregationContainer.element" valuesCmp={valuesCmp}>
+const ContainerElement = ({ valuesCmp, overridableUID }) => (
+  <Overridable
+    id={buildUID('BucketAggregationContainer.element', overridableUID)}
+    valuesCmp={valuesCmp}
+  >
     <List>{valuesCmp}</List>
   </Overridable>
 );

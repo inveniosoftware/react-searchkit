@@ -11,16 +11,22 @@ import PropTypes from 'prop-types';
 import { Card, Image } from 'semantic-ui-react';
 import { Overridable } from 'react-overridable';
 import { ShouldRender } from '../ShouldRender';
+import { buildUID } from '../../util';
 
 export default function ResultsGrid({
   loading,
   totalResults,
   results,
   resultsPerRow,
+  overridableUID,
 }) {
   return (
     <ShouldRender condition={!loading && totalResults > 0}>
-      <Element results={results} resultsPerRow={resultsPerRow} />
+      <Element
+        results={results}
+        resultsPerRow={resultsPerRow}
+        overridableUID={overridableUID}
+      />
     </ShouldRender>
   );
 }
@@ -30,14 +36,20 @@ ResultsGrid.propTypes = {
   totalResults: PropTypes.number.isRequired,
   results: PropTypes.array.isRequired,
   resultsPerRow: PropTypes.number,
+  overridableUID: PropTypes.string,
 };
 
 ResultsGrid.defaultProps = {
   resultsPerRow: 3,
+  overridableUID: '',
 };
 
-const GridItem = ({ result, index }) => (
-  <Overridable id="ResultsGrid.item" result={result} index={index}>
+const GridItem = ({ result, index, overridableUID }) => (
+  <Overridable
+    id={buildUID('ResultsGrid.item', overridableUID)}
+    result={result}
+    index={index}
+  >
     <Card fluid key={index} href={`#${result.id}`}>
       <Image src={result.imgSrc || 'http://placehold.it/200'} />
       <Card.Content>
@@ -48,13 +60,22 @@ const GridItem = ({ result, index }) => (
   </Overridable>
 );
 
-const Element = ({ results, resultsPerRow }) => {
+const Element = ({ overridableUID, ...props }) => {
+  const { results, resultsPerRow } = props;
   const _results = results.map((result, index) => (
-    <GridItem result={result} index={index} />
+    <GridItem
+      key={index}
+      result={result}
+      index={index}
+      overridableUID={overridableUID}
+    />
   ));
 
   return (
-    <Overridable id="ResultsGrid.container">
+    <Overridable
+      id={buildUID('ResultsGrid.container', overridableUID)}
+      {...props}
+    >
       <Card.Group itemsPerRow={resultsPerRow}>{_results}</Card.Group>
     </Overridable>
   );

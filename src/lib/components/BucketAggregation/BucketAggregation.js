@@ -12,6 +12,7 @@ import { Card } from 'semantic-ui-react';
 import _get from 'lodash/get';
 import { Overridable } from 'react-overridable';
 import BucketAggregationValues from './BucketAggregationValues';
+import { buildUID } from '../../util';
 
 export default class BucketAggregation extends Component {
   constructor(props) {
@@ -19,7 +20,6 @@ export default class BucketAggregation extends Component {
     this.title = props.title;
     this.agg = props.agg;
     this.updateQueryFilters = props.updateQueryFilters;
-    this.overridableName = props.overridableName;
   }
 
   onFilterClicked = (filter) => {
@@ -55,7 +55,11 @@ export default class BucketAggregation extends Component {
   };
 
   render() {
-    const { userSelectionFilters, resultsAggregations } = this.props;
+    const {
+      userSelectionFilters,
+      resultsAggregations,
+      overridableUID,
+    } = this.props;
     const selectedFilters = this._getSelectedFilters(userSelectionFilters);
     const resultBuckets = this._getResultBuckets(resultsAggregations);
     const valuesCmp = resultBuckets.length
@@ -65,7 +69,7 @@ export default class BucketAggregation extends Component {
       <Element
         title={this.title}
         containerCmp={valuesCmp}
-        overridableName={this.overridableName}
+        overridableUID={overridableUID}
       />
     );
   }
@@ -83,23 +87,21 @@ BucketAggregation.propTypes = {
   updateQueryFilters: PropTypes.func.isRequired,
   renderValuesContainerElement: PropTypes.func,
   renderValueElement: PropTypes.func,
-  overridableName: PropTypes.string,
+  overridableUID: PropTypes.string,
 };
 
 BucketAggregation.defaultProps = {
   renderValuesContainerElement: null,
   renderValueElement: null,
-  overridableName: '',
+  overridableUID: '',
 };
 
 const Element = (props) => {
-  const { title, containerCmp, overridableName } = props;
+  const { title, containerCmp, overridableUID } = props;
   return (
     containerCmp && (
       <Overridable
-        id={`BucketAggregation.element${
-          overridableName && `.${overridableName}`
-        }`}
+        id={buildUID('BucketAggregation.element', overridableUID)}
         {...props}
       >
         <Card>

@@ -10,6 +10,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Label, Icon } from 'semantic-ui-react';
 import { Overridable } from 'react-overridable';
+import { buildUID } from '../../util';
 
 export default class ActiveFilters extends Component {
   constructor(props) {
@@ -34,13 +35,14 @@ export default class ActiveFilters extends Component {
   };
 
   render() {
-    const filters = this.props.filters;
+    const { filters, overridableUID } = this.props;
     return (
       !!filters.length && (
         <Element
           filters={filters}
           removeActiveFilter={this.updateQueryFilters}
           getLabel={this._getLabel}
+          overridableUID={overridableUID}
         />
       )
     );
@@ -51,16 +53,21 @@ ActiveFilters.propTypes = {
   filters: PropTypes.array.isRequired,
   updateQueryFilters: PropTypes.func.isRequired,
   renderElement: PropTypes.func,
+  overridableUID: PropTypes.string,
 };
 
 ActiveFilters.defaultProps = {
   renderElement: null,
+  overridableUID: '',
 };
 
-const Element = (props) => {
+const Element = ({ overridableUID, ...props }) => {
   const { filters, removeActiveFilter, getLabel } = props;
   return (
-    <Overridable id="ActiveFilters.element" {...props}>
+    <Overridable
+      id={buildUID('ActiveFilters.element', overridableUID)}
+      {...props}
+    >
       <>
         {filters.map((filter, index) => {
           const { label, activeFilter } = getLabel(filter);

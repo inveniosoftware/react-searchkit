@@ -53,8 +53,8 @@ const ZenodoResultsGridItem = ({ result, index }) => {
   );
 };
 
-overrideStore.override('ResultsList.item', ZenodoResultsListItem);
-overrideStore.override('ResultsGrid.item', ZenodoResultsGridItem);
+overrideStore.override('ResultsList.item.zenodo', ZenodoResultsListItem);
+overrideStore.override('ResultsGrid.item.zenodo', ZenodoResultsGridItem);
 
 export class Results extends Component {
   constructor(props) {
@@ -93,7 +93,7 @@ export class Results extends Component {
           </Grid.Column>
         </Grid>
         <Grid relaxed style={{ padding: '2em 0' }}>
-          <ResultsMultiLayout />
+          <ResultsMultiLayout overridableUID="zenodo" />
         </Grid>
         <Grid relaxed verticalAlign="middle" textAlign="center">
           <Pagination />

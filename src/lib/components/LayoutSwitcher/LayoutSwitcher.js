@@ -11,6 +11,7 @@ import PropTypes from 'prop-types';
 import { Menu, Icon } from 'semantic-ui-react';
 import { Overridable } from 'react-overridable';
 import { ShouldRender } from '../ShouldRender';
+import { buildUID } from '../../util';
 
 export default class LayoutSwitcher extends Component {
   constructor(props) {
@@ -33,7 +34,7 @@ export default class LayoutSwitcher extends Component {
   };
 
   render() {
-    const { currentLayout, loading, totalResults } = this.props;
+    const { currentLayout, loading, totalResults, overridableUID } = this.props;
     return (
       <ShouldRender
         condition={currentLayout !== null && !loading && totalResults > 0}
@@ -41,6 +42,7 @@ export default class LayoutSwitcher extends Component {
         <Element
           currentLayout={currentLayout}
           onLayoutChange={this.onLayoutChange}
+          overridableUID={overridableUID}
         />
       </ShouldRender>
     );
@@ -54,22 +56,24 @@ LayoutSwitcher.propTypes = {
   loading: PropTypes.bool.isRequired,
   currentLayout: PropTypes.string,
   totalResults: PropTypes.number.isRequired,
+  overridableUID: PropTypes.string,
 };
 
 LayoutSwitcher.defaultProps = {
   defaultLayout: 'list',
   currentLayout: null,
+  overridableUID: '',
 };
 
-const Element = ({ currentLayout, onLayoutChange }) => {
+const Element = ({ overridableUID, ...props }) => {
+  const { currentLayout, onLayoutChange } = props;
   const clickHandler = (event, { name }) => {
     onLayoutChange(name);
   };
   return (
     <Overridable
-      id="LayoutSwitcher.element"
-      currentLayout={currentLayout}
-      onLayoutChange={onLayoutChange}
+      id={buildUID('LayoutSwitcher.element', overridableUID)}
+      {...props}
     >
       <Menu compact icon>
         <Menu.Item

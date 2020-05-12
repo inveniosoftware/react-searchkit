@@ -8,14 +8,15 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-import { ShouldRender } from '../ShouldRender';
 import _isEmpty from 'lodash/isEmpty';
 import { Overridable } from 'react-overridable';
+import { ShouldRender } from '../ShouldRender';
+import { buildUID } from '../../util';
 
-export default function Error({ loading, error }) {
+export default function Error({ loading, error, overridableUID }) {
   return (
     <ShouldRender condition={!loading && !_isEmpty(error)}>
-      <Element error={error} />
+      <Element error={error} overridableUID={overridableUID} />
     </ShouldRender>
   );
 }
@@ -23,11 +24,16 @@ export default function Error({ loading, error }) {
 Error.propTypes = {
   loading: PropTypes.bool.isRequired,
   error: PropTypes.object.isRequired,
+  overridableUID: PropTypes.string,
 };
 
-const Element = ({ error }) => {
+Error.defaultProps = {
+  overridableUID: '',
+};
+
+const Element = ({ error, overridableUID }) => {
   return (
-    <Overridable id="Error.element" error={error}>
+    <Overridable id={buildUID('Error.element', overridableUID)} error={error}>
       <div>Oups! Something went wrong while fetching results.</div>
     </Overridable>
   );

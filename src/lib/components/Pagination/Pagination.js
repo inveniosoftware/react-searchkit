@@ -11,6 +11,7 @@ import PropTypes from 'prop-types';
 import { Pagination as Paginator } from 'semantic-ui-react';
 import { Overridable } from 'react-overridable';
 import { ShouldRender } from '../ShouldRender';
+import { buildUID } from '../../util';
 
 export default class Pagination extends Component {
   constructor(props) {
@@ -40,6 +41,7 @@ export default class Pagination extends Component {
       currentPage,
       currentSize,
       options,
+      overridableUID,
     } = this.props;
     return (
       <ShouldRender
@@ -53,6 +55,7 @@ export default class Pagination extends Component {
           totalResults={totalResults}
           onPageChange={this.onPageChange}
           options={options}
+          overridableUID={overridableUID}
         />
       </ShouldRender>
     );
@@ -74,7 +77,7 @@ Pagination.propTypes = {
     showNext: PropTypes.bool,
   }),
   defaultValue: PropTypes.number,
-  renderElement: PropTypes.func,
+  overridableUID: PropTypes.string,
 };
 
 Pagination.defaultProps = {
@@ -88,10 +91,10 @@ Pagination.defaultProps = {
     showNext: true,
   },
   defaultValue: 10,
-  renderElement: null,
+  overridableUID: '',
 };
 
-const Element = (props) => {
+const Element = ({ overridableUID, ...props }) => {
   const {
     currentPage,
     currentSize,
@@ -113,7 +116,7 @@ const Element = (props) => {
   };
 
   return (
-    <Overridable id="Pagination.element" {...props}>
+    <Overridable id={buildUID('Pagination.element', overridableUID)} {...props}>
       <Paginator
         activePage={currentPage}
         totalPages={pages}

@@ -8,9 +8,10 @@
 
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { ShouldRender } from '../ShouldRender';
+import { buildUID } from '../../util';
 import { Dropdown } from 'semantic-ui-react';
 import { Overridable } from 'react-overridable';
-import { ShouldRender } from '../ShouldRender';
 
 export default class ResultsPerPage extends Component {
   constructor(props) {
@@ -35,7 +36,13 @@ export default class ResultsPerPage extends Component {
   };
 
   render() {
-    const { loading, currentSize, totalResults, label } = this.props;
+    const {
+      loading,
+      currentSize,
+      totalResults,
+      label,
+      overridableUID,
+    } = this.props;
     return (
       <ShouldRender
         condition={!loading && totalResults > 0 && currentSize !== -1}
@@ -45,6 +52,7 @@ export default class ResultsPerPage extends Component {
             currentSize={currentSize}
             options={this.options}
             onValueChange={this.onChange}
+            overridableUID={overridableUID}
           />
         )}
       </ShouldRender>
@@ -61,20 +69,25 @@ ResultsPerPage.propTypes = {
   updateQuerySize: PropTypes.func.isRequired,
   setInitialState: PropTypes.func.isRequired,
   label: PropTypes.func,
+  overridableUID: PropTypes.string,
 };
 
 ResultsPerPage.defaultProps = {
   defaultValue: 10,
   label: (cmp) => cmp,
+  overridableUID: '',
 };
 
-const Element = (props) => {
+const Element = ({ overridableUID, ...props }) => {
   const { currentSize, options, onValueChange } = props;
   const _options = options.map((element, index) => {
     return { key: index, text: element.text, value: element.value };
   });
   return (
-    <Overridable id="ResultsPerPage.element" {...props}>
+    <Overridable
+      id={buildUID('ResultsPerPage.element', overridableUID)}
+      {...props}
+    >
       <Dropdown
         inline
         compact
