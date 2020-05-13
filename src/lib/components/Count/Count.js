@@ -13,7 +13,7 @@ import Overridable from 'react-overridable';
 import { ShouldRender } from '../ShouldRender';
 import { buildUID } from '../../util';
 
-export default class Count extends Component {
+class Count extends Component {
   render() {
     const { loading, totalResults, label, overridableUID } = this.props;
     return (
@@ -49,3 +49,5 @@ const Element = ({ totalResults, overridableUID }) => (
     <Label color={'blue'}>{totalResults}</Label>
   </Overridable>
 );
+
+export default Overridable.component('Count', Count);

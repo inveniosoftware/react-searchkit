@@ -12,7 +12,7 @@ import { Label, Icon } from 'semantic-ui-react';
 import Overridable from 'react-overridable';
 import { buildUID } from '../../util';
 
-export default class ActiveFilters extends Component {
+class ActiveFilters extends Component {
   constructor(props) {
     super(props);
     this.updateQueryFilters = props.updateQueryFilters;
@@ -86,3 +86,5 @@ const Element = ({ overridableUID, ...props }) => {
     </Overridable>
   );
 };
+
+export default Overridable.component('ActiveFilters', ActiveFilters);

@@ -13,7 +13,7 @@ import Overridable from 'react-overridable';
 import { ShouldRender } from '../ShouldRender';
 import { buildUID } from '../../util';
 
-export default class SortOrder extends Component {
+class SortOrder extends Component {
   constructor(props) {
     super(props);
     this.options = props.values;
@@ -95,3 +95,5 @@ const Element = ({ overridableUID, ...props }) => {
     </Overridable>
   );
 };
+
+export default Overridable.component('SortOrder', SortOrder);

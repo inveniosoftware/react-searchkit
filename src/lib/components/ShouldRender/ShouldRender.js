@@ -8,8 +8,8 @@
 
 import { Component } from 'react';
 import PropTypes from 'prop-types';
-
-export default class ShouldRender extends Component {
+import Overridable from 'react-overridable';
+class ShouldRender extends Component {
   render() {
     const { condition } = this.props;
     return condition ? this.props.children : null;
@@ -23,3 +23,5 @@ ShouldRender.propTypes = {
 ShouldRender.defaultProps = {
   condition: true,
 };
+
+export default Overridable.component('ShouldRender', ShouldRender);

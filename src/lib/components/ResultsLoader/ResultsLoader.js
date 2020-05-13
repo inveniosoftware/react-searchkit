@@ -12,7 +12,7 @@ import { Loader } from 'semantic-ui-react';
 import Overridable from 'react-overridable';
 import { buildUID } from '../../util';
 
-export default function ResultsLoader({ children, loading, overridableUID }) {
+function ResultsLoader({ children, loading, overridableUID }) {
   return loading ? <Element overridableUID={overridableUID} /> : children;
 }
 
@@ -30,3 +30,5 @@ const Element = ({ overridableUID }) => (
     <Loader active size="huge" inline="centered" />
   </Overridable>
 );
+
+export default Overridable.component('ResultsLoader', ResultsLoader);

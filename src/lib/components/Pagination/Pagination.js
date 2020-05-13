@@ -13,7 +13,7 @@ import Overridable from 'react-overridable';
 import { ShouldRender } from '../ShouldRender';
 import { buildUID } from '../../util';
 
-export default class Pagination extends Component {
+class Pagination extends Component {
   constructor(props) {
     super(props);
     this.defaultValue = props.defaultValue;
@@ -133,3 +133,5 @@ const Element = ({ overridableUID, ...props }) => {
     </Overridable>
   );
 };
+
+export default Overridable.component('Pagination', Pagination);

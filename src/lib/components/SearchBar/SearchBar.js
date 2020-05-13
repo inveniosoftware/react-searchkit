@@ -61,7 +61,6 @@ SearchBar.defaultProps = {
 const SearchBarUncontrolled = (props) => (
   <SearchBar key={props.queryString} {...props} />
 );
-export default SearchBarUncontrolled;
 
 const Element = ({ overridableUID, ...props }) => {
   const {
@@ -97,3 +96,5 @@ const Element = ({ overridableUID, ...props }) => {
     </Overridable>
   );
 };
+
+export default Overridable.component('SearchBar', SearchBarUncontrolled);

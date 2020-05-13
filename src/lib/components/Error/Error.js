@@ -13,7 +13,7 @@ import Overridable from 'react-overridable';
 import { ShouldRender } from '../ShouldRender';
 import { buildUID } from '../../util';
 
-export default function Error({ loading, error, overridableUID }) {
+function Error({ loading, error, overridableUID }) {
   return (
     <ShouldRender condition={!loading && !_isEmpty(error)}>
       <Element error={error} overridableUID={overridableUID} />
@@ -38,3 +38,5 @@ const Element = ({ error, overridableUID }) => {
     </Overridable>
   );
 };
+
+export default Overridable.component('Error', Error);

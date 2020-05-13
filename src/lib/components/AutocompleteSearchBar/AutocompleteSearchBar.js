@@ -88,7 +88,6 @@ AutocompleteSearchBar.defaultProps = {
 const AutocompleteSearchBarUncontrolled = (props) => (
   <AutocompleteSearchBar key={props.queryString} {...props} />
 );
-export default AutocompleteSearchBarUncontrolled;
 
 const Element = ({ overridableUID, ...props }) => {
   const {
@@ -164,3 +163,8 @@ const Suggestions = ({ overridableUID, ...props }) => {
     </Overridable>
   );
 };
+
+export default Overridable.component(
+  'AutocompleteSearchBar',
+  AutocompleteSearchBarUncontrolled
+);

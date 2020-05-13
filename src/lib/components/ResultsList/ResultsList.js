@@ -13,12 +13,7 @@ import Overridable from 'react-overridable';
 import { ShouldRender } from '../ShouldRender';
 import { buildUID } from '../../util';
 
-export default function ResultsList({
-  loading,
-  totalResults,
-  results,
-  overridableUID,
-}) {
+function ResultsList({ loading, totalResults, results, overridableUID }) {
   return (
     <ShouldRender condition={!loading && totalResults > 0}>
       <Element results={results} overridableUID={overridableUID} />
@@ -77,3 +72,5 @@ const Element = ({ results, overridableUID }) => {
     </Overridable>
   );
 };
+
+export default Overridable.component('ResultsList', ResultsList);

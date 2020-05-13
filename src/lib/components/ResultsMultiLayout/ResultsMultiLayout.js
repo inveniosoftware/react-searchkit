@@ -14,7 +14,7 @@ import { ResultsGrid } from '../ResultsGrid';
 import { ShouldRender } from '../ShouldRender';
 import { buildUID } from '../../util';
 
-export default function ResultsMultiLayout({
+function ResultsMultiLayout({
   loading,
   totalResults,
   currentLayout,
@@ -54,3 +54,5 @@ const Element = ({ layout, overridableUID }) => (
     )}
   </Overridable>
 );
+
+export default Overridable.component('ResultsMultiLayout', ResultsMultiLayout);

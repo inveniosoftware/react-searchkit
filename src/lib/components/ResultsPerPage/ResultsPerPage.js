@@ -13,7 +13,7 @@ import { buildUID } from '../../util';
 import { Dropdown } from 'semantic-ui-react';
 import Overridable from 'react-overridable';
 
-export default class ResultsPerPage extends Component {
+class ResultsPerPage extends Component {
   constructor(props) {
     super(props);
     this.options = props.values;
@@ -98,3 +98,5 @@ const Element = ({ overridableUID, ...props }) => {
     </Overridable>
   );
 };
+
+export default Overridable.component('ResultsPerPage', ResultsPerPage);

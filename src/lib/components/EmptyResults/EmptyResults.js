@@ -14,7 +14,7 @@ import Overridable from 'react-overridable';
 import { ShouldRender } from '../ShouldRender';
 import { buildUID } from '../../util';
 
-export default class EmptyResults extends Component {
+class EmptyResults extends Component {
   constructor(props) {
     super(props);
     this.resetQuery = props.resetQuery;
@@ -68,7 +68,7 @@ const Element = ({ overridableUID, ...props }) => {
           <Icon name="search" />
           No results found!
         </Header>
-        <em>Current search "{queryString}"</em>
+        {queryString && <em>Current search "{queryString}"</em>}
         <br />
         <Button primary onClick={() => resetQuery()}>
           Clear query
@@ -77,3 +77,5 @@ const Element = ({ overridableUID, ...props }) => {
     </Overridable>
   );
 };
+
+export default Overridable.component('EmptyResults', EmptyResults);

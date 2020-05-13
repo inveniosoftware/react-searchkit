@@ -13,7 +13,7 @@ import Overridable from 'react-overridable';
 import { ShouldRender } from '../ShouldRender';
 import { buildUID } from '../../util';
 
-export default class LayoutSwitcher extends Component {
+class LayoutSwitcher extends Component {
   constructor(props) {
     super(props);
     this.defaultValue = this.props.defaultLayout;
@@ -94,3 +94,5 @@ const Element = ({ overridableUID, ...props }) => {
     </Overridable>
   );
 };
+
+export default Overridable.component('LayoutSwitcher', LayoutSwitcher);

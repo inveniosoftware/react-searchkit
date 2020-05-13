@@ -14,7 +14,7 @@ import Overridable from 'react-overridable';
 import BucketAggregationValues from './BucketAggregationValues';
 import { buildUID } from '../../util';
 
-export default class BucketAggregation extends Component {
+class BucketAggregation extends Component {
   constructor(props) {
     super(props);
     this.title = props.title;
@@ -27,6 +27,7 @@ export default class BucketAggregation extends Component {
   };
 
   _renderValues = (resultBuckets, selectedFilters) => {
+    const { overridableUID } = this.props;
     return (
       <BucketAggregationValues
         buckets={resultBuckets}
@@ -35,8 +36,7 @@ export default class BucketAggregation extends Component {
         aggName={this.agg.aggName}
         childAgg={this.agg.childAgg}
         onFilterClicked={this.onFilterClicked}
-        renderContainerElement={this.props.renderValuesContainerElement}
-        renderValueElement={this.props.renderValueElement}
+        overridableUID={overridableUID}
       />
     );
   };
@@ -96,8 +96,8 @@ BucketAggregation.defaultProps = {
   overridableUID: '',
 };
 
-const Element = (props) => {
-  const { title, containerCmp, overridableUID } = props;
+const Element = ({ overridableUID, ...props }) => {
+  const { title, containerCmp } = props;
   return (
     containerCmp && (
       <Overridable
@@ -114,3 +114,5 @@ const Element = (props) => {
     )
   );
 };
+
+export default Overridable.component('BucketAggregation', BucketAggregation);

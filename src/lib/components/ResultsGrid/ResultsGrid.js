@@ -13,7 +13,7 @@ import Overridable from 'react-overridable';
 import { ShouldRender } from '../ShouldRender';
 import { buildUID } from '../../util';
 
-export default function ResultsGrid({
+function ResultsGrid({
   loading,
   totalResults,
   results,
@@ -80,3 +80,5 @@ const Element = ({ overridableUID, ...props }) => {
     </Overridable>
   );
 };
+
+export default Overridable.component('ResultsGrid', ResultsGrid);

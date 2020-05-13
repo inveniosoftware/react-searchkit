@@ -12,7 +12,7 @@ import { Checkbox, List } from 'semantic-ui-react';
 import Overridable from 'react-overridable';
 import { buildUID } from '../../util';
 
-export default class BucketAggregationValues extends Component {
+class BucketAggregationValues extends Component {
   constructor(props) {
     super(props);
     this.field = props.field;
@@ -145,4 +145,9 @@ const ContainerElement = ({ valuesCmp, overridableUID }) => (
   >
     <List>{valuesCmp}</List>
   </Overridable>
+);
+
+export default Overridable.component(
+  'BucketAggregationValues',
+  BucketAggregationValues
 );
