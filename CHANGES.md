@@ -1,5 +1,11 @@
 # Changes
 
+Version 1.0.0-alpha.0 (released 2020-05-13)
+
+* Breaking: integrate `react-overridable` library. The `renderElement` props have been removed in favour
+  of `<Overridable />` components.
+* Fix rendering components even if they should not render when loading.
+
 Version 0.19.0 (released 2020-04-14)
 
 * Add `label` prop to wrap components with a `prefix` and/or `suffix` text.
