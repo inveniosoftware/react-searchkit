@@ -1,7 +1,7 @@
-import babel from 'rollup-plugin-babel';
-import commonjs from 'rollup-plugin-commonjs';
+import babel from '@rollup/plugin-babel';
+import commonjs from '@rollup/plugin-commonjs';
+import resolve from '@rollup/plugin-node-resolve';
 import localResolve from 'rollup-plugin-local-resolve';
-import resolve from 'rollup-plugin-node-resolve';
 import peerDepsExternal from 'rollup-plugin-peer-deps-external';
 import postcss from 'rollup-plugin-postcss';
 
@@ -33,7 +33,7 @@ export default {
     resolve(),
     babel({
       presets: ['react-app'],
-      runtimeHelpers: true,
+      babelHelpers: 'runtime',
       exclude: 'node_modules/**',
     }),
     commonjs(),
