@@ -8,7 +8,7 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Overridable } from 'react-overridable';
+import Overridable from 'react-overridable';
 import { ResultsList } from '../ResultsList';
 import { ResultsGrid } from '../ResultsGrid';
 import { ShouldRender } from '../ShouldRender';

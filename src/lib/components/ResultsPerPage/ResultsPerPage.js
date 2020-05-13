@@ -11,7 +11,7 @@ import PropTypes from 'prop-types';
 import { ShouldRender } from '../ShouldRender';
 import { buildUID } from '../../util';
 import { Dropdown } from 'semantic-ui-react';
-import { Overridable } from 'react-overridable';
+import Overridable from 'react-overridable';
 
 export default class ResultsPerPage extends Component {
   constructor(props) {

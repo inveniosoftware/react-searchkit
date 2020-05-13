@@ -9,6 +9,7 @@
 import React, { Component } from 'react';
 import { Provider } from 'react-redux';
 import PropTypes from 'prop-types';
+import Overridable from 'react-overridable';
 import { configureStore } from '../../store';
 import { UrlHandlerApi } from '../../api';
 import { Bootstrap } from '../Bootstrap';

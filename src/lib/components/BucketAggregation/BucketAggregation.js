@@ -10,7 +10,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Card } from 'semantic-ui-react';
 import _get from 'lodash/get';
-import { Overridable } from 'react-overridable';
+import Overridable from 'react-overridable';
 import BucketAggregationValues from './BucketAggregationValues';
 import { buildUID } from '../../util';
 

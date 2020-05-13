@@ -7,7 +7,18 @@
  */
 
 import React, { Component } from 'react';
-import { Container, Grid, Accordion, Menu } from 'semantic-ui-react';
+import {
+  Container,
+  Grid,
+  Accordion,
+  Menu,
+  Card,
+  Image,
+  Item,
+} from 'semantic-ui-react';
+import _truncate from 'lodash/truncate';
+import { OverridableContext } from 'react-overridable';
+
 import {
   ReactSearchKit,
   SearchBar,
@@ -70,6 +81,44 @@ const searchApi = new InvenioSearchApi({
   },
 });
 
+export const ZenodoResultsListItem = ({ result, index }) => {
+  const metadata = result.metadata;
+  return (
+    <Item key={index} href={`#`}>
+      <Item.Image
+        size="small"
+        src={result.imageSrc || 'http://placehold.it/200'}
+      />
+      <Item.Content>
+        <Item.Header>{metadata.title}</Item.Header>
+        <Item.Description>
+          {_truncate(metadata.description, { length: 200 })}
+        </Item.Description>
+      </Item.Content>
+    </Item>
+  );
+};
+
+export const ZenodoResultsGridItem = ({ result, index }) => {
+  const metadata = result.metadata;
+  return (
+    <Card fluid key={index} href={`#`}>
+      <Image src={result.imageSrc || 'http://placehold.it/200'} />
+      <Card.Content>
+        <Card.Header>{metadata.title}</Card.Header>
+        <Card.Description>
+          {_truncate(metadata.description, { length: 200 })}
+        </Card.Description>
+      </Card.Content>
+    </Card>
+  );
+};
+
+const overriddenComponents = {
+  'ResultsList.item.zenodo': ZenodoResultsListItem,
+  'ResultsGrid.item.zenodo': ZenodoResultsGridItem,
+};
+
 export class App extends Component {
   constructor(props) {
     super(props);
@@ -112,64 +161,66 @@ export class App extends Component {
 
   render() {
     return (
-      <ReactSearchKit searchApi={searchApi}>
-        <Container>
-          <Grid>
-            <Grid.Row>
-              <Grid.Column width={3} />
-              <Grid.Column width={10}>
-                <SearchBar />
-              </Grid.Column>
-              <Grid.Column width={3} />
-            </Grid.Row>
-          </Grid>
-          <Grid relaxed style={{ padding: '2em 0' }}>
-            <Grid.Row columns={2}>
-              <Grid.Column width={4}>
-                <BucketAggregation
-                  title="File types"
-                  agg={{
-                    field: 'file_type',
-                    aggName: 'file_type',
-                  }}
-                  overridableName="filetype"
-                />
-                <br />
-                <BucketAggregation
-                  title="Keywords"
-                  agg={{
-                    field: 'keywords',
-                    aggName: 'keywords',
-                  }}
-                />
-                <br />
-                <BucketAggregation
-                  title="Types"
-                  agg={{
-                    field: 'resource_type.type',
-                    aggName: 'type',
-                    childAgg: {
-                      field: 'resource_type.subtype',
-                      aggName: 'subtype',
-                    },
-                  }}
-                />
-                <br />
-              </Grid.Column>
-              <Grid.Column width={12}>
-                <ResultsLoader>
-                  <EmptyResults />
-                  <Error />
-                  <OnResults
-                    sortValues={sortValues}
-                    resultsPerPageValues={resultsPerPageValues}
+      <OverridableContext.Provider value={overriddenComponents}>
+        <ReactSearchKit searchApi={searchApi}>
+          <Container>
+            <Grid>
+              <Grid.Row>
+                <Grid.Column width={3} />
+                <Grid.Column width={10}>
+                  <SearchBar />
+                </Grid.Column>
+                <Grid.Column width={3} />
+              </Grid.Row>
+            </Grid>
+            <Grid relaxed style={{ padding: '2em 0' }}>
+              <Grid.Row columns={2}>
+                <Grid.Column width={4}>
+                  <BucketAggregation
+                    title="File types"
+                    agg={{
+                      field: 'file_type',
+                      aggName: 'file_type',
+                    }}
+                    overridableUID="filetype"
                   />
-                </ResultsLoader>
-              </Grid.Column>
-            </Grid.Row>
-          </Grid>
-        </Container>
-      </ReactSearchKit>
+                  <br />
+                  <BucketAggregation
+                    title="Keywords"
+                    agg={{
+                      field: 'keywords',
+                      aggName: 'keywords',
+                    }}
+                  />
+                  <br />
+                  <BucketAggregation
+                    title="Types"
+                    agg={{
+                      field: 'resource_type.type',
+                      aggName: 'type',
+                      childAgg: {
+                        field: 'resource_type.subtype',
+                        aggName: 'subtype',
+                      },
+                    }}
+                  />
+                  <br />
+                </Grid.Column>
+                <Grid.Column width={12}>
+                  <ResultsLoader>
+                    <EmptyResults />
+                    <Error />
+                    <OnResults
+                      sortValues={sortValues}
+                      resultsPerPageValues={resultsPerPageValues}
+                    />
+                  </ResultsLoader>
+                </Grid.Column>
+              </Grid.Row>
+            </Grid>
+          </Container>
+        </ReactSearchKit>
+      </OverridableContext.Provider>
     );
   }
 }

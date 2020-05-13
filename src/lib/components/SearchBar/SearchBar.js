@@ -9,7 +9,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Input } from 'semantic-ui-react';
-import { Overridable } from 'react-overridable';
+import Overridable from 'react-overridable';
 import { buildUID } from '../../util';
 
 class SearchBar extends Component {

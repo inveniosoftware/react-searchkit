@@ -9,7 +9,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Loader } from 'semantic-ui-react';
-import { Overridable } from 'react-overridable';
+import Overridable from 'react-overridable';
 import { buildUID } from '../../util';
 
 export default function ResultsLoader({ children, loading, overridableUID }) {

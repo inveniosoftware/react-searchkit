@@ -7,9 +7,7 @@
  */
 
 import React, { Component } from 'react';
-import { Grid, Card, Image, Item } from 'semantic-ui-react';
-import _truncate from 'lodash/truncate';
-import { overrideStore } from 'react-overridable';
+import { Grid } from 'semantic-ui-react';
 import {
   ActiveFilters,
   Count,
@@ -19,42 +17,6 @@ import {
   ResultsPerPage,
   Sort,
 } from '../../lib/components';
-
-const ZenodoResultsListItem = ({ result, index }) => {
-  const metadata = result.metadata;
-  return (
-    <Item key={index} href={`#`}>
-      <Item.Image
-        size="small"
-        src={result.imageSrc || 'http://placehold.it/200'}
-      />
-      <Item.Content>
-        <Item.Header>{metadata.title}</Item.Header>
-        <Item.Description>
-          {_truncate(metadata.description, { length: 200 })}
-        </Item.Description>
-      </Item.Content>
-    </Item>
-  );
-};
-
-const ZenodoResultsGridItem = ({ result, index }) => {
-  const metadata = result.metadata;
-  return (
-    <Card fluid key={index} href={`#`}>
-      <Image src={result.imageSrc || 'http://placehold.it/200'} />
-      <Card.Content>
-        <Card.Header>{metadata.title}</Card.Header>
-        <Card.Description>
-          {_truncate(metadata.description, { length: 200 })}
-        </Card.Description>
-      </Card.Content>
-    </Card>
-  );
-};
-
-overrideStore.override('ResultsList.item.zenodo', ZenodoResultsListItem);
-overrideStore.override('ResultsGrid.item.zenodo', ZenodoResultsGridItem);
 
 export class Results extends Component {
   constructor(props) {

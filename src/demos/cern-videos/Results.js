@@ -7,9 +7,7 @@
  */
 
 import React, { Component } from 'react';
-import { Grid, Card, Image, Item } from 'semantic-ui-react';
-import _truncate from 'lodash/truncate';
-import { overrideStore } from 'react-overridable';
+import { Grid } from 'semantic-ui-react';
 import {
   ActiveFilters,
   Count,
@@ -19,49 +17,6 @@ import {
   ResultsPerPage,
   Sort,
 } from '../../lib/components';
-
-const CERNVideosResultsListItem = ({ result, index }) => {
-  const metadata = result.metadata;
-  return (
-    <Item key={index} href={`#${metadata.recid}`}>
-      <Item.Image
-        size="small"
-        src={result.imageSrc || 'http://placehold.it/200'}
-      />
-      <Item.Content>
-        <Item.Header>{metadata.title.title}</Item.Header>
-        <Item.Description>
-          {_truncate(metadata.description, { length: 200 })}
-        </Item.Description>
-      </Item.Content>
-    </Item>
-  );
-};
-
-const CERNVideosResultsGridItem = ({ result, index }) => {
-  const metadata = result.metadata;
-  return (
-    <Card fluid key={index} href={`#${metadata.recid}`}>
-      <Image src={result.imageSrc || 'http://placehold.it/200'} />
-      <Card.Content>
-        <Card.Header>{metadata.title.title}</Card.Header>
-        <Card.Meta>{metadata.publication_date}</Card.Meta>
-        <Card.Description>
-          {_truncate(metadata.description, { length: 200 })}
-        </Card.Description>
-      </Card.Content>
-    </Card>
-  );
-};
-
-overrideStore.override(
-  'ResultsList.item.cernvideos',
-  CERNVideosResultsListItem
-);
-overrideStore.override(
-  'ResultsGrid.item.cernvideos',
-  CERNVideosResultsGridItem
-);
 
 export class Results extends Component {
   constructor(props) {

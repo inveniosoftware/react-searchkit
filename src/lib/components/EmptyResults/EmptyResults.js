@@ -10,7 +10,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Segment, Header, Icon, Button } from 'semantic-ui-react';
 import _isEmpty from 'lodash/isEmpty';
-import { Overridable } from 'react-overridable';
+import Overridable from 'react-overridable';
 import { ShouldRender } from '../ShouldRender';
 import { buildUID } from '../../util';
 

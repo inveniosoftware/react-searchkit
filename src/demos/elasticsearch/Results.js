@@ -7,9 +7,7 @@
  */
 
 import React, { Component } from 'react';
-import { Grid, Card, Image, Item, Button } from 'semantic-ui-react';
-import _truncate from 'lodash/truncate';
-import { overrideStore } from 'react-overridable';
+import { Grid } from 'semantic-ui-react';
 import {
   ActiveFilters,
   Count,
@@ -17,77 +15,6 @@ import {
   Pagination,
   ResultsMultiLayout,
 } from '../../lib/components';
-
-class Tags extends Component {
-  onClick = (event, value) => {
-    window.history.push({
-      search: `${window.location.search}&f=tags_agg:${value}`,
-    });
-    event.preventDefault();
-  };
-
-  render() {
-    return this.props.tags.map((tag, index) => (
-      <Button
-        key={index}
-        size="mini"
-        onClick={(event) => this.onClick(event, tag)}
-      >
-        {tag}
-      </Button>
-    ));
-  }
-}
-
-const ElasticSearchResultsListItem = ({ result, index }) => {
-  return (
-    <Item key={index} href={`#`}>
-      <Item.Image
-        size="small"
-        src={result.picture || 'http://placehold.it/200'}
-      />
-      <Item.Content>
-        <Item.Header>
-          {result.first_name} {result.last_name}
-        </Item.Header>
-        <Item.Description>
-          {_truncate(result.about, { length: 200 })}
-        </Item.Description>
-        <Item.Extra>
-          <Tags tags={result.tags} />
-        </Item.Extra>
-      </Item.Content>
-    </Item>
-  );
-};
-
-const ElasticSearchResultsGridItem = ({ result, index }) => {
-  return (
-    <Card fluid key={index} href={`#`}>
-      <Image src={result.picture || 'http://placehold.it/200'} />
-      <Card.Content>
-        <Card.Header>
-          {result.first_name} {result.last_name}
-        </Card.Header>
-        <Card.Description>
-          {_truncate(result.about, { length: 200 })}
-        </Card.Description>
-      </Card.Content>
-      <Card.Content extra>
-        <Tags tags={result.tags} />
-      </Card.Content>
-    </Card>
-  );
-};
-
-overrideStore.override(
-  'ResultsList.item.elasticsearch',
-  ElasticSearchResultsListItem
-);
-overrideStore.override(
-  'ResultsGrid.item.elasticsearch',
-  ElasticSearchResultsGridItem
-);
 
 export class Results extends Component {
   render() {
