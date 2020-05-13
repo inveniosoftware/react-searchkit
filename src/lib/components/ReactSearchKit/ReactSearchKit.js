@@ -34,7 +34,7 @@ export class ReactSearchKit extends Component {
   }
 
   render() {
-    const { searchOnInit, overridableUID } = this.props;
+    const { searchOnInit, overridableId } = this.props;
 
     return (
       <Provider store={this.store}>
@@ -43,7 +43,7 @@ export class ReactSearchKit extends Component {
           appName={this.appName}
           eventListenerEnabled={this.eventListenerEnabled}
         >
-          <Overridable id={buildUID('ReactSearchKit.children', overridableUID)}>
+          <Overridable id={buildUID('ReactSearchKit.children', overridableId)}>
             {this.props.children}
           </Overridable>
         </Bootstrap>
@@ -70,7 +70,7 @@ ReactSearchKit.propTypes = {
   defaultSortByOnEmptyQuery: PropTypes.string,
   appName: PropTypes.string,
   eventListenerEnabled: PropTypes.bool,
-  overridableUID: PropTypes.string,
+  overridableId: PropTypes.string,
 };
 
 ReactSearchKit.defaultProps = {
@@ -84,7 +84,7 @@ ReactSearchKit.defaultProps = {
   defaultSortByOnEmptyQuery: null,
   appName: 'RSK',
   eventListenerEnabled: false,
-  overridableUID: '',
+  overridableId: '',
 };
 
 export default Overridable.component('ReactSearchKit', ReactSearchKit);

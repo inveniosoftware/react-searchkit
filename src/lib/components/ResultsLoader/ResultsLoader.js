@@ -12,21 +12,21 @@ import { Loader } from 'semantic-ui-react';
 import Overridable from 'react-overridable';
 import { buildUID } from '../../util';
 
-function ResultsLoader({ children, loading, overridableUID }) {
-  return loading ? <Element overridableUID={overridableUID} /> : children;
+function ResultsLoader({ children, loading, overridableId }) {
+  return loading ? <Element overridableId={overridableId} /> : children;
 }
 
 ResultsLoader.propTypes = {
   loading: PropTypes.bool.isRequired,
-  overridableUID: PropTypes.string,
+  overridableId: PropTypes.string,
 };
 
 ResultsLoader.defaultProps = {
-  overridableUID: '',
+  overridableId: '',
 };
 
-const Element = ({ overridableUID }) => (
-  <Overridable id={buildUID('ResultsLoader.element', overridableUID)}>
+const Element = ({ overridableId }) => (
+  <Overridable id={buildUID('ResultsLoader.element', overridableId)}>
     <Loader active size="huge" inline="centered" />
   </Overridable>
 );

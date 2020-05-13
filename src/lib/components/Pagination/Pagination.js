@@ -41,7 +41,7 @@ class Pagination extends Component {
       currentPage,
       currentSize,
       options,
-      overridableUID,
+      overridableId,
     } = this.props;
     return (
       <ShouldRender
@@ -55,7 +55,7 @@ class Pagination extends Component {
           totalResults={totalResults}
           onPageChange={this.onPageChange}
           options={options}
-          overridableUID={overridableUID}
+          overridableId={overridableId}
         />
       </ShouldRender>
     );
@@ -77,7 +77,7 @@ Pagination.propTypes = {
     showNext: PropTypes.bool,
   }),
   defaultValue: PropTypes.number,
-  overridableUID: PropTypes.string,
+  overridableId: PropTypes.string,
 };
 
 Pagination.defaultProps = {
@@ -91,10 +91,10 @@ Pagination.defaultProps = {
     showNext: true,
   },
   defaultValue: 10,
-  overridableUID: '',
+  overridableId: '',
 };
 
-const Element = ({ overridableUID, ...props }) => {
+const Element = ({ overridableId, ...props }) => {
   const {
     currentPage,
     currentSize,
@@ -116,7 +116,7 @@ const Element = ({ overridableUID, ...props }) => {
   };
 
   return (
-    <Overridable id={buildUID('Pagination.element', overridableUID)} {...props}>
+    <Overridable id={buildUID('Pagination.element', overridableId)} {...props}>
       <Paginator
         activePage={currentPage}
         totalPages={pages}

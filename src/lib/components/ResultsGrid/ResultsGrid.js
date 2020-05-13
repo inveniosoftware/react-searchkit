@@ -18,14 +18,14 @@ function ResultsGrid({
   totalResults,
   results,
   resultsPerRow,
-  overridableUID,
+  overridableId,
 }) {
   return (
     <ShouldRender condition={!loading && totalResults > 0}>
       <Element
         results={results}
         resultsPerRow={resultsPerRow}
-        overridableUID={overridableUID}
+        overridableId={overridableId}
       />
     </ShouldRender>
   );
@@ -36,17 +36,17 @@ ResultsGrid.propTypes = {
   totalResults: PropTypes.number.isRequired,
   results: PropTypes.array.isRequired,
   resultsPerRow: PropTypes.number,
-  overridableUID: PropTypes.string,
+  overridableId: PropTypes.string,
 };
 
 ResultsGrid.defaultProps = {
   resultsPerRow: 3,
-  overridableUID: '',
+  overridableId: '',
 };
 
-const GridItem = ({ result, index, overridableUID }) => (
+const GridItem = ({ result, index, overridableId }) => (
   <Overridable
-    id={buildUID('ResultsGrid.item', overridableUID)}
+    id={buildUID('ResultsGrid.item', overridableId)}
     result={result}
     index={index}
   >
@@ -60,20 +60,20 @@ const GridItem = ({ result, index, overridableUID }) => (
   </Overridable>
 );
 
-const Element = ({ overridableUID, ...props }) => {
+const Element = ({ overridableId, ...props }) => {
   const { results, resultsPerRow } = props;
   const _results = results.map((result, index) => (
     <GridItem
       key={index}
       result={result}
       index={index}
-      overridableUID={overridableUID}
+      overridableId={overridableId}
     />
   ));
 
   return (
     <Overridable
-      id={buildUID('ResultsGrid.container', overridableUID)}
+      id={buildUID('ResultsGrid.container', overridableId)}
       {...props}
     >
       <Card.Group itemsPerRow={resultsPerRow}>{_results}</Card.Group>

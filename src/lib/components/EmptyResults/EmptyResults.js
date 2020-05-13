@@ -26,7 +26,7 @@ class EmptyResults extends Component {
       totalResults,
       error,
       queryString,
-      overridableUID,
+      overridableId,
     } = this.props;
     return (
       <ShouldRender
@@ -35,7 +35,7 @@ class EmptyResults extends Component {
         <Element
           queryString={queryString}
           resetQuery={this.resetQuery}
-          overridableUID={overridableUID}
+          overridableId={overridableId}
         />
       </ShouldRender>
     );
@@ -48,19 +48,19 @@ EmptyResults.propTypes = {
   error: PropTypes.object.isRequired,
   queryString: PropTypes.string,
   resetQuery: PropTypes.func.isRequired,
-  overridableUID: PropTypes.string,
+  overridableId: PropTypes.string,
 };
 
 EmptyResults.defaultProps = {
   queryString: '',
-  overridableUID: '',
+  overridableId: '',
 };
 
-const Element = ({ overridableUID, ...props }) => {
+const Element = ({ overridableId, ...props }) => {
   const { queryString, resetQuery } = props;
   return (
     <Overridable
-      id={buildUID('EmptyResults.element', overridableUID)}
+      id={buildUID('EmptyResults.element', overridableId)}
       {...props}
     >
       <Segment placeholder textAlign="center">

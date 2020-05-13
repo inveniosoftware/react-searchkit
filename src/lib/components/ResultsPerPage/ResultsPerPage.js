@@ -41,7 +41,7 @@ class ResultsPerPage extends Component {
       currentSize,
       totalResults,
       label,
-      overridableUID,
+      overridableId,
     } = this.props;
     return (
       <ShouldRender
@@ -52,7 +52,7 @@ class ResultsPerPage extends Component {
             currentSize={currentSize}
             options={this.options}
             onValueChange={this.onChange}
-            overridableUID={overridableUID}
+            overridableId={overridableId}
           />
         )}
       </ShouldRender>
@@ -69,23 +69,23 @@ ResultsPerPage.propTypes = {
   updateQuerySize: PropTypes.func.isRequired,
   setInitialState: PropTypes.func.isRequired,
   label: PropTypes.func,
-  overridableUID: PropTypes.string,
+  overridableId: PropTypes.string,
 };
 
 ResultsPerPage.defaultProps = {
   defaultValue: 10,
   label: (cmp) => cmp,
-  overridableUID: '',
+  overridableId: '',
 };
 
-const Element = ({ overridableUID, ...props }) => {
+const Element = ({ overridableId, ...props }) => {
   const { currentSize, options, onValueChange } = props;
   const _options = options.map((element, index) => {
     return { key: index, text: element.text, value: element.value };
   });
   return (
     <Overridable
-      id={buildUID('ResultsPerPage.element', overridableUID)}
+      id={buildUID('ResultsPerPage.element', overridableId)}
       {...props}
     >
       <Dropdown

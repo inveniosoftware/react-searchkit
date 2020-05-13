@@ -55,7 +55,7 @@ export class Results extends Component {
           </Grid.Column>
         </Grid>
         <Grid relaxed style={{ padding: '2em 0' }}>
-          <ResultsMultiLayout overridableUID="zenodo" />
+          <ResultsMultiLayout overridableId="zenodo" />
         </Grid>
         <Grid relaxed verticalAlign="middle" textAlign="center">
           <Pagination />

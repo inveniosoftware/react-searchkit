@@ -9,8 +9,8 @@
 /**
  * Build namespaced unique identifier.
  * @param {string} elementName component element name
- * @param {string} overridableUID unique identifier passed as prop to overridable component
+ * @param {string} overridableId unique identifier passed as prop to overridable component
  */
-export function buildUID(elementName, overridableUID) {
-  return `${elementName}${overridableUID && `.${overridableUID}`}`;
+export function buildUID(elementName, overridableId) {
+  return `${elementName}${overridableId && `.${overridableId}`}`;
 }

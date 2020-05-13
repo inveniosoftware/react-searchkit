@@ -35,14 +35,14 @@ class ActiveFilters extends Component {
   };
 
   render() {
-    const { filters, overridableUID } = this.props;
+    const { filters, overridableId } = this.props;
     return (
       !!filters.length && (
         <Element
           filters={filters}
           removeActiveFilter={this.updateQueryFilters}
           getLabel={this._getLabel}
-          overridableUID={overridableUID}
+          overridableId={overridableId}
         />
       )
     );
@@ -53,19 +53,19 @@ ActiveFilters.propTypes = {
   filters: PropTypes.array.isRequired,
   updateQueryFilters: PropTypes.func.isRequired,
   renderElement: PropTypes.func,
-  overridableUID: PropTypes.string,
+  overridableId: PropTypes.string,
 };
 
 ActiveFilters.defaultProps = {
   renderElement: null,
-  overridableUID: '',
+  overridableId: '',
 };
 
-const Element = ({ overridableUID, ...props }) => {
+const Element = ({ overridableId, ...props }) => {
   const { filters, removeActiveFilter, getLabel } = props;
   return (
     <Overridable
-      id={buildUID('ActiveFilters.element', overridableUID)}
+      id={buildUID('ActiveFilters.element', overridableId)}
       {...props}
     >
       <>

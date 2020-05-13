@@ -62,7 +62,7 @@ class BucketAggregationValues extends Component {
   };
 
   render() {
-    const { buckets, selectedFilters, overridableUID } = this.props;
+    const { buckets, selectedFilters, overridableId } = this.props;
 
     const valuesCmp = buckets.map((bucket) => {
       const isSelected = this._isSelected(
@@ -82,12 +82,12 @@ class BucketAggregationValues extends Component {
           isSelected={isSelected}
           onFilterClicked={onFilterClicked}
           getChildAggCmps={getChildAggCmps}
-          overridableUID={overridableUID}
+          overridableId={overridableId}
         />
       );
     });
     return (
-      <ContainerElement valuesCmp={valuesCmp} overridableUID={overridableUID} />
+      <ContainerElement valuesCmp={valuesCmp} overridableId={overridableId} />
     );
   }
 }
@@ -103,11 +103,11 @@ BucketAggregationValues.propTypes = {
     childAgg: PropTypes.object,
   }),
   onFilterClicked: PropTypes.func.isRequired,
-  overridableUID: PropTypes.string,
+  overridableId: PropTypes.string,
 };
 
 BucketAggregationValues.defaultProps = {
-  overridableUID: '',
+  overridableId: '',
 };
 
 const ValueElement = (props) => {
@@ -116,13 +116,13 @@ const ValueElement = (props) => {
     isSelected,
     onFilterClicked,
     getChildAggCmps,
-    overridableUID,
+    overridableId,
   } = props;
   const label = `${bucket.key} (${bucket.doc_count})`;
   const childAggCmps = getChildAggCmps(bucket);
   return (
     <Overridable
-      id={buildUID('BucketAggregationValues.element', overridableUID)}
+      id={buildUID('BucketAggregationValues.element', overridableId)}
       {...props}
     >
       <List.Item key={bucket.key}>
@@ -138,9 +138,9 @@ const ValueElement = (props) => {
   );
 };
 
-const ContainerElement = ({ valuesCmp, overridableUID }) => (
+const ContainerElement = ({ valuesCmp, overridableId }) => (
   <Overridable
-    id={buildUID('BucketAggregationContainer.element', overridableUID)}
+    id={buildUID('BucketAggregationContainer.element', overridableId)}
     valuesCmp={valuesCmp}
   >
     <List>{valuesCmp}</List>

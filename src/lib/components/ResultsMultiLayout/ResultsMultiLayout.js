@@ -18,13 +18,13 @@ function ResultsMultiLayout({
   loading,
   totalResults,
   currentLayout,
-  overridableUID,
+  overridableId,
 }) {
   return (
     <ShouldRender
       condition={currentLayout != null && !loading && totalResults > 0}
     >
-      <Element layout={currentLayout} overridableUID={overridableUID} />
+      <Element layout={currentLayout} overridableId={overridableId} />
     </ShouldRender>
   );
 }
@@ -32,25 +32,25 @@ function ResultsMultiLayout({
 ResultsMultiLayout.propTypes = {
   totalResults: PropTypes.number.isRequired,
   currentLayout: PropTypes.string,
-  overridableUID: PropTypes.string,
+  overridableId: PropTypes.string,
 };
 
 ResultsMultiLayout.defaultProps = {
   currentLayout: null,
-  overridableUID: '',
+  overridableId: '',
 };
 
-const Element = ({ layout, overridableUID }) => (
+const Element = ({ layout, overridableId }) => (
   <Overridable
-    id={buildUID('ResultsMultiLayout.element', overridableUID)}
+    id={buildUID('ResultsMultiLayout.element', overridableId)}
     layout={layout}
     ResultsList={ResultsList}
     ResultsGrid={ResultsGrid}
   >
     {layout === 'list' ? (
-      <ResultsList overridableUID={overridableUID} />
+      <ResultsList overridableId={overridableId} />
     ) : (
-      <ResultsGrid overridableUID={overridableUID} />
+      <ResultsGrid overridableId={overridableId} />
     )}
   </Overridable>
 );

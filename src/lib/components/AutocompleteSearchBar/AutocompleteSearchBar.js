@@ -51,7 +51,7 @@ class AutocompleteSearchBar extends Component {
   };
 
   render() {
-    const { placeholder, suggestions, overridableUID } = this.props;
+    const { placeholder, suggestions, overridableId } = this.props;
     return (
       <Element
         placeholder={placeholder}
@@ -59,7 +59,7 @@ class AutocompleteSearchBar extends Component {
         querySuggestions={suggestions}
         onInputChange={this.onInputChange}
         executeSearch={this.executeSearch}
-        overridableUID={overridableUID}
+        overridableId={overridableId}
       />
     );
   }
@@ -75,21 +75,21 @@ AutocompleteSearchBar.propTypes = {
   debounceTime: PropTypes.number,
   placeholder: PropTypes.string,
   minCharsToAutocomplete: PropTypes.number,
-  overridableUID: PropTypes.string,
+  overridableId: PropTypes.string,
 };
 
 AutocompleteSearchBar.defaultProps = {
   handleAutocompleteChange: null,
   placeholder: 'Type something',
   minCharsToAutocomplete: 3,
-  overridableUID: '',
+  overridableId: '',
 };
 
 const AutocompleteSearchBarUncontrolled = (props) => (
   <AutocompleteSearchBar key={props.queryString} {...props} />
 );
 
-const Element = ({ overridableUID, ...props }) => {
+const Element = ({ overridableId, ...props }) => {
   const {
     placeholder,
     queryString,
@@ -108,7 +108,7 @@ const Element = ({ overridableUID, ...props }) => {
 
   return (
     <Overridable
-      id={buildUID('AutocompleteSearchBar.element', overridableUID)}
+      id={buildUID('AutocompleteSearchBar.element', overridableId)}
       {...props}
     >
       <div className="AutoCompleteText">
@@ -127,14 +127,14 @@ const Element = ({ overridableUID, ...props }) => {
         />
         <Suggestions
           querySuggestions={querySuggestions}
-          overridableUID={overridableUID}
+          overridableId={overridableId}
         />
       </div>
     </Overridable>
   );
 };
 
-const Suggestions = ({ overridableUID, ...props }) => {
+const Suggestions = ({ overridableId, ...props }) => {
   const { querySuggestions } = props;
   const onSuggestionSelected = async (suggestion) => {
     await this.setState({
@@ -150,7 +150,7 @@ const Suggestions = ({ overridableUID, ...props }) => {
 
   return (
     <Overridable
-      id={buildUID('AutocompleteSearchBar.suggestions', overridableUID)}
+      id={buildUID('AutocompleteSearchBar.suggestions', overridableId)}
       {...props}
     >
       <ul>

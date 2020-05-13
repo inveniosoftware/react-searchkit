@@ -41,7 +41,7 @@ class SortOrder extends Component {
       loading,
       totalResults,
       label,
-      overridableUID,
+      overridableId,
     } = this.props;
     return (
       <ShouldRender
@@ -52,7 +52,7 @@ class SortOrder extends Component {
             currentSortOrder={currentSortOrder}
             options={this.options}
             onValueChange={this.onChange}
-            overridableUID={overridableUID}
+            overridableId={overridableId}
           />
         )}
       </ShouldRender>
@@ -69,22 +69,22 @@ SortOrder.propTypes = {
   updateQuerySortOrder: PropTypes.func.isRequired,
   setInitialState: PropTypes.func.isRequired,
   label: PropTypes.func,
-  overridableUID: PropTypes.string,
+  overridableId: PropTypes.string,
 };
 
 SortOrder.defaultProps = {
   currentSortOrder: null,
   label: (cmp) => cmp,
-  overridableUID: '',
+  overridableId: '',
 };
 
-const Element = ({ overridableUID, ...props }) => {
+const Element = ({ overridableId, ...props }) => {
   const { currentSortOrder, options, onValueChange } = props;
   const _options = options.map((element, index) => {
     return { key: index, text: element.text, value: element.value };
   });
   return (
-    <Overridable id={buildUID('SortOrder.element', overridableUID)} {...props}>
+    <Overridable id={buildUID('SortOrder.element', overridableId)} {...props}>
       <Dropdown
         selection
         compact

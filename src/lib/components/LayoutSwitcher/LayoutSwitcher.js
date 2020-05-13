@@ -34,7 +34,7 @@ class LayoutSwitcher extends Component {
   };
 
   render() {
-    const { currentLayout, loading, totalResults, overridableUID } = this.props;
+    const { currentLayout, loading, totalResults, overridableId } = this.props;
     return (
       <ShouldRender
         condition={currentLayout !== null && !loading && totalResults > 0}
@@ -42,7 +42,7 @@ class LayoutSwitcher extends Component {
         <Element
           currentLayout={currentLayout}
           onLayoutChange={this.onLayoutChange}
-          overridableUID={overridableUID}
+          overridableId={overridableId}
         />
       </ShouldRender>
     );
@@ -56,23 +56,23 @@ LayoutSwitcher.propTypes = {
   loading: PropTypes.bool.isRequired,
   currentLayout: PropTypes.string,
   totalResults: PropTypes.number.isRequired,
-  overridableUID: PropTypes.string,
+  overridableId: PropTypes.string,
 };
 
 LayoutSwitcher.defaultProps = {
   defaultLayout: 'list',
   currentLayout: null,
-  overridableUID: '',
+  overridableId: '',
 };
 
-const Element = ({ overridableUID, ...props }) => {
+const Element = ({ overridableId, ...props }) => {
   const { currentLayout, onLayoutChange } = props;
   const clickHandler = (event, { name }) => {
     onLayoutChange(name);
   };
   return (
     <Overridable
-      id={buildUID('LayoutSwitcher.element', overridableUID)}
+      id={buildUID('LayoutSwitcher.element', overridableId)}
       {...props}
     >
       <Menu compact icon>

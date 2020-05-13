@@ -15,14 +15,11 @@ import { buildUID } from '../../util';
 
 class Count extends Component {
   render() {
-    const { loading, totalResults, label, overridableUID } = this.props;
+    const { loading, totalResults, label, overridableId } = this.props;
     return (
       <ShouldRender condition={!loading && totalResults > 0}>
         {label(
-          <Element
-            totalResults={totalResults}
-            overridableUID={overridableUID}
-          />
+          <Element totalResults={totalResults} overridableId={overridableId} />
         )}
       </ShouldRender>
     );
@@ -33,17 +30,17 @@ Count.propTypes = {
   loading: PropTypes.bool.isRequired,
   totalResults: PropTypes.number.isRequired,
   label: PropTypes.func,
-  overridableUID: PropTypes.string,
+  overridableId: PropTypes.string,
 };
 
 Count.defaultProps = {
   label: (cmp) => cmp,
-  overridableUID: '',
+  overridableId: '',
 };
 
-const Element = ({ totalResults, overridableUID }) => (
+const Element = ({ totalResults, overridableId }) => (
   <Overridable
-    id={buildUID('Count.element', overridableUID)}
+    id={buildUID('Count.element', overridableId)}
     totalResults={totalResults}
   >
     <Label color={'blue'}>{totalResults}</Label>

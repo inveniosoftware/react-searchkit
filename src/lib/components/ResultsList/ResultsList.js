@@ -13,10 +13,10 @@ import Overridable from 'react-overridable';
 import { ShouldRender } from '../ShouldRender';
 import { buildUID } from '../../util';
 
-function ResultsList({ loading, totalResults, results, overridableUID }) {
+function ResultsList({ loading, totalResults, results, overridableId }) {
   return (
     <ShouldRender condition={!loading && totalResults > 0}>
-      <Element results={results} overridableUID={overridableUID} />
+      <Element results={results} overridableId={overridableId} />
     </ShouldRender>
   );
 }
@@ -25,16 +25,16 @@ ResultsList.propTypes = {
   loading: PropTypes.bool.isRequired,
   totalResults: PropTypes.number.isRequired,
   results: PropTypes.array.isRequired,
-  overridableUID: PropTypes.string,
+  overridableId: PropTypes.string,
 };
 
 ResultsList.defaultProps = {
-  overridableUID: '',
+  overridableId: '',
 };
 
-const ListItem = ({ result, index, overridableUID }) => (
+const ListItem = ({ result, index, overridableId }) => (
   <Overridable
-    id={buildUID('ResultsList.item', overridableUID)}
+    id={buildUID('ResultsList.item', overridableId)}
     result={result}
     index={index}
   >
@@ -51,19 +51,19 @@ const ListItem = ({ result, index, overridableUID }) => (
   </Overridable>
 );
 
-const Element = ({ results, overridableUID }) => {
+const Element = ({ results, overridableId }) => {
   const _results = results.map((result, index) => (
     <ListItem
       result={result}
       index={index}
       key={index}
-      overridableUID={overridableUID}
+      overridableId={overridableId}
     />
   ));
 
   return (
     <Overridable
-      id={buildUID('ResultsList.container', overridableUID)}
+      id={buildUID('ResultsList.container', overridableId)}
       results={_results}
     >
       <Item.Group divided relaxed link>

@@ -32,14 +32,14 @@ class SearchBar extends Component {
   };
 
   render() {
-    const { placeholder, overridableUID } = this.props;
+    const { placeholder, overridableId } = this.props;
     return (
       <Element
         placeholder={placeholder}
         queryString={this.state.currentValue}
         onInputChange={this.onInputChange}
         executeSearch={this.executeSearch}
-        overridableUID={overridableUID}
+        overridableId={overridableId}
       />
     );
   }
@@ -49,20 +49,20 @@ SearchBar.propTypes = {
   placeholder: PropTypes.string,
   queryString: PropTypes.string.isRequired,
   updateQueryString: PropTypes.func.isRequired,
-  overridableUID: PropTypes.string,
+  overridableId: PropTypes.string,
 };
 
 SearchBar.defaultProps = {
   placeholder: '',
   queryString: '',
-  overridableUID: '',
+  overridableId: '',
 };
 
 const SearchBarUncontrolled = (props) => (
   <SearchBar key={props.queryString} {...props} />
 );
 
-const Element = ({ overridableUID, ...props }) => {
+const Element = ({ overridableId, ...props }) => {
   const {
     placeholder: passedPlaceholder,
     queryString,
@@ -79,7 +79,7 @@ const Element = ({ overridableUID, ...props }) => {
     }
   };
   return (
-    <Overridable id={buildUID('SearchBar.element', overridableUID)} {...props}>
+    <Overridable id={buildUID('SearchBar.element', overridableId)} {...props}>
       <Input
         action={{
           content: 'Search',

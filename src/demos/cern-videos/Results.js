@@ -55,7 +55,7 @@ export class Results extends Component {
           </Grid.Column>
         </Grid>
         <Grid relaxed style={{ padding: '2em 0' }}>
-          <ResultsMultiLayout overridableUID="cernvideos" />
+          <ResultsMultiLayout overridableId="cernvideos" />
         </Grid>
         <Grid relaxed verticalAlign="middle" textAlign="center">
           <Pagination />

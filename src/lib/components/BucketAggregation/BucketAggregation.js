@@ -27,7 +27,7 @@ class BucketAggregation extends Component {
   };
 
   _renderValues = (resultBuckets, selectedFilters) => {
-    const { overridableUID } = this.props;
+    const { overridableId } = this.props;
     return (
       <BucketAggregationValues
         buckets={resultBuckets}
@@ -36,7 +36,7 @@ class BucketAggregation extends Component {
         aggName={this.agg.aggName}
         childAgg={this.agg.childAgg}
         onFilterClicked={this.onFilterClicked}
-        overridableUID={overridableUID}
+        overridableId={overridableId}
       />
     );
   };
@@ -58,7 +58,7 @@ class BucketAggregation extends Component {
     const {
       userSelectionFilters,
       resultsAggregations,
-      overridableUID,
+      overridableId,
     } = this.props;
     const selectedFilters = this._getSelectedFilters(userSelectionFilters);
     const resultBuckets = this._getResultBuckets(resultsAggregations);
@@ -69,7 +69,7 @@ class BucketAggregation extends Component {
       <Element
         title={this.title}
         containerCmp={valuesCmp}
-        overridableUID={overridableUID}
+        overridableId={overridableId}
       />
     );
   }
@@ -87,21 +87,21 @@ BucketAggregation.propTypes = {
   updateQueryFilters: PropTypes.func.isRequired,
   renderValuesContainerElement: PropTypes.func,
   renderValueElement: PropTypes.func,
-  overridableUID: PropTypes.string,
+  overridableId: PropTypes.string,
 };
 
 BucketAggregation.defaultProps = {
   renderValuesContainerElement: null,
   renderValueElement: null,
-  overridableUID: '',
+  overridableId: '',
 };
 
-const Element = ({ overridableUID, ...props }) => {
+const Element = ({ overridableId, ...props }) => {
   const { title, containerCmp } = props;
   return (
     containerCmp && (
       <Overridable
-        id={buildUID('BucketAggregation.element', overridableUID)}
+        id={buildUID('BucketAggregation.element', overridableId)}
         {...props}
       >
         <Card>
