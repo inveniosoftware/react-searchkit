@@ -8,17 +8,18 @@
 
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { Dropdown } from 'semantic-ui-react';
 import { ShouldRender } from '../ShouldRender';
+import { buildUID } from '../../util';
+import { Dropdown } from 'semantic-ui-react';
+import Overridable from 'react-overridable';
 
-export default class ResultsPerPage extends Component {
+class ResultsPerPage extends Component {
   constructor(props) {
     super(props);
     this.options = props.values;
     this.defaultValue = props.defaultValue;
     this.updateQuerySize = this.props.updateQuerySize;
     this.setInitialState = props.setInitialState;
-    this.renderElement = props.renderElement || this._renderElement;
   }
 
   componentDidMount() {
@@ -29,33 +30,31 @@ export default class ResultsPerPage extends Component {
     }
   }
 
-  _renderElement = (currentSize, options, onValueChange) => {
-    const _options = options.map((element, index) => {
-      return { key: index, text: element.text, value: element.value };
-    });
-    return (
-      <Dropdown
-        inline
-        compact
-        options={_options}
-        value={currentSize}
-        onChange={(e, { value }) => onValueChange(value)}
-      />
-    );
-  };
-
-  onChange = value => {
+  onChange = (value) => {
     if (value === this.props.currentSize) return;
     this.updateQuerySize(value);
   };
 
   render() {
-    const { loading, currentSize, totalResults, label } = this.props;
+    const {
+      loading,
+      currentSize,
+      totalResults,
+      label,
+      overridableId,
+    } = this.props;
     return (
       <ShouldRender
         condition={!loading && totalResults > 0 && currentSize !== -1}
       >
-        {label(this.renderElement(currentSize, this.options, this.onChange))}
+        {label(
+          <Element
+            currentSize={currentSize}
+            options={this.options}
+            onValueChange={this.onChange}
+            overridableId={overridableId}
+          />
+        )}
       </ShouldRender>
     );
   }
@@ -69,12 +68,35 @@ ResultsPerPage.propTypes = {
   defaultValue: PropTypes.number,
   updateQuerySize: PropTypes.func.isRequired,
   setInitialState: PropTypes.func.isRequired,
-  renderElement: PropTypes.func,
   label: PropTypes.func,
+  overridableId: PropTypes.string,
 };
 
 ResultsPerPage.defaultProps = {
   defaultValue: 10,
-  renderElement: null,
   label: (cmp) => cmp,
+  overridableId: '',
 };
+
+const Element = ({ overridableId, ...props }) => {
+  const { currentSize, options, onValueChange } = props;
+  const _options = options.map((element, index) => {
+    return { key: index, text: element.text, value: element.value };
+  });
+  return (
+    <Overridable
+      id={buildUID('ResultsPerPage.element', overridableId)}
+      {...props}
+    >
+      <Dropdown
+        inline
+        compact
+        options={_options}
+        value={currentSize}
+        onChange={(e, { value }) => onValueChange(value)}
+      />
+    </Overridable>
+  );
+};
+
+export default Overridable.component('ResultsPerPage', ResultsPerPage);

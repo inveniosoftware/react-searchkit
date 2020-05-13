@@ -7,7 +7,17 @@
  */
 
 import React, { Component } from 'react';
-import { Container, Grid, Accordion, Menu } from 'semantic-ui-react';
+import {
+  Container,
+  Grid,
+  Accordion,
+  Menu,
+  Card,
+  Image,
+  Item,
+} from 'semantic-ui-react';
+import _truncate from 'lodash/truncate';
+import { OverridableContext } from 'react-overridable';
 import {
   ReactSearchKit,
   SearchBar,
@@ -54,6 +64,45 @@ const searchApi = new InvenioSearchApi({
   },
 });
 
+const CERNVideosResultsListItem = ({ result, index }) => {
+  const metadata = result.metadata;
+  return (
+    <Item key={index} href={`#${metadata.recid}`}>
+      <Item.Image
+        size="small"
+        src={result.imageSrc || 'http://placehold.it/200'}
+      />
+      <Item.Content>
+        <Item.Header>{metadata.title.title}</Item.Header>
+        <Item.Description>
+          {_truncate(metadata.description, { length: 200 })}
+        </Item.Description>
+      </Item.Content>
+    </Item>
+  );
+};
+
+const CERNVideosResultsGridItem = ({ result, index }) => {
+  const metadata = result.metadata;
+  return (
+    <Card fluid key={index} href={`#${metadata.recid}`}>
+      <Image src={result.imageSrc || 'http://placehold.it/200'} />
+      <Card.Content>
+        <Card.Header>{metadata.title.title}</Card.Header>
+        <Card.Meta>{metadata.publication_date}</Card.Meta>
+        <Card.Description>
+          {_truncate(metadata.description, { length: 200 })}
+        </Card.Description>
+      </Card.Content>
+    </Card>
+  );
+};
+
+const overriddenComponents = {
+  'ResultsList.item.cernvideos': CERNVideosResultsListItem,
+  'ResultsGrid.item.cernvideos': CERNVideosResultsGridItem,
+};
+
 export class App extends Component {
   constructor(props) {
     super(props);
@@ -96,59 +145,64 @@ export class App extends Component {
 
   render() {
     return (
-      <ReactSearchKit searchApi={searchApi} urlHandlerApi={{ enabled: false }}>
-        <Container>
-          <Grid>
-            <Grid.Row>
-              <Grid.Column width={3} />
-              <Grid.Column width={10}>
-                <SearchBar />
-              </Grid.Column>
-              <Grid.Column width={3} />
-            </Grid.Row>
-          </Grid>
-          <Grid relaxed style={{ padding: '2em 0' }}>
-            <Grid.Row columns={2}>
-              <Grid.Column width={4}>
-                <BucketAggregation
-                  title="Categories"
-                  agg={{
-                    field: 'category',
-                    aggName: 'category',
-                  }}
-                />
-                <br />
-                <BucketAggregation
-                  title="Languages"
-                  agg={{
-                    field: 'language',
-                    aggName: 'language',
-                  }}
-                />
-                <br />
-                <BucketAggregation
-                  title="Types"
-                  agg={{
-                    field: 'type',
-                    aggName: 'type',
-                  }}
-                />
-                <br />
-              </Grid.Column>
-              <Grid.Column width={12}>
-                <ResultsLoader>
-                  <EmptyResults />
-                  <Error />
-                  <OnResults
-                    sortValues={sortValues}
-                    resultsPerPageValues={resultsPerPageValues}
+      <OverridableContext.Provider value={overriddenComponents}>
+        <ReactSearchKit
+          searchApi={searchApi}
+          urlHandlerApi={{ enabled: false }}
+        >
+          <Container>
+            <Grid>
+              <Grid.Row>
+                <Grid.Column width={3} />
+                <Grid.Column width={10}>
+                  <SearchBar />
+                </Grid.Column>
+                <Grid.Column width={3} />
+              </Grid.Row>
+            </Grid>
+            <Grid relaxed style={{ padding: '2em 0' }}>
+              <Grid.Row columns={2}>
+                <Grid.Column width={4}>
+                  <BucketAggregation
+                    title="Categories"
+                    agg={{
+                      field: 'category',
+                      aggName: 'category',
+                    }}
                   />
-                </ResultsLoader>
-              </Grid.Column>
-            </Grid.Row>
-          </Grid>
-        </Container>
-      </ReactSearchKit>
+                  <br />
+                  <BucketAggregation
+                    title="Languages"
+                    agg={{
+                      field: 'language',
+                      aggName: 'language',
+                    }}
+                  />
+                  <br />
+                  <BucketAggregation
+                    title="Types"
+                    agg={{
+                      field: 'type',
+                      aggName: 'type',
+                    }}
+                  />
+                  <br />
+                </Grid.Column>
+                <Grid.Column width={12}>
+                  <ResultsLoader>
+                    <EmptyResults />
+                    <Error />
+                    <OnResults
+                      sortValues={sortValues}
+                      resultsPerPageValues={resultsPerPageValues}
+                    />
+                  </ResultsLoader>
+                </Grid.Column>
+              </Grid.Row>
+            </Grid>
+          </Container>
+        </ReactSearchKit>
+      </OverridableContext.Provider>
     );
   }
 }

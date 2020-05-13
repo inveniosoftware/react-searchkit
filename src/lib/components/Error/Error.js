@@ -6,37 +6,37 @@
  * under the terms of the MIT License; see LICENSE file for more details.
  */
 
-import React, { Component, Fragment } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
-import { ShouldRender } from '../ShouldRender';
 import _isEmpty from 'lodash/isEmpty';
+import Overridable from 'react-overridable';
+import { ShouldRender } from '../ShouldRender';
+import { buildUID } from '../../util';
 
-export default class Error extends Component {
-  constructor(props) {
-    super(props);
-    this.renderElement = props.renderElement || this._renderElement;
-  }
-
-  _renderElement = error => {
-    return <div>Oups! Something went wrong while fetching results.</div>;
-  };
-
-  render() {
-    const { loading, error } = this.props;
-    return (
-      <ShouldRender condition={!loading && !_isEmpty(error)}>
-        <Fragment>{this.renderElement(error)}</Fragment>
-      </ShouldRender>
-    );
-  }
+function Error({ loading, error, overridableId }) {
+  return (
+    <ShouldRender condition={!loading && !_isEmpty(error)}>
+      <Element error={error} overridableId={overridableId} />
+    </ShouldRender>
+  );
 }
 
 Error.propTypes = {
   loading: PropTypes.bool.isRequired,
   error: PropTypes.object.isRequired,
-  renderElement: PropTypes.func,
+  overridableId: PropTypes.string,
 };
 
 Error.defaultProps = {
-  renderElement: null,
+  overridableId: '',
 };
+
+const Element = ({ error, overridableId }) => {
+  return (
+    <Overridable id={buildUID('Error.element', overridableId)} error={error}>
+      <div>Oups! Something went wrong while fetching results.</div>
+    </Overridable>
+  );
+};
+
+export default Overridable.component('Error', Error);

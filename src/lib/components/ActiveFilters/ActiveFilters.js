@@ -9,17 +9,16 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Label, Icon } from 'semantic-ui-react';
+import Overridable from 'react-overridable';
+import { buildUID } from '../../util';
 
-export default class ActiveFilters extends Component {
+class ActiveFilters extends Component {
   constructor(props) {
     super(props);
     this.updateQueryFilters = props.updateQueryFilters;
-    this.renderElement = props.renderElement || this._renderElement;
-    this.renderActiveFilters =
-      props.renderActiveFilters || this._renderActiveFilters;
   }
 
-  _getLabel = filter => {
+  _getLabel = (filter) => {
     const aggName = filter[0];
     let value = filter[1];
     let currentFilter = [aggName, value];
@@ -35,27 +34,18 @@ export default class ActiveFilters extends Component {
     };
   };
 
-  _renderElement = (filters, removeActiveFilter) => {
-    return filters.map((filter, index) => {
-      const { label, activeFilter } = this._getLabel(filter);
-      return (
-        <Label
-          image
-          key={index}
-          onClick={() => removeActiveFilter(activeFilter)}
-        >
-          {label}
-          <Icon name="delete" />
-        </Label>
-      );
-    });
-  };
-
   render() {
-    const filters = this.props.filters;
-    return filters.length
-      ? this.renderElement(filters, this.updateQueryFilters)
-      : null;
+    const { filters, overridableId } = this.props;
+    return (
+      !!filters.length && (
+        <Element
+          filters={filters}
+          removeActiveFilter={this.updateQueryFilters}
+          getLabel={this._getLabel}
+          overridableId={overridableId}
+        />
+      )
+    );
   }
 }
 
@@ -63,8 +53,38 @@ ActiveFilters.propTypes = {
   filters: PropTypes.array.isRequired,
   updateQueryFilters: PropTypes.func.isRequired,
   renderElement: PropTypes.func,
+  overridableId: PropTypes.string,
 };
 
 ActiveFilters.defaultProps = {
   renderElement: null,
+  overridableId: '',
 };
+
+const Element = ({ overridableId, ...props }) => {
+  const { filters, removeActiveFilter, getLabel } = props;
+  return (
+    <Overridable
+      id={buildUID('ActiveFilters.element', overridableId)}
+      {...props}
+    >
+      <>
+        {filters.map((filter, index) => {
+          const { label, activeFilter } = getLabel(filter);
+          return (
+            <Label
+              image
+              key={index}
+              onClick={() => removeActiveFilter(activeFilter)}
+            >
+              {label}
+              <Icon name="delete" />
+            </Label>
+          );
+        })}
+      </>
+    </Overridable>
+  );
+};
+
+export default Overridable.component('ActiveFilters', ActiveFilters);

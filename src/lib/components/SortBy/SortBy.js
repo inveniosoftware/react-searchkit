@@ -9,9 +9,11 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Dropdown } from 'semantic-ui-react';
+import Overridable from 'react-overridable';
 import { ShouldRender } from '../ShouldRender';
+import { buildUID } from '../../util';
 
-export default class SortBy extends Component {
+class SortBy extends Component {
   constructor(props) {
     super(props);
     this.options = props.values;
@@ -19,7 +21,6 @@ export default class SortBy extends Component {
     this.defaultValueOnEmptyString = this.props.defaultValueOnEmptyString;
     this.updateQuerySortBy = props.updateQuerySortBy;
     this.setInitialState = props.setInitialState;
-    this.renderElement = props.renderElement || this._renderElement;
   }
 
   componentDidMount() {
@@ -33,33 +34,31 @@ export default class SortBy extends Component {
     }
   }
 
-  _renderElement = (currentSortBy, options, onValueChange) => {
-    const _options = options.map((element, index) => {
-      return { key: index, text: element.text, value: element.value };
-    });
-    return (
-      <Dropdown
-        selection
-        compact
-        options={_options}
-        value={currentSortBy}
-        onChange={(e, { value }) => onValueChange(value)}
-      />
-    );
-  };
-
-  onChange = value => {
+  onChange = (value) => {
     if (value === this.props.currentSortBy) return;
     this.updateQuerySortBy(value);
   };
 
   render() {
-    const { currentSortBy, loading, totalResults, label } = this.props;
+    const {
+      currentSortBy,
+      loading,
+      totalResults,
+      label,
+      overridableId,
+    } = this.props;
     return (
       <ShouldRender
         condition={currentSortBy !== null && !loading && totalResults > 0}
       >
-        {label(this.renderElement(currentSortBy, this.options, this.onChange))}
+        {label(
+          <Element
+            currentSortBy={currentSortBy}
+            options={this.options}
+            onValueChange={this.onChange}
+            overridableId={overridableId}
+          />
+        )}
       </ShouldRender>
     );
   }
@@ -75,13 +74,33 @@ SortBy.propTypes = {
   currentQueryString: PropTypes.string.isRequired,
   updateQuerySortBy: PropTypes.func.isRequired,
   setInitialState: PropTypes.func.isRequired,
-  renderElement: PropTypes.func,
   label: PropTypes.func,
+  overridableId: PropTypes.string,
 };
 
 SortBy.defaultProps = {
   defaultValueOnEmptyString: null,
   currentSortBy: null,
-  renderElement: null,
   label: (cmp) => cmp,
+  overridableId: '',
 };
+
+const Element = ({ overridableId, ...props }) => {
+  const { currentSortBy, options, onValueChange } = props;
+  const _options = options.map((element, index) => {
+    return { key: index, text: element.text, value: element.value };
+  });
+  return (
+    <Overridable id={buildUID('SortBy.element', overridableId)} {...props}>
+      <Dropdown
+        selection
+        compact
+        options={_options}
+        value={currentSortBy}
+        onChange={(e, { value }) => onValueChange(value)}
+      />
+    </Overridable>
+  );
+};
+
+export default Overridable.component('SortBy', SortBy);

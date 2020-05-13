@@ -6,4 +6,4 @@
  * under the terms of the MIT License; see LICENSE file for more details.
  */
 
-export { ReactSearchKit } from './ReactSearchKit';
+export { default as ReactSearchKit } from './ReactSearchKit';

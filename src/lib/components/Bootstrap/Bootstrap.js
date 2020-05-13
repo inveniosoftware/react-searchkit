@@ -8,8 +8,9 @@
 
 import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
+import Overridable from 'react-overridable';
 
-export default class Bootstrap extends Component {
+class Bootstrap extends Component {
   constructor(props) {
     super(props);
     this.appName = props.appName;
@@ -19,7 +20,7 @@ export default class Bootstrap extends Component {
     this.searchOnUrlQueryStringChanged = props.searchOnUrlQueryStringChanged;
   }
 
-  updateQueryState = query => this.props.updateQueryState(query);
+  updateQueryState = (query) => this.props.updateQueryState(query);
 
   onQueryChanged = ({ detail: payload }) => {
     const appReceiverName = payload.appName || this.appName;
@@ -64,3 +65,5 @@ Bootstrap.propTypes = {
 Bootstrap.defaultProps = {
   searchOnInit: true,
 };
+
+export default Overridable.component('Bootstrap', Bootstrap);

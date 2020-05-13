@@ -9,6 +9,8 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Input } from 'semantic-ui-react';
+import Overridable from 'react-overridable';
+import { buildUID } from '../../util';
 
 class SearchBar extends Component {
   constructor(props) {
@@ -17,20 +19,67 @@ class SearchBar extends Component {
     this.state = {
       currentValue: this.props.queryString || '',
     };
-    this.renderElement = props.renderElement || this._renderElement;
   }
 
-  _renderElement(placeholder, queryString, onInputChange, executeSearch) {
-    placeholder = placeholder || 'Type something';
-    const onBtnSearchClick = (event, input) => {
-      executeSearch();
-    };
-    const onKeyPress = (event, input) => {
-      if (event.key === 'Enter') {
-        executeSearch();
-      }
-    };
+  onInputChange = (queryString) => {
+    this.setState({
+      currentValue: queryString,
+    });
+  };
+
+  executeSearch = () => {
+    this.updateQueryString(this.state.currentValue);
+  };
+
+  render() {
+    const { placeholder, overridableId } = this.props;
     return (
+      <Element
+        placeholder={placeholder}
+        queryString={this.state.currentValue}
+        onInputChange={this.onInputChange}
+        executeSearch={this.executeSearch}
+        overridableId={overridableId}
+      />
+    );
+  }
+}
+
+SearchBar.propTypes = {
+  placeholder: PropTypes.string,
+  queryString: PropTypes.string.isRequired,
+  updateQueryString: PropTypes.func.isRequired,
+  overridableId: PropTypes.string,
+};
+
+SearchBar.defaultProps = {
+  placeholder: '',
+  queryString: '',
+  overridableId: '',
+};
+
+const SearchBarUncontrolled = (props) => (
+  <SearchBar key={props.queryString} {...props} />
+);
+
+const Element = ({ overridableId, ...props }) => {
+  const {
+    placeholder: passedPlaceholder,
+    queryString,
+    onInputChange,
+    executeSearch,
+  } = props;
+  const placeholder = passedPlaceholder || 'Type something';
+  const onBtnSearchClick = (event, input) => {
+    executeSearch();
+  };
+  const onKeyPress = (event, input) => {
+    if (event.key === 'Enter') {
+      executeSearch();
+    }
+  };
+  return (
+    <Overridable id={buildUID('SearchBar.element', overridableId)} {...props}>
       <Input
         action={{
           content: 'Search',
@@ -44,44 +93,8 @@ class SearchBar extends Component {
         value={queryString}
         onKeyPress={onKeyPress}
       />
-    );
-  }
-
-  onInputChange = queryString => {
-    this.setState({
-      currentValue: queryString,
-    });
-  };
-
-  executeSearch = () => {
-    this.updateQueryString(this.state.currentValue);
-  };
-
-  render() {
-    const { placeholder } = this.props;
-    return this.renderElement(
-      placeholder,
-      this.state.currentValue,
-      this.onInputChange,
-      this.executeSearch
-    );
-  }
-}
-
-SearchBar.propTypes = {
-  placeholder: PropTypes.string,
-  queryString: PropTypes.string.isRequired,
-  updateQueryString: PropTypes.func.isRequired,
-  renderElement: PropTypes.func,
+    </Overridable>
+  );
 };
 
-SearchBar.defaultProps = {
-  placeholder: '',
-  queryString: '',
-  renderElement: null,
-};
-
-const SearchBarUncontrolled = props => (
-  <SearchBar key={props.queryString} {...props} />
-);
-export default SearchBarUncontrolled;
+export default Overridable.component('SearchBar', SearchBarUncontrolled);
