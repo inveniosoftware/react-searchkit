@@ -13,12 +13,14 @@ export default {
     {
       file: pkg.main,
       format: 'cjs',
+      exports: 'auto',
       sourcemap: true,
+      strict: false,
     },
     {
       file: pkg.module,
       format: 'esm',
-      exports: 'named',
+      exports: 'auto',
       sourcemap: true,
     },
   ],
