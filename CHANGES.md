@@ -1,5 +1,12 @@
 # Changes
 
+Version 1.0.0-alpha.1 (released 2020-05-15)
+
+* Remove 'use strict' directive from the built CommonJS module dist,
+  which was wrong and breaking Babel runtime helper. Sites using
+  Content-Security-Policies headers were reporting 'unsafe-eval' error.
+* Remove `react-scripts` from `peerDependencies`.
+
 Version 1.0.0-alpha.0 (released 2020-05-13)
 
 * Breaking: integrate `react-overridable` library. The `renderElement` props have been removed in favour
