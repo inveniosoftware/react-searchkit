@@ -10,7 +10,11 @@
  * Build namespaced unique identifier.
  * @param {string} elementName component element name
  * @param {string} overridableId unique identifier passed as prop to overridable component
+ * @param {string} appName the app name
+ * @return {string} the unique id string with the format 'elementName.appName.overridableId'
  */
-export function buildUID(elementName, overridableId) {
-  return `${elementName}${overridableId && `.${overridableId}`}`;
+export function buildUID(elementName, overridableId, appName = '') {
+  const _overridableId = overridableId ? `.${overridableId}` : '';
+  const _appName = appName ? `.${appName}` : '';
+  return `${elementName}${_appName}${_overridableId}`;
 }

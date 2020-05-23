@@ -147,6 +147,7 @@ export class App extends Component {
     return (
       <OverridableContext.Provider value={overriddenComponents}>
         <ReactSearchKit
+          appName="MyAppName"
           searchApi={searchApi}
           urlHandlerApi={{ enabled: false }}
         >

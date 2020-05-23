@@ -7,3 +7,4 @@
  */
 
 export { default as ReactSearchKit } from './ReactSearchKit';
+export { AppContext } from './AppContext';

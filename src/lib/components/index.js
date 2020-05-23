@@ -15,7 +15,7 @@ export { Error } from './Error';
 export { LayoutSwitcher } from './LayoutSwitcher';
 export { ResultsLoader } from './ResultsLoader';
 export { Pagination } from './Pagination';
-export { ReactSearchKit } from './ReactSearchKit';
+export { AppContext, ReactSearchKit } from './ReactSearchKit';
 export { ResultsGrid } from './ResultsGrid';
 export { ResultsList } from './ResultsList';
 export { ResultsMultiLayout } from './ResultsMultiLayout';
