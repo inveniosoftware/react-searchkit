@@ -6,11 +6,11 @@
  * under the terms of the MIT License; see LICENSE file for more details.
  */
 
-import React from 'react';
+import React, {useContext} from 'react';
 import PropTypes from 'prop-types';
 import { Loader } from 'semantic-ui-react';
 import Overridable from 'react-overridable';
-import { buildUID } from '../../util';
+import {AppContext} from "../ReactSearchKit";
 
 function ResultsLoader({ children, loading, overridableId }) {
   return loading ? <Element overridableId={overridableId} /> : children;
@@ -25,10 +25,13 @@ ResultsLoader.defaultProps = {
   overridableId: '',
 };
 
-const Element = ({ overridableId }) => (
+const Element = ({ overridableId }) => {
+  const {buildUID} = useContext(AppContext);
+
+  return (
   <Overridable id={buildUID('ResultsLoader.element', overridableId)}>
     <Loader active size="huge" inline="centered" />
   </Overridable>
-);
+)}
 
 export default Overridable.component('ResultsLoader', ResultsLoader);

@@ -6,12 +6,12 @@
  * under the terms of the MIT License; see LICENSE file for more details.
  */
 
-import React from 'react';
+import React, {useContext} from 'react';
 import PropTypes from 'prop-types';
 import { Card, Image } from 'semantic-ui-react';
 import Overridable from 'react-overridable';
 import { ShouldRender } from '../ShouldRender';
-import { buildUID } from '../../util';
+import {AppContext} from "../ReactSearchKit";
 
 function ResultsGrid({
   loading,
@@ -44,7 +44,10 @@ ResultsGrid.defaultProps = {
   overridableId: '',
 };
 
-const GridItem = ({ result, index, overridableId }) => (
+const GridItem = ({ result, index, overridableId }) => {
+  const {buildUID} = useContext(AppContext);
+
+  return (
   <Overridable
     id={buildUID('ResultsGrid.item', overridableId)}
     result={result}
@@ -58,10 +61,12 @@ const GridItem = ({ result, index, overridableId }) => (
       </Card.Content>
     </Card>
   </Overridable>
-);
+)}
 
 const Element = ({ overridableId, ...props }) => {
   const { results, resultsPerRow } = props;
+  const {buildUID} = useContext(AppContext);
+
   const _results = results.map((result, index) => (
     <GridItem
       key={index}

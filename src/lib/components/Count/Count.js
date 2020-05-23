@@ -6,12 +6,12 @@
  * under the terms of the MIT License; see LICENSE file for more details.
  */
 
-import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { Label } from 'semantic-ui-react';
+import React, { Component, useContext } from 'react';
 import Overridable from 'react-overridable';
+import { Label } from 'semantic-ui-react';
+import { AppContext } from '../';
 import { ShouldRender } from '../ShouldRender';
-import { buildUID } from '../../util';
 
 class Count extends Component {
   render() {
@@ -38,13 +38,17 @@ Count.defaultProps = {
   overridableId: '',
 };
 
-const Element = ({ totalResults, overridableId }) => (
+const Element = ({ totalResults, overridableId }) => {
+  const {buildUID} = useContext(AppContext);
+  const _overridableId = buildUID('Count.element', overridableId)
+
+  return (
   <Overridable
-    id={buildUID('Count.element', overridableId)}
+    id={_overridableId}
     totalResults={totalResults}
   >
     <Label color={'blue'}>{totalResults.toLocaleString('en-US')}</Label>
   </Overridable>
-);
+)}
 
 export default Overridable.component('Count', Count);

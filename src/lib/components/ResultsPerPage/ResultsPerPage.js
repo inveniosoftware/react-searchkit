@@ -6,12 +6,12 @@
  * under the terms of the MIT License; see LICENSE file for more details.
  */
 
-import React, { Component } from 'react';
+import React, {Component, useContext} from 'react';
 import PropTypes from 'prop-types';
 import { ShouldRender } from '../ShouldRender';
-import { buildUID } from '../../util';
 import { Dropdown } from 'semantic-ui-react';
 import Overridable from 'react-overridable';
+import {AppContext} from "../ReactSearchKit";
 
 class ResultsPerPage extends Component {
   constructor(props) {
@@ -67,9 +67,11 @@ ResultsPerPage.defaultProps = {
 
 const Element = ({ overridableId, ...props }) => {
   const { currentSize, options, onValueChange } = props;
+  const {buildUID} = useContext(AppContext);
   const _options = options.map((element, index) => {
     return { key: index, text: element.text, value: element.value };
   });
+
   return (
     <Overridable
       id={buildUID('ResultsPerPage.element', overridableId)}

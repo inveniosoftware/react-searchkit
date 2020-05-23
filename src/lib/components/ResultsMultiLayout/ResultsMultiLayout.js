@@ -6,13 +6,13 @@
  * under the terms of the MIT License; see LICENSE file for more details.
  */
 
-import React from 'react';
+import React, {useContext} from 'react';
 import PropTypes from 'prop-types';
 import Overridable from 'react-overridable';
 import { ResultsList } from '../ResultsList';
 import { ResultsGrid } from '../ResultsGrid';
 import { ShouldRender } from '../ShouldRender';
-import { buildUID } from '../../util';
+import {AppContext} from "../ReactSearchKit";
 
 function ResultsMultiLayout({
   loading,
@@ -40,7 +40,10 @@ ResultsMultiLayout.defaultProps = {
   overridableId: '',
 };
 
-const Element = ({ layout, overridableId }) => (
+const Element = ({ layout, overridableId }) => {
+  const {buildUID} = useContext(AppContext);
+
+  return (
   <Overridable
     id={buildUID('ResultsMultiLayout.element', overridableId)}
     layout={layout}
@@ -53,6 +56,6 @@ const Element = ({ layout, overridableId }) => (
       <ResultsGrid overridableId={overridableId} />
     )}
   </Overridable>
-);
+)}
 
 export default Overridable.component('ResultsMultiLayout', ResultsMultiLayout);

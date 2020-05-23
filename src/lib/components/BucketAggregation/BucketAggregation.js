@@ -6,13 +6,13 @@
  * under the terms of the MIT License; see LICENSE file for more details.
  */
 
-import React, { Component } from 'react';
+import React, {Component, useContext} from 'react';
 import PropTypes from 'prop-types';
 import { Card } from 'semantic-ui-react';
 import _get from 'lodash/get';
 import Overridable from 'react-overridable';
 import BucketAggregationValues from './BucketAggregationValues';
-import { buildUID } from '../../util';
+import {AppContext} from "../ReactSearchKit";
 
 class BucketAggregation extends Component {
   constructor(props) {
@@ -110,6 +110,8 @@ BucketAggregation.defaultProps = {
 
 const Element = ({ overridableId, ...props }) => {
   const { title, containerCmp } = props;
+  const {buildUID} = useContext(AppContext);
+
   return (
     containerCmp && (
       <Overridable

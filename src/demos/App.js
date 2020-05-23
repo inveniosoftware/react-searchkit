@@ -18,6 +18,7 @@ import {
 import { CERNVideosReactSearchKit } from './cern-videos';
 import { ESReactSearchKit } from './elasticsearch';
 import { ZenodoReactSearchKit } from './zenodo';
+import NamespacedExample from "./cern-videos-namespaced/app";
 
 const demos = {
   es7: {
@@ -35,6 +36,11 @@ const demos = {
     text: 'The CERN official platform for videos.',
     cmp: <CERNVideosReactSearchKit />,
   },
+  'namespaced_example': {
+    label: "video.cern.ch namespaced",
+    text: "Example of multiple React-searchkit instances being namespaced by their appName",
+    cmp: <NamespacedExample/>
+  }
 };
 
 export default class App extends Component {

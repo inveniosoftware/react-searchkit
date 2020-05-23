@@ -16,7 +16,9 @@ import {
   ResultsMultiLayout,
   ResultsPerPage,
   Sort,
+  withState
 } from '../../lib/components';
+
 
 export class Results extends Component {
   constructor(props) {
@@ -54,7 +56,7 @@ export class Results extends Component {
           </Grid.Column>
         </Grid>
         <Grid relaxed style={{ padding: '2em 0' }}>
-          <ResultsMultiLayout overridableId='cernvideos' />
+          <ResultsMultiLayout  />
         </Grid>
         <Grid relaxed verticalAlign="middle" textAlign="center">
           <Pagination />

@@ -14,6 +14,7 @@ import { UrlHandlerApi } from '../../api';
 import { createStoreWithConfig } from '../../store';
 import { buildUID } from '../../util';
 import { Bootstrap } from '../Bootstrap';
+import { AppContext } from './AppContext';
 
 export class ReactSearchKit extends Component {
   constructor(props) {
@@ -37,20 +38,35 @@ export class ReactSearchKit extends Component {
   }
 
   render() {
-    const { searchOnInit, overridableId } = this.props;
+    const {
+      appName,
+      eventListenerEnabled,
+      overridableId,
+      searchOnInit,
+    } = this.props;
+
+    const context = {
+      appName,
+      buildUID: (element, overrideId) => buildUID(element, overrideId, appName)
+    };
+
+    const _overridableId = buildUID(
+      'ReactSearchKit.children',
+      overridableId,
+      appName
+    );
 
     return (
-      <Provider store={this.store}>
-        <Bootstrap
-          searchOnInit={searchOnInit}
-          appName={this.appName}
-          eventListenerEnabled={this.eventListenerEnabled}
-        >
-          <Overridable id={buildUID('ReactSearchKit.children', overridableId)}>
-            {this.props.children}
-          </Overridable>
-        </Bootstrap>
-      </Provider>
+      <AppContext.Provider value={context}>
+        <Provider store={this.store}>
+          <Bootstrap
+            searchOnInit={searchOnInit}
+            eventListenerEnabled={eventListenerEnabled}
+          >
+            <Overridable id={_overridableId}>{this.props.children}</Overridable>
+          </Bootstrap>
+        </Provider>
+      </AppContext.Provider>
     );
   }
 }
@@ -98,11 +114,14 @@ ReactSearchKit.defaultProps = {
     customHandler: null,
   },
   searchOnInit: true,
-  appName: 'RSK',
+  defaultSortByOnEmptyQuery: null,
+  appName: '',
   eventListenerEnabled: false,
   overridableId: '',
   initialQueryState: {},
   defaultSortingOnEmptyQueryString: {},
 };
+
+ReactSearchKit.contextType = AppContext
 
 export default Overridable.component('ReactSearchKit', ReactSearchKit);

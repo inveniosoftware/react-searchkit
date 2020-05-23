@@ -6,11 +6,11 @@
  * under the terms of the MIT License; see LICENSE file for more details.
  */
 
-import React, { Component } from 'react';
+import React, {Component, useContext} from 'react';
 import PropTypes from 'prop-types';
 import { Label, Icon } from 'semantic-ui-react';
 import Overridable from 'react-overridable';
-import { buildUID } from '../../util';
+import {AppContext} from "../ReactSearchKit";
 
 class ActiveFilters extends Component {
   constructor(props) {
@@ -63,6 +63,8 @@ ActiveFilters.defaultProps = {
 
 const Element = ({ overridableId, ...props }) => {
   const { filters, removeActiveFilter, getLabel } = props;
+  const {buildUID} = useContext(AppContext);
+
   return (
     <Overridable
       id={buildUID('ActiveFilters.element', overridableId)}
