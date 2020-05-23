@@ -6,11 +6,11 @@
  * under the terms of the MIT License; see LICENSE file for more details.
  */
 
-import React, { Component } from 'react';
+import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import { Input } from 'semantic-ui-react';
 import Overridable from 'react-overridable';
-import { buildUID } from '../../util';
+import {AppContext} from "../ReactSearchKit";
 
 class SearchBar extends Component {
   constructor(props) {
@@ -123,6 +123,7 @@ class Element extends Component {
       queryString,
       uiProps,
     } = this.props;
+    const {buildUID} = this.context
 
     return (
       <Overridable
@@ -151,5 +152,7 @@ class Element extends Component {
     );
   }
 }
+
+Element.contextType = AppContext
 
 export default Overridable.component('SearchBar', SearchBarUncontrolled);

@@ -7,12 +7,12 @@
  */
 
 import _ from 'lodash';
-import React, { Component } from 'react';
+import React, {Component, useContext} from 'react';
 import PropTypes from 'prop-types';
 import { Input } from 'semantic-ui-react';
 import Overridable from 'react-overridable';
 import './AutocompleteSearchBar.scss';
-import { buildUID } from '../../util';
+import {AppContext} from "../ReactSearchKit";
 
 class AutocompleteSearchBar extends Component {
   constructor(props) {
@@ -97,6 +97,7 @@ const Element = ({ overridableId, ...props }) => {
     onInputChange,
     executeSearch,
   } = props;
+  const {buildUID} = useContext(AppContext);
   const onBtnSearchClick = (event, input) => {
     executeSearch();
   };
@@ -136,6 +137,7 @@ const Element = ({ overridableId, ...props }) => {
 
 const Suggestions = ({ overridableId, ...props }) => {
   const { querySuggestions } = props;
+  const {buildUID} = useContext(AppContext);
   const onSuggestionSelected = async (suggestion) => {
     await this.setState({
       currentValue: suggestion,

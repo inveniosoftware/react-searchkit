@@ -161,9 +161,8 @@ describe('test ReactSearchKit component', () => {
         appName={'myApp'}
       />
     );
-    const cmp = rsk.childAt(0);
-    expect(cmp.prop('searchOnInit')).toBe(false);
-    expect(cmp.prop('appName')).toBe('myApp');
-    expect(cmp.prop('eventListenerEnabled')).toBe(false);
+    const bootstrapComponent = rsk.childAt(0).childAt(0);
+    expect(bootstrapComponent.prop('searchOnInit')).toBe(false);
+    expect(bootstrapComponent.prop('eventListenerEnabled')).toBe(false);
   });
 });

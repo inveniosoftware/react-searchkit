@@ -6,12 +6,12 @@
  * under the terms of the MIT License; see LICENSE file for more details.
  */
 
-import React from 'react';
+import React, {useContext} from 'react';
 import PropTypes from 'prop-types';
 import _isEmpty from 'lodash/isEmpty';
 import Overridable from 'react-overridable';
 import { ShouldRender } from '../ShouldRender';
-import { buildUID } from '../../util';
+import {AppContext} from "../ReactSearchKit";
 
 function Error({ loading, error, overridableId }) {
   return (
@@ -32,6 +32,8 @@ Error.defaultProps = {
 };
 
 const Element = ({ error, overridableId }) => {
+  const {buildUID} = useContext(AppContext);
+
   return (
     <Overridable id={buildUID('Error.element', overridableId)} error={error}>
       <div>Oops! Something went wrong while fetching results.</div>

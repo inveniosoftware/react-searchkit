@@ -7,10 +7,10 @@
  */
 
 import PropTypes from 'prop-types';
-import React, { Component } from 'react';
+import React, {Component, useContext} from 'react';
 import Overridable from 'react-overridable';
 import { Checkbox, List } from 'semantic-ui-react';
-import { buildUID } from '../../util';
+import {AppContext} from "../ReactSearchKit";
 
 class BucketAggregationValues extends Component {
   constructor(props) {
@@ -121,10 +121,12 @@ const ValueElement = (props) => {
     overridableId,
     keyField,
   } = props;
+  const {buildUID} = useContext(AppContext);
   const label = bucket.label
     ? bucket.label
     : `${keyField} (${bucket.doc_count.toLocaleString('en-US')})`;
   const childAggCmps = getChildAggCmps(bucket);
+
   return (
     <Overridable
       id={buildUID('BucketAggregationValues.element', overridableId)}
@@ -144,6 +146,8 @@ const ValueElement = (props) => {
 };
 
 const ContainerElement = ({ valuesCmp, overridableId }) => {
+  const {buildUID} = useContext(AppContext);
+
   return (
     <Overridable
       id={buildUID('BucketAggregationContainer.element', overridableId)}

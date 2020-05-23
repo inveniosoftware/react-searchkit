@@ -6,13 +6,13 @@
  * under the terms of the MIT License; see LICENSE file for more details.
  */
 
-import React, { Component } from 'react';
+import React, {Component, useContext} from 'react';
 import PropTypes from 'prop-types';
 import { Segment, Header, Icon, Button } from 'semantic-ui-react';
 import _isEmpty from 'lodash/isEmpty';
 import Overridable from 'react-overridable';
 import { ShouldRender } from '../ShouldRender';
-import { buildUID } from '../../util';
+import {AppContext} from "../ReactSearchKit";
 
 class EmptyResults extends Component {
   constructor(props) {
@@ -62,6 +62,8 @@ EmptyResults.defaultProps = {
 
 const Element = ({ overridableId, ...props }) => {
   const { queryString, resetQuery } = props;
+  const {buildUID} = useContext(AppContext);
+
   return (
     <Overridable
       id={buildUID('EmptyResults.element', overridableId)}
