@@ -26,6 +26,7 @@ class EmptyResults extends Component {
       totalResults,
       error,
       queryString,
+      extraContent,
       overridableId,
     } = this.props;
     return (
@@ -35,6 +36,7 @@ class EmptyResults extends Component {
         <Element
           queryString={queryString}
           resetQuery={this.resetQuery}
+          extraContent={extraContent}
           overridableId={overridableId}
         />
       </ShouldRender>
