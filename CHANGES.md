@@ -1,5 +1,9 @@
 # Changes
 
+Version 1.0.0-alpha.2 (released 2020-08-05)
+
+* Add additional props to BucketAggregation component - flexible overrides
+
 Version 1.0.0-alpha.1 (released 2020-05-15)
 
 * Remove 'use strict' directive from the built CommonJS module dist,
