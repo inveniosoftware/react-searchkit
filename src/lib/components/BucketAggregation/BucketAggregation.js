@@ -20,6 +20,7 @@ class BucketAggregation extends Component {
     this.title = props.title;
     this.agg = props.agg;
     this.updateQueryFilters = props.updateQueryFilters;
+    this.valueMapping = props.valueMapping
   }
 
   onFilterClicked = (filter) => {
@@ -38,6 +39,7 @@ class BucketAggregation extends Component {
         onFilterClicked={this.onFilterClicked}
         overridableId={overridableId}
         valuesLabels={valuesLabels}
+        valueMapping = {this.valueMapping}
       />
     );
   };

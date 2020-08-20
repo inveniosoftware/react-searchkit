@@ -20,6 +20,7 @@ class BucketAggregationValues extends Component {
     this.aggName = props.aggName;
     this.childAgg = props.childAgg;
     this.onFilterClicked = props.onFilterClicked;
+    this.valueMapping = props.valueMapping;
   }
 
   _isSelected = (aggName, value, selectedFilters) => {
@@ -92,6 +93,7 @@ class BucketAggregationValues extends Component {
           getChildAggCmps={getChildAggCmps}
           valueLabel={label}
           overridableId={overridableId}
+          valueMapping={this.valueMapping}
         />
       );
     });
@@ -127,10 +129,18 @@ const ValueElement = (props) => {
     getChildAggCmps,
     valueLabel,
     overridableId,
+    valueMapping
   } = props;
 
   const label = valueLabel ? valueLabel : `${bucket.key} (${bucket.doc_count})`;
   const childAggCmps = getChildAggCmps(bucket);
+  let labelValue = ""
+  if(valueMapping && valueMapping[bucket.key]){
+    labelValue = valueMapping[bucket.key]
+  }
+  else{
+    labelValue = bucket.key
+  }
   return (
     <Overridable
       id={buildUID('BucketAggregationValues.element', overridableId)}
@@ -138,7 +148,7 @@ const ValueElement = (props) => {
     >
       <List.Item key={bucket.key}>
         <Checkbox
-          label={label}
+          label={labelValue}
           value={bucket.key}
           onClick={() => onFilterClicked(bucket.key)}
           checked={isSelected}
