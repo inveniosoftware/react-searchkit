@@ -27,6 +27,7 @@ export class ReactSearchKit extends Component {
         : null,
       defaultSortByOnEmptyQuery: props.defaultSortByOnEmptyQuery,
       searchOnInit: props.searchOnInit,
+      initialQueryState: props.initialQueryState,
     };
     this.store = configureStore(appConfig);
     this.appName = props.appName;
@@ -71,6 +72,7 @@ ReactSearchKit.propTypes = {
   appName: PropTypes.string,
   eventListenerEnabled: PropTypes.bool,
   overridableId: PropTypes.string,
+  initialQueryState: PropTypes.object,
 };
 
 ReactSearchKit.defaultProps = {
@@ -85,6 +87,7 @@ ReactSearchKit.defaultProps = {
   appName: 'RSK',
   eventListenerEnabled: false,
   overridableId: '',
+  initialQueryState: {},
 };
 
 export default Overridable.component('ReactSearchKit', ReactSearchKit);

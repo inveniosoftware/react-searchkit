@@ -14,7 +14,10 @@ import rootReducer from './state/reducers';
 import { INITIAL_STORE_STATE } from './storeConfig';
 
 export function configureStore(appConfig) {
-  const initialQueryState = INITIAL_STORE_STATE;
+  const initialQueryState = {
+    ...INITIAL_STORE_STATE, 
+    ...appConfig.initialQueryState,
+  };
 
   const initialResultsState = {
     loading: appConfig.searchOnInit,
