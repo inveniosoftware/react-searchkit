@@ -8,6 +8,7 @@
 
 import Qs from 'qs';
 import _extend from 'lodash/extend';
+import _isEmpty from 'lodash/isEmpty';
 
 /** Default backend request serializer */
 export class InvenioRequestSerializer {
@@ -63,9 +64,9 @@ export class InvenioRequestSerializer {
    * @param {object} stateQuery the `query` state to serialize
    */
   serialize(stateQuery) {
-    const { queryString, sortBy, sortOrder, page, size, filters } = stateQuery;
+    const { queryString, sortBy, sortOrder, page, size, filters, hiddenParams } = stateQuery;
 
-    const getParams = {};
+    let getParams = {};
     if (queryString !== null) {
       getParams['q'] = queryString;
     }
@@ -81,6 +82,9 @@ export class InvenioRequestSerializer {
     }
     if (size > 0) {
       getParams['size'] = size;
+    }
+    if (!_isEmpty(hiddenParams)) {
+      _extend(getParams, this._addFilters(hiddenParams));
     }
     const filterParams = this._addFilters(filters);
     _extend(getParams, filterParams);

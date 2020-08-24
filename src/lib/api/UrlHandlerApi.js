@@ -90,6 +90,7 @@ export class UrlHandlerApi {
           size: 's',
           layout: 'l',
           filters: 'f',
+          hiddenParams: 'hp',
         };
 
     this.keepHistory =
@@ -148,6 +149,9 @@ export class UrlHandlerApi {
           (stateKey === 'page' || stateKey === 'size') &&
           queryState[stateKey] <= 0
         ) {
+          return false;
+        }
+        if (stateKey === 'hiddenParams'){
           return false;
         }
         return queryState[stateKey] !== null;

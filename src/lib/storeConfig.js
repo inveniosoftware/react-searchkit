@@ -14,6 +14,7 @@ export const INITIAL_STORE_STATE = {
   page: -1,
   size: -1,
   filters: [],
+  hiddenParams: [],
   layout: null,
 };
 
