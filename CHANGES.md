@@ -1,5 +1,12 @@
 # Changes
 
+Version 1.0.0-alpha.3 (released 2020-08-25)
+
+* Adds `hiddenParams` to the query state, to allow passing "hidden" querystring
+  parameters to the search API.
+* Adds `initialQueryState` prop to `<ReactSearchkit>`, to allow overriding the
+  initial query state.
+
 Version 1.0.0-alpha.2 (released 2020-08-05)
 
 * Add additional props to BucketAggregation component - flexible overrides
