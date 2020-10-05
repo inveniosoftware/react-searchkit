@@ -29,7 +29,11 @@ export class InvenioRequestSerializer {
     }
     const aggName = filter[0];
     const fieldValue = filter[1];
-    filterUrlParams[aggName] = fieldValue;
+    if (aggName in filterUrlParams) {
+      filterUrlParams[aggName].push(fieldValue);
+    } else {
+      filterUrlParams[aggName] = [fieldValue];
+    }
     const hasChild = filter.length === 3;
     if (hasChild) {
       this._addFilter(filter[2], filterUrlParams);
