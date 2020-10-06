@@ -18,7 +18,18 @@ class SearchBar extends Component {
     this.updateQueryString = this.props.updateQueryString;
     this.state = {
       currentValue: this.props.queryString || '',
+      isAfterSearch: false,
     };
+  }
+
+  static getDerivedStateFromProps(props, state) {
+    if (state.isAfterSearch && props.queryString !== state.currentValue) {
+      return {
+        currentValue: props.queryString,
+        isAfterSearch: false,
+      };
+    }
+    return null;
   }
 
   onInputChange = (queryString) => {
@@ -29,6 +40,7 @@ class SearchBar extends Component {
 
   executeSearch = () => {
     this.updateQueryString(this.state.currentValue);
+    this.setState({ isAfterSearch: true });
   };
 
   render() {
@@ -40,6 +52,7 @@ class SearchBar extends Component {
         onInputChange={this.onInputChange}
         executeSearch={this.executeSearch}
         overridableId={overridableId}
+        onQueryChange={() => console.log('Query Changed?')}
       />
     );
   }
@@ -58,9 +71,16 @@ SearchBar.defaultProps = {
   overridableId: '',
 };
 
-const SearchBarUncontrolled = (props) => (
-  <SearchBar key={props.queryString} {...props} />
-);
+// NOTE: This is actually the recommended approach from React.
+// https://reactjs.org/blog/2018/06/07/you-probably-dont-need-derived-state.html#recommendation-fully-uncontrolled-component-with-a-key
+const SearchBarUncontrolled = (props) => {
+  return <SearchBar key={props.queryString} {...props} />;
+};
+
+// https://reactjs.org/blog/2018/06/07/you-probably-dont-need-derived-state.html#alternative-1-reset-uncontrolled-component-with-an-id-prop
+const SearchControlled = (props) => {
+  return <SearchBar {...props} />;
+};
 
 const Element = ({ overridableId, ...props }) => {
   const {
@@ -97,4 +117,4 @@ const Element = ({ overridableId, ...props }) => {
   );
 };
 
-export default Overridable.component('SearchBar', SearchBarUncontrolled);
+export default Overridable.component('SearchBar', SearchControlled);
