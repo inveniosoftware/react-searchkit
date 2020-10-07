@@ -18,8 +18,6 @@ The application is split in 3 main parts:
 Components interact with the app using the standard Redux data flow. Each component is connected to part of the application state and receives only the data and the actions that it needs and should responsible for.
 For example, the `SearchBar` component receives the current query string stored in the state and can perform the action to update it.
 
-Some components do have also extra properties, such as default values. For example, the `SortBy` component receive a prop `defaultValue`: when mounting the component, a specific action will be fired to set the provided value as the initial state for the `sortBy` field.
-
 You can find the list of components in the [Components](components/react_search_kit.md) section.
 
 ### Look And Feel

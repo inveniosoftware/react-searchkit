@@ -48,7 +48,6 @@ export class Results extends Component {
               <ResultsPerPage
                 values={this.resultsPerPageValues}
                 label={(cmp) => <> Show {cmp} results per page</>}
-                defaultValue={10}
               />
             </span>
             <LayoutSwitcher defaultLayout="grid" />

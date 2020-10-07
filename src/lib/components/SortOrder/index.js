@@ -7,17 +7,16 @@
  */
 
 import { connect } from '../../store';
-import { updateQuerySortOrder, setInitialState } from '../../state/actions';
+import { updateQuerySortOrder } from '../../state/actions';
 import SortOrderComponent from './SortOrder';
 
-const mapDispatchToProps = dispatch => ({
-  updateQuerySortOrder: sortOrderValue =>
+const mapDispatchToProps = (dispatch) => ({
+  updateQuerySortOrder: (sortOrderValue) =>
     dispatch(updateQuerySortOrder(sortOrderValue)),
-  setInitialState: value => dispatch(setInitialState(value)),
 });
 
 export const SortOrder = connect(
-  state => ({
+  (state) => ({
     loading: state.results.loading,
     totalResults: state.results.data.total,
     currentSortOrder: state.query.sortOrder,

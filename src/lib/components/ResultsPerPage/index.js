@@ -7,19 +7,15 @@
  */
 
 import { connect } from '../../store';
-import {
-  updateQueryPaginationSize,
-  setInitialState,
-} from '../../state/actions';
+import { updateQueryPaginationSize } from '../../state/actions';
 import ResultsPerPageComponent from './ResultsPerPage';
 
-const mapDispatchToProps = dispatch => ({
-  updateQuerySize: size => dispatch(updateQueryPaginationSize(size)),
-  setInitialState: value => dispatch(setInitialState(value)),
+const mapDispatchToProps = (dispatch) => ({
+  updateQuerySize: (size) => dispatch(updateQueryPaginationSize(size)),
 });
 
 export const ResultsPerPage = connect(
-  state => ({
+  (state) => ({
     loading: state.results.loading,
     currentSize: state.query.size,
     totalResults: state.results.data.total,

@@ -18,6 +18,19 @@ import { buildUID } from '../../util';
 export class ReactSearchKit extends Component {
   constructor(props) {
     super(props);
+
+    const validate = (initialQueryState) => {
+      const layoutOptions = ['list', 'grid'];
+      if (
+        initialQueryState['layout'] &&
+        !layoutOptions.includes(initialQueryState['layout'])
+      ) {
+        throw new Error('Layout option is invalid.');
+      }
+
+      return initialQueryState;
+    };
+
     const appConfig = {
       searchApi: props.searchApi,
       suggestionApi: props.suggestionApi,
@@ -25,10 +38,10 @@ export class ReactSearchKit extends Component {
         ? props.urlHandlerApi.customHandler ||
           new UrlHandlerApi(props.urlHandlerApi.overrideConfig)
         : null,
-      defaultSortByOnEmptyQuery: props.defaultSortByOnEmptyQuery,
       searchOnInit: props.searchOnInit,
-      initialQueryState: props.initialQueryState,
+      initialQueryState: validate(props.initialQueryState),
     };
+
     this.store = configureStore(appConfig);
     this.appName = props.appName;
     this.eventListenerEnabled = props.eventListenerEnabled;
@@ -68,7 +81,6 @@ ReactSearchKit.propTypes = {
     customHandler: PropTypes.object,
   }),
   searchOnInit: PropTypes.bool,
-  defaultSortByOnEmptyQuery: PropTypes.string,
   appName: PropTypes.string,
   eventListenerEnabled: PropTypes.bool,
   overridableId: PropTypes.string,
@@ -83,7 +95,6 @@ ReactSearchKit.defaultProps = {
     customHandler: null,
   },
   searchOnInit: true,
-  defaultSortByOnEmptyQuery: null,
   appName: 'RSK',
   eventListenerEnabled: false,
   overridableId: '',

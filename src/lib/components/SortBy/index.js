@@ -7,15 +7,14 @@
  */
 
 import { connect } from '../../store';
-import { updateQuerySortBy, setInitialState } from '../../state/actions';
+import { updateQuerySortBy } from '../../state/actions';
 import SortByComponent from './SortBy';
-const mapDispatchToProps = dispatch => ({
-  updateQuerySortBy: sortByValue => dispatch(updateQuerySortBy(sortByValue)),
-  setInitialState: value => dispatch(setInitialState(value)),
+const mapDispatchToProps = (dispatch) => ({
+  updateQuerySortBy: (sortByValue) => dispatch(updateQuerySortBy(sortByValue)),
 });
 
 export const SortBy = connect(
-  state => ({
+  (state) => ({
     loading: state.results.loading,
     totalResults: state.results.data.total,
     currentSortBy: state.query.sortBy,

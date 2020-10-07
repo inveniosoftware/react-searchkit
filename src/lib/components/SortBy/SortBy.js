@@ -17,21 +17,7 @@ class SortBy extends Component {
   constructor(props) {
     super(props);
     this.options = props.values;
-    this.defaultValue = this.props.defaultValue;
-    this.defaultValueOnEmptyString = this.props.defaultValueOnEmptyString;
     this.updateQuerySortBy = props.updateQuerySortBy;
-    this.setInitialState = props.setInitialState;
-  }
-
-  componentDidMount() {
-    if (this.props.currentSortBy === null) {
-      const sortBy = this.props.currentQueryString
-        ? this.defaultValue
-        : this.defaultValueOnEmptyString || this.defaultValue;
-      this.setInitialState({
-        sortBy: sortBy,
-      });
-    }
   }
 
   onChange = (value) => {
@@ -66,20 +52,16 @@ class SortBy extends Component {
 
 SortBy.propTypes = {
   values: PropTypes.array.isRequired,
-  defaultValue: PropTypes.string.isRequired,
-  defaultValueOnEmptyString: PropTypes.string,
   loading: PropTypes.bool.isRequired,
   totalResults: PropTypes.number.isRequired,
   currentSortBy: PropTypes.string,
   currentQueryString: PropTypes.string.isRequired,
   updateQuerySortBy: PropTypes.func.isRequired,
-  setInitialState: PropTypes.func.isRequired,
   label: PropTypes.func,
   overridableId: PropTypes.string,
 };
 
 SortBy.defaultProps = {
-  defaultValueOnEmptyString: null,
   currentSortBy: null,
   label: (cmp) => cmp,
   overridableId: '',

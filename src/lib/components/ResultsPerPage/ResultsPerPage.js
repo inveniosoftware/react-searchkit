@@ -17,17 +17,7 @@ class ResultsPerPage extends Component {
   constructor(props) {
     super(props);
     this.options = props.values;
-    this.defaultValue = props.defaultValue;
     this.updateQuerySize = this.props.updateQuerySize;
-    this.setInitialState = props.setInitialState;
-  }
-
-  componentDidMount() {
-    if (this.props.currentSize === -1) {
-      this.setInitialState({
-        size: this.defaultValue,
-      });
-    }
   }
 
   onChange = (value) => {
@@ -65,15 +55,12 @@ ResultsPerPage.propTypes = {
   loading: PropTypes.bool.isRequired,
   totalResults: PropTypes.number.isRequired,
   values: PropTypes.array.isRequired,
-  defaultValue: PropTypes.number,
   updateQuerySize: PropTypes.func.isRequired,
-  setInitialState: PropTypes.func.isRequired,
   label: PropTypes.func,
   overridableId: PropTypes.string,
 };
 
 ResultsPerPage.defaultProps = {
-  defaultValue: 10,
   label: (cmp) => cmp,
   overridableId: '',
 };

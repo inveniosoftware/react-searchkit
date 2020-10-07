@@ -16,17 +16,7 @@ import { buildUID } from '../../util';
 class LayoutSwitcher extends Component {
   constructor(props) {
     super(props);
-    this.defaultValue = this.props.defaultLayout;
     this.updateLayout = props.updateLayout;
-    this.setInitialState = props.setInitialState;
-  }
-
-  componentDidMount() {
-    if (this.props.currentLayout === null) {
-      this.setInitialState({
-        layout: this.defaultValue,
-      });
-    }
   }
 
   onLayoutChange = (layoutName) => {
@@ -50,9 +40,7 @@ class LayoutSwitcher extends Component {
 }
 
 LayoutSwitcher.propTypes = {
-  defaultLayout: PropTypes.oneOf(['list', 'grid']),
   updateLayout: PropTypes.func.isRequired,
-  setInitialState: PropTypes.func.isRequired,
   loading: PropTypes.bool.isRequired,
   currentLayout: PropTypes.string,
   totalResults: PropTypes.number.isRequired,
@@ -60,7 +48,6 @@ LayoutSwitcher.propTypes = {
 };
 
 LayoutSwitcher.defaultProps = {
-  defaultLayout: 'list',
   currentLayout: null,
   overridableId: '',
 };

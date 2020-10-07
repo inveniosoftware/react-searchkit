@@ -12,7 +12,6 @@ The component is **not** displayed while executing the search query or if there 
 ```jsx
 <SortBy
   values={[{text: "Most recent", value: "created"}, {text: "Title", value: "title"}]}
-  defaultValue="title"
 />
 ```
 
@@ -21,14 +20,6 @@ The component is **not** displayed while executing the search query or if there 
 * **values** `Array`
 
   A list of possible values, where each value has the format `{ text: "Creation Date", value: "created" }`.
-
-* **defaultValue** `String`
-
-  The default value to pre-select when rendering the component. For example, `"created"`.
-
-* **defaultSortByOnEmptyQuery** `String` *optional*
-
-  Value to use when executing a search with an empty query string. When searching with an empty query, users normally expect most recent results, while searching with a defined query string, best match or any other sorting field. Default value: the value of `defaultValue` prop.
 
 - **label** `function` _optional_
 

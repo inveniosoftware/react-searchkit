@@ -18,49 +18,11 @@ class Sort extends Component {
     super(props);
     this.options = props.values;
     this.updateQuerySorting = props.updateQuerySorting;
-    this.setInitialState = props.setInitialState;
 
     this.options.forEach(
       (option) =>
         (option['value'] = this._computeValue(option.sortBy, option.sortOrder))
     );
-
-    // compute default value for sort field and sort order
-    const defaultValue = this.options.find(
-      (option) => 'default' in option && option.default
-    );
-    this.defaultValue = {
-      sortBy: defaultValue.sortBy || this.options[0].sortBy,
-      sortOrder: defaultValue.sortOrder || this.options[0].sortOrder,
-    };
-
-    const defaultValueOnEmptyString = this.options.find(
-      (option) =>
-        'defaultOnEmptyString' in option && option.defaultOnEmptyString
-    );
-    this.defaultValueOnEmptyString = {
-      sortBy: defaultValueOnEmptyString
-        ? defaultValueOnEmptyString.sortBy
-        : this.options[0].sortBy,
-      sortOrder: defaultValueOnEmptyString
-        ? defaultValueOnEmptyString.sortOrder
-        : this.options[0].sortOrder,
-    };
-  }
-
-  componentDidMount() {
-    if (
-      this.props.currentSortBy === null &&
-      this.props.currentSortOrder === null
-    ) {
-      const defaultValue = this.props.currentQueryString
-        ? this.defaultValue
-        : this.defaultValueOnEmptyString;
-      this.setInitialState({
-        sortBy: defaultValue.sortBy,
-        sortOrder: defaultValue.sortOrder,
-      });
-    }
   }
 
   _computeValue = (sortBy, sortOrder) => {
@@ -117,7 +79,6 @@ Sort.propTypes = {
   loading: PropTypes.bool.isRequired,
   totalResults: PropTypes.number.isRequired,
   updateQuerySorting: PropTypes.func.isRequired,
-  setInitialState: PropTypes.func.isRequired,
   label: PropTypes.func,
   overridableId: PropTypes.string,
 };
