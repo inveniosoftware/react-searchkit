@@ -7,15 +7,14 @@
  */
 
 import { connect } from '../../store';
-import { updateResultsLayout, setInitialState } from '../../state/actions';
+import { updateResultsLayout } from '../../state/actions';
 import LayoutSwitcherComponent from './LayoutSwitcher';
 
-const mapDispatchToProps = dispatch => ({
-  updateLayout: layout => dispatch(updateResultsLayout(layout)),
-  setInitialState: initialState => dispatch(setInitialState(initialState)),
+const mapDispatchToProps = (dispatch) => ({
+  updateLayout: (layout) => dispatch(updateResultsLayout(layout)),
 });
 export const LayoutSwitcher = connect(
-  state => ({
+  (state) => ({
     loading: state.results.loading,
     currentLayout: state.query.layout,
     totalResults: state.results.data.total,

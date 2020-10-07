@@ -12,7 +12,6 @@ The component is **not** displayed while executing the search query or if there 
 ```jsx
 <SortOrder
   values={[{text: "Asc", value: "asc"}, {text: "Desc", value: "desc"}]}
-  defaultValue="desc"
 />
 ```
 
@@ -21,10 +20,6 @@ The component is **not** displayed while executing the search query or if there 
 * **values** `Array`
 
   A list of possible values, where each value has the format `{ text: "Asc", value: "asc" }`.
-
-* **defaultValue** `String`
-
-  The default value to pre-select when rendering the component. For example, `"desc"`.
 
 - **label** `function` _optional_
 

@@ -47,7 +47,6 @@ export class Results extends Component {
             <span style={({ marginLeft: '0.5em' }, { marginRight: '0.5em' })}>
               <ResultsPerPage
                 values={this.resultsPerPageValues}
-                defaultValue={10}
                 label={(cmp) => <>Show {cmp} results per page</>}
               />
             </span>

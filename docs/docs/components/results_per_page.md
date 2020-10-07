@@ -12,7 +12,6 @@ The component is **not** displayed while executing the search query or if there 
 ```jsx
 <ResultsPerPage
   values={[{text: "Ten", value: 10}, {text: "Twenty", value: 20}]}
-  defaultValue={20}
 />
 ```
 
@@ -21,10 +20,6 @@ The component is **not** displayed while executing the search query or if there 
 * **values** `Array`
 
   A list of possible values, where each value has the format `{ text: "Fifty", value: 50 }`.
-
-* **defaultValue** `String`
-
-  The default value to pre-select when rendering the component. For example, `20`.
 
 * **renderElement** `function` *optional*
 

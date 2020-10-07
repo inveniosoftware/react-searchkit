@@ -7,17 +7,16 @@
  */
 
 import { connect } from '../../store';
-import { updateQuerySorting, setInitialState } from '../../state/actions';
+import { updateQuerySorting } from '../../state/actions';
 import SortComponent from './Sort';
 
-const mapDispatchToProps = dispatch => ({
+const mapDispatchToProps = (dispatch) => ({
   updateQuerySorting: (sortBy, sortOrder) =>
     dispatch(updateQuerySorting(sortBy, sortOrder)),
-  setInitialState: value => dispatch(setInitialState(value)),
 });
 
 export const Sort = connect(
-  state => ({
+  (state) => ({
     currentQueryString: state.query.queryString,
     currentSortBy: state.query.sortBy,
     currentSortOrder: state.query.sortOrder,

@@ -44,6 +44,12 @@ const searchApi = new ESSearchApi({
   },
 });
 
+const initialState = {
+  layout: 'list',
+  page: 1,
+  size: 10,
+};
+
 const customAggComp = (title, containerCmp) => {
   return containerCmp ? (
     <Menu vertical>
@@ -151,7 +157,7 @@ export class App extends Component {
   render() {
     return (
       <OverridableContext.Provider value={overriddenComponents}>
-        <ReactSearchKit searchApi={searchApi}>
+        <ReactSearchKit searchApi={searchApi} initialQueryState={initialState}>
           <Container>
             <Grid>
               <Grid.Row>

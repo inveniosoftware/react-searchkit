@@ -16,17 +16,7 @@ import { buildUID } from '../../util';
 class Pagination extends Component {
   constructor(props) {
     super(props);
-    this.defaultValue = props.defaultValue;
     this.updateQueryPage = props.updateQueryPage;
-    this.setInitialState = props.setInitialState;
-  }
-
-  componentDidMount() {
-    if (this.props.currentPage === -1) {
-      this.setInitialState({
-        page: this.defaultValue,
-      });
-    }
   }
 
   onPageChange = (activePage) => {
@@ -76,7 +66,6 @@ Pagination.propTypes = {
     showPrev: PropTypes.bool,
     showNext: PropTypes.bool,
   }),
-  defaultValue: PropTypes.number,
   overridableId: PropTypes.string,
 };
 
@@ -90,7 +79,6 @@ Pagination.defaultProps = {
     showPrev: true,
     showNext: true,
   },
-  defaultValue: 10,
   overridableId: '',
 };
 

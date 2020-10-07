@@ -38,7 +38,6 @@ const sortValues = [
     text: 'Most viewed',
     sortBy: 'mostviewed',
     sortOrder: 'asc',
-    defaultOnEmptyString: true,
   },
   {
     text: 'Least viewed',
@@ -49,7 +48,6 @@ const sortValues = [
     text: 'Newest',
     sortBy: 'mostrecent',
     sortOrder: 'asc',
-    default: true,
   },
   {
     text: 'Oldest',
@@ -80,6 +78,14 @@ const searchApi = new InvenioSearchApi({
     headers: { Accept: 'application/vnd.zenodo.v1+json' },
   },
 });
+
+const initialState = {
+  sortBy: 'mostrecent',
+  sortOrder: 'asc',
+  layout: 'list',
+  page: 1,
+  size: 10,
+};
 
 export const ZenodoResultsListItem = ({ result, index }) => {
   const metadata = result.metadata;
@@ -162,7 +168,7 @@ export class App extends Component {
   render() {
     return (
       <OverridableContext.Provider value={overriddenComponents}>
-        <ReactSearchKit searchApi={searchApi}>
+        <ReactSearchKit searchApi={searchApi} initialQueryState={initialState}>
           <Container>
             <Grid>
               <Grid.Row>

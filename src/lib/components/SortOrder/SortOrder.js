@@ -17,17 +17,7 @@ class SortOrder extends Component {
   constructor(props) {
     super(props);
     this.options = props.values;
-    this.defaultValue = this.props.defaultValue;
     this.updateQuerySortOrder = props.updateQuerySortOrder;
-    this.setInitialState = props.setInitialState;
-  }
-
-  componentDidMount() {
-    if (this.props.currentSortOrder === null) {
-      this.setInitialState({
-        sortOrder: this.defaultValue,
-      });
-    }
   }
 
   onChange = (value) => {
@@ -62,12 +52,10 @@ class SortOrder extends Component {
 
 SortOrder.propTypes = {
   values: PropTypes.array.isRequired,
-  defaultValue: PropTypes.string.isRequired,
   currentSortOrder: PropTypes.string,
   loading: PropTypes.bool.isRequired,
   totalResults: PropTypes.number.isRequired,
   updateQuerySortOrder: PropTypes.func.isRequired,
-  setInitialState: PropTypes.func.isRequired,
   label: PropTypes.func,
   overridableId: PropTypes.string,
 };

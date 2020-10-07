@@ -37,7 +37,6 @@ const sortValues = [
     text: 'Newest',
     sortBy: 'mostrecent',
     sortOrder: 'asc',
-    default: true,
   },
   {
     text: 'Oldest',
@@ -56,6 +55,14 @@ const resultsPerPageValues = [
     value: 20,
   },
 ];
+
+const initialState = {
+  sortBy: 'mostrecent',
+  sortOrder: 'asc',
+  layout: 'list',
+  page: 1,
+  size: 10,
+};
 
 const searchApi = new InvenioSearchApi({
   axios: {
@@ -148,6 +155,7 @@ export class App extends Component {
       <OverridableContext.Provider value={overriddenComponents}>
         <ReactSearchKit
           searchApi={searchApi}
+          initialQueryState={initialState}
           urlHandlerApi={{ enabled: false }}
         >
           <Container>

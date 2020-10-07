@@ -7,19 +7,15 @@
  */
 
 import { connect } from '../../store';
-import {
-  updateQueryPaginationPage,
-  setInitialState,
-} from '../../state/actions';
+import { updateQueryPaginationPage } from '../../state/actions';
 import PaginationComponent from './Pagination';
 
-const mapDispatchToProps = dispatch => ({
-  updateQueryPage: page => dispatch(updateQueryPaginationPage(page)),
-  setInitialState: value => dispatch(setInitialState(value)),
+const mapDispatchToProps = (dispatch) => ({
+  updateQueryPage: (page) => dispatch(updateQueryPaginationPage(page)),
 });
 
 export const Pagination = connect(
-  state => ({
+  (state) => ({
     currentPage: state.query.page,
     currentSize: state.query.size,
     loading: state.results.loading,

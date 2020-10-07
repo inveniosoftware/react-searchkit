@@ -36,6 +36,8 @@ beforeEach(() => {
 
 const searchApi = new (class {})();
 
+const initialQueryState = {};
+
 describe('test ReactSearchKit component', () => {
   it('should use default configuration', () => {
     const rsk = shallow(<ReactSearchKit searchApi={searchApi} />);
@@ -61,7 +63,6 @@ describe('test ReactSearchKit component', () => {
       expect.objectContaining({
         searchApi: searchApi,
         urlHandlerApi: null,
-        defaultSortByOnEmptyQuery: null,
       })
     );
 
@@ -104,6 +105,22 @@ describe('test ReactSearchKit component', () => {
     });
   });
 
+  it('should use inject initialQueryState in the configuration', () => {
+    shallow(
+      <ReactSearchKit
+        searchApi={searchApi}
+        initialQueryState={initialQueryState}
+      />
+    );
+
+    expect(configureStore).toBeCalledWith(
+      expect.objectContaining({
+        searchApi: searchApi,
+        initialQueryState: initialQueryState,
+      })
+    );
+  });
+
   it('should use custom class for UrlHandlerApi when provided', () => {
     const mockedCustomUrlHandlerApi = new (class {})();
     shallow(
@@ -124,15 +141,20 @@ describe('test ReactSearchKit component', () => {
     );
   });
 
-  it('should use inject defaultSortByOnEmptyQuery in the configuration', () => {
+  it('should use layout options in the initialQueryState', () => {
     shallow(
-      <ReactSearchKit searchApi={searchApi} defaultSortByOnEmptyQuery="value" />
+      <ReactSearchKit
+        searchApi={searchApi}
+        initialQueryState={{
+          layout: 'grid',
+        }}
+      />
     );
 
     expect(configureStore).toBeCalledWith(
       expect.objectContaining({
         searchApi: searchApi,
-        defaultSortByOnEmptyQuery: 'value',
+        initialQueryState: { layout: 'grid' },
       })
     );
   });
