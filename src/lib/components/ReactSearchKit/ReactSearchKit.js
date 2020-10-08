@@ -19,18 +19,6 @@ export class ReactSearchKit extends Component {
   constructor(props) {
     super(props);
 
-    const validate = (initialQueryState) => {
-      const layoutOptions = ['list', 'grid'];
-      if (
-        initialQueryState['layout'] &&
-        !layoutOptions.includes(initialQueryState['layout'])
-      ) {
-        throw new Error('Layout option is invalid.');
-      }
-
-      return initialQueryState;
-    };
-
     const appConfig = {
       searchApi: props.searchApi,
       suggestionApi: props.suggestionApi,
@@ -39,7 +27,7 @@ export class ReactSearchKit extends Component {
           new UrlHandlerApi(props.urlHandlerApi.overrideConfig)
         : null,
       searchOnInit: props.searchOnInit,
-      initialQueryState: validate(props.initialQueryState),
+      initialQueryState: props.initialQueryState,
     };
 
     this.store = configureStore(appConfig);
@@ -84,7 +72,17 @@ ReactSearchKit.propTypes = {
   appName: PropTypes.string,
   eventListenerEnabled: PropTypes.bool,
   overridableId: PropTypes.string,
-  initialQueryState: PropTypes.object,
+  initialQueryState: PropTypes.shape({
+    queryString: PropTypes.string,
+    suggestions: PropTypes.array,
+    sortBy: PropTypes.string,
+    sortOrder: PropTypes.string,
+    page: PropTypes.number,
+    size: PropTypes.number,
+    filters: PropTypes.array,
+    hiddenParams: PropTypes.array,
+    layout: PropTypes.oneOf(['list', 'grid']),
+  }),
 };
 
 ReactSearchKit.defaultProps = {
