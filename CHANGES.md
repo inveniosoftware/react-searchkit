@@ -1,8 +1,15 @@
 # Changes
 
+Version 1.0.0-alpha.4 (released 2020-10-09)
+
+* BREAKING CHANGE: removes props to set the initial default value from each UI component. The only
+  way to set the initial state of the search app is by using the prop `initialQueryState` in the
+  `ReactSearchKit` component.
+* Upgrades dependencies and React SemanticUI version.
+
 Version 1.0.0-alpha.3 (released 2020-08-25)
 
-* Adds `hiddenParams` to the query state, to allow passing "hidden" querystring
+* Adds `hiddenParams` to the query state, to allow passing "hidden" query string
   parameters to the search API.
 * Adds `initialQueryState` prop to `<ReactSearchkit>`, to allow overriding the
   initial query state.
