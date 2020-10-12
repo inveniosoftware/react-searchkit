@@ -1,5 +1,9 @@
 # Changes
 
+Version 1.0.0-alpha.5 (released 2020-10-12)
+
+* Enhanced SearchBar component to enable more customizability via props.
+
 Version 1.0.0-alpha.4 (released 2020-10-09)
 
 * BREAKING CHANGE: removes props to set the initial default value from each UI component. The only
