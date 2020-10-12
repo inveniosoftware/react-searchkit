@@ -31,70 +31,125 @@ class SearchBar extends Component {
     this.updateQueryString(this.state.currentValue);
   };
 
+  onBtnSearchClick = (event, input) => {
+    this.executeSearch();
+  };
+
+  onKeyPress = (event, input) => {
+    if (event.key === 'Enter') {
+      this.executeSearch();
+    }
+  };
+
   render() {
-    const { placeholder, overridableId } = this.props;
+    const {
+      actionProps,
+      autofocus,
+      executeSearch,
+      onBtnSearchClick,
+      onInputChange,
+      onKeyPress,
+      overridableId,
+      placeholder,
+      uiProps,
+    } = this.props;
     return (
       <Element
+        actionProps={actionProps}
+        autofocus={autofocus}
+        executeSearch={executeSearch || this.executeSearch}
+        onBtnSearchClick={onBtnSearchClick || this.onBtnSearchClick}
+        onInputChange={onInputChange || this.onInputChange}
+        onKeyPress={onKeyPress || this.onKeyPress}
+        overridableId={overridableId}
         placeholder={placeholder}
         queryString={this.state.currentValue}
-        onInputChange={this.onInputChange}
-        executeSearch={this.executeSearch}
-        overridableId={overridableId}
+        uiProps={uiProps}
       />
     );
   }
 }
 
 SearchBar.propTypes = {
-  placeholder: PropTypes.string,
-  queryString: PropTypes.string.isRequired,
-  updateQueryString: PropTypes.func.isRequired,
+  actionProps: PropTypes.object,
+  autofocus: PropTypes.bool,
+  executeSearch: PropTypes.func,
+  onBtnSearchClick: PropTypes.func,
+  onInputChange: PropTypes.func,
+  onKeyPress: PropTypes.func,
   overridableId: PropTypes.string,
+  placeholder: PropTypes.string,
+  queryString: PropTypes.string,
+  updateQueryString: PropTypes.func.isRequired,
+  uiProps: PropTypes.object,
 };
 
 SearchBar.defaultProps = {
+  actionProps: null,
+  autofocus: false,
+  executeSearch: null,
+  onBtnSearchClick: null,
+  onInputChange: null,
+  onKeyPress: null,
+  overridableId: '',
   placeholder: '',
   queryString: '',
-  overridableId: '',
+  uiProps: null,
 };
 
+// NOTE: Adding the key prop, will recreate the SearchBar in order to update
+// state with the latest redux queryString value.
+// https://reactjs.org/blog/2018/06/07/you-probably-dont-need-derived-state.html#recommendation-fully-uncontrolled-component-with-a-key
 const SearchBarUncontrolled = (props) => (
   <SearchBar key={props.queryString} {...props} />
 );
 
-const Element = ({ overridableId, ...props }) => {
-  const {
-    placeholder: passedPlaceholder,
-    queryString,
-    onInputChange,
-    executeSearch,
-  } = props;
-  const placeholder = passedPlaceholder || 'Type something';
-  const onBtnSearchClick = (event, input) => {
-    executeSearch();
-  };
-  const onKeyPress = (event, input) => {
-    if (event.key === 'Enter') {
-      executeSearch();
+class Element extends Component {
+  componentDidMount() {
+    const { autofocus } = this.props;
+    if (autofocus && this.focusInput) {
+      this.focusInput.focus();
     }
-  };
-  return (
-    <Overridable id={buildUID('SearchBar.element', overridableId)} {...props}>
-      <Input
-        action={{
-          content: 'Search',
-          onClick: onBtnSearchClick,
-        }}
-        fluid
-        placeholder={placeholder}
-        onChange={(event, { value }) => {
-          onInputChange(value);
-        }}
-        value={queryString}
-        onKeyPress={onKeyPress}
-      />
-    </Overridable>
-  );
-};
+  }
+
+  render() {
+    const {
+      actionProps,
+      onBtnSearchClick,
+      onInputChange,
+      onKeyPress,
+      overridableId,
+      placeholder,
+      queryString,
+      uiProps,
+    } = this.props;
+
+    return (
+      <Overridable
+        id={buildUID('SearchBar.element', overridableId)}
+        {...this.props}
+      >
+        <Input
+          action={{
+            content: 'Search',
+            onClick: onBtnSearchClick,
+            ...actionProps,
+          }}
+          fluid
+          {...uiProps}
+          placeholder={placeholder || 'Type something'}
+          onChange={(event, { value }) => {
+            onInputChange(value);
+          }}
+          value={queryString}
+          onKeyPress={onKeyPress}
+          ref={(input) => {
+            this.focusInput = input;
+          }}
+        />
+      </Overridable>
+    );
+  }
+}
 
 export default Overridable.component('SearchBar', SearchBarUncontrolled);
