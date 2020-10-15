@@ -14,13 +14,13 @@ import _isNaN from 'lodash/isNaN';
 import _isNil from 'lodash/isNil';
 import _cloneDeep from 'lodash/cloneDeep';
 
-const pushHistory = query => {
+const pushHistory = (query) => {
   if (window.history.pushState) {
     window.history.pushState({ path: query }, '', query);
   }
 };
 
-const replaceHistory = query => {
+const replaceHistory = (query) => {
   if (window.history.replaceState) {
     window.history.replaceState({ path: query }, '', query);
   }
@@ -32,7 +32,7 @@ class UrlParser {
     this.parse = this.parse.bind(this);
   }
 
-  _sanitizeParamValue = value => {
+  _sanitizeParamValue = (value) => {
     let parsedValue = parseInt(value);
     if (_isNaN(parsedValue)) {
       try {
@@ -58,7 +58,7 @@ class UrlParser {
   parse(queryString = '') {
     const parsedParams = Qs.parse(queryString, { ignoreQueryPrefix: true });
     const params = {};
-    Object.entries(parsedParams).forEach(entry => {
+    Object.entries(parsedParams).forEach((entry) => {
       const key = entry[0];
       const value = entry[1];
       params[key] = this._sanitizeParamValue(value);
@@ -115,7 +115,7 @@ export class UrlHandlerApi {
 
     // build the serializer from URL params to Query state by flipping the urlParamsMapping
     this.fromUrlParamsMapping = {};
-    Object.keys(this.urlParamsMapping).forEach(stateKey => {
+    Object.keys(this.urlParamsMapping).forEach((stateKey) => {
       this.fromUrlParamsMapping[this.urlParamsMapping[stateKey]] = stateKey;
     });
 
@@ -128,7 +128,7 @@ export class UrlHandlerApi {
    * Map filters from list to string that is human readable
    * [ 'type', 'photo', [ 'subtype', 'png' ]] => type:photo+subtype:png
    */
-  _filterListToString = filter => {
+  _filterListToString = (filter) => {
     const childFilter =
       filter.length === 3
         ? this.urlFilterSeparator.concat(this._filterListToString(filter[2]))
@@ -139,11 +139,11 @@ export class UrlHandlerApi {
   /**
    * Map each query state field to an URL param
    */
-  _mapQueryStateToUrlParams = queryState => {
+  _mapQueryStateToUrlParams = (queryState) => {
     const params = {};
     Object.keys(queryState)
-      .filter(stateKey => stateKey in this.urlParamsMapping)
-      .filter(stateKey => {
+      .filter((stateKey) => stateKey in this.urlParamsMapping)
+      .filter((stateKey) => {
         // filter out negative or null values
         if (
           (stateKey === 'page' || stateKey === 'size') &&
@@ -151,15 +151,15 @@ export class UrlHandlerApi {
         ) {
           return false;
         }
-        if (stateKey === 'hiddenParams'){
+        if (stateKey === 'hiddenParams') {
           return false;
         }
         return queryState[stateKey] !== null;
       })
-      .forEach(stateKey => {
+      .forEach((stateKey) => {
         const paramKey = this.urlParamsMapping[stateKey];
         if (stateKey === 'filters') {
-          params[paramKey] = queryState[stateKey].map(filter =>
+          params[paramKey] = queryState[stateKey].map((filter) =>
             this._filterListToString(filter)
           );
         } else {
@@ -179,7 +179,7 @@ export class UrlHandlerApi {
    * Map filters from string to list
    * type:photo+subtype:png => [ 'type', 'photo', [ 'subtype', 'png' ]]
    */
-  _filterStringToList = filterStr => {
+  _filterStringToList = (filterStr) => {
     const childSepPos = filterStr.indexOf(this.urlFilterSeparator);
     const hasChild = childSepPos > -1;
 
@@ -203,9 +203,9 @@ export class UrlHandlerApi {
   /**
    * Map each URL param to a query state field
    */
-  _mapUrlParamsToQueryState = urlParamsObj => {
+  _mapUrlParamsToQueryState = (urlParamsObj) => {
     const result = {};
-    Object.keys(urlParamsObj).forEach(paramKey => {
+    Object.keys(urlParamsObj).forEach((paramKey) => {
       if (this.urlParamValidator.isValid(paramKey, urlParamsObj[paramKey])) {
         const queryStateKey = this.fromUrlParamsMapping[paramKey];
         result[queryStateKey] = urlParamsObj[paramKey];
@@ -215,7 +215,7 @@ export class UrlHandlerApi {
             // if only 1 filter, create an array with one element
             urlParamsObj[paramKey] = [urlParamsObj[paramKey]];
           }
-          result[queryStateKey] = urlParamsObj[paramKey].map(filter =>
+          result[queryStateKey] = urlParamsObj[paramKey].map((filter) =>
             this._filterStringToList(filter)
           );
         }
@@ -226,7 +226,7 @@ export class UrlHandlerApi {
 
   _mergeParamsIntoState = (urlStateObj, queryState) => {
     const _queryState = _cloneDeep(queryState);
-    Object.keys(urlStateObj).forEach(stateKey => {
+    Object.keys(urlStateObj).forEach((stateKey) => {
       if (stateKey in _queryState) {
         _queryState[stateKey] = urlStateObj[stateKey];
       }

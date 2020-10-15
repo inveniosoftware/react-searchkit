@@ -48,7 +48,7 @@ function updateFilter(queryFilter, stateFilters) {
    * convert query and state to strings so they can be compared
    */
   const strQuery = toString(queryFilter);
-  const strStateFilters = stateFilters.map(stateObjQuery =>
+  const strStateFilters = stateFilters.map((stateObjQuery) =>
     toString(stateObjQuery)
   );
 
@@ -67,7 +67,7 @@ function updateFilter(queryFilter, stateFilters) {
    *      filtered = []
    */
   let anyRemoved = false;
-  const filteredStrStates = strStateFilters.filter(strStateFilter => {
+  const filteredStrStates = strStateFilters.filter((strStateFilter) => {
     const childFilterExists = startsWith(strStateFilter, strQuery);
     const parentFilterExists = startsWith(strQuery, strStateFilter);
 
@@ -103,7 +103,7 @@ function updateFilter(queryFilter, stateFilters) {
   /**
    * convert back to lists
    */
-  return filteredStrStates.map(strState => parse(strState));
+  return filteredStrStates.map((strState) => parse(strState));
 }
 
 export const updateQueryFilters = (queryFilter, stateFilters) => {
@@ -120,14 +120,14 @@ export const updateQueryFilters = (queryFilter, stateFilters) => {
   let tempStateFilters = stateFilters;
   _forEach(
     queryFilter,
-    filter => (tempStateFilters = updateFilter(filter, tempStateFilters))
+    (filter) => (tempStateFilters = updateFilter(filter, tempStateFilters))
   );
   return tempStateFilters;
 };
 
 export const updateQueryState = (oldState, newState, storeKeys) => {
   let pickedState = _pick(newState, storeKeys);
-  if ('filters' in pickedState) {
+  if (!_isEmpty(pickedState.filters)) {
     pickedState['filters'] = updateQueryFilters(
       pickedState.filters,
       oldState.filters

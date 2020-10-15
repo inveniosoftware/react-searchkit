@@ -27,8 +27,8 @@ import {
   RESULTS_UPDATE_LAYOUT,
 } from '../types';
 
-export const setInitialState = initialState => {
-  return dispatch => {
+export const setInitialState = (initialState) => {
+  return (dispatch) => {
     dispatch({
       type: SET_QUERY_COMPONENT_INITIAL_STATE,
       payload: initialState,
@@ -36,16 +36,20 @@ export const setInitialState = initialState => {
   };
 };
 
-export const onAppInitialized = searchOnInit => {
-  return dispatch => {
+export const onAppInitialized = (searchOnInit) => {
+  return (dispatch) => {
     if (searchOnInit) {
-      dispatch(executeQuery({ shouldUpdateUrlQueryString: false }));
+      dispatch(
+        executeQuery({
+          shouldUpdateUrlQueryString: false,
+        })
+      );
     }
   };
 };
 
-export const updateQueryString = queryString => {
-  return dispatch => {
+export const updateQueryString = (queryString) => {
+  return (dispatch) => {
     dispatch({
       type: SET_QUERY_STRING,
       payload: queryString,
@@ -55,7 +59,7 @@ export const updateQueryString = queryString => {
 };
 
 export const updateQuerySorting = (sortByValue, sortOrderValue) => {
-  return dispatch => {
+  return (dispatch) => {
     dispatch({
       type: SET_QUERY_SORTING,
       payload: { sortBy: sortByValue, sortOrder: sortOrderValue },
@@ -64,8 +68,8 @@ export const updateQuerySorting = (sortByValue, sortOrderValue) => {
   };
 };
 
-export const updateQuerySortBy = sortByValue => {
-  return dispatch => {
+export const updateQuerySortBy = (sortByValue) => {
+  return (dispatch) => {
     dispatch({
       type: SET_QUERY_SORT_BY,
       payload: sortByValue,
@@ -74,29 +78,29 @@ export const updateQuerySortBy = sortByValue => {
   };
 };
 
-export const updateQuerySortOrder = sortOrderValue => {
-  return dispatch => {
+export const updateQuerySortOrder = (sortOrderValue) => {
+  return (dispatch) => {
     dispatch({ type: SET_QUERY_SORT_ORDER, payload: sortOrderValue });
     dispatch(executeQuery());
   };
 };
 
-export const updateQueryPaginationPage = page => {
-  return dispatch => {
+export const updateQueryPaginationPage = (page) => {
+  return (dispatch) => {
     dispatch({ type: SET_QUERY_PAGINATION_PAGE, payload: page });
     dispatch(executeQuery());
   };
 };
 
-export const updateQueryPaginationSize = size => {
-  return dispatch => {
+export const updateQueryPaginationSize = (size) => {
+  return (dispatch) => {
     dispatch({ type: SET_QUERY_PAGINATION_SIZE, payload: size });
     dispatch(executeQuery());
   };
 };
 
-export const updateQueryFilters = filters => {
-  return dispatch => {
+export const updateQueryFilters = (filters) => {
+  return (dispatch) => {
     dispatch({
       type: SET_QUERY_FILTERS,
       payload: filters,
@@ -105,7 +109,7 @@ export const updateQueryFilters = filters => {
   };
 };
 
-export const updateResultsLayout = layout => {
+export const updateResultsLayout = (layout) => {
   return async (dispatch, getState, config) => {
     const urlHandlerApi = config.urlHandlerApi;
     if (urlHandlerApi) {
@@ -125,7 +129,7 @@ export const updateResultsLayout = layout => {
 };
 
 export const resetQuery = () => {
-  return dispatch => {
+  return (dispatch) => {
     dispatch({
       type: RESET_QUERY,
     });
@@ -138,7 +142,7 @@ export const executeQuery = ({
   shouldReplaceUrlQueryString = false,
 } = {}) => {
   return async (dispatch, getState, config) => {
-    const queryState = _cloneDeep(getState().query);
+    let queryState = _cloneDeep(getState().query);
     const searchApi = config.searchApi;
     const urlHandlerApi = config.urlHandlerApi;
 
@@ -153,6 +157,19 @@ export const executeQuery = ({
     dispatch({ type: RESULTS_LOADING });
     try {
       const response = await searchApi.search(queryState);
+      if ('newQueryState' in response) {
+        dispatch({
+          type: SET_QUERY_STATE,
+          payload: response.newQueryState,
+        });
+        if (urlHandlerApi) {
+          // Get the update state from the store
+          queryState = _cloneDeep(getState().query);
+          urlHandlerApi.replace(queryState);
+        }
+        delete response.newStateQuery;
+      }
+
       dispatch({
         type: RESULTS_FETCH_SUCCESS,
         payload: {
@@ -168,8 +185,8 @@ export const executeQuery = ({
   };
 };
 
-export const updateSuggestions = suggestionString => {
-  return dispatch => {
+export const updateSuggestions = (suggestionString) => {
+  return (dispatch) => {
     dispatch({
       type: SET_SUGGESTION_STRING,
       payload: suggestionString,
@@ -198,7 +215,7 @@ export const executeSuggestionQuery = () => {
 };
 
 export const clearSuggestions = () => {
-  return dispatch => {
+  return (dispatch) => {
     dispatch({
       type: CLEAR_QUERY_SUGGESTIONS,
       payload: {
@@ -208,8 +225,8 @@ export const clearSuggestions = () => {
   };
 };
 
-export const updateQueryState = queryState => {
-  return dispatch => {
+export const updateQueryState = (queryState) => {
+  return (dispatch) => {
     dispatch({
       type: SET_QUERY_STATE,
       payload: queryState,

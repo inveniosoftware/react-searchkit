@@ -17,10 +17,12 @@ export class InvenioResponseSerializer {
    * @param {object} payload the backend response payload
    */
   serialize(payload) {
+    const { aggregations, hits, ...extras } = payload;
     return {
-      aggregations: payload.aggregations || {},
-      hits: payload.hits.hits,
-      total: payload.hits.total,
+      aggregations: aggregations || {},
+      hits: hits.hits,
+      total: hits.total,
+      extras: extras,
     };
   }
 }

@@ -16,10 +16,11 @@ export class ESResponseSerializer {
    * @param {object} payload the backend response payload
    */
   serialize(payload) {
+    const { aggregations, hits } = payload;
     return {
-      aggregations: payload.aggregations || {},
-      hits: payload.hits.hits.map(hit => hit._source),
-      total: payload.hits.total.value,
+      aggregations: aggregations || {},
+      hits: hits.hits.map((hit) => hit._source),
+      total: hits.total.value,
     };
   }
 }

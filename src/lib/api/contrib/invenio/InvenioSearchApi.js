@@ -8,9 +8,12 @@
 
 import _get from 'lodash/get';
 import _hasIn from 'lodash/hasIn';
+import _isEmpty from 'lodash/isEmpty';
 import axios from 'axios';
 import { InvenioRequestSerializer } from './InvenioRequestSerializer';
 import { InvenioResponseSerializer } from './InvenioResponseSerializer';
+import { updateQueryState } from '../../../state/selectors';
+import { STORE_KEYS } from '../../../storeConfig';
 
 export class InvenioSearchApi {
   constructor(config) {
@@ -78,9 +81,19 @@ export class InvenioSearchApi {
    * @param {string} stateQuery the `query` state with the user input
    */
   async search(stateQuery) {
-    const response = await this.http.request({
+    let response = await this.http.request({
       params: stateQuery,
     });
-    return this.responseSerializer.serialize(response.data);
+    response = this.responseSerializer.serialize(response.data);
+    const newQueryState = updateQueryState(
+      stateQuery,
+      response.extras,
+      STORE_KEYS
+    );
+    if (!_isEmpty(newQueryState)) {
+      response.newQueryState = newQueryState;
+    }
+    delete response.extras;
+    return response;
   }
 }
