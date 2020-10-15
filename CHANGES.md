@@ -1,5 +1,11 @@
 # Changes
 
+Version 1.0.0-alpha.6 (released 2020-10-15)
+
+* Override query state from search response.
+* `InvenioSearchApi` extracts overriden state from response.
+* Configure `Sort` component to disable the order option.
+
 Version 1.0.0-alpha.5 (released 2020-10-12)
 
 * Enhanced SearchBar component to enable more customizability via props.
