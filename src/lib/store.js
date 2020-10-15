@@ -15,7 +15,7 @@ import { INITIAL_STORE_STATE } from './storeConfig';
 
 export function configureStore(appConfig) {
   const initialQueryState = {
-    ...INITIAL_STORE_STATE, 
+    ...INITIAL_STORE_STATE,
     ...appConfig.initialQueryState,
   };
 

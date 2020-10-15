@@ -26,7 +26,7 @@ class Sort extends Component {
   }
 
   _computeValue = (sortBy, sortOrder) => {
-    return `${sortBy}-${sortOrder}`;
+    return sortOrder ? `${sortBy}-${sortOrder}` : sortBy;
   };
 
   onChange = (value) => {
@@ -47,12 +47,13 @@ class Sort extends Component {
       totalResults,
       label,
       overridableId,
+      sortOrderDisabled,
     } = this.props;
     return (
       <ShouldRender
         condition={
           currentSortBy !== null &&
-          currentSortOrder !== null &&
+          (sortOrderDisabled || currentSortBy !== null) &&
           !loading &&
           totalResults > 0
         }
@@ -81,6 +82,7 @@ Sort.propTypes = {
   updateQuerySorting: PropTypes.func.isRequired,
   label: PropTypes.func,
   overridableId: PropTypes.string,
+  sortOrderDisabled: PropTypes.bool,
 };
 
 Sort.defaultProps = {
@@ -88,6 +90,7 @@ Sort.defaultProps = {
   currentSortOrder: null,
   label: (cmp) => cmp,
   overridableId: '',
+  sortOrderDisabled: false,
 };
 
 const Element = ({ overridableId, ...props }) => {
