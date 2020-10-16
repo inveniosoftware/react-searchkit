@@ -31,7 +31,7 @@ class BucketAggregationValues extends Component {
     );
   };
 
-  getChildAggCmps = (bucket, selectedFilters) => {
+  getChildAggCmps = (bucket, selectedFilters, valuesLabels) => {
     const hasChildAggregation =
       this.childAgg && this.childAgg['aggName'] in bucket;
     let selectedChildFilters = [];
@@ -56,6 +56,7 @@ class BucketAggregationValues extends Component {
           aggName={this.childAgg.aggName}
           childAgg={this.childAgg.childAgg}
           onFilterClicked={onFilterClicked}
+          valuesLabels={valuesLabels}
         />
       );
     }
@@ -74,7 +75,7 @@ class BucketAggregationValues extends Component {
         this.onFilterClicked([this.aggName, value]);
       };
       const getChildAggCmps = (bucket) =>
-        this.getChildAggCmps(bucket, selectedFilters);
+        this.getChildAggCmps(bucket, selectedFilters, valuesLabels);
       let label = null;
       if(valuesLabels){
         label = _get(
@@ -129,7 +130,8 @@ const ValueElement = (props) => {
     overridableId,
   } = props;
 
-  const label = valueLabel ? valueLabel : `${bucket.key} (${bucket.doc_count})`;
+  const label = valueLabel ? `${valueLabel} (${bucket.doc_count}) `: 
+    `${bucket.key} (${bucket.doc_count})`;
   const childAggCmps = getChildAggCmps(bucket);
   return (
     <Overridable
