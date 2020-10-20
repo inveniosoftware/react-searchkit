@@ -1,5 +1,12 @@
 # Changes
 
+Version 1.0.0-alpha.7 (released 2020-10-20)
+
+* Override query state from search response.
+* `InvenioSearchApi` extracts overriden state from response.
+* Configure `Sort` component to disable the order option.
+* Remove `valuesLabels` prop from `BucketAggregation` component.
+
 Version 1.0.0-alpha.6 (released 2020-10-15)
 
 * Override query state from search response.
