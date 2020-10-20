@@ -27,7 +27,7 @@ class BucketAggregation extends Component {
   };
 
   _renderValues = (resultBuckets, selectedFilters) => {
-    const { overridableId, valuesLabels } = this.props;
+    const { overridableId } = this.props;
     return (
       <BucketAggregationValues
         buckets={resultBuckets}
@@ -37,7 +37,6 @@ class BucketAggregation extends Component {
         childAgg={this.agg.childAgg}
         onFilterClicked={this.onFilterClicked}
         overridableId={overridableId}
-        valuesLabels={valuesLabels}
       />
     );
   };
@@ -90,10 +89,6 @@ BucketAggregation.propTypes = {
   updateQueryFilters: PropTypes.func.isRequired,
   renderValuesContainerElement: PropTypes.func,
   renderValueElement: PropTypes.func,
-  valuesLabels: PropTypes.arrayOf(PropTypes.shape({
-      value: PropTypes.string.isRequired,
-      label: PropTypes.string.isRequired,
-  })),
   overridableId: PropTypes.string,
 };
 

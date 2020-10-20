@@ -63,7 +63,7 @@ class BucketAggregationValues extends Component {
   };
 
   render() {
-    const { buckets, selectedFilters, valuesLabels, overridableId } = this.props;
+    const { buckets, selectedFilters, overridableId } = this.props;
     const valuesCmp = buckets.map((bucket) => {
       const isSelected = this._isSelected(
         this.aggName,
@@ -76,13 +76,7 @@ class BucketAggregationValues extends Component {
       const getChildAggCmps = (bucket) =>
         this.getChildAggCmps(bucket, selectedFilters);
       let label = null;
-      if(valuesLabels){
-        label = _get(
-          valuesLabels.find(e => e.value === bucket.key  ),
-          'label',
-          bucket.key
-        );
-      }
+
       return (
         <ValueElement
           key={bucket.key}
@@ -90,7 +84,6 @@ class BucketAggregationValues extends Component {
           isSelected={isSelected}
           onFilterClicked={onFilterClicked}
           getChildAggCmps={getChildAggCmps}
-          valueLabel={label}
           overridableId={overridableId}
         />
       );
@@ -125,11 +118,12 @@ const ValueElement = (props) => {
     isSelected,
     onFilterClicked,
     getChildAggCmps,
-    valueLabel,
     overridableId,
   } = props;
 
-  const label = valueLabel ? valueLabel : `${bucket.key} (${bucket.doc_count})`;
+  const label = bucket.label
+    ? bucket.label
+    : `${bucket.key} (${bucket.doc_count})`;
   const childAggCmps = getChildAggCmps(bucket);
   return (
     <Overridable
@@ -149,14 +143,15 @@ const ValueElement = (props) => {
   );
 };
 
-const ContainerElement = ({ valuesCmp, overridableId, valueLabel }) => {
-  return <Overridable
+const ContainerElement = ({ valuesCmp, overridableId }) => {
+  return (
+    <Overridable
       id={buildUID('BucketAggregationContainer.element', overridableId)}
       valuesCmp={valuesCmp}
-      valueLabel={valueLabel}
-  >
-    <List>{valuesCmp}</List>
-  </Overridable>
+    >
+      <List>{valuesCmp}</List>
+    </Overridable>
+  );
 };
 
 export default Overridable.component(
