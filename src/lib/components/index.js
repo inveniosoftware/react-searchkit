@@ -8,6 +8,7 @@
 
 export { ActiveFilters } from './ActiveFilters';
 export { BucketAggregation } from './BucketAggregation';
+export { Toggle } from './Toggle';
 export { AutocompleteSearchBar } from './AutocompleteSearchBar';
 export { Count } from './Count';
 export { EmptyResults } from './EmptyResults';
