@@ -113,7 +113,6 @@ const Element = ({ overridableId, ...props }) => {
     <Overridable id={buildUID('Sort.element', overridableId)} {...props}>
       <Dropdown
         selection
-        compact
         options={_options}
         value={selected}
         onChange={(e, { value }) => onValueChange(value)}
