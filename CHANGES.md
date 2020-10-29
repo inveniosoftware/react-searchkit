@@ -1,5 +1,10 @@
 # Changes
 
+Version 1.0.0-alpha.8 (released 2020-10-29)
+
+* Adds a ToggleFilter component
+* Removes compact css class from the sort drop down.
+
 Version 1.0.0-alpha.7 (released 2020-10-20)
 
 * Override query state from search response.
