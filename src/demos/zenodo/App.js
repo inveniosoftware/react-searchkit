@@ -6,30 +6,29 @@
  * under the terms of the MIT License; see LICENSE file for more details.
  */
 
+import _truncate from 'lodash/truncate';
 import React, { Component } from 'react';
+import { OverridableContext } from 'react-overridable';
 import {
+  Accordion,
+  Card,
   Container,
   Grid,
-  Accordion,
-  Menu,
-  Card,
   Image,
   Item,
+  Menu,
 } from 'semantic-ui-react';
-import _truncate from 'lodash/truncate';
-import { OverridableContext } from 'react-overridable';
-
+import { InvenioSearchApi } from '../../lib/api/contrib/invenio';
 import {
-  ReactSearchKit,
-  SearchBar,
   BucketAggregation,
   EmptyResults,
   Error,
+  ReactSearchKit,
   ResultsLoader,
+  SearchBar,
   withState,
 } from '../../lib/components';
 import { Results } from './Results';
-import { InvenioSearchApi } from '../../lib/api/contrib/invenio';
 
 const OnResults = withState(Results);
 
@@ -43,6 +42,11 @@ const sortValues = [
     text: 'Least viewed',
     sortBy: 'mostviewed',
     sortOrder: 'desc',
+  },
+  {
+    text: 'Best match',
+    sortBy: 'bestmatch',
+    sortOrder: 'asc',
   },
   {
     text: 'Newest',
@@ -80,7 +84,7 @@ const searchApi = new InvenioSearchApi({
 });
 
 const initialState = {
-  sortBy: 'mostrecent',
+  sortBy: 'bestmatch',
   sortOrder: 'asc',
   layout: 'list',
   page: 1,
@@ -168,7 +172,14 @@ export class App extends Component {
   render() {
     return (
       <OverridableContext.Provider value={overriddenComponents}>
-        <ReactSearchKit searchApi={searchApi} initialQueryState={initialState}>
+        <ReactSearchKit
+          searchApi={searchApi}
+          initialQueryState={initialState}
+          defaultSortingOnEmptyQueryString={{
+            sortBy: 'mostrecent',
+            sortOrder: 'asc',
+          }}
+        >
           <Container>
             <Grid>
               <Grid.Row>

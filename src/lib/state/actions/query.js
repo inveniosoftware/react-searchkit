@@ -7,24 +7,25 @@
  */
 
 import _cloneDeep from 'lodash/cloneDeep';
+import _isEmpty from 'lodash/isEmpty';
 import {
+  CLEAR_QUERY_SUGGESTIONS,
+  RESET_QUERY,
+  RESULTS_FETCH_ERROR,
+  RESULTS_FETCH_SUCCESS,
+  RESULTS_LOADING,
+  RESULTS_UPDATE_LAYOUT,
   SET_QUERY_COMPONENT_INITIAL_STATE,
-  SET_QUERY_STRING,
+  SET_QUERY_FILTERS,
+  SET_QUERY_PAGINATION_PAGE,
+  SET_QUERY_PAGINATION_SIZE,
   SET_QUERY_SORTING,
   SET_QUERY_SORT_BY,
   SET_QUERY_SORT_ORDER,
   SET_QUERY_STATE,
-  SET_QUERY_PAGINATION_PAGE,
-  SET_QUERY_PAGINATION_SIZE,
-  SET_QUERY_FILTERS,
+  SET_QUERY_STRING,
   SET_QUERY_SUGGESTIONS,
   SET_SUGGESTION_STRING,
-  CLEAR_QUERY_SUGGESTIONS,
-  RESET_QUERY,
-  RESULTS_LOADING,
-  RESULTS_FETCH_SUCCESS,
-  RESULTS_FETCH_ERROR,
-  RESULTS_UPDATE_LAYOUT,
 } from '../types';
 
 export const setInitialState = (initialState) => {
@@ -45,6 +46,16 @@ export const onAppInitialized = (searchOnInit) => {
         })
       );
     }
+  };
+};
+
+export const updateQueryState = (queryState) => {
+  return (dispatch) => {
+    dispatch({
+      type: SET_QUERY_STATE,
+      payload: queryState,
+    });
+    dispatch(executeQuery());
   };
 };
 
@@ -137,37 +148,105 @@ export const resetQuery = () => {
   };
 };
 
+/**
+ * Update URL parameters.
+ * @param {object} queryState - current query state
+ * @param {object} appConfig - app config
+ * @param {boolean} shouldReplaceUrlQueryString - true if should replace the last browser history state
+ * @param {boolean} shouldUpdateUrlQueryString - true if it should add a new browser history state
+ */
+const updateURLParameters = (
+  queryState,
+  appConfig,
+  shouldReplaceUrlQueryString,
+  shouldUpdateUrlQueryString
+) => {
+  const urlHandlerApi = appConfig.urlHandlerApi;
+  if (urlHandlerApi) {
+    if (shouldReplaceUrlQueryString) {
+      urlHandlerApi.replace(queryState);
+    } else if (shouldUpdateUrlQueryString) {
+      urlHandlerApi.set(queryState);
+    }
+  }
+};
+
+/**
+ * Update query state and URL args with the new query state given by the backend response.
+ * @param {object} response - API response
+ * @param {func} dispatch - Redux `dispath` function
+ * @param {func} getState - function to get the Redux state
+ * @param {object} appConfig - app config
+ */
+const updateQueryStateAfterResponse = (
+  response,
+  dispatch,
+  getState,
+  appConfig
+) => {
+  dispatch({
+    type: SET_QUERY_STATE,
+    payload: response.newQueryState,
+  });
+
+  const urlHandlerApi = appConfig.urlHandlerApi;
+  if (urlHandlerApi) {
+    // Replace the URL args with the response new query state
+    const updatedQueryState = _cloneDeep(getState().query);
+    urlHandlerApi.replace(updatedQueryState);
+  }
+  delete response.newStateQuery;
+};
+
+const updateQueryStateSorting = (queryState, appState, appConfig) => {
+  if (_isEmpty(appConfig.defaultSortingOnEmptyQueryString)) {
+    return _cloneDeep(queryState);
+  }
+
+  const userHasChangedSorting = appState.hasUserChangedSorting;
+  if (userHasChangedSorting === false) {
+    const isQueryStringEmpty = queryState.queryString === '';
+    if (isQueryStringEmpty) {
+      queryState.sortBy = appConfig.defaultSortingOnEmptyQueryString.sortBy;
+      queryState.sortOrder =
+        appConfig.defaultSortingOnEmptyQueryString.sortOrder;
+    } else {
+      queryState.sortBy = appState.initialSortBy;
+      queryState.sortOrder = appState.initialSortOrder;
+    }
+  }
+
+  return _cloneDeep(queryState);
+};
+
+/**
+ * Execute search API request with current query state and update results state with response.
+ * @param {object} options - `shouldUpdateUrlQueryString` and `shouldReplaceUrlQueryString` to choose if the
+ *                           browser history state should be updated with the current query state.
+ */
 export const executeQuery = ({
   shouldUpdateUrlQueryString = true,
   shouldReplaceUrlQueryString = false,
 } = {}) => {
   return async (dispatch, getState, config) => {
-    let queryState = _cloneDeep(getState().query);
-    const searchApi = config.searchApi;
-    const urlHandlerApi = config.urlHandlerApi;
+    const appState = getState().app;
+    let queryState = getState().query;
+    queryState = updateQueryStateSorting(queryState, appState, config);
 
-    if (urlHandlerApi) {
-      if (shouldReplaceUrlQueryString) {
-        urlHandlerApi.replace(queryState);
-      } else if (shouldUpdateUrlQueryString) {
-        urlHandlerApi.set(queryState);
-      }
-    }
+    const searchApi = config.searchApi;
+
+    updateURLParameters(
+      queryState,
+      config,
+      shouldReplaceUrlQueryString,
+      shouldUpdateUrlQueryString
+    );
 
     dispatch({ type: RESULTS_LOADING });
     try {
       const response = await searchApi.search(queryState);
       if ('newQueryState' in response) {
-        dispatch({
-          type: SET_QUERY_STATE,
-          payload: response.newQueryState,
-        });
-        if (urlHandlerApi) {
-          // Get the update state from the store
-          queryState = _cloneDeep(getState().query);
-          urlHandlerApi.replace(queryState);
-        }
-        delete response.newStateQuery;
+        updateQueryStateAfterResponse(response, dispatch, getState, config);
       }
 
       dispatch({
@@ -222,15 +301,5 @@ export const clearSuggestions = () => {
         suggestions: [],
       },
     });
-  };
-};
-
-export const updateQueryState = (queryState) => {
-  return (dispatch) => {
-    dispatch({
-      type: SET_QUERY_STATE,
-      payload: queryState,
-    });
-    dispatch(executeQuery());
   };
 };

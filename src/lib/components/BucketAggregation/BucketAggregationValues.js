@@ -6,12 +6,11 @@
  * under the terms of the MIT License; see LICENSE file for more details.
  */
 
-import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { Checkbox, List } from 'semantic-ui-react';
+import React, { Component } from 'react';
 import Overridable from 'react-overridable';
+import { Checkbox, List } from 'semantic-ui-react';
 import { buildUID } from '../../util';
-import _get from 'lodash/get';
 
 class BucketAggregationValues extends Component {
   constructor(props) {
@@ -75,7 +74,6 @@ class BucketAggregationValues extends Component {
       };
       const getChildAggCmps = (bucket) =>
         this.getChildAggCmps(bucket, selectedFilters);
-      let label = null;
 
       return (
         <ValueElement

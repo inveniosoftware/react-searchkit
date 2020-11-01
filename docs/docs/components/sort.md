@@ -16,8 +16,6 @@ The component is **not** displayed while executing the search query or if there 
       text: 'Newest',
       sortBy: 'creation_date',
       sortOrder: 'asc',
-      default: true,
-      defaultOnEmptyString: true,
     },
     {
       text: 'Oldest',
@@ -33,7 +31,6 @@ The component is **not** displayed while executing the search query or if there 
 * **values** `Array`
 
   A list of possible values, where each value has the format `{ text: "Newest", sortBy: "<field name>", sortOrder: "<value>" }`.
-  A `default` and `defaultOnEmptyString` fields can be provided to choose the default value. Otherwise, the first value is set as default.
 
 * **renderElement** `function` *optional*
 

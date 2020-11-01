@@ -6,24 +6,24 @@
  * under the terms of the MIT License; see LICENSE file for more details.
  */
 
+import { INITIAL_QUERY_STATE_KEYS } from '../../storeConfig';
+import { updateQueryFilters, updateQueryState } from '../selectors';
 import {
+  CLEAR_QUERY_SUGGESTIONS,
+  RESET_QUERY,
+  RESULTS_UPDATE_LAYOUT,
   SET_QUERY_COMPONENT_INITIAL_STATE,
-  SET_QUERY_STRING,
+  SET_QUERY_FILTERS,
+  SET_QUERY_PAGINATION_PAGE,
+  SET_QUERY_PAGINATION_SIZE,
   SET_QUERY_SORTING,
   SET_QUERY_SORT_BY,
   SET_QUERY_SORT_ORDER,
-  SET_QUERY_PAGINATION_PAGE,
-  SET_QUERY_PAGINATION_SIZE,
-  SET_QUERY_FILTERS,
-  SET_QUERY_SUGGESTIONS,
   SET_QUERY_STATE,
+  SET_QUERY_STRING,
+  SET_QUERY_SUGGESTIONS,
   SET_SUGGESTION_STRING,
-  CLEAR_QUERY_SUGGESTIONS,
-  RESULTS_UPDATE_LAYOUT,
-  RESET_QUERY,
 } from '../types';
-import { updateQueryFilters, updateQueryState } from '../selectors';
-import { STORE_KEYS } from '../../storeConfig';
 
 export default (state = {}, action) => {
   switch (action.type) {
@@ -34,18 +34,21 @@ export default (state = {}, action) => {
         ...state,
         sortBy: action.payload.sortBy,
         sortOrder: action.payload.sortOrder,
+        _sortUserChanged: true,
         page: 1,
       };
     case SET_QUERY_SORT_BY:
       return {
         ...state,
         sortBy: action.payload,
+        _sortUserChanged: true,
         page: 1,
       };
     case SET_QUERY_SORT_ORDER:
       return {
         ...state,
         sortOrder: action.payload,
+        _sortUserChanged: true,
         page: 1,
       };
     case SET_QUERY_PAGINATION_PAGE:
@@ -89,7 +92,7 @@ export default (state = {}, action) => {
     case SET_QUERY_STATE:
       return {
         ...state,
-        ...updateQueryState(state, action.payload, STORE_KEYS),
+        ...updateQueryState(state, action.payload, INITIAL_QUERY_STATE_KEYS),
       };
     case RESULTS_UPDATE_LAYOUT:
       return {
