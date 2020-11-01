@@ -9,22 +9,27 @@
 import { applyMiddleware, createStore } from 'redux';
 import thunk from 'redux-thunk';
 import rootReducer from './state/reducers';
-import { INITIAL_STORE_STATE } from './storeConfig';
+import {
+  INITIAL_APP_STATE,
+  INITIAL_QUERY_STATE,
+  INITIAL_RESULTS_STATE,
+} from './storeConfig';
 
-export function configureStore(appConfig) {
+export function createStoreWithConfig(appConfig) {
   const initialQueryState = {
-    ...INITIAL_STORE_STATE,
+    ...INITIAL_QUERY_STATE,
     ...appConfig.initialQueryState,
   };
 
   const initialResultsState = {
+    ...INITIAL_RESULTS_STATE,
     loading: appConfig.searchOnInit,
-    data: {
-      hits: [],
-      total: 0,
-      aggregations: {},
-    },
-    error: {},
+  };
+
+  const initialAppState = {
+    ...INITIAL_APP_STATE,
+    initialSortBy: initialQueryState.sortBy,
+    initialSortOrder: initialQueryState.sortOrder,
   };
 
   // configure the initial state
@@ -32,6 +37,7 @@ export function configureStore(appConfig) {
     ? appConfig.urlHandlerApi.get(initialQueryState)
     : initialQueryState;
   const preloadedState = {
+    app: initialAppState,
     query: preloadedQueryState,
     results: initialResultsState,
   };

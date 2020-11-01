@@ -1,19 +1,19 @@
 /*
  * This file is part of React-SearchKit.
- * Copyright (C) 2018-2019 CERN.
+ * Copyright (C) 2018-2020 CERN.
  *
  * React-SearchKit is free software; you can redistribute it and/or modify it
  * under the terms of the MIT License; see LICENSE file for more details.
  */
 
-import React, { Component } from 'react';
-import { Provider } from 'react-redux';
 import PropTypes from 'prop-types';
+import React, { Component } from 'react';
 import Overridable from 'react-overridable';
-import { configureStore } from '../../store';
+import { Provider } from 'react-redux';
 import { UrlHandlerApi } from '../../api';
-import { Bootstrap } from '../Bootstrap';
+import { createStoreWithConfig } from '../../store';
 import { buildUID } from '../../util';
+import { Bootstrap } from '../Bootstrap';
 
 export class ReactSearchKit extends Component {
   constructor(props) {
@@ -28,9 +28,10 @@ export class ReactSearchKit extends Component {
         : null,
       searchOnInit: props.searchOnInit,
       initialQueryState: props.initialQueryState,
+      defaultSortingOnEmptyQueryString: props.defaultSortingOnEmptyQueryString,
     };
 
-    this.store = configureStore(appConfig);
+    this.store = createStoreWithConfig(appConfig);
     this.appName = props.appName;
     this.eventListenerEnabled = props.eventListenerEnabled;
   }
@@ -83,6 +84,10 @@ ReactSearchKit.propTypes = {
     hiddenParams: PropTypes.array,
     layout: PropTypes.oneOf(['list', 'grid']),
   }),
+  defaultSortingOnEmptyQueryString: PropTypes.shape({
+    sortBy: PropTypes.string,
+    sortOrder: PropTypes.string,
+  }),
 };
 
 ReactSearchKit.defaultProps = {
@@ -97,6 +102,7 @@ ReactSearchKit.defaultProps = {
   eventListenerEnabled: false,
   overridableId: '',
   initialQueryState: {},
+  defaultSortingOnEmptyQueryString: {},
 };
 
 export default Overridable.component('ReactSearchKit', ReactSearchKit);

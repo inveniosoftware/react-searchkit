@@ -6,7 +6,7 @@
  * under the terms of the MIT License; see LICENSE file for more details.
  */
 
-export const INITIAL_STORE_STATE = {
+export const INITIAL_QUERY_STATE = {
   queryString: '',
   suggestions: [],
   sortBy: null,
@@ -18,4 +18,20 @@ export const INITIAL_STORE_STATE = {
   layout: null,
 };
 
-export const STORE_KEYS = Object.keys(INITIAL_STORE_STATE);
+export const INITIAL_QUERY_STATE_KEYS = Object.keys(INITIAL_QUERY_STATE);
+
+export const INITIAL_RESULTS_STATE = {
+  loading: false,
+  data: {
+    hits: [],
+    total: 0,
+    aggregations: {},
+  },
+  error: {},
+};
+
+export const INITIAL_APP_STATE = {
+  hasUserChangedSorting: false,
+  initialSortBy: null,
+  initialSortOrder: null,
+};

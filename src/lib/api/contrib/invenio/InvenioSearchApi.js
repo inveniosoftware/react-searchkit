@@ -6,14 +6,14 @@
  * under the terms of the MIT License; see LICENSE file for more details.
  */
 
+import axios from 'axios';
 import _get from 'lodash/get';
 import _hasIn from 'lodash/hasIn';
 import _isEmpty from 'lodash/isEmpty';
-import axios from 'axios';
+import { updateQueryState } from '../../../state/selectors';
+import { INITIAL_QUERY_STATE } from '../../../storeConfig';
 import { InvenioRequestSerializer } from './InvenioRequestSerializer';
 import { InvenioResponseSerializer } from './InvenioResponseSerializer';
-import { updateQueryState } from '../../../state/selectors';
-import { STORE_KEYS } from '../../../storeConfig';
 
 export class InvenioSearchApi {
   constructor(config) {
@@ -88,7 +88,7 @@ export class InvenioSearchApi {
     const newQueryState = updateQueryState(
       stateQuery,
       response.extras,
-      STORE_KEYS
+      INITIAL_QUERY_STATE
     );
     if (!_isEmpty(newQueryState)) {
       response.newQueryState = newQueryState;

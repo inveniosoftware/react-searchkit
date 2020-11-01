@@ -6,20 +6,18 @@
  * under the terms of the MIT License; see LICENSE file for more details.
  */
 
-import React, { Component } from 'react';
-import { Checkbox } from 'semantic-ui-react';
-import Overridable from 'react-overridable';
-import _get from 'lodash/get';
-import { Card } from 'semantic-ui-react';
 import PropTypes from 'prop-types';
+import React, { Component } from 'react';
+import Overridable from 'react-overridable';
+import { Card, Checkbox } from 'semantic-ui-react';
 
 class ToggleComponent extends Component {
-
   _isChecked = (userSelectionFilters) => {
-    const isFilterActive = userSelectionFilters.filter(
-      (filter) => filter[0] === this.props.filterValue[0]
-    ).length > 0
-    return isFilterActive
+    const isFilterActive =
+      userSelectionFilters.filter(
+        (filter) => filter[0] === this.props.filterValue[0]
+      ).length > 0;
+    return isFilterActive;
   };
 
   onToggleClicked = () => {
@@ -27,21 +25,16 @@ class ToggleComponent extends Component {
   };
 
   render() {
-    const {
-      userSelectionFilters,
-      overridableId,
-      title,
-      label
-    } = this.props;
+    const { userSelectionFilters, overridableId, title, label } = this.props;
     var isChecked = this._isChecked(userSelectionFilters);
-    const onToggleClicked = this.onToggleClicked
-    debugger
+    const onToggleClicked = this.onToggleClicked;
     return (
       <Overridable
-       id={'SearchFilters.ToggleComponent', overridableId}
-       isChecked={isChecked}
-       onToggleClicked={onToggleClicked}
-       {...this.props}>
+        id={('SearchFilters.ToggleComponent', overridableId)}
+        isChecked={isChecked}
+        onToggleClicked={onToggleClicked}
+        {...this.props}
+      >
         <Card>
           <Card.Content>
             <Card.Header>{title}</Card.Header>
@@ -56,7 +49,7 @@ class ToggleComponent extends Component {
           </Card.Content>
         </Card>
       </Overridable>
-    )
+    );
   }
 }
 
@@ -73,4 +66,6 @@ ToggleComponent.defaultProps = {
 };
 
 export default Overridable.component(
-  'SearchFilters.ToggleComponent', ToggleComponent);
+  'SearchFilters.ToggleComponent',
+  ToggleComponent
+);

@@ -6,10 +6,10 @@
  * under the terms of the MIT License; see LICENSE file for more details.
  */
 
-import React from 'react';
 import { mount } from 'enzyme';
-import { default as Bootstrap } from './Bootstrap';
+import React from 'react';
 import { onQueryChanged } from '../../events';
+import { default as Bootstrap } from './Bootstrap';
 
 describe('test Bootstrap component', () => {
   it('should update query state when event listener is registered', () => {
