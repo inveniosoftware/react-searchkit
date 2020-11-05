@@ -1,6 +1,6 @@
 <!--
   This file is part of React-SearchKit.
-  Copyright (C) 2018-2019 CERN.
+  Copyright (C) 2018-2020 CERN.
 
   React-SearchKit is free software; you can redistribute it and/or modify it
   under the terms of the MIT License; see LICENSE file for more details.
@@ -8,11 +8,10 @@
 
 # React-SearchKit
 
-[![Build Status](https://img.shields.io/travis/inveniosoftware/react-searchkit)](https://travis-ci.org/inveniosoftware/react-searchkit)
+![Build status](https://github.com/inveniosoftware/react-searchkit/workflows/CI/badge.svg)
 [![Release](https://img.shields.io/npm/v/react-searchkit)](https://www.npmjs.com/package/react-searchkit)
 [![License](https://img.shields.io/github/license/inveniosoftware/react-searchkit)](https://github.com/inveniosoftware/react-searchkit/blob/master/LICENSE)
 [![Downloads](https://img.shields.io/npm/dm/react-searchkit)](https://www.npmjs.com/package/react-searchkit)
-[![Chat](https://img.shields.io/gitter/room/inveniosoftware/invenio)](https://gitter.im/inveniosoftware/invenio)
 
 React-SearchKit is a React library that allows you to build in an easy way your search application.
 

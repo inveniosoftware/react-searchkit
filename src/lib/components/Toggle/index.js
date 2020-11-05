@@ -6,17 +6,17 @@
  * under the terms of the MIT License; see LICENSE file for more details.
  */
 
-import { connect } from '../../store';
+import { connect } from 'react-redux';
 import { updateQueryFilters } from '../../state/actions';
 import ToggleComponent from './Toggle';
 
-const mapDispatchToProps = dispatch => ({
-  updateQueryFilters: filter => dispatch(updateQueryFilters(filter)),
+const mapDispatchToProps = (dispatch) => ({
+  updateQueryFilters: (filter) => dispatch(updateQueryFilters(filter)),
 });
 
 export const Toggle = connect(
-  state => ({
-    userSelectionFilters: state.query.filters
+  (state) => ({
+    userSelectionFilters: state.query.filters,
   }),
-  mapDispatchToProps,
+  mapDispatchToProps
 )(ToggleComponent);
