@@ -1,15 +1,13 @@
 /*
  * This file is part of React-SearchKit.
- * Copyright (C) 2018-2019 CERN.
+ * Copyright (C) 2018-2020 CERN.
  *
  * React-SearchKit is free software; you can redistribute it and/or modify it
  * under the terms of the MIT License; see LICENSE file for more details.
  */
 
-import { createStore, applyMiddleware } from 'redux';
-import { connect } from 'react-redux';
+import { applyMiddleware, createStore } from 'redux';
 import thunk from 'redux-thunk';
-
 import rootReducer from './state/reducers';
 import { INITIAL_STORE_STATE } from './storeConfig';
 
@@ -43,9 +41,3 @@ export function configureStore(appConfig) {
     applyMiddleware(thunk.withExtraArgument(appConfig))
   );
 }
-
-function connectExtended(mapStateToProps, mapDispatchToProps, mergeProps) {
-  return connect(mapStateToProps, mapDispatchToProps, mergeProps);
-}
-
-export { connectExtended as connect };
