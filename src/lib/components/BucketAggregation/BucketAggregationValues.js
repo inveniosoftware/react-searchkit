@@ -64,9 +64,10 @@ class BucketAggregationValues extends Component {
   render() {
     const { buckets, selectedFilters, overridableId } = this.props;
     const valuesCmp = buckets.map((bucket) => {
+      const keyField = bucket.key_as_string ? bucket.key_as_string : bucket.key;
       const isSelected = this._isSelected(
         this.aggName,
-        bucket.key,
+        keyField,
         selectedFilters
       );
       const onFilterClicked = (value) => {
@@ -79,6 +80,7 @@ class BucketAggregationValues extends Component {
         <ValueElement
           key={bucket.key}
           bucket={bucket}
+          keyField={keyField}
           isSelected={isSelected}
           onFilterClicked={onFilterClicked}
           getChildAggCmps={getChildAggCmps}
@@ -117,11 +119,11 @@ const ValueElement = (props) => {
     onFilterClicked,
     getChildAggCmps,
     overridableId,
+    keyField,
   } = props;
-
   const label = bucket.label
     ? bucket.label
-    : `${bucket.key} (${bucket.doc_count})`;
+    : `${keyField} (${bucket.doc_count})`;
   const childAggCmps = getChildAggCmps(bucket);
   return (
     <Overridable
