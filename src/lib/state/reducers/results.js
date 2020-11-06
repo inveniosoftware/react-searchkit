@@ -13,6 +13,11 @@ import {
 } from '../types';
 
 export default (state = {}, action) => {
+  // A completion event (success or error) should only update the state if it was
+  // originally triggered by the latest request made up to that point.
+  // Otherwise the result shall be ignored because there is a more recent request
+  // either waiting to complete, or that has already completed.
+  const isLatestRequest = action.payload && state.queryState === action.payload.queryState;
   switch (action.type) {
     case RESULTS_LOADING:
       return {
@@ -21,29 +26,38 @@ export default (state = {}, action) => {
         data: {
           ...state.data,
         },
+        queryState: action.payload.queryState,
       };
     case RESULTS_FETCH_SUCCESS:
-      return {
-        loading: false,
-        data: {
-          ...state.data,
-          aggregations: action.payload.aggregations,
-          hits: action.payload.hits,
-          total: action.payload.total,
-        },
-        error: {},
-      };
+      if (isLatestRequest) {
+        return {
+          loading: false,
+          data: {
+            ...state.data,
+            aggregations: action.payload.aggregations,
+            hits: action.payload.hits,
+            total: action.payload.total,
+          },
+          error: {},
+        };
+      } else {
+        return state;
+      }
     case RESULTS_FETCH_ERROR:
-      return {
-        loading: false,
-        data: {
-          ...state.data,
-          aggregations: {},
-          hits: [],
-          total: 0,
-        },
-        error: action.payload,
-      };
+      if (isLatestRequest) {
+        return {
+          loading: false,
+          data: {
+            ...state.data,
+            aggregations: {},
+            hits: [],
+            total: 0,
+          },
+          error: action.payload.error,
+        };
+      } else {
+        return state;
+      }
     default:
       return state;
   }
