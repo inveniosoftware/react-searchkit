@@ -242,7 +242,7 @@ export const executeQuery = ({
       shouldUpdateUrlQueryString
     );
 
-    dispatch({ type: RESULTS_LOADING });
+    dispatch({ type: RESULTS_LOADING, payload: { queryState } });
     try {
       const response = await searchApi.search(queryState);
       if ('newQueryState' in response) {
@@ -255,11 +255,17 @@ export const executeQuery = ({
           aggregations: response.aggregations,
           hits: response.hits,
           total: response.total,
+          queryState,
         },
       });
     } catch (reason) {
       console.error(reason);
-      dispatch({ type: RESULTS_FETCH_ERROR, payload: reason });
+      dispatch({
+        type: RESULTS_FETCH_ERROR,
+        payload: {
+          error: reason,
+          queryState,
+        } });
     }
   };
 };
@@ -301,5 +307,18 @@ export const clearSuggestions = () => {
         suggestions: [],
       },
     });
+  };
+};
+
+export const updateQueryStateFromUrl = () => {
+  return (dispatch, getState, config) => {
+    if (config.urlHandlerApi) {
+      const newState = config.urlHandlerApi.get(config.initialQueryState);
+      dispatch({
+        type: SET_QUERY_STATE,
+        payload: newState,
+      });
+      dispatch(executeQuery({ shouldReplaceUrlQueryString: true }));
+    }
   };
 };

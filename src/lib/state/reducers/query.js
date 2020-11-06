@@ -6,7 +6,7 @@
  * under the terms of the MIT License; see LICENSE file for more details.
  */
 
-import { INITIAL_QUERY_STATE_KEYS } from '../../storeConfig';
+import { INITIAL_QUERY_STATE, INITIAL_QUERY_STATE_KEYS } from '../../storeConfig';
 import { updateQueryFilters, updateQueryState } from '../selectors';
 import {
   CLEAR_QUERY_SUGGESTIONS,
@@ -92,7 +92,8 @@ export default (state = {}, action) => {
     case SET_QUERY_STATE:
       return {
         ...state,
-        ...updateQueryState(state, action.payload, INITIAL_QUERY_STATE_KEYS),
+        ...INITIAL_QUERY_STATE,
+        ...updateQueryState(INITIAL_QUERY_STATE, action.payload, INITIAL_QUERY_STATE_KEYS),
       };
     case RESULTS_UPDATE_LAYOUT:
       return {

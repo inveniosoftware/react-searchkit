@@ -158,11 +158,22 @@ export class UrlHandlerApi {
         }
       });
 
+    const keyComparator = (a, b) => {
+      const q = 'q'; // query parameter should appear first
+      if (a === q) {
+        return -1;
+      } else if (b === q) {
+        return 1;
+      }
+      return a.localeCompare(b);
+    }
+
     // will omit undefined and null values from the query
     return Qs.stringify(params, {
       addQueryPrefix: true,
       skipNulls: true,
       indices: false, // order for filters params is not important, remove indices
+      sort: keyComparator,
     });
   };
 
@@ -220,9 +231,7 @@ export class UrlHandlerApi {
   _mergeParamsIntoState = (urlStateObj, queryState) => {
     const _queryState = _cloneDeep(queryState);
     Object.keys(urlStateObj).forEach((stateKey) => {
-      if (stateKey in _queryState) {
-        _queryState[stateKey] = urlStateObj[stateKey];
-      }
+      _queryState[stateKey] = urlStateObj[stateKey];
     });
     return _queryState;
   };
