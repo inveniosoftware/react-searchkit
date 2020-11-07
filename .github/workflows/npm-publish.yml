@@ -21,17 +21,17 @@ jobs:
 
       - name: Install and Build
         run: |
-          npm install
+          npm ci
           npm run build
 
       - name: Deploy docs
         run: bash deploy_docs.sh
         env:
           GH_EMAIL: info@inveniosoftware.org
-          GH_NAME: invenio-developers
-          GH_TOKEN:  TODO-FIX-ME
+          GH_NAME: inveniobot
+          GH_TOKEN: ${{secrets.INVENIOBOT_USER_TOKEN}}
 
       - name: Publish on NPM
-        run: npm publish --access public
+        run: npm publish
         env:
           NODE_AUTH_TOKEN: ${{secrets.npm_token}}
