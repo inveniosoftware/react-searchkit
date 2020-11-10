@@ -8,3 +8,4 @@
 
 export * from './contrib';
 export { UrlHandlerApi } from './UrlHandlerApi';
+export { UrlParamValidator } from './UrlParamValidator';

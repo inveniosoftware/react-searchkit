@@ -1,6 +1,6 @@
 /*
  * This file is part of React-SearchKit.
- * Copyright (C) 2018-2019 CERN.
+ * Copyright (C) 2018-2020 CERN.
  *
  * React-SearchKit is free software; you can redistribute it and/or modify it
  * under the terms of the MIT License; see LICENSE file for more details.
@@ -13,6 +13,7 @@ import _isObject from 'lodash/isObject';
 import _isNaN from 'lodash/isNaN';
 import _isNil from 'lodash/isNil';
 import _cloneDeep from 'lodash/cloneDeep';
+import { UrlParamValidator } from './UrlParamValidator';
 
 const pushHistory = (query) => {
   if (window.history.pushState) {
@@ -65,16 +66,6 @@ class UrlParser {
     });
     return params;
   }
-}
-
-/** Default implementation for a param validator class */
-class UrlParamValidator {
-  /**
-   * Return true if the param value is valid, false otherwise
-   * @param {object} queryState the `query` state
-   * @param {boolean} updateUrlQueryString a flag to push the new updated version of `query` state to the URL query string
-   */
-  isValid = (key, value) => true;
 }
 
 /** Object responsible to update the URL query string and parse it to update the app state */
@@ -206,8 +197,8 @@ export class UrlHandlerApi {
   _mapUrlParamsToQueryState = (urlParamsObj) => {
     const result = {};
     Object.keys(urlParamsObj).forEach((paramKey) => {
-      if (this.urlParamValidator.isValid(paramKey, urlParamsObj[paramKey])) {
-        const queryStateKey = this.fromUrlParamsMapping[paramKey];
+      const queryStateKey = this.fromUrlParamsMapping[paramKey];
+      if (this.urlParamValidator.isValid(this, queryStateKey, urlParamsObj[paramKey])) {
         result[queryStateKey] = urlParamsObj[paramKey];
         // custom transformation for filters
         if (queryStateKey === 'filters') {
@@ -219,6 +210,8 @@ export class UrlHandlerApi {
             this._filterStringToList(filter)
           );
         }
+      } else {
+        console.warn(`URL parameter '${paramKey}' with value '${urlParamsObj[paramKey]}' is incorrect and was ignored.`);
       }
     });
     return result;
