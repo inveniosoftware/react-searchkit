@@ -80,11 +80,27 @@
 </ul></li>
 <li><p><strong>customHandler</strong> <code>object</code>: override entirely the default class <code>UrlHandlerApi</code>.</p></li>
 </ul></li>
-<li><p><strong>searchOnInit</strong> <code>object</code> <em>optional</em></p>
+<li><p><strong>searchOnInit</strong> <code>boolean</code> <em>optional</em></p>
 <p>A boolean to perform a search when the application is mounted. Default <code>true</code>.</p></li>
 <li><p><strong>appName</strong> <code>string</code> <em>optional</em></p>
-<p>A name identifier to distinguish uniquely the application. Default <code>RSK</code>.</p></li>
+<p>A name identifier to distinguish uniquely the application. Useful if multiple ReactSearchKit apps are loaded in the same page. Default <code>RSK</code>.</p></li>
 <li><p><strong>eventListenerEnabled</strong> <code>boolean</code> <em>optional</em></p>
 <p>If <code>true</code> the application listens to the <code>queryChanged</code> event else if <code>false</code> no listener is registered. When this event is emitted the application triggers a search based on the payload that is passed to the event at the emission time. Default <code>false</code>.</p></li>
+<li><p><strong>initialQueryState</strong> <code>object</code> <em>optional</em></p>
+<p>Set the initial state of your ReactSearchKit application. It will be used to render each component with these default selected values and to perform the first search query, if <code>searchOnInit</code> is set to <code>true</code>.
+The object keys must match the query state fields and the values must be valid values that correspond to the values passed to each parameters.</p></li>
+<li><p><strong>defaultSortingOnEmptyQueryString</strong> <code>object</code> <em>optional</em></p>
+<p>It is sometimes useful to automatically change the default sorting in case the query string is set or left empty.
+A typical case is when your app should return by default the most recent items when the user did not search for anything in particular, but it should instead return the best matching items when searching with a particular query string.
+When enabled, the behavior will be the following:</p>
+<ul>
+<li>if the user did <strong>not</strong> change sorting, the default sorting with an <strong>empty</strong> query string will be the one defined with this prop <code>defaultSortingOnEmptyQueryString</code>.</li>
+<li>if the user did <strong>not</strong> change sorting, the default sorting with a query string will be the one defined with the prop <code>initialQueryState</code>.</li>
+<li>if the user <strong>did</strong> change sorting and selected a value, then the user preference will be kept, independently of the presence or absence of the query string.</li>
+</ul>
+<ul>
+<li><p><strong>sortBy</strong> <code>string</code>: the query state <code>sortBy</code> value to use on empty query string.</p></li>
+<li><p><strong>sortOrder</strong> <code>string</code>: the query state <code>sortOrder</code> value to use on empty query string.</p></li>
+</ul></li>
 </ul>
 </span></div></article></div><div class="docs-prevnext"><a class="docs-prev button" href="/react-searchkit/docs/ui-customisation"><span class="arrow-prev">← </span><span>Customise The Look And Feel</span></a><a class="docs-next button" href="/react-searchkit/docs/components/active-filters"><span class="function-name-prevnext">ActiveFilters</span><span class="arrow-next"> →</span></a></div></div></div><nav class="onPageNav"><ul class="toc-headings"><li><a href="#usage">Usage</a></li><li><a href="#props">Props</a></li></ul></nav></div><footer class="nav-footer" id="footer"><section class="sitemap"><div><h5>Made with</h5><a href="https://docusaurus.io/">Docusaurus</a><a href="https://code.facebook.com/projects/" target="_blank" rel="noreferrer noopener"><img src="/react-searchkit/img/oss_logo.png" alt="React-SearchKit" width="170" height="45"/></a></div><div><h5>More</h5><a href="https://github.com/inveniosoftware/react-searchkit">GitHub</a><a href="https://inveniosoftware.org/">Invenio Software</a><a href="https://gitter.im/inveniosoftware/invenio"><img src="/react-searchkit/img/gitter.svg" alt="Gitter chat"/></a><a href="https://twitter.com/inveniosoftware">Twitter</a></div><div><h5>Born with ❤️ at</h5><a href="https://home.cern/" target="_blank"><img src="/react-searchkit/img/logo-cern.png" alt="CERN" width="130"/></a></div></section><section class="copyright"></section></footer></div></body></html>
