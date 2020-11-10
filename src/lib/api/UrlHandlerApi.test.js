@@ -203,7 +203,7 @@ describe('test UrlHandlerApi', () => {
     });
 
     describe('test filters errors', () => {
-      it('should throw an error when wrong format', () => {
+      it('should filter the parameter when wrong format', () => {
         window.location.search = '?q=test&f=category-video';
 
         const currentQueryState = {
@@ -214,10 +214,12 @@ describe('test UrlHandlerApi', () => {
         const handler = new UrlHandlerApi({
           urlFilterSeparator: '-',
         });
+        const newQueryState = handler.get(currentQueryState);
 
-        expect(() => {
-          handler.get(currentQueryState);
-        }).toThrow();
+        expect(newQueryState).toMatchObject({
+          queryString: 'test',
+          filters: [],
+        });
       });
     });
   });
