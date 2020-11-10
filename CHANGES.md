@@ -1,5 +1,12 @@
 # Changes
 
+Version 1.0.0-alpha.9 (released 2020-11-10)
+
+* Fixed bug that prevent boolean checkboxes to be selected.
+* Implemented sorting on empty query string and updated the documentation.
+* Removes `connectExtend` function.
+* Removes travis and adds GH actions.
+
 Version 1.0.0-alpha.8 (released 2020-10-29)
 
 * Adds a ToggleFilter component
