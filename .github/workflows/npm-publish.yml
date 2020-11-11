@@ -29,7 +29,7 @@ jobs:
         env:
           GH_EMAIL: info@inveniosoftware.org
           GH_NAME: inveniobot
-          GH_TOKEN: ${{secrets.INVENIOBOT_USER_TOKEN}}
+          GH_TOKEN: ${{secrets.GITHUB_TOKEN}}
 
       - name: Publish on NPM
         run: npm publish
