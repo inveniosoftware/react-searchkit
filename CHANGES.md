@@ -1,5 +1,10 @@
 # Changes
 
+Version 1.0.0-alpha.10 (released 2020-11-13)
+
+* Implemented state synchronization with the browser history
+* Implemented configurable URL validation
+
 Version 1.0.0-alpha.9 (released 2020-11-10)
 
 * Fixed bug that prevent boolean checkboxes to be selected.
