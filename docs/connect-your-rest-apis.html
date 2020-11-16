@@ -54,7 +54,7 @@
                 };
               }
             });
-        </script></nav></div><div class="container mainContainer"><div class="wrapper"><div class="post"><header class="postHeader"><h1 class="postHeaderTitle">Connect Your REST APIs</h1></header><article><div><span><p>React-SearchKit comes out of the box with a working adapter for <a href="https://www.elastic.co/">Elasticsearch 7</a> and <a href="https://inveniosoftware.org">Invenio</a> REST APIs. However, the library has been designed to allow the creation of custom adapters to plug in any REST API service.</p>
+        </script></nav></div><div class="container mainContainer docsContainer"><div class="wrapper"><div class="post"><header class="postHeader"><h1 id="__docusaurus" class="postHeaderTitle">Connect Your REST APIs</h1></header><article><div><span><p>React-SearchKit comes out of the box with a working adapter for <a href="https://www.elastic.co/">Elasticsearch 7</a> and <a href="https://inveniosoftware.org">Invenio</a> REST APIs. However, the library has been designed to allow the creation of custom adapters to plug in any REST API service.</p>
 <p>There are 2 ways of connecting your REST APIs:</p>
 <ul>
 <li>if you plan to use one of the available, just configure URL, headers, request and response serializers via props.</li>
@@ -63,18 +63,18 @@
 <h2><a class="anchor" aria-hidden="true" id="use-one-of-the-available"></a><a href="#use-one-of-the-available" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Use one of the available</h2>
 <p>The <code>Elasticsearch</code> adapter can be configured by passing an object. The configuration will be injected directly in the <a href="https://github.com/axios/axios">axios</a> instance used under the hood to perform network requests.</p>
 <pre><code class="hljs css language-jsx"><span class="token keyword">const</span> searchApi <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">ESSearchApi</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
-  axios<span class="token punctuation">:</span> <span class="token punctuation">{</span>
-    url<span class="token punctuation">:</span> <span class="token string">'https://my.es.backend.org/search/'</span><span class="token punctuation">,</span>
-    timeout<span class="token punctuation">:</span> <span class="token number">5000</span><span class="token punctuation">,</span>
+  axios<span class="token operator">:</span> <span class="token punctuation">{</span>
+    url<span class="token operator">:</span> <span class="token string">'https://my.es.backend.org/search/'</span><span class="token punctuation">,</span>
+    timeout<span class="token operator">:</span> <span class="token number">5000</span><span class="token punctuation">,</span>
   <span class="token punctuation">}</span>
 <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
 <span class="token keyword">class</span> <span class="token class-name">App</span> <span class="token keyword">extends</span> <span class="token class-name">Component</span> <span class="token punctuation">{</span>
   <span class="token function">render</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
     <span class="token keyword">return</span> <span class="token punctuation">(</span>
-      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span><span class="token class-name">ReactSearchKit</span></span> <span class="token attr-name">searchApi</span><span class="token script language-javascript"><span class="token script-punctuation punctuation">=</span><span class="token punctuation">{</span>searchApi<span class="token punctuation">}</span></span><span class="token punctuation">></span></span>
-        <span class="token operator">...</span>
-      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span><span class="token class-name">ReactSearchKit</span></span><span class="token punctuation">></span></span>
+      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span><span class="token class-name">ReactSearchKit</span></span> <span class="token attr-name">searchApi</span><span class="token script language-javascript"><span class="token script-punctuation punctuation">=</span><span class="token punctuation">{</span>searchApi<span class="token punctuation">}</span></span><span class="token punctuation">></span></span><span class="token plain-text">
+        ...
+      </span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span><span class="token class-name">ReactSearchKit</span></span><span class="token punctuation">></span></span>
     <span class="token punctuation">)</span>
   <span class="token punctuation">}</span>
 <span class="token punctuation">}</span>
@@ -84,19 +84,19 @@
 </blockquote>
 <p>The <code>Invenio</code> adapter works in a very similar way:</p>
 <pre><code class="hljs css language-jsx"><span class="token keyword">const</span> searchApi <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">InvenioSearchApi</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
-  axios<span class="token punctuation">:</span> <span class="token punctuation">{</span>
-    url<span class="token punctuation">:</span> <span class="token string">'https://zenodo.org/api/records/'</span><span class="token punctuation">,</span>
-    timeout<span class="token punctuation">:</span> <span class="token number">5000</span><span class="token punctuation">,</span>
-    headers<span class="token punctuation">:</span> <span class="token punctuation">{</span> Accept<span class="token punctuation">:</span> <span class="token string">'application/vnd.zenodo.v1+json'</span> <span class="token punctuation">}</span><span class="token punctuation">,</span>
+  axios<span class="token operator">:</span> <span class="token punctuation">{</span>
+    url<span class="token operator">:</span> <span class="token string">'https://zenodo.org/api/records/'</span><span class="token punctuation">,</span>
+    timeout<span class="token operator">:</span> <span class="token number">5000</span><span class="token punctuation">,</span>
+    headers<span class="token operator">:</span> <span class="token punctuation">{</span> Accept<span class="token operator">:</span> <span class="token string">'application/vnd.zenodo.v1+json'</span> <span class="token punctuation">}</span><span class="token punctuation">,</span>
   <span class="token punctuation">}</span>
 <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
 <span class="token keyword">class</span> <span class="token class-name">App</span> <span class="token keyword">extends</span> <span class="token class-name">Component</span> <span class="token punctuation">{</span>
   <span class="token function">render</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
     <span class="token keyword">return</span> <span class="token punctuation">(</span>
-      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span><span class="token class-name">ReactSearchKit</span></span> <span class="token attr-name">searchApi</span><span class="token script language-javascript"><span class="token script-punctuation punctuation">=</span><span class="token punctuation">{</span>searchApi<span class="token punctuation">}</span></span><span class="token punctuation">></span></span>
-        <span class="token operator">...</span>
-      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span><span class="token class-name">ReactSearchKit</span></span><span class="token punctuation">></span></span>
+      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span><span class="token class-name">ReactSearchKit</span></span> <span class="token attr-name">searchApi</span><span class="token script language-javascript"><span class="token script-punctuation punctuation">=</span><span class="token punctuation">{</span>searchApi<span class="token punctuation">}</span></span><span class="token punctuation">></span></span><span class="token plain-text">
+        ...
+      </span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span><span class="token class-name">ReactSearchKit</span></span><span class="token punctuation">></span></span>
     <span class="token punctuation">)</span>
   <span class="token punctuation">}</span>
 <span class="token punctuation">}</span>
@@ -135,22 +135,22 @@ For example, an implementation of the request serializer could be:</p>
 <span class="token keyword">const</span> MyResponseSerializer <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">MyResponseSerializer</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
 <span class="token keyword">const</span> searchApi <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">ESSearchAPI</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
-  axios<span class="token punctuation">:</span> <span class="token punctuation">{</span>
-    url<span class="token punctuation">:</span> <span class="token string">'https://my.es.backend.org/search/'</span><span class="token punctuation">,</span>
-    timeout<span class="token punctuation">:</span> <span class="token number">5000</span><span class="token punctuation">,</span>
+  axios<span class="token operator">:</span> <span class="token punctuation">{</span>
+    url<span class="token operator">:</span> <span class="token string">'https://my.es.backend.org/search/'</span><span class="token punctuation">,</span>
+    timeout<span class="token operator">:</span> <span class="token number">5000</span><span class="token punctuation">,</span>
   <span class="token punctuation">}</span><span class="token punctuation">,</span>
-  es<span class="token punctuation">:</span> <span class="token punctuation">{</span>
-    requestSerializer<span class="token punctuation">:</span> MyRequestSerializer<span class="token punctuation">,</span>
-    responseSerializer<span class="token punctuation">:</span> MyResponseSerializer<span class="token punctuation">,</span>
+  es<span class="token operator">:</span> <span class="token punctuation">{</span>
+    requestSerializer<span class="token operator">:</span> MyRequestSerializer<span class="token punctuation">,</span>
+    responseSerializer<span class="token operator">:</span> MyResponseSerializer<span class="token punctuation">,</span>
   <span class="token punctuation">}</span><span class="token punctuation">,</span>
 <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
 <span class="token keyword">class</span> <span class="token class-name">App</span> <span class="token keyword">extends</span> <span class="token class-name">Component</span> <span class="token punctuation">{</span>
   <span class="token function">render</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
     <span class="token keyword">return</span> <span class="token punctuation">(</span>
-      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span><span class="token class-name">ReactSearchKit</span></span> <span class="token attr-name">searchApi</span><span class="token script language-javascript"><span class="token script-punctuation punctuation">=</span><span class="token punctuation">{</span>searchApi<span class="token punctuation">}</span></span><span class="token punctuation">></span></span>
-        <span class="token operator">...</span>
-      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span><span class="token class-name">ReactSearchKit</span></span><span class="token punctuation">></span></span>
+      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span><span class="token class-name">ReactSearchKit</span></span> <span class="token attr-name">searchApi</span><span class="token script language-javascript"><span class="token script-punctuation punctuation">=</span><span class="token punctuation">{</span>searchApi<span class="token punctuation">}</span></span><span class="token punctuation">></span></span><span class="token plain-text">
+        ...
+      </span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span><span class="token class-name">ReactSearchKit</span></span><span class="token punctuation">></span></span>
     <span class="token punctuation">)</span>
   <span class="token punctuation">}</span>
 <span class="token punctuation">}</span>
@@ -180,17 +180,17 @@ The object needs to implement a <code>search</code> method expecting the <code>q
 <span class="token keyword">class</span> <span class="token class-name">App</span> <span class="token keyword">extends</span> <span class="token class-name">Component</span> <span class="token punctuation">{</span>
   <span class="token function">render</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
     <span class="token keyword">return</span> <span class="token punctuation">(</span>
-      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span><span class="token class-name">ReactSearchKit</span></span> <span class="token attr-name">searchApi</span><span class="token script language-javascript"><span class="token script-punctuation punctuation">=</span><span class="token punctuation">{</span>mySearchApi<span class="token punctuation">}</span></span><span class="token punctuation">></span></span>
-        <span class="token operator">...</span>
-      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span><span class="token class-name">ReactSearchKit</span></span><span class="token punctuation">></span></span>
+      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span><span class="token class-name">ReactSearchKit</span></span> <span class="token attr-name">searchApi</span><span class="token script language-javascript"><span class="token script-punctuation punctuation">=</span><span class="token punctuation">{</span>mySearchApi<span class="token punctuation">}</span></span><span class="token punctuation">></span></span><span class="token plain-text">
+        ...
+      </span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span><span class="token class-name">ReactSearchKit</span></span><span class="token punctuation">></span></span>
     <span class="token punctuation">)</span>
   <span class="token punctuation">}</span>
 <span class="token punctuation">}</span>
 </code></pre>
 <hr>
-<h2><a class="anchor" aria-hidden="true" id="tl-dr"></a><a href="#tl-dr" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>TL;DR</h2>
+<h2><a class="anchor" aria-hidden="true" id="tldr"></a><a href="#tldr" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>TL;DR</h2>
 <ul>
 <li>You can use available adapters and provide your own configuration</li>
 <li>You can create your own API adapter by implementing a new class and inject it as prop <code>searchApi</code> in the main component</li>
 </ul>
-</span></div></article></div><div class="docs-prevnext"><a class="docs-prev button" href="/react-searchkit/docs/main-concepts"><span class="arrow-prev">← </span><span>Main Concepts</span></a><a class="docs-next button" href="/react-searchkit/docs/using-url-parameters"><span>Using URL Parameters</span><span class="arrow-next"> →</span></a></div></div></div><nav class="onPageNav"><ul class="toc-headings"><li><a href="#use-one-of-the-available">Use one of the available</a><ul class="toc-headings"><li><a href="#serialization">Serialization</a></li></ul></li><li><a href="#implement-a-new-adapter">Implement a new adapter</a></li><li><a href="#tl-dr">TL;DR</a></li></ul></nav></div><footer class="nav-footer" id="footer"><section class="sitemap"><div><h5>Made with</h5><a href="https://docusaurus.io/">Docusaurus</a><a href="https://code.facebook.com/projects/" target="_blank" rel="noreferrer noopener"><img src="/react-searchkit/img/oss_logo.png" alt="React-SearchKit" width="170" height="45"/></a></div><div><h5>More</h5><a href="https://github.com/inveniosoftware/react-searchkit">GitHub</a><a href="https://inveniosoftware.org/">Invenio Software</a><a href="https://gitter.im/inveniosoftware/invenio"><img src="/react-searchkit/img/gitter.svg" alt="Gitter chat"/></a><a href="https://twitter.com/inveniosoftware">Twitter</a></div><div><h5>Born with ❤️ at</h5><a href="https://home.cern/" target="_blank"><img src="/react-searchkit/img/logo-cern.png" alt="CERN" width="130"/></a></div></section><section class="copyright"></section></footer></div></body></html>
+</span></div></article></div><div class="docs-prevnext"><a class="docs-prev button" href="/react-searchkit/docs/main-concepts"><span class="arrow-prev">← </span><span>Main Concepts</span></a><a class="docs-next button" href="/react-searchkit/docs/using-url-parameters"><span>Using URL Parameters</span><span class="arrow-next"> →</span></a></div></div></div><nav class="onPageNav"><ul class="toc-headings"><li><a href="#use-one-of-the-available">Use one of the available</a><ul class="toc-headings"><li><a href="#serialization">Serialization</a></li></ul></li><li><a href="#implement-a-new-adapter">Implement a new adapter</a></li><li><a href="#tldr">TL;DR</a></li></ul></nav></div><footer class="nav-footer" id="footer"><section class="sitemap"><div><h5>Made with</h5><a href="https://docusaurus.io/">Docusaurus</a><a href="https://code.facebook.com/projects/" target="_blank" rel="noreferrer noopener"><img src="/react-searchkit/img/oss_logo.png" alt="React-SearchKit" width="170" height="45"/></a></div><div><h5>More</h5><a href="https://github.com/inveniosoftware/react-searchkit">GitHub</a><a href="https://inveniosoftware.org/">Invenio Software</a><a href="https://gitter.im/inveniosoftware/invenio"><img src="/react-searchkit/img/gitter.svg" alt="Gitter chat"/></a><a href="https://twitter.com/inveniosoftware">Twitter</a></div><div><h5>Born with ❤️ at</h5><a href="https://home.cern/" target="_blank"><img src="/react-searchkit/img/logo-cern.png" alt="CERN" width="130"/></a></div></section><section class="copyright"></section></footer></div></body></html>
