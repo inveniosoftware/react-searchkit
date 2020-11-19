@@ -220,6 +220,9 @@ export class UrlHandlerApi {
           result[queryStateKey] = urlParamsObj[paramKey].map((filter) =>
             this._filterStringToList(filter)
           );
+        } else if (queryStateKey === 'sortBy') {
+          // sorting was explicitly set in the url
+          result._sortUserChanged = true;
         }
       } else {
         console.warn(`URL parameter '${paramKey}' with value '${urlParamsObj[paramKey]}' is incorrect and was ignored.`);

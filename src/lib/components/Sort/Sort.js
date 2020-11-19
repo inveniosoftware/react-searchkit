@@ -52,7 +52,6 @@ class Sort extends Component {
     return (
       <ShouldRender
         condition={
-          currentSortBy !== null &&
           (sortOrderDisabled || currentSortBy !== null) &&
           !loading &&
           totalResults > 0

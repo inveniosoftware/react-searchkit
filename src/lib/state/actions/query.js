@@ -8,6 +8,7 @@
 
 import _cloneDeep from 'lodash/cloneDeep';
 import _isEmpty from 'lodash/isEmpty';
+import _isEqual from 'lodash/isEqual';
 import {
   CLEAR_QUERY_SUGGESTIONS,
   RESET_QUERY,
@@ -199,24 +200,25 @@ const updateQueryStateAfterResponse = (
 };
 
 const updateQueryStateSorting = (queryState, appState, appConfig) => {
+  const newQueryState = _cloneDeep(queryState)
   if (_isEmpty(appConfig.defaultSortingOnEmptyQueryString)) {
-    return _cloneDeep(queryState);
+    return newQueryState;
   }
 
-  const userHasChangedSorting = appState.hasUserChangedSorting;
-  if (userHasChangedSorting === false) {
-    const isQueryStringEmpty = queryState.queryString === '';
+  const userHasChangedSorting = appState.hasUserChangedSorting || newQueryState._sortUserChanged;
+  if (!userHasChangedSorting) {
+    const isQueryStringEmpty = newQueryState.queryString === '';
     if (isQueryStringEmpty) {
-      queryState.sortBy = appConfig.defaultSortingOnEmptyQueryString.sortBy;
-      queryState.sortOrder =
+      newQueryState.sortBy = appConfig.defaultSortingOnEmptyQueryString.sortBy;
+      newQueryState.sortOrder =
         appConfig.defaultSortingOnEmptyQueryString.sortOrder;
     } else {
-      queryState.sortBy = appState.initialSortBy;
-      queryState.sortOrder = appState.initialSortOrder;
+      newQueryState.sortBy = appState.initialSortBy;
+      newQueryState.sortOrder = appState.initialSortOrder;
     }
   }
 
-  return _cloneDeep(queryState);
+  return newQueryState;
 };
 
 /**
@@ -230,15 +232,22 @@ export const executeQuery = ({
 } = {}) => {
   return async (dispatch, getState, config) => {
     const appState = getState().app;
-    let queryState = getState().query;
-    queryState = updateQueryStateSorting(queryState, appState, config);
+    const oldQueryState = getState().query;
+    const queryState = updateQueryStateSorting(oldQueryState, appState, config);
+    const sortingChanged = !_isEqual(oldQueryState, queryState);
+    if (sortingChanged) {
+      dispatch({
+        type: SET_QUERY_STATE,
+        payload: queryState,
+      });
+    }
 
     const searchApi = config.searchApi;
 
     updateURLParameters(
       queryState,
       config,
-      shouldReplaceUrlQueryString,
+      shouldReplaceUrlQueryString || (sortingChanged && !shouldUpdateUrlQueryString),
       shouldUpdateUrlQueryString
     );
 
