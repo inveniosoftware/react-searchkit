@@ -190,12 +190,7 @@ const updateQueryStateAfterResponse = (
     payload: response.newQueryState,
   });
 
-  const urlHandlerApi = appConfig.urlHandlerApi;
-  if (urlHandlerApi) {
-    // Replace the URL args with the response new query state
-    const updatedQueryState = _cloneDeep(getState().query);
-    urlHandlerApi.replace(updatedQueryState);
-  }
+  updateURLParameters(getState().query, appConfig, true, false);
   delete response.newStateQuery;
 };
 
@@ -205,8 +200,8 @@ const updateQueryStateSorting = (queryState, appState, appConfig) => {
     return newQueryState;
   }
 
-  const userHasChangedSorting = appState.hasUserChangedSorting || newQueryState._sortUserChanged;
-  if (!userHasChangedSorting) {
+  const _userHasChangedSorting = queryState._userHasChangedSorting;
+  if (!_userHasChangedSorting) {
     const isQueryStringEmpty = newQueryState.queryString === '';
     if (isQueryStringEmpty) {
       newQueryState.sortBy = appConfig.defaultSortingOnEmptyQueryString.sortBy;

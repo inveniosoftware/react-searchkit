@@ -34,21 +34,21 @@ export default (state = {}, action) => {
         ...state,
         sortBy: action.payload.sortBy,
         sortOrder: action.payload.sortOrder,
-        _sortUserChanged: true,
+        _userHasChangedSorting: true,
         page: 1,
       };
     case SET_QUERY_SORT_BY:
       return {
         ...state,
         sortBy: action.payload,
-        _sortUserChanged: true,
+        _userHasChangedSorting: true,
         page: 1,
       };
     case SET_QUERY_SORT_ORDER:
       return {
         ...state,
         sortOrder: action.payload,
-        _sortUserChanged: true,
+        _userHasChangedSorting: true,
         page: 1,
       };
     case SET_QUERY_PAGINATION_PAGE:

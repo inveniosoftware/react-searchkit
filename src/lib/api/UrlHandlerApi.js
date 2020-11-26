@@ -147,6 +147,9 @@ export class UrlHandlerApi {
         }
         return queryState[stateKey] !== null;
       })
+      .filter((stateKey) =>
+        (stateKey !== 'sortBy' && stateKey !== 'sortOrder') || queryState._userHasChangedSorting
+      )
       .forEach((stateKey) => {
         const paramKey = this.urlParamsMapping[stateKey];
         if (stateKey === 'filters') {
@@ -207,6 +210,7 @@ export class UrlHandlerApi {
    */
   _mapUrlParamsToQueryState = (urlParamsObj) => {
     const result = {};
+    let withSorting = false;
     Object.keys(urlParamsObj).forEach((paramKey) => {
       const queryStateKey = this.fromUrlParamsMapping[paramKey];
       if (this.urlParamValidator.isValid(this, queryStateKey, urlParamsObj[paramKey])) {
@@ -220,14 +224,15 @@ export class UrlHandlerApi {
           result[queryStateKey] = urlParamsObj[paramKey].map((filter) =>
             this._filterStringToList(filter)
           );
-        } else if (queryStateKey === 'sortBy') {
+        } else if (queryStateKey === 'sortBy' || queryStateKey === 'sortOrder') {
           // sorting was explicitly set in the url
-          result._sortUserChanged = true;
+          withSorting = true;
         }
       } else {
         console.warn(`URL parameter '${paramKey}' with value '${urlParamsObj[paramKey]}' is incorrect and was ignored.`);
       }
     });
+    result._userHasChangedSorting = withSorting;
     return result;
   };
 

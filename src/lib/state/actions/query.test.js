@@ -402,6 +402,7 @@ describe('test execute search sorting on empty query', () => {
     store.getState().query.queryString = 'text';
     store.getState().query.sortBy = 'mostpopular';
     store.getState().query.sortOrder = 'asc';
+    store.getState().query._userHasChangedSorting = true; // must be set explicitly
 
     await store.dispatch(
       executeQuery({

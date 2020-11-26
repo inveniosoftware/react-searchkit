@@ -16,6 +16,7 @@ export const INITIAL_QUERY_STATE = {
   filters: [],
   hiddenParams: [],
   layout: null,
+  _userHasChangedSorting: false,
 };
 
 export const INITIAL_QUERY_STATE_KEYS = Object.keys(INITIAL_QUERY_STATE);
