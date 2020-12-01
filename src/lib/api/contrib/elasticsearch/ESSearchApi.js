@@ -1,14 +1,15 @@
 /*
  * This file is part of React-SearchKit.
- * Copyright (C) 2019 CERN.
+ * Copyright (C) 2020 CERN.
  *
  * React-SearchKit is free software; you can redistribute it and/or modify it
  * under the terms of the MIT License; see LICENSE file for more details.
  */
 
+import axios from 'axios';
 import _get from 'lodash/get';
 import _hasIn from 'lodash/hasIn';
-import axios from 'axios';
+import { RequestCancelledError } from '../../errors';
 import { ESRequestSerializer } from './ESRequestSerializer';
 import { ESResponseSerializer } from './ESResponseSerializer';
 
@@ -20,6 +21,7 @@ export class ESSearchApi {
     this.initInterceptors(config);
     this.initAxios();
     this.search = this.search.bind(this);
+    this.axiosCancelToken = axios.CancelToken;
   }
 
   validateAxiosConfig() {
@@ -74,11 +76,26 @@ export class ESSearchApi {
    * @param {string} stateQuery the `query` state with the user input
    */
   async search(stateQuery) {
+    // cancel any previous request in case it is still happening
+    this.axiosCancel && this.axiosCancel.cancel();
+    // generate a new cancel token for this request
+    this.axiosCancel = this.axiosCancelToken.source();
+
     const payload = this.requestSerializer.serialize(stateQuery);
-    const response = await this.http.request({
-      method: 'POST',
-      data: payload,
-    });
-    return this.responseSerializer.serialize(response.data);
+
+    try {
+      const response = await this.http.request({
+        method: 'POST',
+        data: payload,
+        cancelToken: this.axiosCancel.token,
+      });
+      return this.responseSerializer.serialize(response.data);
+    } catch (error) {
+      if (axios.isCancel(error)) {
+        throw new RequestCancelledError();
+      } else {
+        throw error;
+      }
+    }
   }
 }

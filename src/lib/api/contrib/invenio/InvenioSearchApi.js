@@ -1,6 +1,6 @@
 /*
  * This file is part of React-SearchKit.
- * Copyright (C) 2018-2019 CERN.
+ * Copyright (C) 2018-2020 CERN.
  *
  * React-SearchKit is free software; you can redistribute it and/or modify it
  * under the terms of the MIT License; see LICENSE file for more details.
@@ -12,6 +12,7 @@ import _hasIn from 'lodash/hasIn';
 import _isEmpty from 'lodash/isEmpty';
 import { updateQueryState } from '../../../state/selectors';
 import { INITIAL_QUERY_STATE } from '../../../storeConfig';
+import { RequestCancelledError } from '../../errors';
 import { InvenioRequestSerializer } from './InvenioRequestSerializer';
 import { InvenioResponseSerializer } from './InvenioResponseSerializer';
 
@@ -23,6 +24,7 @@ export class InvenioSearchApi {
     this.initInterceptors(config);
     this.initAxios();
     this.search = this.search.bind(this);
+    this.axiosCancelToken = axios.CancelToken;
   }
 
   validateAxiosConfig() {
@@ -81,19 +83,34 @@ export class InvenioSearchApi {
    * @param {string} stateQuery the `query` state with the user input
    */
   async search(stateQuery) {
-    let response = await this.http.request({
-      params: stateQuery,
-    });
-    response = this.responseSerializer.serialize(response.data);
-    const newQueryState = updateQueryState(
-      stateQuery,
-      response.extras,
-      INITIAL_QUERY_STATE
-    );
-    if (!_isEmpty(newQueryState)) {
-      response.newQueryState = newQueryState;
+    // cancel any previous request in case it is still happening
+    this.axiosCancel && this.axiosCancel.cancel();
+    // generate a new cancel token for this request
+    this.axiosCancel = this.axiosCancelToken.source();
+
+    try {
+      let response = await this.http.request({
+        params: stateQuery,
+        cancelToken: this.axiosCancel.token,
+      });
+
+      response = this.responseSerializer.serialize(response.data);
+      const newQueryState = updateQueryState(
+        stateQuery,
+        response.extras,
+        INITIAL_QUERY_STATE
+      );
+      if (!_isEmpty(newQueryState)) {
+        response.newQueryState = newQueryState;
+      }
+      delete response.extras;
+      return response;
+    } catch (error) {
+      if (axios.isCancel(error)) {
+        throw new RequestCancelledError();
+      } else {
+        throw error;
+      }
     }
-    delete response.extras;
-    return response;
   }
 }

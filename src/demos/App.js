@@ -8,16 +8,16 @@
 
 import React, { Component } from 'react';
 import {
-  Segment,
-  Menu,
-  Container,
-  Header,
   Button,
+  Container,
   Divider,
+  Header,
+  Menu,
+  Segment,
 } from 'semantic-ui-react';
+import { CERNVideosReactSearchKit } from './cern-videos';
 import { ESReactSearchKit } from './elasticsearch';
 import { ZenodoReactSearchKit } from './zenodo';
-import { CERNVideosReactSearchKit } from './cern-videos';
 
 const demos = {
   es7: {
@@ -49,7 +49,7 @@ export default class App extends Component {
 
   renderHeader = () => {
     const { activeDemo } = this.state;
-    const demoMenus = Object.keys(demos).map(key => (
+    const demoMenus = Object.keys(demos).map((key) => (
       <Menu.Item
         key={key}
         name={key}
@@ -83,7 +83,7 @@ export default class App extends Component {
   };
 
   renderContent = () => {
-    const links = Object.keys(demos).map(key => (
+    const links = Object.keys(demos).map((key) => (
       <Segment placeholder textAlign="center" key={key}>
         <Header>{demos[key].label}</Header>
         <p>{demos[key].text}</p>

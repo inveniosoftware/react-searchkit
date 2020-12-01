@@ -8,6 +8,7 @@
 
 import _cloneDeep from 'lodash/cloneDeep';
 import _isEmpty from 'lodash/isEmpty';
+import { RequestCancelledError } from '../../api';
 import {
   CLEAR_QUERY_SUGGESTIONS,
   RESET_QUERY,
@@ -43,6 +44,7 @@ export const onAppInitialized = (searchOnInit) => {
       dispatch(
         executeQuery({
           shouldUpdateUrlQueryString: false,
+          shouldReplaceUrlQueryString: true,
         })
       );
     }
@@ -188,23 +190,24 @@ const updateQueryStateAfterResponse = (
     type: SET_QUERY_STATE,
     payload: response.newQueryState,
   });
+  const updatedQueryState = _cloneDeep(getState().query);
 
   const urlHandlerApi = appConfig.urlHandlerApi;
   if (urlHandlerApi) {
     // Replace the URL args with the response new query state
-    const updatedQueryState = _cloneDeep(getState().query);
     urlHandlerApi.replace(updatedQueryState);
   }
   delete response.newStateQuery;
+  return response;
 };
 
-const updateQueryStateSorting = (queryState, appState, appConfig) => {
-  if (_isEmpty(appConfig.defaultSortingOnEmptyQueryString)) {
-    return _cloneDeep(queryState);
-  }
-
-  const userHasChangedSorting = appState.hasUserChangedSorting;
-  if (userHasChangedSorting === false) {
+const updateSearchSorting = (queryState, appState, appConfig, dispatch) => {
+  function getSearchSortingOnQueryString(
+    queryState,
+    appState,
+    appConfig,
+    dispatch
+  ) {
     const isQueryStringEmpty = queryState.queryString === '';
     if (isQueryStringEmpty) {
       queryState.sortBy = appConfig.defaultSortingOnEmptyQueryString.sortBy;
@@ -214,9 +217,31 @@ const updateQueryStateSorting = (queryState, appState, appConfig) => {
       queryState.sortBy = appState.initialSortBy;
       queryState.sortOrder = appState.initialSortOrder;
     }
+
+    dispatch({
+      type: SET_QUERY_STATE,
+      payload: queryState,
+    });
   }
 
-  return _cloneDeep(queryState);
+  function getSearchSorting(queryState, appState, appConfig, dispatch) {
+    const userHasChangedSorting = appState.hasUserChangedSorting;
+    if (!userHasChangedSorting) {
+      // change sorting only if user did not change it
+      getSearchSortingOnQueryString(queryState, appState, appConfig, dispatch);
+    }
+  }
+
+  // when the `defaultSortingOnEmptyQueryString` config is not defined,
+  // return the current query state
+  const defaultSortingDefined = !_isEmpty(
+    appConfig.defaultSortingOnEmptyQueryString
+  );
+  if (defaultSortingDefined) {
+    // when the `defaultSortingOnEmptyQueryString` config is defined,
+    // evaluate if the sorting should be automatically changed
+    getSearchSorting(queryState, appState, appConfig, dispatch);
+  }
 };
 
 /**
@@ -230,10 +255,11 @@ export const executeQuery = ({
 } = {}) => {
   return async (dispatch, getState, config) => {
     const appState = getState().app;
-    let queryState = getState().query;
-    queryState = updateQueryStateSorting(queryState, appState, config);
+    let queryState = _cloneDeep(getState().query);
+    updateSearchSorting(queryState, appState, config, dispatch);
 
-    const searchApi = config.searchApi;
+    // fetch latest query state
+    queryState = _cloneDeep(getState().query);
 
     updateURLParameters(
       queryState,
@@ -242,11 +268,18 @@ export const executeQuery = ({
       shouldUpdateUrlQueryString
     );
 
-    dispatch({ type: RESULTS_LOADING, payload: { queryState } });
+    dispatch({ type: RESULTS_LOADING });
     try {
-      const response = await searchApi.search(queryState);
+      const searchApi = config.searchApi;
+      let response = await searchApi.search(queryState);
+
       if ('newQueryState' in response) {
-        updateQueryStateAfterResponse(response, dispatch, getState, config);
+        response = updateQueryStateAfterResponse(
+          _cloneDeep(response),
+          dispatch,
+          getState,
+          config
+        );
       }
 
       dispatch({
@@ -255,17 +288,22 @@ export const executeQuery = ({
           aggregations: response.aggregations,
           hits: response.hits,
           total: response.total,
-          queryState,
         },
       });
-    } catch (reason) {
-      console.error(reason);
-      dispatch({
-        type: RESULTS_FETCH_ERROR,
-        payload: {
-          error: reason,
-          queryState,
-        } });
+    } catch (error) {
+      if (error instanceof RequestCancelledError) {
+        // do nothing when the request was cancelled, another request is normally already happening
+        console.debug(error);
+        return;
+      } else {
+        console.error(error);
+        dispatch({
+          type: RESULTS_FETCH_ERROR,
+          payload: {
+            error: error,
+          },
+        });
+      }
     }
   };
 };
