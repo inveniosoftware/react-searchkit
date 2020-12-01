@@ -27,11 +27,12 @@ import {
   SET_QUERY_STRING,
 } from '../types';
 
+const urlHandlerApiGet = jest.fn();
 const urlHandlerApiSet = jest.fn();
 const urlHandlerApiReplace = jest.fn();
 class FakeUrlHandlerApi {
   get(queryState) {
-    return queryState;
+    return urlHandlerApiGet(queryState);
   }
   set(params) {
     return urlHandlerApiSet(params);
@@ -41,14 +42,15 @@ class FakeUrlHandlerApi {
   }
 }
 
-let store;
+let mockedStore;
 afterEach(() => {
-  store.clearActions();
+  mockedStore.clearActions();
+  urlHandlerApiGet.mockClear();
   urlHandlerApiSet.mockClear();
   urlHandlerApiReplace.mockClear();
 });
 
-describe('test query actions to update query state', () => {
+describe('test actions that update query state', () => {
   const config = {
     urlHandlerApi: null,
     searchApi: {
@@ -60,7 +62,7 @@ describe('test query actions to update query state', () => {
     },
   };
   const middlewares = [thunk.withExtraArgument(config)];
-  const mockStore = configureMockStore(middlewares);
+  const storeMocker = configureMockStore(middlewares);
 
   const initialState = {
     queryString: '',
@@ -72,7 +74,7 @@ describe('test query actions to update query state', () => {
     layout: null,
   };
   beforeEach(() => {
-    store = mockStore({
+    mockedStore = storeMocker({
       query: initialState,
     });
   });
@@ -86,8 +88,8 @@ describe('test query actions to update query state', () => {
       },
     ];
 
-    await store.dispatch(setInitialState(initialState));
-    const actions = store.getActions();
+    await mockedStore.dispatch(setInitialState(initialState));
+    const actions = mockedStore.getActions();
     expect(actions[0]).toEqual(expectedActions[0]);
   });
 
@@ -101,8 +103,8 @@ describe('test query actions to update query state', () => {
       },
     ];
 
-    await store.dispatch(onAppInitialized(true));
-    const actions = store.getActions();
+    await mockedStore.dispatch(onAppInitialized(true));
+    const actions = mockedStore.getActions();
 
     expect(actions[0].type).toEqual(expectedActions[0].type);
     expect(actions[1].type).toEqual(expectedActions[1].type);
@@ -117,8 +119,8 @@ describe('test query actions to update query state', () => {
       },
     ];
 
-    await store.dispatch(updateQueryString(newQueryString));
-    const actions = store.getActions();
+    await mockedStore.dispatch(updateQueryString(newQueryString));
+    const actions = mockedStore.getActions();
     expect(actions[0]).toEqual(expectedActions[0]);
   });
 
@@ -131,8 +133,8 @@ describe('test query actions to update query state', () => {
       },
     ];
 
-    await store.dispatch(updateQuerySortBy(newSortBy));
-    const actions = store.getActions();
+    await mockedStore.dispatch(updateQuerySortBy(newSortBy));
+    const actions = mockedStore.getActions();
     expect(actions[0]).toEqual(expectedActions[0]);
   });
 
@@ -145,14 +147,14 @@ describe('test query actions to update query state', () => {
       },
     ];
 
-    await store.dispatch(updateQuerySortOrder(newSortOrder));
-    const actions = store.getActions();
+    await mockedStore.dispatch(updateQuerySortOrder(newSortOrder));
+    const actions = mockedStore.getActions();
     expect(actions[0]).toEqual(expectedActions[0]);
   });
 });
 
-describe('test query actions to execute search', () => {
-  it('successfully execute search and update result state with no URL update', async () => {
+describe('test action that executes a search', () => {
+  it('should update the result state with the returned results', async () => {
     const RESULTS = {
       aggregations: [],
       hits: [],
@@ -188,12 +190,12 @@ describe('test query actions to execute search', () => {
     });
   });
 
-  it('execute search and update result state with error', async () => {
+  it('should update the result state with the returned error', async () => {
     const configNoURLhandler = {
       urlHandlerApi: null,
       searchApi: {
         search: (query) => {
-          throw Error('search error');
+          throw Error('Ignore this error! Error wanted to test error response');
         },
       },
       initialQueryState: {},
@@ -216,13 +218,13 @@ describe('test query actions to execute search', () => {
     const resultsState = store.getState().results;
     expect(resultsState).toMatchObject({
       data: {},
-      error: Error('search error'),
+      error: Error('Ignore this error! Error wanted to test error response'),
       loading: false,
     });
   });
 });
 
-describe('test execute search with URL handler', () => {
+describe('test execute search updating URL params', () => {
   const configWithURLhandler = {
     urlHandlerApi: new FakeUrlHandlerApi(),
     searchApi: {
@@ -234,7 +236,7 @@ describe('test execute search with URL handler', () => {
     },
   };
 
-  it('execute search and test that it should update URL params', async () => {
+  it('should change URL params (adds history)', async () => {
     const store = createStoreWithConfig(configWithURLhandler);
     store.getState().query.queryString = 'text';
 
@@ -251,7 +253,7 @@ describe('test execute search with URL handler', () => {
     expect(call.queryString).toEqual('text');
   });
 
-  it('execute search and test that it should replace URL params', async () => {
+  it('should replace URL params (replaces history)', async () => {
     const store = createStoreWithConfig(configWithURLhandler);
     store.getState().query.queryString = 'another text';
 
@@ -286,7 +288,7 @@ describe('test execute search with URL handler', () => {
   });
 });
 
-describe('test execute search sorting on empty query', () => {
+describe('test execute search changing sorting', () => {
   const configNoURLhandler = {
     urlHandlerApi: null,
     searchApi: {
@@ -306,7 +308,7 @@ describe('test execute search sorting on empty query', () => {
     },
   };
 
-  it('execute search with default sorting when query not empty and user did not change sorting', async () => {
+  it('should use initial sorting when query string is not empty and user did not change sorting', async () => {
     const store = createStoreWithConfig(configNoURLhandler);
     store.getState().query.queryString = 'text';
 
@@ -324,7 +326,7 @@ describe('test execute search sorting on empty query', () => {
     });
   });
 
-  it('execute search with defaultSortingOnEmptyQueryString when query empty and user did not change sorting', async () => {
+  it('should use defaultSortingOnEmptyQueryString sorting when query string is empty and user did not change sorting', async () => {
     const store = createStoreWithConfig(configNoURLhandler);
     store.getState().query.queryString = '';
 
@@ -342,7 +344,7 @@ describe('test execute search sorting on empty query', () => {
     });
   });
 
-  it('execute search with correct sorting depending on query string and when user did not change sorting', async () => {
+  it('should use sorting depending on query string value and when user did not change sorting', async () => {
     const store = createStoreWithConfig(configNoURLhandler);
 
     // 1: query string empty, use defaultSortingOnEmptyQueryString
@@ -394,7 +396,7 @@ describe('test execute search sorting on empty query', () => {
     });
   });
 
-  it('execute search with user selection sorting when query empty or not and user did change sorting', async () => {
+  it('should use sorting selected by the user independently of the query string value', async () => {
     const store = createStoreWithConfig(configNoURLhandler);
     store.getState().app.hasUserChangedSorting = true;
 
@@ -431,6 +433,62 @@ describe('test execute search sorting on empty query', () => {
     expect(store.getState().query).toMatchObject({
       queryString: '',
       sortBy: 'mostpopular',
+      sortOrder: 'asc',
+    });
+  });
+});
+
+describe('execute search with specific sorting from URL params', () => {
+  const configWithURLhandler = {
+    urlHandlerApi: new FakeUrlHandlerApi(),
+    searchApi: {
+      search: (query) => ({
+        aggregations: [],
+        hits: [],
+        total: 1,
+      }),
+    },
+    initialQueryState: {
+      sortBy: 'bestmatch',
+      sortOrder: 'desc',
+    },
+    defaultSortingOnEmptyQueryString: {
+      sortBy: 'mostrecent',
+      sortOrder: 'asc',
+    },
+  };
+
+  // specific sorting from URL params
+  urlHandlerApiGet.mockImplementation((queryState) => ({
+    ...queryState,
+    sortBy: 'alphabetically',
+    sortOrder: 'asc',
+  }));
+
+  it('should use the specific sorting from URL params on empty query string', async () => {
+    const store = createStoreWithConfig(configWithURLhandler);
+
+    store.getState().query.queryString = '';
+
+    await store.dispatch(executeQuery());
+
+    expect(store.getState().query).toMatchObject({
+      queryString: '',
+      sortBy: 'alphabetically',
+      sortOrder: 'asc',
+    });
+  });
+
+  it('should use the specific sorting from URL params on query string defined', async () => {
+    const store = createStoreWithConfig(configWithURLhandler);
+
+    store.getState().query.queryString = 'text';
+
+    await store.dispatch(executeQuery());
+
+    expect(store.getState().query).toMatchObject({
+      queryString: 'text',
+      sortBy: 'alphabetically',
       sortOrder: 'asc',
     });
   });
