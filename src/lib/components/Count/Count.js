@@ -43,7 +43,7 @@ const Element = ({ totalResults, overridableId }) => (
     id={buildUID('Count.element', overridableId)}
     totalResults={totalResults}
   >
-    <Label color={'blue'}>{totalResults}</Label>
+    <Label color={'blue'}>{totalResults.toLocaleString()}</Label>
   </Overridable>
 );
 
