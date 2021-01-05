@@ -23,7 +23,7 @@
   },
   "dependencies": {},
   "peerDependencies": {
-    "axios": "^0.19.2",
+    "axios": "^0.21.1",
     "lodash": "^4.17.15",
     "qs": "^6.8.0",
     "react": "^16.13.1",
@@ -41,7 +41,7 @@
     "@rollup/plugin-babel": "^5.2.1",
     "@rollup/plugin-commonjs": "^15.1.0",
     "@rollup/plugin-node-resolve": "^9.0.0",
-    "axios": "^0.19.2",
+    "axios": "^0.21.1",
     "axios-mock-adapter": "^1.18.2",
     "coveralls": "^3.0.7",
     "enzyme": "^3.10.0",
