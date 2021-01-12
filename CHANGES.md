@@ -1,5 +1,9 @@
 # Changes
 
+Version 1.0.0-alpha.11 (released 2021-01-12)
+
+* Fix bucket aggregation filter widget to handle array or object buckets from ES response
+
 Version 1.0.0-alpha.10 (released 2020-11-13)
 
 * Implemented state synchronization with the browser history
