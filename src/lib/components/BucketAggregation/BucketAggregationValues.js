@@ -123,7 +123,7 @@ const ValueElement = (props) => {
   } = props;
   const label = bucket.label
     ? bucket.label
-    : `${keyField} (${bucket.doc_count})`;
+    : `${keyField} (${bucket.doc_count.toLocaleString('en-US')})`;
   const childAggCmps = getChildAggCmps(bucket);
   return (
     <Overridable
