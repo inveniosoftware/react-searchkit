@@ -13,10 +13,24 @@ import Overridable from 'react-overridable';
 import { ShouldRender } from '../ShouldRender';
 import { buildUID } from '../../util';
 
+const defaultOptions = {
+  boundaryRangeCount: 1,
+  siblingRangeCount: 1,
+  showEllipsis: true,
+  showFirst: true,
+  showLast: true,
+  showPrev: true,
+  showNext: true,
+  size: 'large',
+};
+
 class Pagination extends Component {
   constructor(props) {
     super(props);
     this.updateQueryPage = props.updateQueryPage;
+    this.options = props.options
+      ? { ...defaultOptions, ...props.options }
+      : defaultOptions;
   }
 
   onPageChange = (activePage) => {
@@ -30,7 +44,6 @@ class Pagination extends Component {
       totalResults,
       currentPage,
       currentSize,
-      options,
       overridableId,
     } = this.props;
     return (
@@ -44,7 +57,7 @@ class Pagination extends Component {
           currentSize={currentSize}
           totalResults={totalResults}
           onPageChange={this.onPageChange}
-          options={options}
+          options={this.options}
           overridableId={overridableId}
         />
       </ShouldRender>
@@ -65,20 +78,19 @@ Pagination.propTypes = {
     showLast: PropTypes.bool,
     showPrev: PropTypes.bool,
     showNext: PropTypes.bool,
+    size: PropTypes.oneOf([
+      'mini',
+      'tiny',
+      'small',
+      'large',
+      'huge',
+      'massive',
+    ]),
   }),
   overridableId: PropTypes.string,
 };
 
 Pagination.defaultProps = {
-  options: {
-    boundaryRangeCount: 1,
-    siblingRangeCount: 1,
-    showEllipsis: true,
-    showFirst: true,
-    showLast: true,
-    showPrev: true,
-    showNext: true,
-  },
   overridableId: '',
 };
 
@@ -99,6 +111,7 @@ const Element = ({ overridableId, ...props }) => {
   const showLast = options.showLast;
   const showPrev = options.showPrev;
   const showNext = options.showNext;
+  const size = options.size;
   const _onPageChange = (event, { activePage }) => {
     onPageChange(activePage);
   };
@@ -116,6 +129,7 @@ const Element = ({ overridableId, ...props }) => {
         lastItem={showLast ? undefined : null}
         prevItem={showPrev ? undefined : null}
         nextItem={showNext ? undefined : null}
+        size={size}
         {...extraParams}
       />
     </Overridable>
