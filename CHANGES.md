@@ -1,5 +1,11 @@
 # Changes
 
+Version 1.0.0-alpha.12 (released 2021-02-04)
+
+* Added `size` option to Pagination component
+* Refactor `options` parameter passed to Pagination component so you can override
+  the default options partially without having to pass the whole object.
+
 Version 1.0.0-alpha.11 (released 2021-01-12)
 
 * Fix bucket aggregation filter widget to handle array or object buckets from ES response
