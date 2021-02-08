@@ -142,9 +142,15 @@ export const updateResultsLayout = (layout) => {
 };
 
 export const resetQuery = () => {
-  return (dispatch) => {
+  return (dispatch, getState, config) => {
     dispatch({
       type: RESET_QUERY,
+      payload: {
+        queryString: '',
+        page: 1,
+        filters: [],
+        ...config.initialQueryState,
+      },
     });
     dispatch(executeQuery());
   };

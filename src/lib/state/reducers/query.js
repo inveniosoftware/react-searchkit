@@ -6,7 +6,11 @@
  * under the terms of the MIT License; see LICENSE file for more details.
  */
 
-import { INITIAL_QUERY_STATE, INITIAL_QUERY_STATE_KEYS } from '../../storeConfig';
+import _cloneDeep from 'lodash/cloneDeep';
+import {
+  INITIAL_QUERY_STATE,
+  INITIAL_QUERY_STATE_KEYS,
+} from '../../storeConfig';
 import { updateQueryFilters, updateQueryState } from '../selectors';
 import {
   CLEAR_QUERY_SUGGESTIONS,
@@ -93,7 +97,11 @@ export default (state = {}, action) => {
       return {
         ...state,
         ...INITIAL_QUERY_STATE,
-        ...updateQueryState(INITIAL_QUERY_STATE, action.payload, INITIAL_QUERY_STATE_KEYS),
+        ...updateQueryState(
+          INITIAL_QUERY_STATE,
+          action.payload,
+          INITIAL_QUERY_STATE_KEYS
+        ),
       };
     case RESULTS_UPDATE_LAYOUT:
       return {
@@ -103,9 +111,7 @@ export default (state = {}, action) => {
     case RESET_QUERY:
       return {
         ...state,
-        queryString: '',
-        page: 1,
-        filters: [],
+        ...action.payload,
       };
     default:
       return state;

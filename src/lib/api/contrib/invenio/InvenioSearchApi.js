@@ -11,7 +11,7 @@ import _get from 'lodash/get';
 import _hasIn from 'lodash/hasIn';
 import _isEmpty from 'lodash/isEmpty';
 import { updateQueryState } from '../../../state/selectors';
-import { INITIAL_QUERY_STATE } from '../../../storeConfig';
+import { INITIAL_QUERY_STATE_KEYS } from '../../../storeConfig';
 import { RequestCancelledError } from '../../errors';
 import { InvenioRequestSerializer } from './InvenioRequestSerializer';
 import { InvenioResponseSerializer } from './InvenioResponseSerializer';
@@ -98,7 +98,7 @@ export class InvenioSearchApi {
       const newQueryState = updateQueryState(
         stateQuery,
         response.extras,
-        INITIAL_QUERY_STATE
+        INITIAL_QUERY_STATE_KEYS
       );
       if (!_isEmpty(newQueryState)) {
         response.newQueryState = newQueryState;
