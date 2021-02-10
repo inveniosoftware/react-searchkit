@@ -1,5 +1,9 @@
 # Changes
 
+Version 1.0.0-alpha.13 (released 2021-02-10)
+
+- Use `config.initialQueryState` to override state when resetting query
+
 Version 1.0.0-alpha.12 (released 2021-02-04)
 
 * Added `size` option to Pagination component
