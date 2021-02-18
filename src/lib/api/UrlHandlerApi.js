@@ -6,13 +6,11 @@
  * under the terms of the MIT License; see LICENSE file for more details.
  */
 
-import Qs from 'qs';
-import _isString from 'lodash/isString';
+import _cloneDeep from 'lodash/cloneDeep';
 import _isBoolean from 'lodash/isBoolean';
 import _isObject from 'lodash/isObject';
-import _isNaN from 'lodash/isNaN';
-import _isNil from 'lodash/isNil';
-import _cloneDeep from 'lodash/cloneDeep';
+import _isString from 'lodash/isString';
+import Qs from 'qs';
 import { UrlParamValidator } from './UrlParamValidator';
 
 const pushHistory = (query) => {
@@ -31,27 +29,27 @@ const replaceHistory = (query) => {
 class UrlParser {
   constructor() {
     this.parse = this.parse.bind(this);
+    this.paramsMapping = {};
   }
 
-  _sanitizeParamValue = (value) => {
-    let parsedValue = parseInt(value);
-    if (_isNaN(parsedValue)) {
-      try {
-        const _value = JSON.parse(value);
-        if (!_isNil(_value)) {
-          parsedValue = _value;
-        }
-      } catch (e) {
-        if (value !== 'undefined') {
-          parsedValue = value;
-        } else {
-          console.error(`Cannot parse value ${value}.`);
-        }
-      }
-    }
-    return parsedValue;
-  };
+  set urlParamsMapping(mapping) {
+    this.paramsMapping = mapping;
+  }
 
+  /**
+   * Convert string to int for `page` and `size` params
+   * @param {string} key the name of the param
+   * @param {string} value the value of the param
+   */
+  _convertValue = (key, value) => {
+    switch (key) {
+      case this.paramsMapping['page']:
+      case this.paramsMapping['size']:
+        return parseInt(value);
+      default:
+        return value;
+    }
+  };
   /**
    * Parse the URL query string and return an object with all the params.
    * @param {string} queryString the query string to parse
@@ -62,7 +60,7 @@ class UrlParser {
     Object.entries(parsedParams).forEach((entry) => {
       const key = entry[0];
       const value = entry[1];
-      params[key] = this._sanitizeParamValue(value);
+      params[key] = this._convertValue(key, value);
     });
     return params;
   }
@@ -103,6 +101,7 @@ export class UrlHandlerApi {
     this.urlParamValidator =
       config.urlParamValidator || new UrlParamValidator();
     this.urlParser = config.urlParser || new UrlParser();
+    this.urlParser.urlParamsMapping = this.urlParamsMapping;
 
     // build the serializer from URL params to Query state by flipping the urlParamsMapping
     this.fromUrlParamsMapping = {};
@@ -166,7 +165,7 @@ export class UrlHandlerApi {
         return 1;
       }
       return a.localeCompare(b);
-    }
+    };
 
     // will omit undefined and null values from the query
     return Qs.stringify(params, {
@@ -209,7 +208,13 @@ export class UrlHandlerApi {
     const result = {};
     Object.keys(urlParamsObj).forEach((paramKey) => {
       const queryStateKey = this.fromUrlParamsMapping[paramKey];
-      if (this.urlParamValidator.isValid(this, queryStateKey, urlParamsObj[paramKey])) {
+      if (
+        this.urlParamValidator.isValid(
+          this,
+          queryStateKey,
+          urlParamsObj[paramKey]
+        )
+      ) {
         result[queryStateKey] = urlParamsObj[paramKey];
         // custom transformation for filters
         if (queryStateKey === 'filters') {
@@ -222,7 +227,9 @@ export class UrlHandlerApi {
           );
         }
       } else {
-        console.warn(`URL parameter '${paramKey}' with value '${urlParamsObj[paramKey]}' is incorrect and was ignored.`);
+        console.warn(
+          `URL parameter '${paramKey}' with value '${urlParamsObj[paramKey]}' is incorrect and was ignored.`
+        );
       }
     });
     return result;
