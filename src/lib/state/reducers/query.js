@@ -6,7 +6,6 @@
  * under the terms of the MIT License; see LICENSE file for more details.
  */
 
-import _cloneDeep from 'lodash/cloneDeep';
 import {
   INITIAL_QUERY_STATE,
   INITIAL_QUERY_STATE_KEYS,

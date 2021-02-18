@@ -39,7 +39,7 @@ describe('test UrlHandlerApi', () => {
       const expectedUrlFilterSeparator = '-';
 
       const expectedFromUrlParamsMapping = {};
-      Object.keys(expectedUrlParamsMapping).forEach(stateKey => {
+      Object.keys(expectedUrlParamsMapping).forEach((stateKey) => {
         expectedFromUrlParamsMapping[
           expectedUrlParamsMapping[stateKey]
         ] = stateKey;
@@ -96,6 +96,54 @@ describe('test UrlHandlerApi', () => {
     });
 
     describe('test get url params', () => {
+      it('should parse correctly string and int from url params', () => {
+        const validURLSearch = '?q=text&s=15&p=3';
+        window.location.search = validURLSearch;
+
+        const currentQueryState = {
+          queryString: '',
+          size: -1,
+          page: -1,
+        };
+        const handler = new UrlHandlerApi();
+        const newQueryState = handler.get(currentQueryState);
+
+        expect(newQueryState).toMatchObject({
+          queryString: 'text',
+          size: 15,
+          page: 3,
+        });
+        expect(typeof newQueryState['queryString']).toEqual('string');
+        expect(typeof newQueryState['size']).toEqual('number');
+        expect(typeof newQueryState['page']).toEqual('number');
+      });
+
+      it('should parse correctly complex query strings from url params', () => {
+        const handler = new UrlHandlerApi();
+
+        function doTest(locationSearch, expectedQueryString) {
+          window.location.search = locationSearch;
+          const currentQueryState = {
+            queryString: '',
+          };
+          const newQueryState = handler.get(currentQueryState);
+
+          expect(newQueryState).toMatchObject({
+            queryString: expectedQueryString,
+          });
+          expect(typeof newQueryState['queryString']).toEqual('string');
+        }
+
+        doTest('?q=123', '123');
+        doTest('?q=true', 'true');
+        doTest('?q=%22text%22', '"text"');
+        doTest(
+          '?q=text%20OR%20%22another%20text%22%20OR%20title%3A%22text%22',
+          'text OR "another text" OR title:"text"'
+        );
+        doTest('?q=10.7483%2FADOI.9S5F.BY3B', '10.7483/ADOI.9S5F.BY3B');
+      });
+
       it('should merge the current query state with the url params', () => {
         const validURLSearch = '?q=test&f=category%3Avideo';
         window.location.search = validURLSearch;
@@ -197,7 +245,10 @@ describe('test UrlHandlerApi', () => {
 
         expect(newQueryState).toMatchObject({
           queryString: 'test',
-          filters: [['category', 'video', ['video', 'new']], ['type', 'pdf']],
+          filters: [
+            ['category', 'video', ['video', 'new']],
+            ['type', 'pdf'],
+          ],
         });
       });
     });
