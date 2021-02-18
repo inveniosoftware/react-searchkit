@@ -1,8 +1,14 @@
 # Changes
 
+Version 1.0.0-alpha.14 (released 2021-02-18)
+
+* Fixed URL params parsing when the query string starts with numbers
+  or contains quotes. The type auto-guessing of each URL param has been
+  replaced by only specifically casting `size` and `page` to `int`.
+
 Version 1.0.0-alpha.13 (released 2021-02-10)
 
-- Use `config.initialQueryState` to override state when resetting query
+* Use `config.initialQueryState` to override state when resetting query
 
 Version 1.0.0-alpha.12 (released 2021-02-04)
 
