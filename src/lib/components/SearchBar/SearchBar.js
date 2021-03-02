@@ -41,6 +41,12 @@ class SearchBar extends Component {
     }
   };
 
+  calculateResponsiveAutoFocus = (pixeles) => {
+    return window.matchMedia(`(max-width: ${pixeles}px)`).matches
+      ? false
+      : true;
+  };
+
   render() {
     const {
       actionProps,
@@ -52,11 +58,16 @@ class SearchBar extends Component {
       overridableId,
       placeholder,
       uiProps,
+      responsiveAutoFocusIfBiggerThan,
     } = this.props;
     return (
       <Element
         actionProps={actionProps}
-        autofocus={autofocus}
+        autofocus={
+          responsiveAutoFocusIfBiggerThan
+            ? this.calculateResponsiveAutoFocus(responsiveAutoFocusIfBiggerThan)
+            : autofocus
+        }
         executeSearch={executeSearch || this.executeSearch}
         onBtnSearchClick={onBtnSearchClick || this.onBtnSearchClick}
         onInputChange={onInputChange || this.onInputChange}
@@ -82,6 +93,7 @@ SearchBar.propTypes = {
   queryString: PropTypes.string,
   updateQueryString: PropTypes.func.isRequired,
   uiProps: PropTypes.object,
+  responsiveAutoFocusIfBiggerThan: PropTypes.number,
 };
 
 SearchBar.defaultProps = {
@@ -95,6 +107,7 @@ SearchBar.defaultProps = {
   placeholder: '',
   queryString: '',
   uiProps: null,
+  responsiveAutoFocusIfBiggerThan: null,
 };
 
 // NOTE: Adding the key prop, will recreate the SearchBar in order to update
