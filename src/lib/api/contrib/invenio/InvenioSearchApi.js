@@ -15,6 +15,7 @@ import { INITIAL_QUERY_STATE_KEYS } from '../../../storeConfig';
 import { RequestCancelledError } from '../../errors';
 import { InvenioRequestSerializer } from './InvenioRequestSerializer';
 import { InvenioResponseSerializer } from './InvenioResponseSerializer';
+import { InvenioRecordsResourcesRequestSerializer } from './InvenioRecordsResourcesRequestSerializer';
 
 export class InvenioSearchApi {
   constructor(config) {
@@ -39,10 +40,14 @@ export class InvenioSearchApi {
   }
 
   initSerializers(config) {
+    this.requestSerializerMap = {
+      "InvenioRecordsResourcesRequestSerializer" : InvenioRecordsResourcesRequestSerializer,
+      "InvenioRequestSerializer" : InvenioRequestSerializer
+    }
     const requestSerializerCls = _get(
       config,
-      'invenio.requestSerializer',
-      InvenioRequestSerializer
+      this.requestSerializerMap[config['invenio.requestSerializer']],
+      InvenioRecordsResourcesRequestSerializer
     );
     const responseSerializerCls = _get(
       config,
