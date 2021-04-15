@@ -192,9 +192,10 @@ const updateQueryStateAfterResponse = (
   getState,
   appConfig
 ) => {
+  const prevState = getState().query;
   dispatch({
     type: SET_QUERY_STATE,
-    payload: response.newQueryState,
+    payload: { ...prevState, ...response.newQueryState },
   });
   const updatedQueryState = _cloneDeep(getState().query);
 
