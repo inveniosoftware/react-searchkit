@@ -28,12 +28,14 @@ class EmptyResults extends Component {
       queryString,
       extraContent,
       overridableId,
+      ...props
     } = this.props;
     return (
       <ShouldRender
         condition={!loading && _isEmpty(error) && totalResults === 0}
       >
         <Element
+          {...props}
           queryString={queryString}
           resetQuery={this.resetQuery}
           extraContent={extraContent}
