@@ -39,15 +39,21 @@ export class InvenioSearchApi {
     this.responseInterceptor = _get(config, 'interceptors.response', undefined);
   }
 
-  initSerializers(config) {
-    this.requestSerializerMap = {
-      "InvenioRecordsResourcesRequestSerializer" : InvenioRecordsResourcesRequestSerializer,
-      "InvenioRequestSerializer" : InvenioRequestSerializer
+  getSerializer(serializer) {
+    const requestSerializerMap = {
+      InvenioRecordsResourcesRequestSerializer: InvenioRecordsResourcesRequestSerializer,
+      InvenioRequestSerializer: InvenioRequestSerializer,
+    };
+    if (typeof serializer === 'string') {
+      return requestSerializerMap[serializer];
+    } else {
+      return serializer ? serializer : InvenioRequestSerializer;
     }
-    const requestSerializerCls = _get(
-      config,
-      this.requestSerializerMap[config['invenio.requestSerializer']],
-      InvenioRecordsResourcesRequestSerializer
+  }
+
+  initSerializers(config) {
+    const requestSerializerCls = this.getSerializer(
+      config.invenio?.requestSerializer
     );
     const responseSerializerCls = _get(
       config,

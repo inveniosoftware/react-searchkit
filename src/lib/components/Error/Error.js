@@ -34,7 +34,7 @@ Error.defaultProps = {
 const Element = ({ error, overridableId }) => {
   return (
     <Overridable id={buildUID('Error.element', overridableId)} error={error}>
-      <div>Oups! Something went wrong while fetching results.</div>
+      <div>Oops! Something went wrong while fetching results.</div>
     </Overridable>
   );
 };
