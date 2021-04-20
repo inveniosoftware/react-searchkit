@@ -1,5 +1,10 @@
 # Changes
 
+Version 1.0.0-alpha.15 (released 2021-04-20)
+
+* Adds new request serializer to interact with REST APIs made with
+  Invenio-Records-Resources instead of Invenio-Records-REST.
+
 Version 1.0.0-alpha.14 (released 2021-02-18)
 
 * Fixed URL params parsing when the query string starts with numbers
