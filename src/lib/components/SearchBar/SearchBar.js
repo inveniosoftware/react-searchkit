@@ -8,7 +8,7 @@
 
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { Input } from 'semantic-ui-react';
+import { Button, Icon, Input } from 'semantic-ui-react';
 import Overridable from 'react-overridable';
 import { buildUID } from '../../util';
 
@@ -41,6 +41,10 @@ class SearchBar extends Component {
     }
   };
 
+  onResetSearch = () => {
+    this.updateQueryString('');
+  }
+
   render() {
     const {
       actionProps,
@@ -49,6 +53,7 @@ class SearchBar extends Component {
       onBtnSearchClick,
       onInputChange,
       onKeyPress,
+      onResetSearch,
       overridableId,
       placeholder,
       uiProps,
@@ -61,6 +66,7 @@ class SearchBar extends Component {
         onBtnSearchClick={onBtnSearchClick || this.onBtnSearchClick}
         onInputChange={onInputChange || this.onInputChange}
         onKeyPress={onKeyPress || this.onKeyPress}
+        onResetSearch={onResetSearch || this.onResetSearch}
         overridableId={overridableId}
         placeholder={placeholder}
         queryString={this.state.currentValue}
@@ -77,6 +83,7 @@ SearchBar.propTypes = {
   onBtnSearchClick: PropTypes.func,
   onInputChange: PropTypes.func,
   onKeyPress: PropTypes.func,
+  onResetSearch: PropTypes.func,
   overridableId: PropTypes.string,
   placeholder: PropTypes.string,
   queryString: PropTypes.string,
@@ -91,6 +98,7 @@ SearchBar.defaultProps = {
   onBtnSearchClick: null,
   onInputChange: null,
   onKeyPress: null,
+  onResetSearch: null,
   overridableId: '',
   placeholder: '',
   queryString: '',
@@ -118,6 +126,7 @@ class Element extends Component {
       onBtnSearchClick,
       onInputChange,
       onKeyPress,
+      onResetSearch,
       overridableId,
       placeholder,
       queryString,
@@ -130,11 +139,7 @@ class Element extends Component {
         {...this.props}
       >
         <Input
-          action={{
-            content: 'Search',
-            onClick: onBtnSearchClick,
-            ...actionProps,
-          }}
+          action
           fluid
           {...uiProps}
           placeholder={placeholder || 'Type something'}
@@ -146,7 +151,25 @@ class Element extends Component {
           ref={(input) => {
             this.focusInput = input;
           }}
-        />
+        >
+          <input />
+          <Button 
+            icon
+            basic
+            className="delete-button"
+            aria-label="delete file"
+            onClick={onResetSearch}
+          >
+            <Icon name="delete" />
+          </Button>
+          <Button 
+            icon
+            onClick={onBtnSearchClick}
+            {...actionProps}
+          >
+            Search
+          </Button>
+        </Input>
       </Overridable>
     );
   }
