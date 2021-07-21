@@ -1,5 +1,9 @@
 # Changes
 
+Version 1.0.0-alpha.16 (released 2021-07-21)
+
+* Update axios dep
+
 Version 1.0.0-alpha.15 (released 2021-04-20)
 
 * Adds new request serializer to interact with REST APIs made with
