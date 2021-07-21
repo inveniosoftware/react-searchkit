@@ -85,6 +85,7 @@ export class ESSearchApi {
 
     try {
       const response = await this.http.request({
+        url: this.axiosConfig.url,
         method: 'POST',
         data: payload,
         cancelToken: this.axiosCancel.token,

@@ -41,7 +41,8 @@ export class InvenioSearchApi {
 
   getSerializer(serializer) {
     const requestSerializerMap = {
-      InvenioRecordsResourcesRequestSerializer: InvenioRecordsResourcesRequestSerializer,
+      InvenioRecordsResourcesRequestSerializer:
+        InvenioRecordsResourcesRequestSerializer,
       InvenioRequestSerializer: InvenioRequestSerializer,
     };
     if (typeof serializer === 'string') {
@@ -101,6 +102,7 @@ export class InvenioSearchApi {
 
     try {
       let response = await this.http.request({
+        url: this.axiosConfig.url,
         params: stateQuery,
         cancelToken: this.axiosCancel.token,
       });
