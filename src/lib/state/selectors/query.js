@@ -7,7 +7,6 @@
  */
 
 import Qs from 'qs';
-import _forEach from 'lodash/forEach';
 import _head from 'lodash/head';
 import _isArray from 'lodash/isArray';
 import _isEmpty from 'lodash/isEmpty';
@@ -95,8 +94,22 @@ function updateFilter(queryFilter, stateFilters) {
      */
     const hasChild = queryFilter.length === 3;
     if (hasChild) {
-      const arr = removeLastChild(queryFilter);
-      filteredStrStates.push(toString(arr));
+      const rootParentArr = removeLastChild(queryFilter);
+      const rootParentArrStrQuery = toString(rootParentArr);
+      const anotherChildFound = filteredStrStates.some((strStateFilter) => {
+        const childFilterExists = startsWith(
+          strStateFilter,
+          rootParentArrStrQuery
+        );
+        const parentFilterExists = startsWith(
+          rootParentArrStrQuery,
+          strStateFilter
+        );
+        return childFilterExists || parentFilterExists;
+      });
+      if (_isEmpty(filteredStrStates) || !anotherChildFound) {
+        filteredStrStates.push(rootParentArrStrQuery);
+      }
     }
   }
 
@@ -118,10 +131,9 @@ export const updateQueryFilters = (queryFilter, stateFilters) => {
    * e.g. query = [['file_type', 'pdf'], ['file_type', 'txt']]
    */
   let tempStateFilters = stateFilters;
-  _forEach(
-    queryFilter,
-    (filter) => (tempStateFilters = updateFilter(filter, tempStateFilters))
-  );
+  for (const filter of queryFilter) {
+    tempStateFilters = updateFilter(filter, tempStateFilters);
+  }
   return tempStateFilters;
 };
 

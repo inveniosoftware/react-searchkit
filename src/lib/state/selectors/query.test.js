@@ -297,4 +297,37 @@ describe('user submits multiple filters as input', () => {
       ['type', 'Publication'],
     ]);
   });
+  test('query with `subtype: Private reports` should remove it from state but not add the root parent.', () => {
+    const state = [
+      ['file_type', 'pdf'],
+      ['type', 'Image'],
+      ['type', 'Publication', ['subtype', 'Public reports']],
+      ['type', 'Publication', ['subtype', 'Private reports']],
+    ];
+    const query = ['type', 'Publication', ['subtype', 'Private reports']];
+
+    const newState = updateQueryFilters(query, state);
+
+    expect(newState).toEqual([
+      ['file_type', 'pdf'],
+      ['type', 'Image'],
+      ['type', 'Publication', ['subtype', 'Public reports']],
+    ]);
+  });
+  test('query with `subtype: Public reports` should remove it from state and add the root parent.', () => {
+    const state = [
+      ['file_type', 'pdf'],
+      ['type', 'Image'],
+      ['type', 'Publication', ['subtype', 'Public reports']],
+    ];
+    const query = ['type', 'Publication', ['subtype', 'Public reports']];
+
+    const newState = updateQueryFilters(query, state);
+
+    expect(newState).toEqual([
+      ['file_type', 'pdf'],
+      ['type', 'Image'],
+      ['type', 'Publication'],
+    ]);
+  });
 });

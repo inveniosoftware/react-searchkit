@@ -224,7 +224,6 @@ const updateSearchSorting = (queryState, appState, appConfig, dispatch) => {
       queryState.sortBy = appState.initialSortBy;
       queryState.sortOrder = appState.initialSortOrder;
     }
-
     dispatch({
       type: SET_QUERY_STATE,
       payload: queryState,

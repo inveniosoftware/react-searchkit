@@ -55,9 +55,9 @@ class BucketAggregation extends Component {
       if (!Array.isArray(thisAggs['buckets'])) {
         // buckets can be objects or arrays: convert to array if object
         // to keep it consistent
-        thisAggs['buckets'] = Object.entries(
-          thisAggs['buckets']
-        ).map(([key, value]) => ({ ...value, key }));
+        thisAggs['buckets'] = Object.entries(thisAggs['buckets']).map(
+          ([key, value]) => ({ ...value, key })
+        );
       }
       return thisAggs['buckets'];
     }
