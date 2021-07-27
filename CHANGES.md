@@ -1,5 +1,10 @@
 # Changes
 
+Version 1.0.0-alpha.17 (released 2021-07-27)
+
+* Fix deselection of nested facet.
+  Fixes https://github.com/inveniosoftware/invenio-app-rdm/issues/1014
+
 Version 1.0.0-alpha.16 (released 2021-07-21)
 
 * Update axios dep
