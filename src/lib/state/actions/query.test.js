@@ -27,9 +27,9 @@ import {
   SET_QUERY_STRING,
 } from '../types';
 
-const urlHandlerApiGet = jest.fn();
-const urlHandlerApiSet = jest.fn();
-const urlHandlerApiReplace = jest.fn();
+let urlHandlerApiGet = jest.fn();
+let urlHandlerApiSet = jest.fn();
+let urlHandlerApiReplace = jest.fn();
 class FakeUrlHandlerApi {
   get(queryState) {
     return urlHandlerApiGet(queryState);
@@ -41,6 +41,12 @@ class FakeUrlHandlerApi {
     return urlHandlerApiReplace(params);
   }
 }
+
+beforeEach(() => {
+  urlHandlerApiGet.mockImplementation((queryState) => queryState);
+  urlHandlerApiSet.mockImplementation((params) => params);
+  urlHandlerApiReplace.mockImplementation((params) => params);
+});
 
 let mockedStore;
 afterEach(() => {
@@ -458,14 +464,15 @@ describe('execute search with specific sorting from URL params', () => {
     },
   };
 
-  // specific sorting from URL params
-  urlHandlerApiGet.mockImplementation((queryState) => ({
-    ...queryState,
-    sortBy: 'alphabetically',
-    sortOrder: 'asc',
-  }));
-
   it('should use the specific sorting from URL params on empty query string', async () => {
+    // specific sorting from URL params
+    urlHandlerApiGet = jest.fn();
+    urlHandlerApiGet.mockImplementation((queryState) => ({
+      ...queryState,
+      sortBy: 'alphabetically',
+      sortOrder: 'asc',
+    }));
+
     const store = createStoreWithConfig(configWithURLhandler);
 
     store.getState().query.queryString = '';
@@ -480,6 +487,14 @@ describe('execute search with specific sorting from URL params', () => {
   });
 
   it('should use the specific sorting from URL params on query string defined', async () => {
+    // specific sorting from URL params
+    urlHandlerApiGet = jest.fn();
+    urlHandlerApiGet.mockImplementation((queryState) => ({
+      ...queryState,
+      sortBy: 'alphabetically',
+      sortOrder: 'asc',
+    }));
+
     const store = createStoreWithConfig(configWithURLhandler);
 
     store.getState().query.queryString = 'text';
