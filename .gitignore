@@ -48,6 +48,7 @@ jspm_packages/
 # Documentation
 /docs/website/build
 /docs/website/node_modules
+/docs/website/i18n
 
 # VSCode
 .history
