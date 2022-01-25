@@ -67,7 +67,7 @@ function getInitialState(appConfig) {
 
   // the sorting value in URL params takes precedence
   // evaluate if URL params have sorting with a specific value
-  // that is not initial or defaultOnEmtpy
+  // that is not initial or defaultOnEmpty
   const hasUserChangedSorting = urlParamsChangedSorting(
     appConfig,
     initialQueryState,
