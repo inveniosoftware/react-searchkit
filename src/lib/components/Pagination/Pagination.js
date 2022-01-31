@@ -1,17 +1,17 @@
 /*
  * This file is part of React-SearchKit.
- * Copyright (C) 2018 CERN.
+ * Copyright (C) 2018-2022 CERN.
  *
  * React-SearchKit is free software; you can redistribute it and/or modify it
  * under the terms of the MIT License; see LICENSE file for more details.
  */
 
-import React, {Component, useContext} from 'react';
 import PropTypes from 'prop-types';
-import { Pagination as Paginator } from 'semantic-ui-react';
+import React, { Component, useContext } from 'react';
 import Overridable from 'react-overridable';
+import { Pagination as Paginator } from 'semantic-ui-react';
+import { AppContext } from '../ReactSearchKit';
 import { ShouldRender } from '../ShouldRender';
-import {AppContext} from "../ReactSearchKit";
 
 const defaultOptions = {
   boundaryRangeCount: 1,
@@ -39,13 +39,8 @@ class Pagination extends Component {
   };
 
   render() {
-    const {
-      loading,
-      totalResults,
-      currentPage,
-      currentSize,
-      overridableId,
-    } = this.props;
+    const { loading, totalResults, currentPage, currentSize, overridableId } =
+      this.props;
     return (
       <ShouldRender
         condition={
@@ -115,7 +110,7 @@ const Element = ({ overridableId, ...props }) => {
   const _onPageChange = (event, { activePage }) => {
     onPageChange(activePage);
   };
-  const {buildUID} = useContext(AppContext);
+  const { buildUID } = useContext(AppContext);
 
   return (
     <Overridable id={buildUID('Pagination.element', overridableId)} {...props}>

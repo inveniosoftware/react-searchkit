@@ -12,7 +12,7 @@ import {
   RESULTS_LOADING,
 } from '../types';
 
-export default (state = {}, action) => {
+const resultsReducer = (state = {}, action) => {
   switch (action.type) {
     case RESULTS_LOADING:
       return {
@@ -48,3 +48,5 @@ export default (state = {}, action) => {
       return state;
   }
 };
+
+export default resultsReducer;

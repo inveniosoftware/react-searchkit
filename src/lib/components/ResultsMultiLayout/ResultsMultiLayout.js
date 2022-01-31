@@ -1,18 +1,18 @@
 /*
  * This file is part of React-SearchKit.
- * Copyright (C) 2018-2019 CERN.
+ * Copyright (C) 2018-2022 CERN.
  *
  * React-SearchKit is free software; you can redistribute it and/or modify it
  * under the terms of the MIT License; see LICENSE file for more details.
  */
 
-import React, {useContext} from 'react';
 import PropTypes from 'prop-types';
+import React, { useContext } from 'react';
 import Overridable from 'react-overridable';
-import { ResultsList } from '../ResultsList';
+import { AppContext } from '../ReactSearchKit';
 import { ResultsGrid } from '../ResultsGrid';
+import { ResultsList } from '../ResultsList';
 import { ShouldRender } from '../ShouldRender';
-import {AppContext} from "../ReactSearchKit";
 
 function ResultsMultiLayout({
   loading,
@@ -41,21 +41,22 @@ ResultsMultiLayout.defaultProps = {
 };
 
 const Element = ({ layout, overridableId }) => {
-  const {buildUID} = useContext(AppContext);
+  const { buildUID } = useContext(AppContext);
 
   return (
-  <Overridable
-    id={buildUID('ResultsMultiLayout.element', overridableId)}
-    layout={layout}
-    ResultsList={ResultsList}
-    ResultsGrid={ResultsGrid}
-  >
-    {layout === 'list' ? (
-      <ResultsList overridableId={overridableId} />
-    ) : (
-      <ResultsGrid overridableId={overridableId} />
-    )}
-  </Overridable>
-)}
+    <Overridable
+      id={buildUID('ResultsMultiLayout.element', overridableId)}
+      layout={layout}
+      ResultsList={ResultsList}
+      ResultsGrid={ResultsGrid}
+    >
+      {layout === 'list' ? (
+        <ResultsList overridableId={overridableId} />
+      ) : (
+        <ResultsGrid overridableId={overridableId} />
+      )}
+    </Overridable>
+  );
+};
 
 export default Overridable.component('ResultsMultiLayout', ResultsMultiLayout);

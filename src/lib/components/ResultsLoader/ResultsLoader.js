@@ -1,16 +1,16 @@
 /*
  * This file is part of React-SearchKit.
- * Copyright (C) 2018 CERN.
+ * Copyright (C) 2018-2022 CERN.
  *
  * React-SearchKit is free software; you can redistribute it and/or modify it
  * under the terms of the MIT License; see LICENSE file for more details.
  */
 
-import React, {useContext} from 'react';
 import PropTypes from 'prop-types';
-import { Loader } from 'semantic-ui-react';
+import React, { useContext } from 'react';
 import Overridable from 'react-overridable';
-import {AppContext} from "../ReactSearchKit";
+import { Loader } from 'semantic-ui-react';
+import { AppContext } from '../ReactSearchKit';
 
 function ResultsLoader({ children, loading, overridableId }) {
   return loading ? <Element overridableId={overridableId} /> : children;
@@ -26,12 +26,13 @@ ResultsLoader.defaultProps = {
 };
 
 const Element = ({ overridableId }) => {
-  const {buildUID} = useContext(AppContext);
+  const { buildUID } = useContext(AppContext);
 
   return (
-  <Overridable id={buildUID('ResultsLoader.element', overridableId)}>
-    <Loader active size="huge" inline="centered" />
-  </Overridable>
-)}
+    <Overridable id={buildUID('ResultsLoader.element', overridableId)}>
+      <Loader active size="huge" inline="centered" />
+    </Overridable>
+  );
+};
 
 export default Overridable.component('ResultsLoader', ResultsLoader);

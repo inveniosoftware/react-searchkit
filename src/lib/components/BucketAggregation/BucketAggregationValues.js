@@ -1,16 +1,16 @@
 /*
  * This file is part of React-SearchKit.
- * Copyright (C) 2018 CERN.
+ * Copyright (C) 2018-2022 CERN.
  *
  * React-SearchKit is free software; you can redistribute it and/or modify it
  * under the terms of the MIT License; see LICENSE file for more details.
  */
 
 import PropTypes from 'prop-types';
-import React, {Component, useContext} from 'react';
+import React, { Component, useContext } from 'react';
 import Overridable from 'react-overridable';
 import { Checkbox, List } from 'semantic-ui-react';
-import {AppContext} from "../ReactSearchKit";
+import { AppContext } from '../ReactSearchKit';
 
 class BucketAggregationValues extends Component {
   constructor(props) {
@@ -121,7 +121,7 @@ const ValueElement = (props) => {
     overridableId,
     keyField,
   } = props;
-  const {buildUID} = useContext(AppContext);
+  const { buildUID } = useContext(AppContext);
   const label = bucket.label
     ? bucket.label
     : `${keyField} (${bucket.doc_count.toLocaleString('en-US')})`;
@@ -146,7 +146,7 @@ const ValueElement = (props) => {
 };
 
 const ContainerElement = ({ valuesCmp, overridableId }) => {
-  const {buildUID} = useContext(AppContext);
+  const { buildUID } = useContext(AppContext);
 
   return (
     <Overridable

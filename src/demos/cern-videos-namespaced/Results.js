@@ -1,6 +1,6 @@
 /*
  * This file is part of React-SearchKit.
- * Copyright (C) 2019 CERN.
+ * Copyright (C) 2019-2022 CERN.
  *
  * React-SearchKit is free software; you can redistribute it and/or modify it
  * under the terms of the MIT License; see LICENSE file for more details.
@@ -16,9 +16,7 @@ import {
   ResultsMultiLayout,
   ResultsPerPage,
   Sort,
-  withState
 } from '../../lib/components';
-
 
 export class Results extends Component {
   constructor(props) {
@@ -56,7 +54,7 @@ export class Results extends Component {
           </Grid.Column>
         </Grid>
         <Grid relaxed style={{ padding: '2em 0' }}>
-          <ResultsMultiLayout  />
+          <ResultsMultiLayout />
         </Grid>
         <Grid relaxed verticalAlign="middle" textAlign="center">
           <Pagination />

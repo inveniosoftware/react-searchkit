@@ -1,11 +1,10 @@
 /*
  * This file is part of React-SearchKit.
- * Copyright (C) 2019 CERN.
+ * Copyright (C) 2022 CERN.
  *
  * React-SearchKit is free software; you can redistribute it and/or modify it
  * under the terms of the MIT License; see LICENSE file for more details.
  */
-
 
 import React from 'react';
 import { InvenioSearchApi } from '../../../lib/api/contrib/invenio';
@@ -73,7 +72,7 @@ export const App = () => (
       sortBy: 'mostrecent',
       sortOrder: 'asc',
     }}
-    appName='cernvideos3'
+    appName="cernvideos3"
   >
     <ResultsLoader>
       <EmptyResults />
@@ -83,9 +82,5 @@ export const App = () => (
         resultsPerPageValues={resultsPerPageValues}
       />
     </ResultsLoader>
-
   </ReactSearchKit>
 );
-
-
-
