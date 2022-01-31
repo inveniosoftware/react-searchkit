@@ -44,7 +44,9 @@ See the [complete guide](main_concepts.md) for detailed information.
 
 - **appName** `string` _optional_
 
-  A name identifier to distinguish uniquely the application. Useful if multiple ReactSearchKit apps are loaded in the same page. Default `RSK`.
+  A name to uniquely identify the application. Useful when enabling the `event listener` (read below) and when multiple ReactSearchKit apps are loaded in the same page. 
+  
+  The `overridable-id` of each component will be prefixed by this `appName` ([see here](https://inveniosoftware.github.io/react-searchkit/docs/ui-customisation)). Default is empty string `'' ` (no namespacing).
 
 - **eventListenerEnabled** `boolean` _optional_
 
