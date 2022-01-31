@@ -1,6 +1,6 @@
 /*
  * This file is part of React-SearchKit.
- * Copyright (C) 2018-2019 CERN.
+ * Copyright (C) 2018-2022 CERN.
  *
  * React-SearchKit is free software; you can redistribute it and/or modify it
  * under the terms of the MIT License; see LICENSE file for more details.
@@ -24,7 +24,7 @@ class Bootstrap extends Component {
   updateQueryState = (query) => this.props.updateQueryState(query);
 
   onQueryChanged = ({ detail: payload }) => {
-    const {appName} = this.context;
+    const { appName } = this.context;
 
     const appNameNotDefined = !appName;
     if (appNameNotDefined) {

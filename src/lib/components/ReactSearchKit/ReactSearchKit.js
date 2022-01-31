@@ -1,6 +1,6 @@
 /*
  * This file is part of React-SearchKit.
- * Copyright (C) 2018-2020 CERN.
+ * Copyright (C) 2018-2022 CERN.
  *
  * React-SearchKit is free software; you can redistribute it and/or modify it
  * under the terms of the MIT License; see LICENSE file for more details.
@@ -38,16 +38,12 @@ export class ReactSearchKit extends Component {
   }
 
   render() {
-    const {
-      appName,
-      eventListenerEnabled,
-      overridableId,
-      searchOnInit,
-    } = this.props;
+    const { appName, eventListenerEnabled, overridableId, searchOnInit } =
+      this.props;
 
     const context = {
       appName,
-      buildUID: (element, overrideId) => buildUID(element, overrideId, appName)
+      buildUID: (element, overrideId) => buildUID(element, overrideId, appName),
     };
 
     const _overridableId = buildUID(
@@ -122,6 +118,6 @@ ReactSearchKit.defaultProps = {
   defaultSortingOnEmptyQueryString: {},
 };
 
-ReactSearchKit.contextType = AppContext
+ReactSearchKit.contextType = AppContext;
 
 export default Overridable.component('ReactSearchKit', ReactSearchKit);

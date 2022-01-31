@@ -1,6 +1,6 @@
 /*
  * This file is part of React-SearchKit.
- * Copyright (C) 2019 CERN.
+ * Copyright (C) 2019-2022 CERN.
  *
  * React-SearchKit is free software; you can redistribute it and/or modify it
  * under the terms of the MIT License; see LICENSE file for more details.
@@ -16,9 +16,9 @@ import {
   Segment,
 } from 'semantic-ui-react';
 import { CERNVideosReactSearchKit } from './cern-videos';
+import NamespacedExample from './cern-videos-namespaced/app';
 import { ESReactSearchKit } from './elasticsearch';
 import { ZenodoReactSearchKit } from './zenodo';
-import NamespacedExample from "./cern-videos-namespaced/app";
 
 const demos = {
   es7: {
@@ -36,11 +36,11 @@ const demos = {
     text: 'The CERN official platform for videos.',
     cmp: <CERNVideosReactSearchKit />,
   },
-  'namespaced_example': {
-    label: "video.cern.ch namespaced",
-    text: "Example of multiple React-searchkit instances being namespaced by their appName",
-    cmp: <NamespacedExample/>
-  }
+  namespaced_example: {
+    label: 'video.cern.ch namespaced',
+    text: 'Example of multiple React-searchkit instances rendered at same time, namespaced by their appName, with different overridden components.',
+    cmp: <NamespacedExample />,
+  },
 };
 
 export default class App extends Component {

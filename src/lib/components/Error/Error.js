@@ -1,17 +1,17 @@
 /*
  * This file is part of React-SearchKit.
- * Copyright (C) 2018 CERN.
+ * Copyright (C) 2018-2022 CERN.
  *
  * React-SearchKit is free software; you can redistribute it and/or modify it
  * under the terms of the MIT License; see LICENSE file for more details.
  */
 
-import React, {useContext} from 'react';
-import PropTypes from 'prop-types';
 import _isEmpty from 'lodash/isEmpty';
+import PropTypes from 'prop-types';
+import React, { useContext } from 'react';
 import Overridable from 'react-overridable';
+import { AppContext } from '../ReactSearchKit';
 import { ShouldRender } from '../ShouldRender';
-import {AppContext} from "../ReactSearchKit";
 
 function Error({ loading, error, overridableId }) {
   return (
@@ -32,7 +32,7 @@ Error.defaultProps = {
 };
 
 const Element = ({ error, overridableId }) => {
-  const {buildUID} = useContext(AppContext);
+  const { buildUID } = useContext(AppContext);
 
   return (
     <Overridable id={buildUID('Error.element', overridableId)} error={error}>

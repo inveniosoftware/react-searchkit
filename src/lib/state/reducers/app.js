@@ -12,7 +12,7 @@ import {
   SET_QUERY_SORT_ORDER,
 } from '../types';
 
-export default (state = {}, action) => {
+const appReducer = (state = {}, action) => {
   switch (action.type) {
     case SET_QUERY_SORTING:
       return {
@@ -33,3 +33,5 @@ export default (state = {}, action) => {
       return state;
   }
 };
+
+export default appReducer;

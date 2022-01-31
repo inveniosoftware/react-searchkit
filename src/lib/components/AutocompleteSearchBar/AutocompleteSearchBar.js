@@ -1,18 +1,18 @@
 /*
  * This file is part of React-SearchKit.
- * Copyright (C) 2019 CERN.
+ * Copyright (C) 2019-2022 CERN.
  *
  * React-SearchKit is free software; you can redistribute it and/or modify it
  * under the terms of the MIT License; see LICENSE file for more details.
  */
 
 import _ from 'lodash';
-import React, {Component, useContext} from 'react';
 import PropTypes from 'prop-types';
-import { Input } from 'semantic-ui-react';
+import React, { Component, useContext } from 'react';
 import Overridable from 'react-overridable';
+import { Input } from 'semantic-ui-react';
+import { AppContext } from '../ReactSearchKit';
 import './AutocompleteSearchBar.scss';
-import {AppContext} from "../ReactSearchKit";
 
 class AutocompleteSearchBar extends Component {
   constructor(props) {
@@ -97,7 +97,7 @@ const Element = ({ overridableId, ...props }) => {
     onInputChange,
     executeSearch,
   } = props;
-  const {buildUID} = useContext(AppContext);
+  const { buildUID } = useContext(AppContext);
   const onBtnSearchClick = (event, input) => {
     executeSearch();
   };
@@ -137,7 +137,7 @@ const Element = ({ overridableId, ...props }) => {
 
 const Suggestions = ({ overridableId, ...props }) => {
   const { querySuggestions } = props;
-  const {buildUID} = useContext(AppContext);
+  const { buildUID } = useContext(AppContext);
   const onSuggestionSelected = async (suggestion) => {
     await this.setState({
       currentValue: suggestion,

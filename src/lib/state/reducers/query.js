@@ -28,7 +28,7 @@ import {
   SET_SUGGESTION_STRING,
 } from '../types';
 
-export default (state = {}, action) => {
+const queryReducer = (state = {}, action) => {
   switch (action.type) {
     case SET_QUERY_STRING:
       return { ...state, queryString: action.payload, page: 1 };
@@ -116,3 +116,5 @@ export default (state = {}, action) => {
       return state;
   }
 };
+
+export default queryReducer;

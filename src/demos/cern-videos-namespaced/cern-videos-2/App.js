@@ -1,14 +1,12 @@
 /*
  * This file is part of React-SearchKit.
- * Copyright (C) 2019 CERN.
+ * Copyright (C) 2022 CERN.
  *
  * React-SearchKit is free software; you can redistribute it and/or modify it
  * under the terms of the MIT License; see LICENSE file for more details.
  */
 
-
 import React from 'react';
-
 import { InvenioSearchApi } from '../../../lib/api/contrib/invenio';
 import {
   EmptyResults,
@@ -20,7 +18,7 @@ import {
 import { Results } from '../Results';
 
 const OnResults = withState(Results);
- 
+
 const sortValues = [
   {
     text: 'Newest',
@@ -65,28 +63,24 @@ const searchApi = new InvenioSearchApi({
   },
 });
 
-export const App = () =>
-  (
-    <ReactSearchKit
-      searchApi={searchApi}
-      initialQueryState={initialState}
-      urlHandlerApi={{ enabled: false }}
-      defaultSortingOnEmptyQueryString={{
-        sortBy: 'mostrecent',
-        sortOrder: 'asc',
-      }}
-      appName='cernvideos2'
-    >
-      <ResultsLoader>
-        <EmptyResults />
-        <Error />
-        <OnResults
-          sortValues={sortValues}
-          resultsPerPageValues={resultsPerPageValues}
-        />
-      </ResultsLoader>
-    </ReactSearchKit>
-  );
-
-
-
+export const App = () => (
+  <ReactSearchKit
+    searchApi={searchApi}
+    initialQueryState={initialState}
+    urlHandlerApi={{ enabled: false }}
+    defaultSortingOnEmptyQueryString={{
+      sortBy: 'mostrecent',
+      sortOrder: 'asc',
+    }}
+    appName="cernvideos2"
+  >
+    <ResultsLoader>
+      <EmptyResults />
+      <Error />
+      <OnResults
+        sortValues={sortValues}
+        resultsPerPageValues={resultsPerPageValues}
+      />
+    </ResultsLoader>
+  </ReactSearchKit>
+);

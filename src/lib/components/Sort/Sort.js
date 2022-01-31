@@ -1,17 +1,17 @@
 /*
  * This file is part of React-SearchKit.
- * Copyright (C) 2018-2019 CERN.
+ * Copyright (C) 2018-200 CERN.
  *
  * React-SearchKit is free software; you can redistribute it and/or modify it
  * under the terms of the MIT License; see LICENSE file for more details.
  */
 
-import React, {Component, useContext} from 'react';
 import PropTypes from 'prop-types';
-import { Dropdown } from 'semantic-ui-react';
+import React, { Component, useContext } from 'react';
 import Overridable from 'react-overridable';
+import { Dropdown } from 'semantic-ui-react';
+import { AppContext } from '../ReactSearchKit';
 import { ShouldRender } from '../ShouldRender';
-import {AppContext} from "../ReactSearchKit";
 
 class Sort extends Component {
   constructor(props) {
@@ -101,7 +101,7 @@ const Element = ({ overridableId, ...props }) => {
     onValueChange,
     computeValue,
   } = props;
-  const {buildUID} = useContext(AppContext);
+  const { buildUID } = useContext(AppContext);
   const selected = computeValue(currentSortBy, currentSortOrder);
   const _options = options.map((element, index) => {
     return {

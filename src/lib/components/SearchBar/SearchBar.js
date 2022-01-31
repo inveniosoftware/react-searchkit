@@ -1,16 +1,16 @@
 /*
  * This file is part of React-SearchKit.
- * Copyright (C) 2018 CERN.
+ * Copyright (C) 2018-2022 CERN.
  *
  * React-SearchKit is free software; you can redistribute it and/or modify it
  * under the terms of the MIT License; see LICENSE file for more details.
  */
 
-import React, {Component} from 'react';
 import PropTypes from 'prop-types';
-import { Input } from 'semantic-ui-react';
+import React, { Component } from 'react';
 import Overridable from 'react-overridable';
-import {AppContext} from "../ReactSearchKit";
+import { Input } from 'semantic-ui-react';
+import { AppContext } from '../ReactSearchKit';
 
 class SearchBar extends Component {
   constructor(props) {
@@ -123,7 +123,7 @@ class Element extends Component {
       queryString,
       uiProps,
     } = this.props;
-    const {buildUID} = this.context
+    const { buildUID } = this.context;
 
     return (
       <Overridable
@@ -153,6 +153,6 @@ class Element extends Component {
   }
 }
 
-Element.contextType = AppContext
+Element.contextType = AppContext;
 
 export default Overridable.component('SearchBar', SearchBarUncontrolled);
