@@ -27,8 +27,8 @@
     "axios": "^0.21.0",
     "lodash": "^4.17.15",
     "qs": "^6.8.0",
-    "react": "^16.13.1",
-    "react-dom": "^16.13.1",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2",
     "react-overridable": "^0.0.3",
     "react-redux": "^7.2",
     "redux": "^4.0.5",
@@ -42,6 +42,7 @@
     "@rollup/plugin-commonjs": "^15.1.0",
     "@rollup/plugin-node-resolve": "^9.0.0",
     "@semantic-ui-react/css-patch": "^1.0.0",
+    "@wojtekmaj/enzyme-adapter-react-17": "^0.6.6",
     "axios": "^0.21.4",
     "axios-mock-adapter": "^1.18.2",
     "coveralls": "^3.0.7",
@@ -53,8 +54,8 @@
     "lodash": "^4.17.21",
     "node-sass": "^7.0.1",
     "qs": "^6.8.0",
-    "react": "^16.13.1",
-    "react-dom": "^16.13.1",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2",
     "react-overridable": "^0.0.3",
     "react-redux": "^7.2.1",
     "react-scripts": "^5.0.0",
@@ -114,3 +115,4 @@
     ]
   }
 }
+
