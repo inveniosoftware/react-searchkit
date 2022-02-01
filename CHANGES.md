@@ -1,10 +1,14 @@
 # Changes
 
+Version 1.0.0-alpha.19 (released 2022-02-01)
+
+* Fixes wrong NPM peer dependencies.
+
 Version 1.0.0-alpha.18 (released 2022-02-01)
 
 * Adds namespacing allowing users to initiate multiple search applications
   and be able to override components per instance.
-* Upgrades react-semantic-ui
+* Upgrades react-semantic-ui.
 
 Version 1.0.0-alpha.17 (released 2021-07-27)
 
