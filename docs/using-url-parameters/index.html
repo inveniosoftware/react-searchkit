@@ -132,12 +132,12 @@ The class must implement a method <code>isValid</code> that returns <code>true</
 <span class="token operator">&lt;</span>ReactSearchKit
   searchApi<span class="token operator">=</span><span class="token punctuation">{</span><span class="token operator">...</span><span class="token punctuation">}</span>
   urlHandlerApi<span class="token operator">=</span><span class="token punctuation">{</span><span class="token punctuation">{</span>
-    enabled<span class="token operator">:</span> <span class="token boolean">true</span><span class="token punctuation">,</span>
-    overrideConfig<span class="token operator">:</span> <span class="token punctuation">{</span>
-      keepHistory<span class="token operator">:</span> <span class="token boolean">false</span><span class="token punctuation">,</span>
-      urlParamsMapping<span class="token operator">:</span> <span class="token punctuation">{</span><span class="token operator">...</span><span class="token punctuation">}</span><span class="token punctuation">,</span>
-      urlParamValidator<span class="token operator">:</span> myParamValidator<span class="token punctuation">,</span>
-      urlParser<span class="token operator">:</span> myUrlParser<span class="token punctuation">,</span>
+    <span class="token literal-property property">enabled</span><span class="token operator">:</span> <span class="token boolean">true</span><span class="token punctuation">,</span>
+    <span class="token literal-property property">overrideConfig</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+      <span class="token literal-property property">keepHistory</span><span class="token operator">:</span> <span class="token boolean">false</span><span class="token punctuation">,</span>
+      <span class="token literal-property property">urlParamsMapping</span><span class="token operator">:</span> <span class="token punctuation">{</span><span class="token operator">...</span><span class="token punctuation">}</span><span class="token punctuation">,</span>
+      <span class="token literal-property property">urlParamValidator</span><span class="token operator">:</span> myParamValidator<span class="token punctuation">,</span>
+      <span class="token literal-property property">urlParser</span><span class="token operator">:</span> myUrlParser<span class="token punctuation">,</span>
     <span class="token punctuation">}</span>
   <span class="token punctuation">}</span><span class="token punctuation">}</span>
 <span class="token operator">></span>
@@ -175,8 +175,8 @@ The object needs to implement a <code>get</code> method and a <code>set</code> m
 
 <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span><span class="token class-name">ReactSearchKit</span></span>
   <span class="token attr-name">urlHandlerApi</span><span class="token script language-javascript"><span class="token script-punctuation punctuation">=</span><span class="token punctuation">{</span><span class="token punctuation">{</span>
-    enabled<span class="token operator">:</span> <span class="token boolean">true</span>
-    customHandler<span class="token operator">:</span> myUrlParamsHandler
+    <span class="token literal-property property">enabled</span><span class="token operator">:</span> <span class="token boolean">true</span>
+    <span class="token literal-property property">customHandler</span><span class="token operator">:</span> myUrlParamsHandler
   <span class="token punctuation">}</span><span class="token punctuation">}</span></span>
 <span class="token punctuation">></span></span><span class="token plain-text">
   ...

@@ -60,11 +60,11 @@
 <pre><code class="hljs css language-jsx"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span><span class="token class-name">BucketAggregation</span></span>
   <span class="token attr-name">title</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>Employee Types<span class="token punctuation">"</span></span>
   <span class="token attr-name">agg</span><span class="token script language-javascript"><span class="token script-punctuation punctuation">=</span><span class="token punctuation">{</span><span class="token punctuation">{</span>
-    field<span class="token operator">:</span> <span class="token string">'employee_type.type'</span><span class="token punctuation">,</span>
-    aggName<span class="token operator">:</span> <span class="token string">'type_agg'</span><span class="token punctuation">,</span>
-    childAgg<span class="token operator">:</span> <span class="token punctuation">{</span>
-      field<span class="token operator">:</span> <span class="token string">'employee_type.subtype'</span><span class="token punctuation">,</span>
-      aggName<span class="token operator">:</span> <span class="token string">'subtype_agg'</span><span class="token punctuation">,</span>
+    <span class="token literal-property property">field</span><span class="token operator">:</span> <span class="token string">'employee_type.type'</span><span class="token punctuation">,</span>
+    <span class="token literal-property property">aggName</span><span class="token operator">:</span> <span class="token string">'type_agg'</span><span class="token punctuation">,</span>
+    <span class="token literal-property property">childAgg</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+      <span class="token literal-property property">field</span><span class="token operator">:</span> <span class="token string">'employee_type.subtype'</span><span class="token punctuation">,</span>
+      <span class="token literal-property property">aggName</span><span class="token operator">:</span> <span class="token string">'subtype_agg'</span><span class="token punctuation">,</span>
     <span class="token punctuation">}</span><span class="token punctuation">,</span>
   <span class="token punctuation">}</span><span class="token punctuation">}</span></span>
 <span class="token punctuation">/></span></span>
