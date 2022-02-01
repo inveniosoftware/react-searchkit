@@ -24,17 +24,17 @@
   },
   "peerDependencies": {
     "@babel/runtime": "^7.9.0",
-    "axios": "^0.21.0",
-    "lodash": "^4.17.15",
+    "axios": "^0.21.4",
+    "lodash": "^4.17.21",
     "qs": "^6.8.0",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-overridable": "^0.0.3",
-    "react-redux": "^7.2",
+    "react-redux": "^7.2.1",
     "redux": "^4.0.5",
     "redux-thunk": "^2.3.0",
     "semantic-ui-css": "^2.4.1",
-    "semantic-ui-react": "^0.88.0"
+    "semantic-ui-react": "^2.1.1"
   },
   "devDependencies": {
     "@babel/cli": "^7.11.6",
