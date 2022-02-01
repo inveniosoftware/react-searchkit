@@ -1,5 +1,7 @@
 # Changes
 
+* Adds "@semantic-ui-react/css-patch" as peer dependency.
+
 Version 1.0.0-alpha.19 (released 2022-02-01)
 
 * Fixes wrong NPM peer dependencies.
