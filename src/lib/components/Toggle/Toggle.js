@@ -7,51 +7,50 @@
  */
 
 import PropTypes from 'prop-types';
-import React, { Component } from 'react';
+import React, { useContext } from 'react';
 import Overridable from 'react-overridable';
 import { Card, Checkbox } from 'semantic-ui-react';
+import { AppContext } from '../ReactSearchKit';
 
-class ToggleComponent extends Component {
-  _isChecked = (userSelectionFilters) => {
+const ToggleComponent = ({ overridableId, ...props }) => {
+  const { userSelectionFilters, title, label } = props;
+  const _isChecked = (userSelectionFilters) => {
     const isFilterActive =
       userSelectionFilters.filter(
-        (filter) => filter[0] === this.props.filterValue[0]
+        (filter) => filter[0] === props.filterValue[0]
       ).length > 0;
     return isFilterActive;
   };
-
-  onToggleClicked = () => {
-    this.props.updateQueryFilters(this.props.filterValue);
+  const onToggleClicked = () => {
+    props.updateQueryFilters(props.filterValue);
   };
+  const { buildUID } = useContext(AppContext);
 
-  render() {
-    const { userSelectionFilters, overridableId, title, label } = this.props;
-    var isChecked = this._isChecked(userSelectionFilters);
-    const onToggleClicked = this.onToggleClicked;
-    return (
-      <Overridable
-        id={('SearchFilters.ToggleComponent', overridableId)}
-        isChecked={isChecked}
-        onToggleClicked={onToggleClicked}
-        {...this.props}
-      >
-        <Card>
-          <Card.Content>
-            <Card.Header>{title}</Card.Header>
-          </Card.Content>
-          <Card.Content>
-            <Checkbox
-              toggle
-              label={label}
-              onClick={onToggleClicked}
-              checked={isChecked}
-            />
-          </Card.Content>
-        </Card>
-      </Overridable>
-    );
-  }
-}
+  const isChecked = _isChecked(userSelectionFilters);
+
+  return (
+    <Overridable
+      id={buildUID('SearchFilters.ToggleComponent', overridableId)}
+      isChecked={isChecked}
+      onToggleClicked={onToggleClicked}
+      {...props}
+    >
+      <Card>
+        <Card.Content>
+          <Card.Header>{title}</Card.Header>
+        </Card.Content>
+        <Card.Content>
+          <Checkbox
+            toggle
+            label={label}
+            onClick={onToggleClicked}
+            checked={isChecked}
+          />
+        </Card.Content>
+      </Card>
+    </Overridable>
+  );
+};
 
 ToggleComponent.propTypes = {
   title: PropTypes.string,
