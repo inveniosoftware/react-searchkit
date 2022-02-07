@@ -83,7 +83,8 @@
 <li><p><strong>searchOnInit</strong> <code>boolean</code> <em>optional</em></p>
 <p>A boolean to perform a search when the application is mounted. Default <code>true</code>.</p></li>
 <li><p><strong>appName</strong> <code>string</code> <em>optional</em></p>
-<p>A name identifier to distinguish uniquely the application. Useful if multiple ReactSearchKit apps are loaded in the same page. Default <code>RSK</code>.</p></li>
+<p>A name to uniquely identify the application. Useful when enabling the <code>event listener</code> (read below) and when multiple ReactSearchKit apps are loaded in the same page.</p>
+<p>The <code>overridable-id</code> of each component will be prefixed by this <code>appName</code> (<a href="https://inveniosoftware.github.io/react-searchkit/docs/ui-customisation">see here</a>). Default is empty string <code>''</code> (no namespacing).</p></li>
 <li><p><strong>eventListenerEnabled</strong> <code>boolean</code> <em>optional</em></p>
 <p>If <code>true</code> the application listens to the <code>queryChanged</code> event else if <code>false</code> no listener is registered. When this event is emitted the application triggers a search based on the payload that is passed to the event at the emission time. Default <code>false</code>.</p></li>
 <li><p><strong>initialQueryState</strong> <code>object</code> <em>optional</em></p>
