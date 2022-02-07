@@ -1,5 +1,10 @@
 # Changes
 
+Version 1.0.0-alpha.21 (released 2022-02-07)
+
+* Add namespace to overrdable id to the Toggle component.
+* Adds docs to how to customize RSK using react-overridable.
+
 Version 1.0.0-alpha.20 (released 2022-02-02)
 
 * Adds "@semantic-ui-react/css-patch" as peer dependency.
