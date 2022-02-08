@@ -1,6 +1,7 @@
 /*
  * This file is part of React-SearchKit.
- * Copyright (C) 2018-200 CERN.
+ * Copyright (C) 2018-2022 CERN.
+ * Copyright (C) 2022 NYU.
  *
  * React-SearchKit is free software; you can redistribute it and/or modify it
  * under the terms of the MIT License; see LICENSE file for more details.
@@ -48,6 +49,7 @@ class Sort extends Component {
       label,
       overridableId,
       sortOrderDisabled,
+      ariaLabel,
     } = this.props;
     return (
       <ShouldRender
@@ -66,6 +68,7 @@ class Sort extends Component {
             onValueChange={this.onChange}
             computeValue={this._computeValue}
             overridableId={overridableId}
+            ariaLabel={ariaLabel}
           />
         )}
       </ShouldRender>
@@ -83,6 +86,7 @@ Sort.propTypes = {
   label: PropTypes.func,
   overridableId: PropTypes.string,
   sortOrderDisabled: PropTypes.bool,
+  ariaLabel: PropTypes.string
 };
 
 Sort.defaultProps = {
@@ -91,6 +95,7 @@ Sort.defaultProps = {
   label: (cmp) => cmp,
   overridableId: '',
   sortOrderDisabled: false,
+  ariaLabel: 'Sort'
 };
 
 const Element = ({ overridableId, ...props }) => {
@@ -100,6 +105,7 @@ const Element = ({ overridableId, ...props }) => {
     options,
     onValueChange,
     computeValue,
+    ariaLabel
   } = props;
   const { buildUID } = useContext(AppContext);
   const selected = computeValue(currentSortBy, currentSortOrder);
@@ -117,6 +123,7 @@ const Element = ({ overridableId, ...props }) => {
         options={_options}
         value={selected}
         onChange={(e, { value }) => onValueChange(value)}
+        aria-label={ariaLabel}
       />
     </Overridable>
   );
