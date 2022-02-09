@@ -19,6 +19,7 @@ export const EmptyResults = connect(
     totalResults: state.results.data.total,
     error: state.results.error,
     queryString: state.query.queryString,
+    userSelectionFilters: state.query.filters,
   }),
   mapDispatchToProps
 )(EmptyResultsComponent);
