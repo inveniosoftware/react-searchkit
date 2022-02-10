@@ -1,5 +1,7 @@
 # Changes
 
+* Change patch versions of NPM dependencies to x.x.0 to relax requirements.
+
 Version 1.0.0-alpha.21 (released 2022-02-07)
 
 * Add namespace to overrdable id to the Toggle component.
