@@ -19,16 +19,12 @@ class Help extends React.Component {
   render() {
     const supportLinks = [
       {
-        content: `Have a look to the [Getting Started guide](${
-          siteConfig.baseUrl
-        }docs/getting_started) to better understand how React-SearchKit works and how it can help you to build your own SearchKit app.\n\nRead the [advanced guide](${
-          siteConfig.baseUrl
-        }docs/advanced) to know how to customize, extend and create your own components.`,
+        content: `Have a look to the [Getting Started guide](${siteConfig.baseUrl}docs/getting-started) to better understand how React-SearchKit works and how it can help you to build your own SearchKit app.\n\nRead the [advanced guide](${siteConfig.baseUrl}docs/advanced) to know how to customize, extend and create your own components.`,
         title: 'Browse the documentation',
       },
       {
         content:
-          'Join the [Invenio Gitter channel](https://gitter.im/inveniosoftware/invenio/) to ask questions and get help.',
+          'Join the [Invenio Discord channel](https://discord.com/channels/692989811736182844/724974365451747329) to ask questions and get help.',
         title: 'Join the community',
       },
       {
