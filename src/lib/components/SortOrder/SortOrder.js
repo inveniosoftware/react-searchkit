@@ -1,6 +1,7 @@
 /*
  * This file is part of React-SearchKit.
  * Copyright (C) 2018-2022 CERN.
+ * Copyright (C) 2022 NYU.
  *
  * React-SearchKit is free software; you can redistribute it and/or modify it
  * under the terms of the MIT License; see LICENSE file for more details.
@@ -26,7 +27,7 @@ class SortOrder extends Component {
   };
 
   render() {
-    const { currentSortOrder, loading, totalResults, label, overridableId } =
+    const { currentSortOrder, loading, totalResults, label, overridableId, ariaLabel, selectOnNavigation } =
       this.props;
     return (
       <ShouldRender
@@ -38,6 +39,8 @@ class SortOrder extends Component {
             options={this.options}
             onValueChange={this.onChange}
             overridableId={overridableId}
+            ariaLabel={ariaLabel}
+            selectOnNavigation={selectOnNavigation}
           />
         )}
       </ShouldRender>
@@ -53,16 +56,20 @@ SortOrder.propTypes = {
   updateQuerySortOrder: PropTypes.func.isRequired,
   label: PropTypes.func,
   overridableId: PropTypes.string,
+  ariaLabel: PropTypes.string,
+  selectOnNavigation: PropTypes.bool
 };
 
 SortOrder.defaultProps = {
   currentSortOrder: null,
   label: (cmp) => cmp,
   overridableId: '',
+  ariaLabel: 'Sort Order',
+  selectOnNavigation: false
 };
 
 const Element = ({ overridableId, ...props }) => {
-  const { currentSortOrder, options, onValueChange } = props;
+  const { currentSortOrder, options, onValueChange, ariaLabel, selectOnNavigation } = props;
   const { buildUID } = useContext(AppContext);
 
   const _options = options.map((element, index) => {
@@ -77,6 +84,8 @@ const Element = ({ overridableId, ...props }) => {
         options={_options}
         value={currentSortOrder}
         onChange={(e, { value }) => onValueChange(value)}
+        aria-label={ariaLabel}
+        selectOnNavigation={selectOnNavigation}
       />
     </Overridable>
   );

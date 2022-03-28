@@ -50,6 +50,7 @@ class Sort extends Component {
       overridableId,
       sortOrderDisabled,
       ariaLabel,
+      selectOnNavigation
     } = this.props;
     return (
       <ShouldRender
@@ -69,6 +70,7 @@ class Sort extends Component {
             computeValue={this._computeValue}
             overridableId={overridableId}
             ariaLabel={ariaLabel}
+            selectOnNavigation={selectOnNavigation}
           />
         )}
       </ShouldRender>
@@ -86,7 +88,8 @@ Sort.propTypes = {
   label: PropTypes.func,
   overridableId: PropTypes.string,
   sortOrderDisabled: PropTypes.bool,
-  ariaLabel: PropTypes.string
+  ariaLabel: PropTypes.string,
+  selectOnNavigation: PropTypes.bool
 };
 
 Sort.defaultProps = {
@@ -95,7 +98,8 @@ Sort.defaultProps = {
   label: (cmp) => cmp,
   overridableId: '',
   sortOrderDisabled: false,
-  ariaLabel: 'Sort'
+  ariaLabel: 'Sort',
+  selectOnNavigation: false
 };
 
 const Element = ({ overridableId, ...props }) => {
@@ -105,7 +109,8 @@ const Element = ({ overridableId, ...props }) => {
     options,
     onValueChange,
     computeValue,
-    ariaLabel
+    ariaLabel,
+    selectOnNavigation
   } = props;
   const { buildUID } = useContext(AppContext);
   const selected = computeValue(currentSortBy, currentSortOrder);
@@ -124,6 +129,7 @@ const Element = ({ overridableId, ...props }) => {
         value={selected}
         onChange={(e, { value }) => onValueChange(value)}
         aria-label={ariaLabel}
+        selectOnNavigation={selectOnNavigation}
       />
     </Overridable>
   );
