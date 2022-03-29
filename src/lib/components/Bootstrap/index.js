@@ -6,13 +6,13 @@
  * under the terms of the MIT License; see LICENSE file for more details.
  */
 
-import { connect } from 'react-redux';
+import { connect } from "react-redux";
 import {
   onAppInitialized as _onAppInitialized,
   updateQueryState,
   updateQueryStateFromUrl,
-} from '../../state/actions';
-import BootstrapComponent from './Bootstrap';
+} from "../../state/actions";
+import BootstrapComponent from "./Bootstrap";
 
 const mapDispatchToProps = (dispatch) => ({
   onAppInitialized: (searchOnInit) => dispatch(_onAppInitialized(searchOnInit)),

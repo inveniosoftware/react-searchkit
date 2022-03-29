@@ -6,18 +6,18 @@
  * under the terms of the MIT License; see LICENSE file for more details.
  */
 
-import PropTypes from 'prop-types';
-import React, { Component } from 'react';
-import Overridable from 'react-overridable';
-import { Input } from 'semantic-ui-react';
-import { AppContext } from '../ReactSearchKit';
+import PropTypes from "prop-types";
+import React, { Component } from "react";
+import Overridable from "react-overridable";
+import { Input } from "semantic-ui-react";
+import { AppContext } from "../ReactSearchKit";
 
 class SearchBar extends Component {
   constructor(props) {
     super(props);
-    this.updateQueryString = this.props.updateQueryString;
+    this.updateQueryString = props.updateQueryString;
     this.state = {
-      currentValue: this.props.queryString || '',
+      currentValue: props.queryString || "",
     };
   }
 
@@ -28,15 +28,16 @@ class SearchBar extends Component {
   };
 
   executeSearch = () => {
-    this.updateQueryString(this.state.currentValue);
+    const { currentValue } = this.state;
+    this.updateQueryString(currentValue);
   };
 
-  onBtnSearchClick = (event, input) => {
+  onBtnSearchClick = () => {
     this.executeSearch();
   };
 
-  onKeyPress = (event, input) => {
-    if (event.key === 'Enter') {
+  onKeyPress = (event) => {
+    if (event.key === "Enter") {
       this.executeSearch();
     }
   };
@@ -53,6 +54,7 @@ class SearchBar extends Component {
       placeholder,
       uiProps,
     } = this.props;
+    const { currentValue } = this.state;
     return (
       <Element
         actionProps={actionProps}
@@ -63,7 +65,7 @@ class SearchBar extends Component {
         onKeyPress={onKeyPress || this.onKeyPress}
         overridableId={overridableId}
         placeholder={placeholder}
-        queryString={this.state.currentValue}
+        queryString={currentValue}
         uiProps={uiProps}
       />
     );
@@ -91,18 +93,26 @@ SearchBar.defaultProps = {
   onBtnSearchClick: null,
   onInputChange: null,
   onKeyPress: null,
-  overridableId: '',
-  placeholder: '',
-  queryString: '',
+  overridableId: "",
+  placeholder: "",
+  queryString: "",
   uiProps: null,
 };
 
 // NOTE: Adding the key prop, will recreate the SearchBar in order to update
 // state with the latest redux queryString value.
 // https://reactjs.org/blog/2018/06/07/you-probably-dont-need-derived-state.html#recommendation-fully-uncontrolled-component-with-a-key
-const SearchBarUncontrolled = (props) => (
-  <SearchBar key={props.queryString} {...props} />
+const SearchBarUncontrolled = ({ queryString, ...props }) => (
+  <SearchBar key={queryString} {...props} />
 );
+
+SearchBarUncontrolled.propTypes = {
+  queryString: PropTypes.string,
+};
+
+SearchBarUncontrolled.defaultProps = {
+  queryString: "",
+};
 
 class Element extends Component {
   componentDidMount() {
@@ -126,19 +136,16 @@ class Element extends Component {
     const { buildUID } = this.context;
 
     return (
-      <Overridable
-        id={buildUID('SearchBar.element', overridableId)}
-        {...this.props}
-      >
+      <Overridable id={buildUID("SearchBar.element", overridableId)} {...this.props}>
         <Input
           action={{
-            content: 'Search',
+            content: "Search",
             onClick: onBtnSearchClick,
             ...actionProps,
           }}
           fluid
           {...uiProps}
-          placeholder={placeholder || 'Type something'}
+          placeholder={placeholder || "Type something"}
           onChange={(event, { value }) => {
             onInputChange(value);
           }}
@@ -153,6 +160,30 @@ class Element extends Component {
   }
 }
 
+Element.propTypes = {
+  actionProps: PropTypes.object,
+  autofocus: PropTypes.bool,
+  onBtnSearchClick: PropTypes.func,
+  onInputChange: PropTypes.func,
+  onKeyPress: PropTypes.func,
+  overridableId: PropTypes.string,
+  placeholder: PropTypes.string,
+  queryString: PropTypes.string,
+  uiProps: PropTypes.object,
+};
+
+Element.defaultProps = {
+  actionProps: null,
+  autofocus: false,
+  onBtnSearchClick: null,
+  onInputChange: null,
+  onKeyPress: null,
+  overridableId: "",
+  placeholder: "",
+  queryString: "",
+  uiProps: null,
+};
+
 Element.contextType = AppContext;
 
-export default Overridable.component('SearchBar', SearchBarUncontrolled);
+export default Overridable.component("SearchBar", SearchBarUncontrolled);

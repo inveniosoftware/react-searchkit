@@ -6,9 +6,9 @@
  * under the terms of the MIT License; see LICENSE file for more details.
  */
 
-import { connect } from 'react-redux';
-import { updateResultsLayout } from '../../state/actions';
-import LayoutSwitcherComponent from './LayoutSwitcher';
+import { connect } from "react-redux";
+import { updateResultsLayout } from "../../state/actions";
+import LayoutSwitcherComponent from "./LayoutSwitcher";
 
 const mapDispatchToProps = (dispatch) => ({
   updateLayout: (layout) => dispatch(updateResultsLayout(layout)),

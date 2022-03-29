@@ -6,16 +6,16 @@
  * under the terms of the MIT License; see LICENSE file for more details.
  */
 
-import axios from 'axios';
-import _get from 'lodash/get';
-import _hasIn from 'lodash/hasIn';
-import { RequestCancelledError } from '../../errors';
-import { ESRequestSerializer } from './ESRequestSerializer';
-import { ESResponseSerializer } from './ESResponseSerializer';
+import axios from "axios";
+import _get from "lodash/get";
+import _hasIn from "lodash/hasIn";
+import { RequestCancelledError } from "../../errors";
+import { ESRequestSerializer } from "./ESRequestSerializer";
+import { ESResponseSerializer } from "./ESResponseSerializer";
 
 export class ESSearchApi {
   constructor(config) {
-    this.axiosConfig = _get(config, 'axios', {});
+    this.axiosConfig = _get(config, "axios", {});
     this.validateAxiosConfig();
     this.initSerializers(config);
     this.initInterceptors(config);
@@ -25,25 +25,25 @@ export class ESSearchApi {
   }
 
   validateAxiosConfig() {
-    if (!_hasIn(this.axiosConfig, 'url')) {
-      throw new Error('ESSearchApi config: `node` field is required.');
+    if (!_hasIn(this.axiosConfig, "url")) {
+      throw new Error("ESSearchApi config: `node` field is required.");
     }
   }
 
   initInterceptors(config) {
-    this.requestInterceptor = _get(config, 'interceptors.request', undefined);
-    this.responseInterceptor = _get(config, 'interceptors.response', undefined);
+    this.requestInterceptor = _get(config, "interceptors.request", undefined);
+    this.responseInterceptor = _get(config, "interceptors.response", undefined);
   }
 
   initSerializers(config) {
     const requestSerializerCls = _get(
       config,
-      'es.requestSerializer',
+      "es.requestSerializer",
       ESRequestSerializer
     );
     const responseSerializerCls = _get(
       config,
-      'es.responseSerializer',
+      "es.responseSerializer",
       ESResponseSerializer
     );
 
@@ -86,7 +86,7 @@ export class ESSearchApi {
     try {
       const response = await this.http.request({
         url: this.axiosConfig.url,
-        method: 'POST',
+        method: "POST",
         data: payload,
         cancelToken: this.axiosCancel.token,
       });

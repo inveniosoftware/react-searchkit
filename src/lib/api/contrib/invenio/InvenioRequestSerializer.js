@@ -6,9 +6,9 @@
  * under the terms of the MIT License; see LICENSE file for more details.
  */
 
-import Qs from 'qs';
-import _extend from 'lodash/extend';
-import _isEmpty from 'lodash/isEmpty';
+import Qs from "qs";
+import _extend from "lodash/extend";
+import _isEmpty from "lodash/isEmpty";
 
 /** Default backend request serializer */
 export class InvenioRequestSerializer {
@@ -18,9 +18,7 @@ export class InvenioRequestSerializer {
 
   _addFilter = (filter, filterUrlParams) => {
     if (!Array.isArray(filter)) {
-      throw new Error(
-        `Filter value "${filter}" in query state must be an array.`
-      );
+      throw new Error(`Filter value "${filter}" in query state must be an array.`);
     }
     if (!(filter.length === 2 || filter.length === 3)) {
       throw new Error(
@@ -40,7 +38,7 @@ export class InvenioRequestSerializer {
     }
   };
 
-  _addFilters = filters => {
+  _addFilters = (filters) => {
     if (!Array.isArray(filters)) {
       throw new Error(`Filters query state "${filters}" must be an array.`);
     }
@@ -51,7 +49,7 @@ export class InvenioRequestSerializer {
      * ]
      */
     const filterUrlParams = {};
-    filters.forEach(filter => {
+    filters.forEach((filter) => {
       this._addFilter(filter, filterUrlParams);
     });
     /**
@@ -68,24 +66,25 @@ export class InvenioRequestSerializer {
    * @param {object} stateQuery the `query` state to serialize
    */
   serialize(stateQuery) {
-    const { queryString, sortBy, sortOrder, page, size, filters, hiddenParams } = stateQuery;
+    const { queryString, sortBy, sortOrder, page, size, filters, hiddenParams } =
+      stateQuery;
 
     let getParams = {};
     if (queryString !== null) {
-      getParams['q'] = queryString;
+      getParams["q"] = queryString;
     }
     if (sortBy !== null) {
-      getParams['sort'] = sortBy;
+      getParams["sort"] = sortBy;
 
       if (sortOrder !== null) {
-        getParams['sort'] = sortOrder === 'desc' ? `-${sortBy}` : sortBy;
+        getParams["sort"] = sortOrder === "desc" ? `-${sortBy}` : sortBy;
       }
     }
     if (page > 0) {
-      getParams['page'] = page;
+      getParams["page"] = page;
     }
     if (size > 0) {
-      getParams['size'] = size;
+      getParams["size"] = size;
     }
     if (!_isEmpty(hiddenParams)) {
       _extend(getParams, this._addFilters(hiddenParams));
@@ -93,6 +92,6 @@ export class InvenioRequestSerializer {
     const filterParams = this._addFilters(filters);
     _extend(getParams, filterParams);
 
-    return Qs.stringify(getParams, { arrayFormat: 'repeat' });
+    return Qs.stringify(getParams, { arrayFormat: "repeat" });
   }
 }

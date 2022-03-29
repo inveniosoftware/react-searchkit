@@ -6,8 +6,8 @@
  * under the terms of the MIT License; see LICENSE file for more details.
  */
 
-import { connect } from 'react-redux';
-import ResultsGridComponent from './ResultsGrid';
+import { connect } from "react-redux";
+import ResultsGridComponent from "./ResultsGrid";
 
 export const ResultsGrid = connect((state) => ({
   loading: state.results.loading,

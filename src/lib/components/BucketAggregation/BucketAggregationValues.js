@@ -6,11 +6,11 @@
  * under the terms of the MIT License; see LICENSE file for more details.
  */
 
-import PropTypes from 'prop-types';
-import React, { Component, useContext } from 'react';
-import Overridable from 'react-overridable';
-import { Checkbox, List } from 'semantic-ui-react';
-import { AppContext } from '../ReactSearchKit';
+import PropTypes from "prop-types";
+import React, { Component, useContext } from "react";
+import Overridable from "react-overridable";
+import { Checkbox, List } from "semantic-ui-react";
+import { AppContext } from "../ReactSearchKit";
 
 class BucketAggregationValues extends Component {
   constructor(props) {
@@ -24,18 +24,16 @@ class BucketAggregationValues extends Component {
   _isSelected = (aggName, value, selectedFilters) => {
     // return True there is at least one filter that has this value
     return (
-      selectedFilters.filter(
-        (filter) => filter[0] === aggName && filter[1] === value
-      ).length >= 1
+      selectedFilters.filter((filter) => filter[0] === aggName && filter[1] === value)
+        .length >= 1
     );
   };
 
   getChildAggCmps = (bucket, selectedFilters) => {
-    const hasChildAggregation =
-      this.childAgg && this.childAgg['aggName'] in bucket;
+    const hasChildAggregation = this.childAgg && this.childAgg["aggName"] in bucket;
     let selectedChildFilters = [];
     if (hasChildAggregation) {
-      const childBuckets = bucket[this.childAgg['aggName']]['buckets'];
+      const childBuckets = bucket[this.childAgg["aggName"]]["buckets"];
       selectedFilters.forEach((filter) => {
         const isThisAggregation = filter[0] === this.aggName;
         const isThisValue = filter[1] === bucket.key;
@@ -65,16 +63,11 @@ class BucketAggregationValues extends Component {
     const { buckets, selectedFilters, overridableId } = this.props;
     const valuesCmp = buckets.map((bucket) => {
       const keyField = bucket.key_as_string ? bucket.key_as_string : bucket.key;
-      const isSelected = this._isSelected(
-        this.aggName,
-        keyField,
-        selectedFilters
-      );
+      const isSelected = this._isSelected(this.aggName, keyField, selectedFilters);
       const onFilterClicked = (value) => {
         this.onFilterClicked([this.aggName, value]);
       };
-      const getChildAggCmps = (bucket) =>
-        this.getChildAggCmps(bucket, selectedFilters);
+      const getChildAggCmps = (bucket) => this.getChildAggCmps(bucket, selectedFilters);
 
       return (
         <ValueElement
@@ -88,9 +81,7 @@ class BucketAggregationValues extends Component {
         />
       );
     });
-    return (
-      <ContainerElement valuesCmp={valuesCmp} overridableId={overridableId} />
-    );
+    return <ContainerElement valuesCmp={valuesCmp} overridableId={overridableId} />;
   }
 }
 
@@ -109,7 +100,8 @@ BucketAggregationValues.propTypes = {
 };
 
 BucketAggregationValues.defaultProps = {
-  overridableId: '',
+  childAgg: null,
+  overridableId: "",
 };
 
 const ValueElement = (props) => {
@@ -124,12 +116,12 @@ const ValueElement = (props) => {
   const { buildUID } = useContext(AppContext);
   const label = bucket.label
     ? bucket.label
-    : `${keyField} (${bucket.doc_count.toLocaleString('en-US')})`;
+    : `${keyField} (${bucket.doc_count.toLocaleString("en-US")})`;
   const childAggCmps = getChildAggCmps(bucket);
 
   return (
     <Overridable
-      id={buildUID('BucketAggregationValues.element', overridableId)}
+      id={buildUID("BucketAggregationValues.element", overridableId)}
       {...props}
     >
       <List.Item key={bucket.key}>
@@ -145,12 +137,25 @@ const ValueElement = (props) => {
   );
 };
 
+ValueElement.propTypes = {
+  bucket: PropTypes.object.isRequired,
+  isSelected: PropTypes.bool.isRequired,
+  onFilterClicked: PropTypes.func.isRequired,
+  getChildAggCmps: PropTypes.func.isRequired,
+  keyField: PropTypes.array.isRequired,
+  overridableId: PropTypes.string,
+};
+
+ValueElement.defaultProps = {
+  overridableId: "",
+};
+
 const ContainerElement = ({ valuesCmp, overridableId }) => {
   const { buildUID } = useContext(AppContext);
 
   return (
     <Overridable
-      id={buildUID('BucketAggregationContainer.element', overridableId)}
+      id={buildUID("BucketAggregationContainer.element", overridableId)}
       valuesCmp={valuesCmp}
     >
       <List>{valuesCmp}</List>
@@ -158,7 +163,16 @@ const ContainerElement = ({ valuesCmp, overridableId }) => {
   );
 };
 
+ContainerElement.propTypes = {
+  valuesCmp: PropTypes.node.isRequired,
+  overridableId: PropTypes.string,
+};
+
+ContainerElement.defaultProps = {
+  overridableId: "",
+};
+
 export default Overridable.component(
-  'BucketAggregationValues',
+  "BucketAggregationValues",
   BucketAggregationValues
 );

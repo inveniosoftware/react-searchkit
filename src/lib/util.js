@@ -13,9 +13,9 @@
  * @param {string} appName the app name
  * @return {string} the unique id string with the format 'appName.elementName.overridableId'
  */
-export function buildUID(elementName, overridableId='', appName = '') {
-  const _overridableId = overridableId ? `.${overridableId}` : '';
-  const _appName = appName ? `${appName}.` : '';
+export function buildUID(elementName, overridableId = "", appName = "") {
+  const _overridableId = overridableId ? `.${overridableId}` : "";
+  const _appName = appName ? `${appName}.` : "";
 
   return `${_appName}${elementName}${_overridableId}`;
 }

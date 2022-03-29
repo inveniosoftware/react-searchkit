@@ -6,23 +6,27 @@
  * under the terms of the MIT License; see LICENSE file for more details.
  */
 
-import PropTypes from 'prop-types';
-import React, { useContext } from 'react';
-import Overridable from 'react-overridable';
-import { Card, Checkbox } from 'semantic-ui-react';
-import { AppContext } from '../ReactSearchKit';
+import PropTypes from "prop-types";
+import React, { useContext } from "react";
+import Overridable from "react-overridable";
+import { Card, Checkbox } from "semantic-ui-react";
+import { AppContext } from "../ReactSearchKit";
 
-const ToggleComponent = ({ overridableId, ...props }) => {
-  const { userSelectionFilters, title, label } = props;
+const ToggleComponent = ({
+  overridableId,
+  userSelectionFilters,
+  title,
+  label,
+  filterValue,
+  ...props
+}) => {
   const _isChecked = (userSelectionFilters) => {
     const isFilterActive =
-      userSelectionFilters.filter(
-        (filter) => filter[0] === props.filterValue[0]
-      ).length > 0;
+      userSelectionFilters.filter((filter) => filter[0] === filterValue[0]).length > 0;
     return isFilterActive;
   };
   const onToggleClicked = () => {
-    props.updateQueryFilters(props.filterValue);
+    props.updateQueryFilters(filterValue);
   };
   const { buildUID } = useContext(AppContext);
 
@@ -30,7 +34,7 @@ const ToggleComponent = ({ overridableId, ...props }) => {
 
   return (
     <Overridable
-      id={buildUID('SearchFilters.ToggleComponent', overridableId)}
+      id={buildUID("SearchFilters.ToggleComponent", overridableId)}
       isChecked={isChecked}
       onToggleClicked={onToggleClicked}
       {...props}
@@ -53,18 +57,16 @@ const ToggleComponent = ({ overridableId, ...props }) => {
 };
 
 ToggleComponent.propTypes = {
-  title: PropTypes.string,
-  label: PropTypes.string,
+  title: PropTypes.string.isRequired,
+  label: PropTypes.string.isRequired,
+  filterValue: PropTypes.array.isRequired,
   userSelectionFilters: PropTypes.array.isRequired,
   updateQueryFilters: PropTypes.func.isRequired,
   overridableId: PropTypes.string,
 };
 
 ToggleComponent.defaultProps = {
-  overridableId: '',
+  overridableId: "",
 };
 
-export default Overridable.component(
-  'SearchFilters.ToggleComponent',
-  ToggleComponent
-);
+export default Overridable.component("SearchFilters.ToggleComponent", ToggleComponent);

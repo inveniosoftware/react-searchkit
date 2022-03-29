@@ -6,10 +6,10 @@
  * under the terms of the MIT License; see LICENSE file for more details.
  */
 
-import _get from 'lodash/get';
-import _hasIn from 'lodash/hasIn';
-import Qs from 'qs';
-import { InvenioSearchApi } from './InvenioSearchApi';
+import _get from "lodash/get";
+import _hasIn from "lodash/hasIn";
+import Qs from "qs";
+import { InvenioSearchApi } from "./InvenioSearchApi";
 
 class InvenioSuggestionRequestSerializer {
   constructor(queryField) {
@@ -26,24 +26,22 @@ class InvenioSuggestionRequestSerializer {
 
     const getParams = {};
     if (suggestionString !== null) {
-      getParams['q'] = this.queryField + ':' + suggestionString;
+      getParams["q"] = this.queryField + ":" + suggestionString;
     }
 
-    return Qs.stringify(getParams, { arrayFormat: 'repeat', encode: false });
+    return Qs.stringify(getParams, { arrayFormat: "repeat", encode: false });
   }
 }
 
 class InvenioSuggestionResponseSerializer {
   constructor(responseField) {
-    this.responseFieldPath = responseField.split('.');
+    this.responseFieldPath = responseField.split(".");
     this.serialize = this.serialize.bind(this);
   }
 
-  _serializeSuggestions = responseHits => {
+  _serializeSuggestions = (responseHits) => {
     return Array.from(
-      new Set(
-        responseHits.map(hit => _get(hit.metadata, this.responseFieldPath))
-      )
+      new Set(responseHits.map((hit) => _get(hit.metadata, this.responseFieldPath)))
     );
   };
 
@@ -62,14 +60,14 @@ export class InvenioSuggestionApi extends InvenioSearchApi {
   validateConfig(config) {
     super.validateConfig(config);
 
-    if (!_hasIn(config, 'invenio.suggestions.queryField')) {
+    if (!_hasIn(config, "invenio.suggestions.queryField")) {
       throw new Error(
-        'InvenioSuggestionApi config: `invenio.suggestions.queryField` is required.'
+        "InvenioSuggestionApi config: `invenio.suggestions.queryField` is required."
       );
     }
-    if (!_hasIn(config, 'invenio.suggestions.responseField')) {
+    if (!_hasIn(config, "invenio.suggestions.responseField")) {
       throw new Error(
-        'InvenioSuggestionApi config: `invenio.suggestions.queryField` is responseField.'
+        "InvenioSuggestionApi config: `invenio.suggestions.queryField` is responseField."
       );
     }
   }
@@ -77,12 +75,12 @@ export class InvenioSuggestionApi extends InvenioSearchApi {
   initSerializers(config) {
     const requestSerializerCls = _get(
       config,
-      'invenio.requestSerializer',
+      "invenio.requestSerializer",
       InvenioSuggestionRequestSerializer
     );
     const responseSerializerCls = _get(
       config,
-      'invenio.responseSerializer',
+      "invenio.responseSerializer",
       InvenioSuggestionResponseSerializer
     );
 

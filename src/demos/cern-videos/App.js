@@ -6,19 +6,12 @@
  * under the terms of the MIT License; see LICENSE file for more details.
  */
 
-import _truncate from 'lodash/truncate';
-import React, { Component } from 'react';
-import { OverridableContext } from 'react-overridable';
-import {
-  Accordion,
-  Card,
-  Container,
-  Grid,
-  Image,
-  Item,
-  Menu,
-} from 'semantic-ui-react';
-import { InvenioSearchApi } from '../../lib/api/contrib/invenio';
+import _truncate from "lodash/truncate";
+import PropTypes from "prop-types";
+import React, { Component } from "react";
+import { OverridableContext } from "react-overridable";
+import { Accordion, Card, Container, Grid, Image, Item, Menu } from "semantic-ui-react";
+import { InvenioSearchApi } from "../../lib/api/contrib/invenio";
 import {
   BucketAggregation,
   EmptyResults,
@@ -27,51 +20,51 @@ import {
   ResultsLoader,
   SearchBar,
   withState,
-} from '../../lib/components';
-import { Results } from './Results';
+} from "../../lib/components";
+import { Results } from "./Results";
 
 const OnResults = withState(Results);
 
 const sortValues = [
   {
-    text: 'Newest',
-    sortBy: 'mostrecent',
-    sortOrder: 'asc',
+    text: "Newest",
+    sortBy: "mostrecent",
+    sortOrder: "asc",
   },
   {
-    text: 'Oldest',
-    sortBy: 'oldest',
-    sortOrder: 'asc',
+    text: "Oldest",
+    sortBy: "oldest",
+    sortOrder: "asc",
   },
   {
-    text: 'Best match',
-    sortBy: 'bestmatch',
-    sortOrder: 'asc',
+    text: "Best match",
+    sortBy: "bestmatch",
+    sortOrder: "asc",
   },
 ];
 
 const resultsPerPageValues = [
   {
-    text: '10',
+    text: "10",
     value: 10,
   },
   {
-    text: '20',
+    text: "20",
     value: 20,
   },
 ];
 
 const initialState = {
-  sortBy: 'bestmatch',
-  sortOrder: 'asc',
-  layout: 'list',
+  sortBy: "bestmatch",
+  sortOrder: "asc",
+  layout: "list",
   page: 1,
   size: 10,
 };
 
 const searchApi = new InvenioSearchApi({
   axios: {
-    url: 'https://videos.cern.ch/api/records/',
+    url: "https://videos.cern.ch/api/records/",
     timeout: 5000,
   },
 });
@@ -80,10 +73,7 @@ const CERNVideosResultsListItem = ({ result, index }) => {
   const metadata = result.metadata;
   return (
     <Item key={index} href={`#${metadata.recid}`}>
-      <Item.Image
-        size="small"
-        src={result.imageSrc || 'http://placehold.it/200'}
-      />
+      <Item.Image size="small" src={result.imageSrc || "http://placehold.it/200"} />
       <Item.Content>
         <Item.Header>{metadata.title.title}</Item.Header>
         <Item.Description>
@@ -94,11 +84,16 @@ const CERNVideosResultsListItem = ({ result, index }) => {
   );
 };
 
+CERNVideosResultsListItem.propTypes = {
+  result: PropTypes.object.isRequired,
+  index: PropTypes.string.isRequired,
+};
+
 const CERNVideosResultsGridItem = ({ result, index }) => {
-  const metadata = result.metadata;
+  const { metadata } = result;
   return (
     <Card fluid key={index} href={`#${metadata.recid}`}>
-      <Image src={result.imageSrc || 'http://placehold.it/200'} />
+      <Image src={result.imageSrc || "http://placehold.it/200"} />
       <Card.Content>
         <Card.Header>{metadata.title.title}</Card.Header>
         <Card.Meta>{metadata.publication_date}</Card.Meta>
@@ -110,9 +105,14 @@ const CERNVideosResultsGridItem = ({ result, index }) => {
   );
 };
 
+CERNVideosResultsGridItem.propTypes = {
+  result: PropTypes.object.isRequired,
+  index: PropTypes.string.isRequired,
+};
+
 const overriddenComponents = {
-  'ResultsList.item.cernvideos': CERNVideosResultsListItem,
-  'ResultsGrid.item.cernvideos': CERNVideosResultsGridItem,
+  "ResultsList.item.cernvideos": CERNVideosResultsListItem,
+  "ResultsGrid.item.cernvideos": CERNVideosResultsGridItem,
 };
 
 export class App extends Component {
@@ -163,8 +163,8 @@ export class App extends Component {
           initialQueryState={initialState}
           urlHandlerApi={{ enabled: false }}
           defaultSortingOnEmptyQueryString={{
-            sortBy: 'mostrecent',
-            sortOrder: 'asc',
+            sortBy: "mostrecent",
+            sortOrder: "asc",
           }}
         >
           <Container>
@@ -177,30 +177,30 @@ export class App extends Component {
                 <Grid.Column width={3} />
               </Grid.Row>
             </Grid>
-            <Grid relaxed style={{ padding: '2em 0' }}>
+            <Grid relaxed style={{ padding: "2em 0" }}>
               <Grid.Row columns={2}>
                 <Grid.Column width={4}>
                   <BucketAggregation
                     title="Categories"
                     agg={{
-                      field: 'category',
-                      aggName: 'category',
+                      field: "category",
+                      aggName: "category",
                     }}
                   />
                   <br />
                   <BucketAggregation
                     title="Languages"
                     agg={{
-                      field: 'language',
-                      aggName: 'language',
+                      field: "language",
+                      aggName: "language",
                     }}
                   />
                   <br />
                   <BucketAggregation
                     title="Types"
                     agg={{
-                      field: 'type',
-                      aggName: 'type',
+                      field: "type",
+                      aggName: "type",
                     }}
                   />
                   <br />

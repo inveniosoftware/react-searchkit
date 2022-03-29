@@ -6,4 +6,4 @@
  * under the terms of the MIT License; see LICENSE file for more details.
  */
 
-export { App as CERNVideosReactSearchKit2 } from './App';
+export { App as CERNVideosReactSearchKit2 } from "./App";

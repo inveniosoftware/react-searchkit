@@ -6,9 +6,10 @@
  * under the terms of the MIT License; see LICENSE file for more details.
  */
 
-import { connect } from 'react-redux';
-import { updateQuerySortBy } from '../../state/actions';
-import SortByComponent from './SortBy';
+import { connect } from "react-redux";
+import { updateQuerySortBy } from "../../state/actions";
+import SortByComponent from "./SortBy";
+
 const mapDispatchToProps = (dispatch) => ({
   updateQuerySortBy: (sortByValue) => dispatch(updateQuerySortBy(sortByValue)),
 });

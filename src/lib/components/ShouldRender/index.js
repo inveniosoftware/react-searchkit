@@ -6,4 +6,4 @@
  * under the terms of the MIT License; see LICENSE file for more details.
  */
 
-export { default as ShouldRender } from './ShouldRender';
+export { default as ShouldRender } from "./ShouldRender";

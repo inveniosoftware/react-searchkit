@@ -7,12 +7,12 @@
  * under the terms of the MIT License; see LICENSE file for more details.
  */
 
-import PropTypes from 'prop-types';
-import React, { Component, useContext } from 'react';
-import Overridable from 'react-overridable';
-import { Dropdown } from 'semantic-ui-react';
-import { AppContext } from '../ReactSearchKit';
-import { ShouldRender } from '../ShouldRender';
+import PropTypes from "prop-types";
+import React, { Component, useContext } from "react";
+import Overridable from "react-overridable";
+import { Dropdown } from "semantic-ui-react";
+import { AppContext } from "../ReactSearchKit";
+import { ShouldRender } from "../ShouldRender";
 
 class Sort extends Component {
   constructor(props) {
@@ -22,7 +22,7 @@ class Sort extends Component {
 
     this.options.forEach(
       (option) =>
-        (option['value'] = this._computeValue(option.sortBy, option.sortOrder))
+        (option["value"] = this._computeValue(option.sortBy, option.sortOrder))
     );
   }
 
@@ -31,11 +31,8 @@ class Sort extends Component {
   };
 
   onChange = (value) => {
-    if (
-      value ===
-      this._computeValue(this.props.currentSortBy, this.props.currentSortOrder)
-    )
-      return;
+    const { currentSortBy, currentSortOrder } = this.props;
+    if (value === this._computeValue(currentSortBy, currentSortOrder)) return;
     const selected = this.options.find((option) => option.value === value);
     this.updateQuerySorting(selected.sortBy, selected.sortOrder);
   };
@@ -50,7 +47,7 @@ class Sort extends Component {
       overridableId,
       sortOrderDisabled,
       ariaLabel,
-      selectOnNavigation
+      selectOnNavigation,
     } = this.props;
     return (
       <ShouldRender
@@ -89,29 +86,30 @@ Sort.propTypes = {
   overridableId: PropTypes.string,
   sortOrderDisabled: PropTypes.bool,
   ariaLabel: PropTypes.string,
-  selectOnNavigation: PropTypes.bool
+  selectOnNavigation: PropTypes.bool,
 };
 
 Sort.defaultProps = {
   currentSortBy: null,
   currentSortOrder: null,
   label: (cmp) => cmp,
-  overridableId: '',
+  overridableId: "",
   sortOrderDisabled: false,
-  ariaLabel: 'Sort',
-  selectOnNavigation: false
+  ariaLabel: "Sort",
+  selectOnNavigation: false,
 };
 
-const Element = ({ overridableId, ...props }) => {
-  const {
-    currentSortBy,
-    currentSortOrder,
-    options,
-    onValueChange,
-    computeValue,
-    ariaLabel,
-    selectOnNavigation
-  } = props;
+const Element = ({
+  overridableId,
+  currentSortBy,
+  currentSortOrder,
+  options,
+  onValueChange,
+  computeValue,
+  ariaLabel,
+  selectOnNavigation,
+  ...props
+}) => {
   const { buildUID } = useContext(AppContext);
   const selected = computeValue(currentSortBy, currentSortOrder);
   const _options = options.map((element, index) => {
@@ -122,7 +120,7 @@ const Element = ({ overridableId, ...props }) => {
     };
   });
   return (
-    <Overridable id={buildUID('Sort.element', overridableId)} {...props}>
+    <Overridable id={buildUID("Sort.element", overridableId)} {...props}>
       <Dropdown
         selection
         options={_options}
@@ -135,4 +133,23 @@ const Element = ({ overridableId, ...props }) => {
   );
 };
 
-export default Overridable.component('Sort', Sort);
+Element.propTypes = {
+  options: PropTypes.array.isRequired,
+  currentSortBy: PropTypes.string,
+  currentSortOrder: PropTypes.string,
+  overridableId: PropTypes.string,
+  ariaLabel: PropTypes.string,
+  selectOnNavigation: PropTypes.bool,
+  computeValue: PropTypes.func.isRequired,
+  onValueChange: PropTypes.func.isRequired,
+};
+
+Element.defaultProps = {
+  currentSortBy: null,
+  currentSortOrder: null,
+  overridableId: "",
+  ariaLabel: "Sort",
+  selectOnNavigation: false,
+};
+
+export default Overridable.component("Sort", Sort);

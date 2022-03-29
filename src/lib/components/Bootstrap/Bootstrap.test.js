@@ -6,68 +6,75 @@
  * under the terms of the MIT License; see LICENSE file for more details.
  */
 
-import { mount } from 'enzyme';
-import React from 'react';
-import { onQueryChanged } from '../../events';
-import { AppContext } from '../ReactSearchKit/AppContext';
-import Bootstrap from './Bootstrap';
+import { mount } from "enzyme";
+import React from "react";
+import { onQueryChanged } from "../../events";
+import { AppContext } from "../ReactSearchKit/AppContext";
+import Bootstrap from "./Bootstrap";
 
-describe('test Bootstrap component', () => {
-  it('should call updateQueryState func when a valid event is sent', () => {
+describe("test Bootstrap component", () => {
+  it("should call updateQueryState func when a valid event is sent", () => {
     const mockUpdateQueryState = jest.fn();
     mount(
-      <AppContext.Provider value={{ appName: 'MyRSK' }}>
+      <AppContext.Provider value={{ appName: "MyRSK" }}>
         <Bootstrap
           searchOnInit={false}
-          eventListenerEnabled={true}
+          eventListenerEnabled
           onAppInitialized={jest.fn()}
           updateQueryState={mockUpdateQueryState}
-        />
+          searchOnUrlQueryStringChanged={() => {}}
+        >
+          <div />
+        </Bootstrap>
       </AppContext.Provider>
     );
     const expectedPayload = {
-      searchQuery: { queryString: 'test' },
-      appName: 'MyRSK',
+      searchQuery: { queryString: "test" },
+      appName: "MyRSK",
     };
     onQueryChanged(expectedPayload);
-    expect(mockUpdateQueryState).toHaveBeenCalledWith(
-      expectedPayload.searchQuery
-    );
+    expect(mockUpdateQueryState).toHaveBeenCalledWith(expectedPayload.searchQuery);
   });
 
-  it('should not call updateQueryState func when an invalid event is sent', () => {
+  it("should not call updateQueryState func when an invalid event is sent", () => {
     const mockUpdateQueryState = jest.fn();
     mount(
-      <AppContext.Provider value={{ appName: 'MyRSK' }}>
+      <AppContext.Provider value={{ appName: "MyRSK" }}>
         <Bootstrap
           searchOnInit={false}
           eventListenerEnabled={false}
           onAppInitialized={jest.fn()}
           updateQueryState={mockUpdateQueryState}
-        />
+          searchOnUrlQueryStringChanged={() => {}}
+        >
+          <div />
+        </Bootstrap>
       </AppContext.Provider>
     );
     onQueryChanged({});
     expect(mockUpdateQueryState).not.toHaveBeenCalled();
   });
 
-  it('should not call updateQueryState func when the appName in the event does not match', () => {
+  it("should not call updateQueryState func when the appName in the event does not match", () => {
     const mockUpdateQueryState = jest.fn();
     mount(
-      <AppContext.Provider value={{ appName: 'MyRSK' }}>
+      <AppContext.Provider value={{ appName: "MyRSK" }}>
         <Bootstrap
           searchOnInit={false}
           appName="MyRSK"
-          eventListenerEnabled={true}
+          eventListenerEnabled
           onAppInitialized={jest.fn()}
           updateQueryState={mockUpdateQueryState}
-        />
+          searchOnUrlQueryStringChanged={() => {}}
+        >
+          <div />
+        </Bootstrap>
       </AppContext.Provider>
     );
 
     const expectedPayload = {
-      appName: 'unknown_app',
-      searchQuery: { queryString: 'test' },
+      appName: "unknown_app",
+      searchQuery: { queryString: "test" },
     };
 
     onQueryChanged(expectedPayload);

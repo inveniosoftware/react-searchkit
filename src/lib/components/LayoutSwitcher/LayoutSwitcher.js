@@ -6,12 +6,12 @@
  * under the terms of the MIT License; see LICENSE file for more details.
  */
 
-import PropTypes from 'prop-types';
-import React, { Component, useContext } from 'react';
-import Overridable from 'react-overridable';
-import { Icon, Menu } from 'semantic-ui-react';
-import { AppContext } from '../ReactSearchKit';
-import { ShouldRender } from '../ShouldRender';
+import PropTypes from "prop-types";
+import React, { Component, useContext } from "react";
+import Overridable from "react-overridable";
+import { Icon, Menu } from "semantic-ui-react";
+import { AppContext } from "../ReactSearchKit";
+import { ShouldRender } from "../ShouldRender";
 
 class LayoutSwitcher extends Component {
   constructor(props) {
@@ -26,9 +26,7 @@ class LayoutSwitcher extends Component {
   render() {
     const { currentLayout, loading, totalResults, overridableId } = this.props;
     return (
-      <ShouldRender
-        condition={currentLayout !== null && !loading && totalResults > 0}
-      >
+      <ShouldRender condition={currentLayout !== null && !loading && totalResults > 0}>
         <Element
           currentLayout={currentLayout}
           onLayoutChange={this.onLayoutChange}
@@ -49,34 +47,22 @@ LayoutSwitcher.propTypes = {
 
 LayoutSwitcher.defaultProps = {
   currentLayout: null,
-  overridableId: '',
+  overridableId: "",
 };
 
-const Element = ({ overridableId, ...props }) => {
-  const { currentLayout, onLayoutChange } = props;
+const Element = ({ overridableId, currentLayout, onLayoutChange, ...props }) => {
   const { buildUID } = useContext(AppContext);
   const clickHandler = (event, { name }) => {
     onLayoutChange(name);
   };
 
   return (
-    <Overridable
-      id={buildUID('LayoutSwitcher.element', overridableId)}
-      {...props}
-    >
+    <Overridable id={buildUID("LayoutSwitcher.element", overridableId)} {...props}>
       <Menu compact icon>
-        <Menu.Item
-          name="list"
-          active={currentLayout === 'list'}
-          onClick={clickHandler}
-        >
+        <Menu.Item name="list" active={currentLayout === "list"} onClick={clickHandler}>
           <Icon name="list layout" />
         </Menu.Item>
-        <Menu.Item
-          name="grid"
-          active={currentLayout === 'grid'}
-          onClick={clickHandler}
-        >
+        <Menu.Item name="grid" active={currentLayout === "grid"} onClick={clickHandler}>
           <Icon name="grid layout" />
         </Menu.Item>
       </Menu>
@@ -84,4 +70,15 @@ const Element = ({ overridableId, ...props }) => {
   );
 };
 
-export default Overridable.component('LayoutSwitcher', LayoutSwitcher);
+Element.propTypes = {
+  currentLayout: PropTypes.string,
+  onLayoutChange: PropTypes.func.isRequired,
+  overridableId: PropTypes.string,
+};
+
+Element.defaultProps = {
+  currentLayout: null,
+  overridableId: "",
+};
+
+export default Overridable.component("LayoutSwitcher", LayoutSwitcher);

@@ -6,9 +6,9 @@
  * under the terms of the MIT License; see LICENSE file for more details.
  */
 
-import _cloneDeep from 'lodash/cloneDeep';
-import _isEmpty from 'lodash/isEmpty';
-import { RequestCancelledError } from '../../api';
+import _cloneDeep from "lodash/cloneDeep";
+import _isEmpty from "lodash/isEmpty";
+import { RequestCancelledError } from "../../api";
 import {
   CLEAR_QUERY_SUGGESTIONS,
   RESET_QUERY,
@@ -27,7 +27,7 @@ import {
   SET_QUERY_STRING,
   SET_QUERY_SUGGESTIONS,
   SET_SUGGESTION_STRING,
-} from '../types';
+} from "../types";
 
 export const setInitialState = (initialState) => {
   return (dispatch) => {
@@ -146,7 +146,7 @@ export const resetQuery = () => {
     dispatch({
       type: RESET_QUERY,
       payload: {
-        queryString: '',
+        queryString: "",
         page: 1,
         filters: [],
         ...config.initialQueryState,
@@ -186,12 +186,7 @@ const updateURLParameters = (
  * @param {func} getState - function to get the Redux state
  * @param {object} appConfig - app config
  */
-const updateQueryStateAfterResponse = (
-  response,
-  dispatch,
-  getState,
-  appConfig
-) => {
+const updateQueryStateAfterResponse = (response, dispatch, getState, appConfig) => {
   const prevState = getState().query;
   dispatch({
     type: SET_QUERY_STATE,
@@ -209,17 +204,11 @@ const updateQueryStateAfterResponse = (
 };
 
 const updateSearchSorting = (queryState, appState, appConfig, dispatch) => {
-  function getSearchSortingOnQueryString(
-    queryState,
-    appState,
-    appConfig,
-    dispatch
-  ) {
-    const isQueryStringEmpty = queryState.queryString === '';
+  function getSearchSortingOnQueryString(queryState, appState, appConfig, dispatch) {
+    const isQueryStringEmpty = queryState.queryString === "";
     if (isQueryStringEmpty) {
       queryState.sortBy = appConfig.defaultSortingOnEmptyQueryString.sortBy;
-      queryState.sortOrder =
-        appConfig.defaultSortingOnEmptyQueryString.sortOrder;
+      queryState.sortOrder = appConfig.defaultSortingOnEmptyQueryString.sortOrder;
     } else {
       queryState.sortBy = appState.initialSortBy;
       queryState.sortOrder = appState.initialSortOrder;
@@ -240,9 +229,7 @@ const updateSearchSorting = (queryState, appState, appConfig, dispatch) => {
 
   // when the `defaultSortingOnEmptyQueryString` config is not defined,
   // return the current query state
-  const defaultSortingDefined = !_isEmpty(
-    appConfig.defaultSortingOnEmptyQueryString
-  );
+  const defaultSortingDefined = !_isEmpty(appConfig.defaultSortingOnEmptyQueryString);
   if (defaultSortingDefined) {
     // when the `defaultSortingOnEmptyQueryString` config is defined,
     // evaluate if the sorting should be automatically changed
@@ -279,7 +266,7 @@ export const executeQuery = ({
       const searchApi = config.searchApi;
       let response = await searchApi.search(queryState);
 
-      if ('newQueryState' in response) {
+      if ("newQueryState" in response) {
         response = updateQueryStateAfterResponse(
           _cloneDeep(response),
           dispatch,
@@ -338,7 +325,7 @@ export const executeSuggestionQuery = () => {
         },
       });
     } catch (reason) {
-      console.error('Could not load suggestions due to: ' + reason);
+      console.error("Could not load suggestions due to: " + reason);
     }
   };
 };

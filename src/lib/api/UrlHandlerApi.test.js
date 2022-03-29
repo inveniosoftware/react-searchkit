@@ -6,43 +6,41 @@
  * under the terms of the MIT License; see LICENSE file for more details.
  */
 
-import Qs from 'qs';
-import { UrlHandlerApi } from '.';
+import Qs from "qs";
+import { UrlHandlerApi } from ".";
 
 class MockedUrlParser {
-  parse = (queryString = '') => {
+  parse = (queryString = "") => {
     return Qs.parse(queryString, { ignoreQueryPrefix: true });
   };
 }
 
 class MockedUrlParamValidator {
-  isValid = (key, value) => {
+  isValid = () => {
     return true;
   };
 }
 
-describe('test UrlHandlerApi', () => {
-  describe('test injected configuration', () => {
-    it('should use the provided configuration', () => {
+describe("test UrlHandlerApi", () => {
+  describe("test injected configuration", () => {
+    it("should use the provided configuration", () => {
       const expectedUrlParamsMapping = {
-        queryString: 'q1',
-        sortBy: 'sort1',
-        sortOrder: 'order1',
-        page: 'p1',
-        size: 's1',
-        layout: 'l1',
-        filters: 'f1',
+        queryString: "q1",
+        sortBy: "sort1",
+        sortOrder: "order1",
+        page: "p1",
+        size: "s1",
+        layout: "l1",
+        filters: "f1",
       };
       const expectedKeepHistory = false;
       const expectedUrlParamValidator = new MockedUrlParamValidator();
       const expectedUrlParser = new MockedUrlParser();
-      const expectedUrlFilterSeparator = '-';
+      const expectedUrlFilterSeparator = "-";
 
       const expectedFromUrlParamsMapping = {};
       Object.keys(expectedUrlParamsMapping).forEach((stateKey) => {
-        expectedFromUrlParamsMapping[
-          expectedUrlParamsMapping[stateKey]
-        ] = stateKey;
+        expectedFromUrlParamsMapping[expectedUrlParamsMapping[stateKey]] = stateKey;
       });
 
       const handler = new UrlHandlerApi({
@@ -54,19 +52,17 @@ describe('test UrlHandlerApi', () => {
       });
 
       expect(handler.urlParamsMapping).toMatchObject(expectedUrlParamsMapping);
-      expect(handler.fromUrlParamsMapping).toMatchObject(
-        expectedFromUrlParamsMapping
-      );
+      expect(handler.fromUrlParamsMapping).toMatchObject(expectedFromUrlParamsMapping);
       expect(handler.keepHistory).toBe(expectedKeepHistory);
       expect(handler.urlParamValidator).toBe(expectedUrlParamValidator);
       expect(handler.urlParser).toBe(expectedUrlParser);
       expect(handler.urlFilterSeparator).toBe(expectedUrlFilterSeparator);
     });
 
-    it('should throw error when wrong configuration provided', () => {
+    it("should throw error when wrong configuration provided", () => {
       expect(() => {
         new UrlHandlerApi({
-          keepHistory: 'history',
+          keepHistory: "history",
         });
       }).toThrow();
 
@@ -78,7 +74,7 @@ describe('test UrlHandlerApi', () => {
     });
   });
 
-  describe('test url params', () => {
+  describe("test url params", () => {
     const { history, location } = window;
 
     beforeEach(() => {
@@ -86,7 +82,7 @@ describe('test UrlHandlerApi', () => {
       delete window.location;
       window.history = { pushState: jest.fn(), replaceState: jest.fn() };
       window.location = {
-        search: '',
+        search: "",
       };
     });
 
@@ -95,13 +91,13 @@ describe('test UrlHandlerApi', () => {
       window.location = location;
     });
 
-    describe('test get url params', () => {
-      it('should parse correctly string and int from url params', () => {
-        const validURLSearch = '?q=text&s=15&p=3';
+    describe("test get url params", () => {
+      it("should parse correctly string and int from url params", () => {
+        const validURLSearch = "?q=text&s=15&p=3";
         window.location.search = validURLSearch;
 
         const currentQueryState = {
-          queryString: '',
+          queryString: "",
           size: -1,
           page: -1,
         };
@@ -109,92 +105,92 @@ describe('test UrlHandlerApi', () => {
         const newQueryState = handler.get(currentQueryState);
 
         expect(newQueryState).toMatchObject({
-          queryString: 'text',
+          queryString: "text",
           size: 15,
           page: 3,
         });
-        expect(typeof newQueryState['queryString']).toEqual('string');
-        expect(typeof newQueryState['size']).toEqual('number');
-        expect(typeof newQueryState['page']).toEqual('number');
+        expect(typeof newQueryState["queryString"]).toEqual("string");
+        expect(typeof newQueryState["size"]).toEqual("number");
+        expect(typeof newQueryState["page"]).toEqual("number");
       });
 
-      it('should parse correctly complex query strings from url params', () => {
+      it("should parse correctly complex query strings from url params", () => {
         const handler = new UrlHandlerApi();
 
         function doTest(locationSearch, expectedQueryString) {
           window.location.search = locationSearch;
           const currentQueryState = {
-            queryString: '',
+            queryString: "",
           };
           const newQueryState = handler.get(currentQueryState);
 
           expect(newQueryState).toMatchObject({
             queryString: expectedQueryString,
           });
-          expect(typeof newQueryState['queryString']).toEqual('string');
+          expect(typeof newQueryState["queryString"]).toEqual("string");
         }
 
-        doTest('?q=123', '123');
-        doTest('?q=true', 'true');
-        doTest('?q=%22text%22', '"text"');
+        doTest("?q=123", "123");
+        doTest("?q=true", "true");
+        doTest("?q=%22text%22", '"text"');
         doTest(
-          '?q=text%20OR%20%22another%20text%22%20OR%20title%3A%22text%22',
+          "?q=text%20OR%20%22another%20text%22%20OR%20title%3A%22text%22",
           'text OR "another text" OR title:"text"'
         );
-        doTest('?q=10.7483%2FADOI.9S5F.BY3B', '10.7483/ADOI.9S5F.BY3B');
+        doTest("?q=10.7483%2FADOI.9S5F.BY3B", "10.7483/ADOI.9S5F.BY3B");
       });
 
-      it('should merge the current query state with the url params', () => {
-        const validURLSearch = '?q=test&f=category%3Avideo';
+      it("should merge the current query state with the url params", () => {
+        const validURLSearch = "?q=test&f=category%3Avideo";
         window.location.search = validURLSearch;
 
         const currentQueryState = {
-          queryString: '',
+          queryString: "",
           filters: [],
         };
         const handler = new UrlHandlerApi();
         const newQueryState = handler.get(currentQueryState);
 
         expect(newQueryState).toMatchObject({
-          queryString: 'test',
-          filters: [['category', 'video']],
+          queryString: "test",
+          filters: [["category", "video"]],
         });
         expect(window.history.pushState).toHaveBeenCalledTimes(0);
         expect(window.history.replaceState).toHaveBeenCalledWith(
           { path: validURLSearch },
-          '',
+          "",
           validURLSearch
         );
       });
 
-      it('should ignore any other extra url params', () => {
-        const validURLSearch = '?q=test';
+      it("should ignore any other extra url params", () => {
+        const validURLSearch = "?q=test";
         window.location.search = `${validURLSearch}&a=b`;
 
         const currentQueryState = {
-          queryString: '',
+          queryString: "",
         };
         const handler = new UrlHandlerApi();
         const newQueryState = handler.get(currentQueryState);
 
         expect(newQueryState).toMatchObject({
-          queryString: 'test',
+          queryString: "test",
         });
         expect(window.history.pushState).toHaveBeenCalledTimes(0);
         expect(window.history.replaceState).toHaveBeenCalledWith(
           { path: validURLSearch },
-          '',
+          "",
           validURLSearch
         );
       });
     });
 
-    describe('test set url params', () => {
-      it('should push url params with the new state', () => {
+    describe("test set url params", () => {
+      it("should push url params with the new state", () => {
         window.location.search = `?q=test&a=b`;
 
         const currentQueryState = {
-          queryString: '',
+          queryString: "",
           page: 1,
           size: 10,
         };
@@ -205,16 +201,16 @@ describe('test UrlHandlerApi', () => {
         expect(window.history.replaceState).toHaveBeenCalledTimes(0);
         expect(window.history.pushState).toHaveBeenCalledWith(
           { path: newValidURLSearch },
-          '',
+          "",
           newValidURLSearch
         );
       });
 
-      it('should replace url params with the new state', () => {
+      it("should replace url params with the new state", () => {
         window.location.search = `?q=test&a=b`;
 
         const currentQueryState = {
-          queryString: '',
+          queryString: "",
           page: 1,
           size: 10,
         };
@@ -225,50 +221,49 @@ describe('test UrlHandlerApi', () => {
         expect(window.history.pushState).toHaveBeenCalledTimes(0);
         expect(window.history.replaceState).toHaveBeenCalledWith(
           { path: newValidURLSearch },
-          '',
+          "",
           newValidURLSearch
         );
       });
     });
 
-    describe('test filters child separator', () => {
-      it('should parse filters when different separator provided', () => {
-        window.location.search =
-          '?q=test&f=category%3Avideo-video%3Anew&f=type%3Apdf';
+    describe("test filters child separator", () => {
+      it("should parse filters when different separator provided", () => {
+        window.location.search = "?q=test&f=category%3Avideo-video%3Anew&f=type%3Apdf";
 
         const currentQueryState = {
-          queryString: '',
+          queryString: "",
           filters: [],
         };
-        const handler = new UrlHandlerApi({ urlFilterSeparator: '-' });
+        const handler = new UrlHandlerApi({ urlFilterSeparator: "-" });
         const newQueryState = handler.get(currentQueryState);
 
         expect(newQueryState).toMatchObject({
-          queryString: 'test',
+          queryString: "test",
           filters: [
-            ['category', 'video', ['video', 'new']],
-            ['type', 'pdf'],
+            ["category", "video", ["video", "new"]],
+            ["type", "pdf"],
           ],
         });
       });
     });
 
-    describe('test filters errors', () => {
-      it('should filter the parameter when wrong format', () => {
-        window.location.search = '?q=test&f=category-video';
+    describe("test filters errors", () => {
+      it("should filter the parameter when wrong format", () => {
+        window.location.search = "?q=test&f=category-video";
 
         const currentQueryState = {
-          queryString: '',
+          queryString: "",
           filters: [],
         };
 
         const handler = new UrlHandlerApi({
-          urlFilterSeparator: '-',
+          urlFilterSeparator: "-",
         });
         const newQueryState = handler.get(currentQueryState);
 
         expect(newQueryState).toMatchObject({
-          queryString: 'test',
+          queryString: "test",
           filters: [],
         });
       });

@@ -6,22 +6,39 @@
  * under the terms of the MIT License; see LICENSE file for more details.
  */
 
-import PropTypes from 'prop-types';
-import React, { Component } from 'react';
-import Overridable from 'react-overridable';
-import { AppContext } from '../ReactSearchKit/AppContext';
+import PropTypes from "prop-types";
+import { Component } from "react";
+import Overridable from "react-overridable";
+import { AppContext } from "../ReactSearchKit/AppContext";
 
 class Bootstrap extends Component {
   constructor(props) {
     super(props);
-    this.appName = props.appName;
     this.searchOnInit = props.searchOnInit;
     this.eventListenerEnabled = props.eventListenerEnabled;
     this.onAppInitialized = props.onAppInitialized;
     this.searchOnUrlQueryStringChanged = props.searchOnUrlQueryStringChanged;
   }
 
-  updateQueryState = (query) => this.props.updateQueryState(query);
+  componentDidMount() {
+    if (this.eventListenerEnabled) {
+      window.addEventListener("queryChanged", this.onQueryChanged);
+    }
+    window.onpopstate = () => {
+      this.searchOnUrlQueryStringChanged();
+    };
+    this.onAppInitialized(this.searchOnInit);
+  }
+
+  componentWillUnmount() {
+    window.onpopstate = () => {};
+    window.removeEventListener("queryChanged", this.onQueryChanged);
+  }
+
+  updateQueryState = (query) => {
+    const { updateQueryState } = this.props;
+    updateQueryState(query);
+  };
 
   onQueryChanged = ({ detail: payload }) => {
     const { appName } = this.context;
@@ -42,29 +59,20 @@ class Bootstrap extends Component {
     }
   };
 
-  componentDidMount() {
-    if (this.eventListenerEnabled) {
-      window.addEventListener('queryChanged', this.onQueryChanged);
-    }
-    window.onpopstate = () => {
-      this.searchOnUrlQueryStringChanged();
-    };
-    this.onAppInitialized(this.searchOnInit);
-  }
-
   render() {
-    return <>{this.props.children}</>;
-  }
-
-  componentWillUnmount() {
-    window.onpopstate = () => {};
-    window.removeEventListener('queryChanged', this.onQueryChanged);
+    const { children } = this.props;
+    return children;
   }
 }
 
 Bootstrap.propTypes = {
   searchOnInit: PropTypes.bool,
   eventListenerEnabled: PropTypes.bool,
+  children: PropTypes.node.isRequired,
+  /* Redux */
+  onAppInitialized: PropTypes.func.isRequired,
+  updateQueryState: PropTypes.func.isRequired,
+  searchOnUrlQueryStringChanged: PropTypes.func.isRequired,
 };
 
 Bootstrap.defaultProps = {
@@ -74,4 +82,4 @@ Bootstrap.defaultProps = {
 
 Bootstrap.contextType = AppContext;
 
-export default Overridable.component('Bootstrap', Bootstrap);
+export default Overridable.component("Bootstrap", Bootstrap);

@@ -6,11 +6,7 @@
  * under the terms of the MIT License; see LICENSE file for more details.
  */
 
-import {
-  RESULTS_FETCH_ERROR,
-  RESULTS_FETCH_SUCCESS,
-  RESULTS_LOADING,
-} from '../types';
+import { RESULTS_FETCH_ERROR, RESULTS_FETCH_SUCCESS, RESULTS_LOADING } from "../types";
 
 const resultsReducer = (state = {}, action) => {
   switch (action.type) {

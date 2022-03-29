@@ -6,8 +6,8 @@
  * under the terms of the MIT License; see LICENSE file for more details.
  */
 
-import { connect } from 'react-redux';
-import ResultsLoaderComponent from './ResultsLoader';
+import { connect } from "react-redux";
+import ResultsLoaderComponent from "./ResultsLoader";
 
 export const ResultsLoader = connect((state) => ({
   loading: state.results.loading,

@@ -6,22 +6,22 @@
  * under the terms of the MIT License; see LICENSE file for more details.
  */
 
-import _cloneDeep from 'lodash/cloneDeep';
-import _isBoolean from 'lodash/isBoolean';
-import _isObject from 'lodash/isObject';
-import _isString from 'lodash/isString';
-import Qs from 'qs';
-import { UrlParamValidator } from './UrlParamValidator';
+import _cloneDeep from "lodash/cloneDeep";
+import _isBoolean from "lodash/isBoolean";
+import _isObject from "lodash/isObject";
+import _isString from "lodash/isString";
+import Qs from "qs";
+import { UrlParamValidator } from "./UrlParamValidator";
 
 const pushHistory = (query) => {
   if (window.history.pushState) {
-    window.history.pushState({ path: query }, '', query);
+    window.history.pushState({ path: query }, "", query);
   }
 };
 
 const replaceHistory = (query) => {
   if (window.history.replaceState) {
-    window.history.replaceState({ path: query }, '', query);
+    window.history.replaceState({ path: query }, "", query);
   }
 };
 
@@ -43,8 +43,8 @@ class UrlParser {
    */
   _convertValue = (key, value) => {
     switch (key) {
-      case this.paramsMapping['page']:
-      case this.paramsMapping['size']:
+      case this.paramsMapping["page"]:
+      case this.paramsMapping["size"]:
         return parseInt(value);
       default:
         return value;
@@ -54,7 +54,7 @@ class UrlParser {
    * Parse the URL query string and return an object with all the params.
    * @param {string} queryString the query string to parse
    */
-  parse(queryString = '') {
+  parse(queryString = "") {
     const parsedParams = Qs.parse(queryString, { ignoreQueryPrefix: true });
     const params = {};
     Object.entries(parsedParams).forEach((entry) => {
@@ -72,18 +72,17 @@ export class UrlHandlerApi {
     this.urlParamsMapping = _isObject(config.urlParamsMapping)
       ? config.urlParamsMapping
       : {
-          queryString: 'q',
-          sortBy: 'sort',
-          sortOrder: 'order',
-          page: 'p',
-          size: 's',
-          layout: 'l',
-          filters: 'f',
-          hiddenParams: 'hp',
+          queryString: "q",
+          sortBy: "sort",
+          sortOrder: "order",
+          page: "p",
+          size: "s",
+          layout: "l",
+          filters: "f",
+          hiddenParams: "hp",
         };
 
-    this.keepHistory =
-      config.keepHistory !== undefined ? config.keepHistory : true;
+    this.keepHistory = config.keepHistory !== undefined ? config.keepHistory : true;
     if (!_isBoolean(this.keepHistory)) {
       throw new Error(
         `"keepHistory configuration must be a boolean, ${this.keepHistory} provided.`
@@ -91,15 +90,14 @@ export class UrlHandlerApi {
     }
 
     this.urlFilterSeparator =
-      config.urlFilterSeparator !== undefined ? config.urlFilterSeparator : '+';
+      config.urlFilterSeparator !== undefined ? config.urlFilterSeparator : "+";
     if (!_isString(this.urlFilterSeparator)) {
       throw new Error(
         `"urlFilterSeparator configuration must be a string, ${this.urlFilterSeparator} provided.`
       );
     }
 
-    this.urlParamValidator =
-      config.urlParamValidator || new UrlParamValidator();
+    this.urlParamValidator = config.urlParamValidator || new UrlParamValidator();
     this.urlParser = config.urlParser || new UrlParser();
     this.urlParser.urlParamsMapping = this.urlParamsMapping;
 
@@ -122,7 +120,7 @@ export class UrlHandlerApi {
     const childFilter =
       filter.length === 3
         ? this.urlFilterSeparator.concat(this._filterListToString(filter[2]))
-        : '';
+        : "";
     return `${filter[0]}:${filter[1]}${childFilter}`;
   };
 
@@ -135,20 +133,17 @@ export class UrlHandlerApi {
       .filter((stateKey) => stateKey in this.urlParamsMapping)
       .filter((stateKey) => {
         // filter out negative or null values
-        if (
-          (stateKey === 'page' || stateKey === 'size') &&
-          queryState[stateKey] <= 0
-        ) {
+        if ((stateKey === "page" || stateKey === "size") && queryState[stateKey] <= 0) {
           return false;
         }
-        if (stateKey === 'hiddenParams') {
+        if (stateKey === "hiddenParams") {
           return false;
         }
         return queryState[stateKey] !== null;
       })
       .forEach((stateKey) => {
         const paramKey = this.urlParamsMapping[stateKey];
-        if (stateKey === 'filters') {
+        if (stateKey === "filters") {
           params[paramKey] = queryState[stateKey].map((filter) =>
             this._filterListToString(filter)
           );
@@ -158,7 +153,7 @@ export class UrlHandlerApi {
       });
 
     const keyComparator = (a, b) => {
-      const q = 'q'; // query parameter should appear first
+      const q = "q"; // query parameter should appear first
       if (a === q) {
         return -1;
       } else if (b === q) {
@@ -184,7 +179,7 @@ export class UrlHandlerApi {
     const childSepPos = filterStr.indexOf(this.urlFilterSeparator);
     const hasChild = childSepPos > -1;
 
-    const aggNamePos = filterStr.indexOf(':');
+    const aggNamePos = filterStr.indexOf(":");
     if (aggNamePos === -1) {
       throw new Error(
         `Filter "${filterStr}" not parsable. Format expected: "<agg name>:<value>"`
@@ -208,16 +203,10 @@ export class UrlHandlerApi {
     const result = {};
     Object.keys(urlParamsObj).forEach((paramKey) => {
       const queryStateKey = this.fromUrlParamsMapping[paramKey];
-      if (
-        this.urlParamValidator.isValid(
-          this,
-          queryStateKey,
-          urlParamsObj[paramKey]
-        )
-      ) {
+      if (this.urlParamValidator.isValid(this, queryStateKey, urlParamsObj[paramKey])) {
         result[queryStateKey] = urlParamsObj[paramKey];
         // custom transformation for filters
-        if (queryStateKey === 'filters') {
+        if (queryStateKey === "filters") {
           if (!Array.isArray(urlParamsObj[paramKey])) {
             // if only 1 filter, create an array with one element
             urlParamsObj[paramKey] = [urlParamsObj[paramKey]];

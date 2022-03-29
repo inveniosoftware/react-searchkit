@@ -6,20 +6,14 @@
  * under the terms of the MIT License; see LICENSE file for more details.
  */
 
-import PropTypes from 'prop-types';
-import React, { useContext } from 'react';
-import Overridable from 'react-overridable';
-import { Card, Image } from 'semantic-ui-react';
-import { AppContext } from '../ReactSearchKit';
-import { ShouldRender } from '../ShouldRender';
+import PropTypes from "prop-types";
+import React, { useContext } from "react";
+import Overridable from "react-overridable";
+import { Card, Image } from "semantic-ui-react";
+import { AppContext } from "../ReactSearchKit";
+import { ShouldRender } from "../ShouldRender";
 
-function ResultsGrid({
-  loading,
-  totalResults,
-  results,
-  resultsPerRow,
-  overridableId,
-}) {
+function ResultsGrid({ loading, totalResults, results, resultsPerRow, overridableId }) {
   return (
     <ShouldRender condition={!loading && totalResults > 0}>
       <Element
@@ -41,7 +35,7 @@ ResultsGrid.propTypes = {
 
 ResultsGrid.defaultProps = {
   resultsPerRow: 3,
-  overridableId: '',
+  overridableId: "",
 };
 
 const GridItem = ({ result, index, overridableId }) => {
@@ -49,12 +43,12 @@ const GridItem = ({ result, index, overridableId }) => {
 
   return (
     <Overridable
-      id={buildUID('ResultsGrid.item', overridableId)}
+      id={buildUID("ResultsGrid.item", overridableId)}
       result={result}
       index={index}
     >
       <Card fluid key={index} href={`#${result.id}`}>
-        <Image src={result.imgSrc || 'http://placehold.it/200'} />
+        <Image src={result.imgSrc || "http://placehold.it/200"} />
         <Card.Content>
           <Card.Header>{result.title}</Card.Header>
           <Card.Description>{result.description}</Card.Description>
@@ -64,27 +58,36 @@ const GridItem = ({ result, index, overridableId }) => {
   );
 };
 
-const Element = ({ overridableId, ...props }) => {
-  const { results, resultsPerRow } = props;
+GridItem.propTypes = {
+  result: PropTypes.object.isRequired,
+  index: PropTypes.string.isRequired,
+  overridableId: PropTypes.string.isRequired,
+};
+
+const Element = ({ overridableId, results, resultsPerRow, ...props }) => {
   const { buildUID } = useContext(AppContext);
 
   const _results = results.map((result, index) => (
-    <GridItem
-      key={index}
-      result={result}
-      index={index}
-      overridableId={overridableId}
-    />
+    // eslint-disable-next-line react/no-array-index-key
+    <GridItem key={index} result={result} index={index} overridableId={overridableId} />
   ));
 
   return (
-    <Overridable
-      id={buildUID('ResultsGrid.container', overridableId)}
-      {...props}
-    >
+    <Overridable id={buildUID("ResultsGrid.container", overridableId)} {...props}>
       <Card.Group itemsPerRow={resultsPerRow}>{_results}</Card.Group>
     </Overridable>
   );
 };
 
-export default Overridable.component('ResultsGrid', ResultsGrid);
+Element.propTypes = {
+  results: PropTypes.array.isRequired,
+  resultsPerRow: PropTypes.number,
+  overridableId: PropTypes.string,
+};
+
+Element.defaultProps = {
+  resultsPerRow: 3,
+  overridableId: "",
+};
+
+export default Overridable.component("ResultsGrid", ResultsGrid);

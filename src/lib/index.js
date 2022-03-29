@@ -6,8 +6,8 @@
  * under the terms of the MIT License; see LICENSE file for more details.
  */
 
-export * from './api';
-export * from './components';
-export * from './store';
-export * from './events';
-export { buildUID } from './util';
+export * from "./api";
+export * from "./components";
+export * from "./store";
+export * from "./events";
+export { buildUID } from "./util";

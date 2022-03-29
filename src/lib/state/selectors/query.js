@@ -6,11 +6,11 @@
  * under the terms of the MIT License; see LICENSE file for more details.
  */
 
-import Qs from 'qs';
-import _head from 'lodash/head';
-import _isArray from 'lodash/isArray';
-import _isEmpty from 'lodash/isEmpty';
-import _pick from 'lodash/pick';
+import Qs from "qs";
+import _head from "lodash/head";
+import _isArray from "lodash/isArray";
+import _isEmpty from "lodash/isEmpty";
+import _pick from "lodash/pick";
 
 /**
  * Return true if the first string starts and contains the second.
@@ -26,7 +26,7 @@ function toString(array) {
 }
 
 function parse(str) {
-  return Qs.parse(str)['q'];
+  return Qs.parse(str)["q"];
 }
 
 function removeLastChild(arr) {
@@ -47,9 +47,7 @@ function updateFilter(queryFilter, stateFilters) {
    * convert query and state to strings so they can be compared
    */
   const strQuery = toString(queryFilter);
-  const strStateFilters = stateFilters.map((stateObjQuery) =>
-    toString(stateObjQuery)
-  );
+  const strStateFilters = stateFilters.map((stateObjQuery) => toString(stateObjQuery));
 
   /**
    * filter out any state that starts with the query or any parent of the query
@@ -97,14 +95,8 @@ function updateFilter(queryFilter, stateFilters) {
       const rootParentArr = removeLastChild(queryFilter);
       const rootParentArrStrQuery = toString(rootParentArr);
       const anotherChildFound = filteredStrStates.some((strStateFilter) => {
-        const childFilterExists = startsWith(
-          strStateFilter,
-          rootParentArrStrQuery
-        );
-        const parentFilterExists = startsWith(
-          rootParentArrStrQuery,
-          strStateFilter
-        );
+        const childFilterExists = startsWith(strStateFilter, rootParentArrStrQuery);
+        const parentFilterExists = startsWith(rootParentArrStrQuery, strStateFilter);
         return childFilterExists || parentFilterExists;
       });
       if (_isEmpty(filteredStrStates) || !anotherChildFound) {
@@ -140,10 +132,7 @@ export const updateQueryFilters = (queryFilter, stateFilters) => {
 export const updateQueryState = (oldState, newState, storeKeys) => {
   let pickedState = _pick(newState, storeKeys);
   if (!_isEmpty(pickedState.filters)) {
-    pickedState['filters'] = updateQueryFilters(
-      pickedState.filters,
-      oldState.filters
-    );
+    pickedState["filters"] = updateQueryFilters(pickedState.filters, oldState.filters);
   }
   return pickedState;
 };

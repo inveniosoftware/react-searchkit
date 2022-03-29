@@ -6,9 +6,9 @@
  * under the terms of the MIT License; see LICENSE file for more details.
  */
 
-import { connect } from 'react-redux';
-import { updateQueryPaginationSize } from '../../state/actions';
-import ResultsPerPageComponent from './ResultsPerPage';
+import { connect } from "react-redux";
+import { updateQueryPaginationSize } from "../../state/actions";
+import ResultsPerPageComponent from "./ResultsPerPage";
 
 const mapDispatchToProps = (dispatch) => ({
   updateQuerySize: (size) => dispatch(updateQueryPaginationSize(size)),

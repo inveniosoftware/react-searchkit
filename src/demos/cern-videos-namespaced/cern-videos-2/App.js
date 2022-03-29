@@ -6,59 +6,59 @@
  * under the terms of the MIT License; see LICENSE file for more details.
  */
 
-import React from 'react';
-import { InvenioSearchApi } from '../../../lib/api/contrib/invenio';
+import React from "react";
+import { InvenioSearchApi } from "../../../lib/api/contrib/invenio";
 import {
   EmptyResults,
   Error,
   ReactSearchKit,
   ResultsLoader,
   withState,
-} from '../../../lib/components';
-import { Results } from '../Results';
+} from "../../../lib/components";
+import { Results } from "../Results";
 
 const OnResults = withState(Results);
 
 const sortValues = [
   {
-    text: 'Newest',
-    sortBy: 'mostrecent',
-    sortOrder: 'asc',
+    text: "Newest",
+    sortBy: "mostrecent",
+    sortOrder: "asc",
   },
   {
-    text: 'Oldest',
-    sortBy: 'oldest',
-    sortOrder: 'asc',
+    text: "Oldest",
+    sortBy: "oldest",
+    sortOrder: "asc",
   },
   {
-    text: 'Best match',
-    sortBy: 'bestmatch',
-    sortOrder: 'asc',
+    text: "Best match",
+    sortBy: "bestmatch",
+    sortOrder: "asc",
   },
 ];
 
 const resultsPerPageValues = [
   {
-    text: '10',
+    text: "10",
     value: 10,
   },
   {
-    text: '20',
+    text: "20",
     value: 20,
   },
 ];
 
 const initialState = {
-  sortBy: 'bestmatch',
-  sortOrder: 'asc',
-  layout: 'list',
+  sortBy: "bestmatch",
+  sortOrder: "asc",
+  layout: "list",
   page: 1,
   size: 10,
 };
 
 const searchApi = new InvenioSearchApi({
   axios: {
-    url: 'https://videos.cern.ch/api/records/',
+    url: "https://videos.cern.ch/api/records/",
     timeout: 5000,
   },
 });
@@ -69,18 +69,15 @@ export const App = () => (
     initialQueryState={initialState}
     urlHandlerApi={{ enabled: false }}
     defaultSortingOnEmptyQueryString={{
-      sortBy: 'mostrecent',
-      sortOrder: 'asc',
+      sortBy: "mostrecent",
+      sortOrder: "asc",
     }}
     appName="cernvideos2"
   >
     <ResultsLoader>
       <EmptyResults />
       <Error />
-      <OnResults
-        sortValues={sortValues}
-        resultsPerPageValues={resultsPerPageValues}
-      />
+      <OnResults sortValues={sortValues} resultsPerPageValues={resultsPerPageValues} />
     </ResultsLoader>
   </ReactSearchKit>
 );

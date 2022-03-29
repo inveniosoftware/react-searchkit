@@ -6,9 +6,9 @@
  * under the terms of the MIT License; see LICENSE file for more details.
  */
 
-import { connect } from 'react-redux';
-import { updateQuerySortOrder } from '../../state/actions';
-import SortOrderComponent from './SortOrder';
+import { connect } from "react-redux";
+import { updateQuerySortOrder } from "../../state/actions";
+import SortOrderComponent from "./SortOrder";
 
 const mapDispatchToProps = (dispatch) => ({
   updateQuerySortOrder: (sortOrderValue) =>

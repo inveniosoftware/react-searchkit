@@ -6,12 +6,12 @@
  * under the terms of the MIT License; see LICENSE file for more details.
  */
 
-import PropTypes from 'prop-types';
-import React, { useContext } from 'react';
-import Overridable from 'react-overridable';
-import { Item } from 'semantic-ui-react';
-import { AppContext } from '../ReactSearchKit';
-import { ShouldRender } from '../ShouldRender';
+import PropTypes from "prop-types";
+import React, { useContext } from "react";
+import Overridable from "react-overridable";
+import { Item } from "semantic-ui-react";
+import { AppContext } from "../ReactSearchKit";
+import { ShouldRender } from "../ShouldRender";
 
 function ResultsList({ loading, totalResults, results, overridableId }) {
   return (
@@ -29,7 +29,7 @@ ResultsList.propTypes = {
 };
 
 ResultsList.defaultProps = {
-  overridableId: '',
+  overridableId: "",
 };
 
 const ListItem = ({ result, index, overridableId }) => {
@@ -37,15 +37,12 @@ const ListItem = ({ result, index, overridableId }) => {
 
   return (
     <Overridable
-      id={buildUID('ResultsList.item', overridableId)}
+      id={buildUID("ResultsList.item", overridableId)}
       result={result}
       index={index}
     >
       <Item key={index} href={`#${result.id}`}>
-        <Item.Image
-          size="small"
-          src={result.imgSrc || 'http://placehold.it/200'}
-        />
+        <Item.Image size="small" src={result.imgSrc || "http://placehold.it/200"} />
         <Item.Content>
           <Item.Header>{result.title}</Item.Header>
           <Item.Description>{result.description}</Item.Description>
@@ -55,21 +52,23 @@ const ListItem = ({ result, index, overridableId }) => {
   );
 };
 
+ListItem.propTypes = {
+  result: PropTypes.object.isRequired,
+  index: PropTypes.string.isRequired,
+  overridableId: PropTypes.string.isRequired,
+};
+
 const Element = ({ results, overridableId }) => {
   const { buildUID } = useContext(AppContext);
 
   const _results = results.map((result, index) => (
-    <ListItem
-      result={result}
-      index={index}
-      key={index}
-      overridableId={overridableId}
-    />
+    // eslint-disable-next-line react/no-array-index-key
+    <ListItem result={result} index={index} key={index} overridableId={overridableId} />
   ));
 
   return (
     <Overridable
-      id={buildUID('ResultsList.container', overridableId)}
+      id={buildUID("ResultsList.container", overridableId)}
       results={_results}
     >
       <Item.Group divided relaxed link>
@@ -79,4 +78,13 @@ const Element = ({ results, overridableId }) => {
   );
 };
 
-export default Overridable.component('ResultsList', ResultsList);
+Element.propTypes = {
+  results: PropTypes.array.isRequired,
+  overridableId: PropTypes.string,
+};
+
+Element.defaultProps = {
+  overridableId: "",
+};
+
+export default Overridable.component("ResultsList", ResultsList);

@@ -7,12 +7,12 @@
  * under the terms of the MIT License; see LICENSE file for more details.
  */
 
-import PropTypes from 'prop-types';
-import React, { Component, useContext } from 'react';
-import Overridable from 'react-overridable';
-import { Dropdown } from 'semantic-ui-react';
-import { AppContext } from '../ReactSearchKit';
-import { ShouldRender } from '../ShouldRender';
+import PropTypes from "prop-types";
+import React, { Component, useContext } from "react";
+import Overridable from "react-overridable";
+import { Dropdown } from "semantic-ui-react";
+import { AppContext } from "../ReactSearchKit";
+import { ShouldRender } from "../ShouldRender";
 
 class SortBy extends Component {
   constructor(props) {
@@ -22,17 +22,23 @@ class SortBy extends Component {
   }
 
   onChange = (value) => {
-    if (value === this.props.currentSortBy) return;
+    const { currentSortBy } = this.props;
+    if (value === currentSortBy) return;
     this.updateQuerySortBy(value);
   };
 
   render() {
-    const { currentSortBy, loading, totalResults, label, overridableId, ariaLabel, selectOnNavigation } =
-      this.props;
+    const {
+      currentSortBy,
+      loading,
+      totalResults,
+      label,
+      overridableId,
+      ariaLabel,
+      selectOnNavigation,
+    } = this.props;
     return (
-      <ShouldRender
-        condition={currentSortBy !== null && !loading && totalResults > 0}
-      >
+      <ShouldRender condition={currentSortBy !== null && !loading && totalResults > 0}>
         {label(
           <Element
             currentSortBy={currentSortBy}
@@ -53,24 +59,30 @@ SortBy.propTypes = {
   loading: PropTypes.bool.isRequired,
   totalResults: PropTypes.number.isRequired,
   currentSortBy: PropTypes.string,
-  currentQueryString: PropTypes.string.isRequired,
   updateQuerySortBy: PropTypes.func.isRequired,
   label: PropTypes.func,
   overridableId: PropTypes.string,
   ariaLabel: PropTypes.string,
-  selectOnNavigation: PropTypes.bool
+  selectOnNavigation: PropTypes.bool,
 };
 
 SortBy.defaultProps = {
   currentSortBy: null,
   label: (cmp) => cmp,
-  overridableId: '',
-  ariaLabel: 'Sort Results By',
-  selectOnNavigation: false
+  overridableId: "",
+  ariaLabel: "Sort Results By",
+  selectOnNavigation: false,
 };
 
-const Element = ({ overridableId, ...props }) => {
-  const { currentSortBy, options, onValueChange, ariaLabel, selectOnNavigation } = props;
+const Element = ({
+  overridableId,
+  currentSortBy,
+  options,
+  onValueChange,
+  ariaLabel,
+  selectOnNavigation,
+  ...props
+}) => {
   const { buildUID } = useContext(AppContext);
 
   const _options = options.map((element, index) => {
@@ -78,7 +90,7 @@ const Element = ({ overridableId, ...props }) => {
   });
 
   return (
-    <Overridable id={buildUID('SortBy.element', overridableId)} {...props}>
+    <Overridable id={buildUID("SortBy.element", overridableId)} {...props}>
       <Dropdown
         selection
         compact
@@ -92,4 +104,20 @@ const Element = ({ overridableId, ...props }) => {
   );
 };
 
-export default Overridable.component('SortBy', SortBy);
+Element.propTypes = {
+  options: PropTypes.array.isRequired,
+  currentSortBy: PropTypes.string,
+  overridableId: PropTypes.string,
+  ariaLabel: PropTypes.string,
+  selectOnNavigation: PropTypes.bool,
+  onValueChange: PropTypes.func.isRequired,
+};
+
+Element.defaultProps = {
+  currentSortBy: null,
+  overridableId: "",
+  ariaLabel: "Sort Results By",
+  selectOnNavigation: false,
+};
+
+export default Overridable.component("SortBy", SortBy);

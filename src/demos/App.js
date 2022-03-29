@@ -6,39 +6,32 @@
  * under the terms of the MIT License; see LICENSE file for more details.
  */
 
-import React, { Component } from 'react';
-import {
-  Button,
-  Container,
-  Divider,
-  Header,
-  Menu,
-  Segment,
-} from 'semantic-ui-react';
-import { CERNVideosReactSearchKit } from './cern-videos';
-import NamespacedExample from './cern-videos-namespaced/app';
-import { ESReactSearchKit } from './elasticsearch';
-import { ZenodoReactSearchKit } from './zenodo';
+import React, { Component } from "react";
+import { Button, Container, Divider, Header, Menu, Segment } from "semantic-ui-react";
+import { CERNVideosReactSearchKit } from "./cern-videos";
+import NamespacedExample from "./cern-videos-namespaced/app";
+import { ESReactSearchKit } from "./elasticsearch";
+import { ZenodoReactSearchKit } from "./zenodo";
 
 const demos = {
-  es7: {
-    label: 'ElasticSearch 7',
-    text: 'You Know, for Search',
+  "es7": {
+    label: "ElasticSearch 7",
+    text: "You Know, for Search",
     cmp: <ESReactSearchKit />,
   },
-  zenodo: {
-    label: 'zenodo.org',
-    text: '(All) Research. Shared.',
+  "zenodo": {
+    label: "zenodo.org",
+    text: "(All) Research. Shared.",
     cmp: <ZenodoReactSearchKit />,
   },
-  'cern-videos': {
-    label: 'videos.cern.ch',
-    text: 'The CERN official platform for videos.',
+  "cern-videos": {
+    label: "videos.cern.ch",
+    text: "The CERN official platform for videos.",
     cmp: <CERNVideosReactSearchKit />,
   },
-  namespaced_example: {
-    label: 'video.cern.ch namespaced',
-    text: 'Example of multiple React-searchkit instances rendered at same time, namespaced by their appName, with different overridden components.',
+  "namespaced_example": {
+    label: "video.cern.ch namespaced",
+    text: "Example of multiple React-searchkit instances rendered at same time, namespaced by their appName, with different overridden components.",
     cmp: <NamespacedExample />,
   },
 };
@@ -50,7 +43,7 @@ export default class App extends Component {
   }
 
   resetUrlParams = () => {
-    window.history.pushState({}, document.title, '/');
+    window.history.pushState({}, document.title, "/");
   };
 
   renderHeader = () => {
@@ -89,6 +82,7 @@ export default class App extends Component {
   };
 
   renderContent = () => {
+    const { activeDemo } = this.state;
     const links = Object.keys(demos).map((key) => (
       <Segment placeholder textAlign="center" key={key}>
         <Header>{demos[key].label}</Header>
@@ -114,16 +108,14 @@ export default class App extends Component {
         {links}
       </Container>
     );
-    const cmp =
-      this.state.activeDemo && this.state.activeDemo in demos
-        ? demos[this.state.activeDemo].cmp
-        : defaultCmp;
+    const cmp = activeDemo && activeDemo in demos ? demos[activeDemo].cmp : defaultCmp;
 
     return <Container>{cmp}</Container>;
   };
 
   render = () => {
-    if (!this.state.activeDemo) {
+    const { activeDemo } = this.state;
+    if (!activeDemo) {
       this.resetUrlParams();
     }
     return (

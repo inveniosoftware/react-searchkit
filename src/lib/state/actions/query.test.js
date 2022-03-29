@@ -6,9 +6,9 @@
  * under the terms of the MIT License; see LICENSE file for more details.
  */
 
-import expect from 'expect';
-import configureMockStore from 'redux-mock-store';
-import thunk from 'redux-thunk';
+import expect from "expect";
+import configureMockStore from "redux-mock-store";
+import thunk from "redux-thunk";
 import {
   executeQuery,
   onAppInitialized,
@@ -16,8 +16,8 @@ import {
   updateQuerySortBy,
   updateQuerySortOrder,
   updateQueryString,
-} from '.';
-import { createStoreWithConfig } from '../../store';
+} from ".";
+import { createStoreWithConfig } from "../../store";
 import {
   RESULTS_FETCH_SUCCESS,
   RESULTS_LOADING,
@@ -25,7 +25,7 @@ import {
   SET_QUERY_SORT_BY,
   SET_QUERY_SORT_ORDER,
   SET_QUERY_STRING,
-} from '../types';
+} from "../types";
 
 let urlHandlerApiGet = jest.fn();
 let urlHandlerApiSet = jest.fn();
@@ -56,11 +56,11 @@ afterEach(() => {
   urlHandlerApiReplace.mockClear();
 });
 
-describe('test actions that update query state', () => {
+describe("test actions that update query state", () => {
   const config = {
     urlHandlerApi: null,
     searchApi: {
-      search: (query) => ({
+      search: () => ({
         aggregations: [],
         hits: [],
         total: 0,
@@ -71,7 +71,7 @@ describe('test actions that update query state', () => {
   const storeMocker = configureMockStore(middlewares);
 
   const initialState = {
-    queryString: '',
+    queryString: "",
     sortBy: null,
     sortOrder: null,
     page: null,
@@ -85,8 +85,8 @@ describe('test actions that update query state', () => {
     });
   });
 
-  it('fires a set initial state action', async () => {
-    const initialState = { queryString: 'this is my message' };
+  it("fires a set initial state action", async () => {
+    const initialState = { queryString: "this is my message" };
     const expectedActions = [
       {
         type: SET_QUERY_COMPONENT_INITIAL_STATE,
@@ -99,7 +99,7 @@ describe('test actions that update query state', () => {
     expect(actions[0]).toEqual(expectedActions[0]);
   });
 
-  it('executes a search after app init', async () => {
+  it("executes a search after app init", async () => {
     const expectedActions = [
       {
         type: RESULTS_LOADING,
@@ -116,8 +116,8 @@ describe('test actions that update query state', () => {
     expect(actions[1].type).toEqual(expectedActions[1].type);
   });
 
-  it('updates the query state with a new query string', async () => {
-    const newQueryString = 'this is my message';
+  it("updates the query state with a new query string", async () => {
+    const newQueryString = "this is my message";
     const expectedActions = [
       {
         type: SET_QUERY_STRING,
@@ -130,8 +130,8 @@ describe('test actions that update query state', () => {
     expect(actions[0]).toEqual(expectedActions[0]);
   });
 
-  it('updates the query state with a new sortBy value', async () => {
-    const newSortBy = 'mostrecent';
+  it("updates the query state with a new sortBy value", async () => {
+    const newSortBy = "mostrecent";
     const expectedActions = [
       {
         type: SET_QUERY_SORT_BY,
@@ -144,8 +144,8 @@ describe('test actions that update query state', () => {
     expect(actions[0]).toEqual(expectedActions[0]);
   });
 
-  it('updates the query state with a new sortOrder value', async () => {
-    const newSortOrder = 'desc';
+  it("updates the query state with a new sortOrder value", async () => {
+    const newSortOrder = "desc";
     const expectedActions = [
       {
         type: SET_QUERY_SORT_ORDER,
@@ -159,8 +159,8 @@ describe('test actions that update query state', () => {
   });
 });
 
-describe('test action that executes a search', () => {
-  it('should update the result state with the returned results', async () => {
+describe("test action that executes a search", () => {
+  it("should update the result state with the returned results", async () => {
     const RESULTS = {
       aggregations: [],
       hits: [],
@@ -169,13 +169,13 @@ describe('test action that executes a search', () => {
     const configNoURLhandler = {
       urlHandlerApi: null,
       searchApi: {
-        search: (query) => RESULTS,
+        search: () => RESULTS,
       },
       initialQueryState: {},
     };
     const store = createStoreWithConfig(configNoURLhandler);
     const QUERY_STATE = {
-      queryString: 'text',
+      queryString: "text",
     };
     store.getState().query = QUERY_STATE;
 
@@ -196,19 +196,19 @@ describe('test action that executes a search', () => {
     });
   });
 
-  it('should update the result state with the returned error', async () => {
+  it("should update the result state with the returned error", async () => {
     const configNoURLhandler = {
       urlHandlerApi: null,
       searchApi: {
-        search: (query) => {
-          throw Error('Ignore this error! Error wanted to test error response');
+        search: () => {
+          throw Error("Ignore this error! Error wanted to test error response");
         },
       },
       initialQueryState: {},
     };
     const store = createStoreWithConfig(configNoURLhandler);
     const QUERY_STATE = {
-      queryString: 'text',
+      queryString: "text",
     };
     store.getState().query = QUERY_STATE;
 
@@ -224,17 +224,17 @@ describe('test action that executes a search', () => {
     const resultsState = store.getState().results;
     expect(resultsState).toMatchObject({
       data: {},
-      error: Error('Ignore this error! Error wanted to test error response'),
+      error: Error("Ignore this error! Error wanted to test error response"),
       loading: false,
     });
   });
 });
 
-describe('test execute search updating URL params', () => {
+describe("test execute search updating URL params", () => {
   const configWithURLhandler = {
     urlHandlerApi: new FakeUrlHandlerApi(),
     searchApi: {
-      search: (query) => ({
+      search: () => ({
         aggregations: [],
         hits: [],
         total: 1,
@@ -242,9 +242,9 @@ describe('test execute search updating URL params', () => {
     },
   };
 
-  it('should change URL params (adds history)', async () => {
+  it("should change URL params (adds history)", async () => {
     const store = createStoreWithConfig(configWithURLhandler);
-    store.getState().query.queryString = 'text';
+    store.getState().query.queryString = "text";
 
     await store.dispatch(
       executeQuery({
@@ -256,12 +256,12 @@ describe('test execute search updating URL params', () => {
     expect(urlHandlerApiSet).toHaveBeenCalled();
     expect(urlHandlerApiReplace).not.toHaveBeenCalled();
     const call = urlHandlerApiSet.mock.calls[0][0];
-    expect(call.queryString).toEqual('text');
+    expect(call.queryString).toEqual("text");
   });
 
-  it('should replace URL params (replaces history)', async () => {
+  it("should replace URL params (replaces history)", async () => {
     const store = createStoreWithConfig(configWithURLhandler);
-    store.getState().query.queryString = 'another text';
+    store.getState().query.queryString = "another text";
 
     await store.dispatch(
       executeQuery({
@@ -273,12 +273,12 @@ describe('test execute search updating URL params', () => {
     expect(urlHandlerApiReplace).toHaveBeenCalled();
     expect(urlHandlerApiSet).not.toHaveBeenCalled();
     const call = urlHandlerApiReplace.mock.calls[0][0];
-    expect(call.queryString).toEqual('another text');
+    expect(call.queryString).toEqual("another text");
 
     urlHandlerApiReplace.mockClear();
 
     // test different combination of params
-    store.getState().query.queryString = 'another text 2';
+    store.getState().query.queryString = "another text 2";
 
     await store.dispatch(
       executeQuery({
@@ -290,33 +290,33 @@ describe('test execute search updating URL params', () => {
     expect(urlHandlerApiReplace).toHaveBeenCalled();
     expect(urlHandlerApiSet).not.toHaveBeenCalled();
     const call2 = urlHandlerApiReplace.mock.calls[0][0];
-    expect(call2.queryString).toEqual('another text 2');
+    expect(call2.queryString).toEqual("another text 2");
   });
 });
 
-describe('test execute search changing sorting', () => {
+describe("test execute search changing sorting", () => {
   const configNoURLhandler = {
     urlHandlerApi: null,
     searchApi: {
-      search: (query) => ({
+      search: () => ({
         aggregations: [],
         hits: [],
         total: 1,
       }),
     },
     initialQueryState: {
-      sortBy: 'bestmatch',
-      sortOrder: 'desc',
+      sortBy: "bestmatch",
+      sortOrder: "desc",
     },
     defaultSortingOnEmptyQueryString: {
-      sortBy: 'mostrecent',
-      sortOrder: 'asc',
+      sortBy: "mostrecent",
+      sortOrder: "asc",
     },
   };
 
-  it('should use initial sorting when query string is not empty and user did not change sorting', async () => {
+  it("should use initial sorting when query string is not empty and user did not change sorting", async () => {
     const store = createStoreWithConfig(configNoURLhandler);
-    store.getState().query.queryString = 'text';
+    store.getState().query.queryString = "text";
 
     await store.dispatch(
       executeQuery({
@@ -326,15 +326,15 @@ describe('test execute search changing sorting', () => {
     );
 
     expect(store.getState().query).toMatchObject({
-      queryString: 'text',
-      sortBy: 'bestmatch',
-      sortOrder: 'desc',
+      queryString: "text",
+      sortBy: "bestmatch",
+      sortOrder: "desc",
     });
   });
 
-  it('should use defaultSortingOnEmptyQueryString sorting when query string is empty and user did not change sorting', async () => {
+  it("should use defaultSortingOnEmptyQueryString sorting when query string is empty and user did not change sorting", async () => {
     const store = createStoreWithConfig(configNoURLhandler);
-    store.getState().query.queryString = '';
+    store.getState().query.queryString = "";
 
     await store.dispatch(
       executeQuery({
@@ -344,17 +344,17 @@ describe('test execute search changing sorting', () => {
     );
 
     expect(store.getState().query).toMatchObject({
-      queryString: '',
-      sortBy: 'mostrecent',
-      sortOrder: 'asc',
+      queryString: "",
+      sortBy: "mostrecent",
+      sortOrder: "asc",
     });
   });
 
-  it('should use sorting depending on query string value and when user did not change sorting', async () => {
+  it("should use sorting depending on query string value and when user did not change sorting", async () => {
     const store = createStoreWithConfig(configNoURLhandler);
 
     // 1: query string empty, use defaultSortingOnEmptyQueryString
-    store.getState().query.queryString = '';
+    store.getState().query.queryString = "";
 
     await store.dispatch(
       executeQuery({
@@ -364,13 +364,13 @@ describe('test execute search changing sorting', () => {
     );
 
     expect(store.getState().query).toMatchObject({
-      queryString: '',
-      sortBy: 'mostrecent',
-      sortOrder: 'asc',
+      queryString: "",
+      sortBy: "mostrecent",
+      sortOrder: "asc",
     });
 
     // 2: user set query string, use default sorting
-    store.getState().query.queryString = 'text';
+    store.getState().query.queryString = "text";
 
     await store.dispatch(
       executeQuery({
@@ -380,13 +380,13 @@ describe('test execute search changing sorting', () => {
     );
 
     expect(store.getState().query).toMatchObject({
-      queryString: 'text',
-      sortBy: 'bestmatch',
-      sortOrder: 'desc',
+      queryString: "text",
+      sortBy: "bestmatch",
+      sortOrder: "desc",
     });
 
     // 3: user cleaned empty string, use defaultSortingOnEmptyQueryString
-    store.getState().query.queryString = '';
+    store.getState().query.queryString = "";
 
     await store.dispatch(
       executeQuery({
@@ -396,20 +396,20 @@ describe('test execute search changing sorting', () => {
     );
 
     expect(store.getState().query).toMatchObject({
-      queryString: '',
-      sortBy: 'mostrecent',
-      sortOrder: 'asc',
+      queryString: "",
+      sortBy: "mostrecent",
+      sortOrder: "asc",
     });
   });
 
-  it('should use sorting selected by the user independently of the query string value', async () => {
+  it("should use sorting selected by the user independently of the query string value", async () => {
     const store = createStoreWithConfig(configNoURLhandler);
     store.getState().app.hasUserChangedSorting = true;
 
     // 1: user changes sorting and set query string
-    store.getState().query.queryString = 'text';
-    store.getState().query.sortBy = 'mostpopular';
-    store.getState().query.sortOrder = 'asc';
+    store.getState().query.queryString = "text";
+    store.getState().query.sortBy = "mostpopular";
+    store.getState().query.sortOrder = "asc";
 
     await store.dispatch(
       executeQuery({
@@ -419,15 +419,15 @@ describe('test execute search changing sorting', () => {
     );
 
     expect(store.getState().query).toMatchObject({
-      queryString: 'text',
-      sortBy: 'mostpopular',
-      sortOrder: 'asc',
+      queryString: "text",
+      sortBy: "mostpopular",
+      sortOrder: "asc",
     });
 
     // 2: user changes sorting and cleaned query string
-    store.getState().query.queryString = '';
-    store.getState().query.sortBy = 'mostpopular';
-    store.getState().query.sortOrder = 'asc';
+    store.getState().query.queryString = "";
+    store.getState().query.sortBy = "mostpopular";
+    store.getState().query.sortOrder = "asc";
 
     await store.dispatch(
       executeQuery({
@@ -437,103 +437,103 @@ describe('test execute search changing sorting', () => {
     );
 
     expect(store.getState().query).toMatchObject({
-      queryString: '',
-      sortBy: 'mostpopular',
-      sortOrder: 'asc',
+      queryString: "",
+      sortBy: "mostpopular",
+      sortOrder: "asc",
     });
   });
 });
 
-describe('execute search with specific sorting from URL params', () => {
+describe("execute search with specific sorting from URL params", () => {
   const configWithURLhandler = {
     urlHandlerApi: new FakeUrlHandlerApi(),
     searchApi: {
-      search: (query) => ({
+      search: () => ({
         aggregations: [],
         hits: [],
         total: 1,
       }),
     },
     initialQueryState: {
-      sortBy: 'bestmatch',
-      sortOrder: 'desc',
+      sortBy: "bestmatch",
+      sortOrder: "desc",
     },
     defaultSortingOnEmptyQueryString: {
-      sortBy: 'mostrecent',
-      sortOrder: 'asc',
+      sortBy: "mostrecent",
+      sortOrder: "asc",
     },
   };
 
-  it('should use the specific sorting from URL params on empty query string', async () => {
+  it("should use the specific sorting from URL params on empty query string", async () => {
     // specific sorting from URL params
     urlHandlerApiGet = jest.fn();
     urlHandlerApiGet.mockImplementation((queryState) => ({
       ...queryState,
-      sortBy: 'alphabetically',
-      sortOrder: 'asc',
+      sortBy: "alphabetically",
+      sortOrder: "asc",
     }));
 
     const store = createStoreWithConfig(configWithURLhandler);
 
-    store.getState().query.queryString = '';
+    store.getState().query.queryString = "";
 
     await store.dispatch(executeQuery());
 
     expect(store.getState().query).toMatchObject({
-      queryString: '',
-      sortBy: 'alphabetically',
-      sortOrder: 'asc',
+      queryString: "",
+      sortBy: "alphabetically",
+      sortOrder: "asc",
     });
   });
 
-  it('should use the specific sorting from URL params on query string defined', async () => {
+  it("should use the specific sorting from URL params on query string defined", async () => {
     // specific sorting from URL params
     urlHandlerApiGet = jest.fn();
     urlHandlerApiGet.mockImplementation((queryState) => ({
       ...queryState,
-      sortBy: 'alphabetically',
-      sortOrder: 'asc',
+      sortBy: "alphabetically",
+      sortOrder: "asc",
     }));
 
     const store = createStoreWithConfig(configWithURLhandler);
 
-    store.getState().query.queryString = 'text';
+    store.getState().query.queryString = "text";
 
     await store.dispatch(executeQuery());
 
     expect(store.getState().query).toMatchObject({
-      queryString: 'text',
-      sortBy: 'alphabetically',
-      sortOrder: 'asc',
+      queryString: "text",
+      sortBy: "alphabetically",
+      sortOrder: "asc",
     });
   });
 });
 
-describe('test execute search and get new query state in response', () => {
+describe("test execute search and get new query state in response", () => {
   const configNoURLhandler = {
     urlHandlerApi: null,
     searchApi: {
-      search: (query) => ({
+      search: () => ({
         aggregations: [],
         hits: [],
         total: 1,
         newQueryState: {
-          queryString: 'changed text',
-          sortBy: 'anotherSortBy',
-          sortOrder: 'anotherSortOrder',
-          wrong: 'non-existing query state key',
+          queryString: "changed text",
+          sortBy: "anotherSortBy",
+          sortOrder: "anotherSortOrder",
+          wrong: "non-existing query state key",
         },
       }),
     },
     initialQueryState: {
-      sortBy: 'bestmatch',
-      sortOrder: 'desc',
+      sortBy: "bestmatch",
+      sortOrder: "desc",
     },
   };
 
-  it('execute search and change query state when response contains a new query state', async () => {
+  it("execute search and change query state when response contains a new query state", async () => {
     const store = createStoreWithConfig(configNoURLhandler);
-    store.getState().query.queryString = 'text';
+    store.getState().query.queryString = "text";
 
     await store.dispatch(
       executeQuery({
@@ -543,18 +543,18 @@ describe('test execute search and get new query state in response', () => {
     );
 
     expect(store.getState().query).toMatchObject({
-      queryString: 'changed text',
-      sortBy: 'anotherSortBy',
-      sortOrder: 'anotherSortOrder',
+      queryString: "changed text",
+      sortBy: "anotherSortBy",
+      sortOrder: "anotherSortOrder",
     });
   });
 
-  it('execute search and change query state and URL params when response contains a new query state', async () => {
+  it("execute search and change query state and URL params when response contains a new query state", async () => {
     const store = createStoreWithConfig({
       ...configNoURLhandler,
       urlHandlerApi: new FakeUrlHandlerApi(),
     });
-    store.getState().query.queryString = 'text';
+    store.getState().query.queryString = "text";
 
     await store.dispatch(
       executeQuery({
@@ -564,9 +564,9 @@ describe('test execute search and get new query state in response', () => {
     );
 
     const EXPECTED_QUERY_STATE = {
-      queryString: 'changed text',
-      sortBy: 'anotherSortBy',
-      sortOrder: 'anotherSortOrder',
+      queryString: "changed text",
+      sortBy: "anotherSortBy",
+      sortOrder: "anotherSortOrder",
     };
     expect(store.getState().query).toMatchObject(EXPECTED_QUERY_STATE);
 

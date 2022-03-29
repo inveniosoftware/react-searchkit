@@ -6,11 +6,11 @@
  * under the terms of the MIT License; see LICENSE file for more details.
  */
 
-import PropTypes from 'prop-types';
-import React, { Component, useContext } from 'react';
-import Overridable from 'react-overridable';
-import { Icon, Label } from 'semantic-ui-react';
-import { AppContext } from '../ReactSearchKit';
+import PropTypes from "prop-types";
+import React, { Component, useContext } from "react";
+import Overridable from "react-overridable";
+import { Icon, Label } from "semantic-ui-react";
+import { AppContext } from "../ReactSearchKit";
 
 class ActiveFilters extends Component {
   constructor(props) {
@@ -52,33 +52,30 @@ class ActiveFilters extends Component {
 ActiveFilters.propTypes = {
   filters: PropTypes.array.isRequired,
   updateQueryFilters: PropTypes.func.isRequired,
-  renderElement: PropTypes.func,
   overridableId: PropTypes.string,
 };
 
 ActiveFilters.defaultProps = {
-  renderElement: null,
-  overridableId: '',
+  overridableId: "",
 };
 
-const Element = ({ overridableId, ...props }) => {
-  const { filters, removeActiveFilter, getLabel } = props;
+const Element = ({
+  overridableId,
+  filters,
+  removeActiveFilter,
+  getLabel,
+  ...props
+}) => {
   const { buildUID } = useContext(AppContext);
 
   return (
-    <Overridable
-      id={buildUID('ActiveFilters.element', overridableId)}
-      {...props}
-    >
+    <Overridable id={buildUID("ActiveFilters.element", overridableId)} {...props}>
       <>
         {filters.map((filter, index) => {
           const { label, activeFilter } = getLabel(filter);
           return (
-            <Label
-              image
-              key={index}
-              onClick={() => removeActiveFilter(activeFilter)}
-            >
+            // eslint-disable-next-line react/no-array-index-key
+            <Label image key={index} onClick={() => removeActiveFilter(activeFilter)}>
               {label}
               <Icon name="delete" />
             </Label>
@@ -89,4 +86,15 @@ const Element = ({ overridableId, ...props }) => {
   );
 };
 
-export default Overridable.component('ActiveFilters', ActiveFilters);
+Element.propTypes = {
+  filters: PropTypes.array.isRequired,
+  removeActiveFilter: PropTypes.func.isRequired,
+  getLabel: PropTypes.func.isRequired,
+  overridableId: PropTypes.string,
+};
+
+Element.defaultProps = {
+  overridableId: "",
+};
+
+export default Overridable.component("ActiveFilters", ActiveFilters);

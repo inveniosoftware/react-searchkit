@@ -6,8 +6,9 @@
  * under the terms of the MIT License; see LICENSE file for more details.
  */
 
-import React, { Component } from 'react';
-import { Grid } from 'semantic-ui-react';
+import PropTypes from "prop-types";
+import React, { Component } from "react";
+import { Grid } from "semantic-ui-react";
 import {
   ActiveFilters,
   Count,
@@ -16,18 +17,22 @@ import {
   ResultsMultiLayout,
   ResultsPerPage,
   Sort,
-} from '../../lib/components';
+} from "../../lib/components";
 
 export class Results extends Component {
   constructor(props) {
     super(props);
 
-    this.sortValues = this.props.sortValues;
-    this.resultsPerPageValues = this.props.resultsPerPageValues;
+    const { sortValues, resultsPerPageValues } = this.props;
+
+    this.sortValues = sortValues;
+    this.resultsPerPageValues = resultsPerPageValues;
   }
 
   render() {
-    const { total } = this.props.currentResultsState.data;
+    const { currentResultsState } = this.props;
+    const { data } = currentResultsState;
+    const { total } = data;
     return total ? (
       <div>
         <Grid relaxed>
@@ -35,16 +40,13 @@ export class Results extends Component {
         </Grid>
         <Grid relaxed verticalAlign="middle">
           <Grid.Column width={8}>
-            <span style={({ marginLeft: '0.5em' }, { marginRight: '0.5em' })}>
+            <span style={({ marginLeft: "0.5em" }, { marginRight: "0.5em" })}>
               <Count label={(cmp) => <> Found {cmp} results</>} />
-              <Sort
-                values={this.sortValues}
-                label={(cmp) => <> sorted by {cmp}</>}
-              />
+              <Sort values={this.sortValues} label={(cmp) => <> sorted by {cmp}</>} />
             </span>
           </Grid.Column>
           <Grid.Column width={8} textAlign="right">
-            <span style={({ marginLeft: '0.5em' }, { marginRight: '0.5em' })}>
+            <span style={({ marginLeft: "0.5em" }, { marginRight: "0.5em" })}>
               <ResultsPerPage
                 values={this.resultsPerPageValues}
                 label={(cmp) => <> Show {cmp} results per page</>}
@@ -53,7 +55,7 @@ export class Results extends Component {
             <LayoutSwitcher defaultLayout="grid" />
           </Grid.Column>
         </Grid>
-        <Grid relaxed style={{ padding: '2em 0' }}>
+        <Grid relaxed style={{ padding: "2em 0" }}>
           <ResultsMultiLayout />
         </Grid>
         <Grid relaxed verticalAlign="middle" textAlign="center">
@@ -64,6 +66,10 @@ export class Results extends Component {
   }
 }
 
-Results.propTypes = {};
+Results.propTypes = {
+  currentResultsState: PropTypes.array.isRequired,
+  sortValues: PropTypes.array.isRequired,
+  resultsPerPageValues: PropTypes.array.isRequired,
+};
 
 Results.defaultProps = {};

@@ -6,23 +6,23 @@
  * under the terms of the MIT License; see LICENSE file for more details.
  */
 
-import { shallow } from 'enzyme';
-import React from 'react';
-import { UrlHandlerApi } from '../../api';
-import { createStoreWithConfig } from '../../store';
-import { ReactSearchKit } from './ReactSearchKit';
+import { shallow } from "enzyme";
+import React from "react";
+import { UrlHandlerApi } from "../../api";
+import { createStoreWithConfig } from "../../store";
+import { ReactSearchKit } from "./ReactSearchKit";
 
-jest.mock('../Bootstrap', () => {
+jest.mock("../Bootstrap", () => {
   return {
     Bootstrap: () => {},
   };
 });
 
-jest.mock('../../store', () => ({
+jest.mock("../../store", () => ({
   createStoreWithConfig: jest.fn(),
 }));
 
-jest.mock('../../api');
+jest.mock("../../api");
 
 beforeEach(() => {
   UrlHandlerApi.mockClear();
@@ -32,9 +32,13 @@ const searchApi = new (class {})();
 
 const initialQueryState = {};
 
-describe('test ReactSearchKit component', () => {
-  it('should use default configuration', () => {
-    shallow(<ReactSearchKit searchApi={searchApi} />);
+describe("test ReactSearchKit component", () => {
+  it("should use default configuration", () => {
+    shallow(
+      <ReactSearchKit searchApi={searchApi}>
+        <div />
+      </ReactSearchKit>
+    );
 
     expect(createStoreWithConfig).toBeCalledWith(
       expect.objectContaining({
@@ -45,12 +49,11 @@ describe('test ReactSearchKit component', () => {
     expect(UrlHandlerApi.mock.calls[0]).toMatchObject({});
   });
 
-  it('should use disable UrlHandlerApi when enabled value if false', () => {
+  it("should use disable UrlHandlerApi when enabled value if false", () => {
     shallow(
-      <ReactSearchKit
-        searchApi={searchApi}
-        urlHandlerApi={{ enabled: false }}
-      />
+      <ReactSearchKit searchApi={searchApi} urlHandlerApi={{ enabled: false }}>
+        <div />
+      </ReactSearchKit>
     );
 
     expect(createStoreWithConfig).toBeCalledWith(
@@ -64,7 +67,9 @@ describe('test ReactSearchKit component', () => {
       <ReactSearchKit
         searchApi={searchApi}
         urlHandlerApi={{ enabled: false, customHandler: new (class {})() }}
-      />
+      >
+        <div />
+      </ReactSearchKit>
     );
 
     expect(createStoreWithConfig).toBeCalledWith(
@@ -75,17 +80,19 @@ describe('test ReactSearchKit component', () => {
     );
   });
 
-  it('should use inject extra config to UrlHandlerApi', () => {
+  it("should use inject extra config to UrlHandlerApi", () => {
     shallow(
       <ReactSearchKit
         searchApi={searchApi}
         urlHandlerApi={{
           enabled: true,
           overrideConfig: {
-            some: 'value',
+            some: "value",
           },
         }}
-      />
+      >
+        <div />
+      </ReactSearchKit>
     );
 
     expect(createStoreWithConfig).toBeCalledWith(
@@ -95,16 +102,15 @@ describe('test ReactSearchKit component', () => {
       })
     );
     expect(UrlHandlerApi.mock.calls[0][0]).toMatchObject({
-      some: 'value',
+      some: "value",
     });
   });
 
-  it('should use inject initialQueryState in the configuration', () => {
+  it("should use inject initialQueryState in the configuration", () => {
     shallow(
-      <ReactSearchKit
-        searchApi={searchApi}
-        initialQueryState={initialQueryState}
-      />
+      <ReactSearchKit searchApi={searchApi} initialQueryState={initialQueryState}>
+        <div />
+      </ReactSearchKit>
     );
 
     expect(createStoreWithConfig).toBeCalledWith(
@@ -115,7 +121,7 @@ describe('test ReactSearchKit component', () => {
     );
   });
 
-  it('should use custom class for UrlHandlerApi when provided', () => {
+  it("should use custom class for UrlHandlerApi when provided", () => {
     const mockedCustomUrlHandlerApi = new (class {})();
     shallow(
       <ReactSearchKit
@@ -124,7 +130,9 @@ describe('test ReactSearchKit component', () => {
           enabled: true,
           customHandler: mockedCustomUrlHandlerApi,
         }}
-      />
+      >
+        <div />
+      </ReactSearchKit>
     );
 
     expect(createStoreWithConfig).toBeCalledWith(
@@ -135,34 +143,34 @@ describe('test ReactSearchKit component', () => {
     );
   });
 
-  it('should use layout options in the initialQueryState', () => {
+  it("should use layout options in the initialQueryState", () => {
     shallow(
       <ReactSearchKit
         searchApi={searchApi}
         initialQueryState={{
-          layout: 'grid',
+          layout: "grid",
         }}
-      />
+      >
+        <div />
+      </ReactSearchKit>
     );
 
     expect(createStoreWithConfig).toBeCalledWith(
       expect.objectContaining({
         searchApi: searchApi,
-        initialQueryState: { layout: 'grid' },
+        initialQueryState: { layout: "grid" },
       })
     );
   });
 
-  it('should inject configuration to Bootstrap when provided', () => {
+  it("should inject configuration to Bootstrap when provided", () => {
     const rsk = shallow(
-      <ReactSearchKit
-        searchApi={searchApi}
-        searchOnInit={false}
-        appName={'myApp'}
-      />
+      <ReactSearchKit searchApi={searchApi} searchOnInit={false} appName="myApp">
+        <div />
+      </ReactSearchKit>
     );
     const bootstrapComponent = rsk.childAt(0).childAt(0);
-    expect(bootstrapComponent.prop('searchOnInit')).toBe(false);
-    expect(bootstrapComponent.prop('eventListenerEnabled')).toBe(false);
+    expect(bootstrapComponent.prop("searchOnInit")).toBe(false);
+    expect(bootstrapComponent.prop("eventListenerEnabled")).toBe(false);
   });
 });

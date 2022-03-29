@@ -7,7 +7,7 @@
  */
 
 export const INITIAL_QUERY_STATE = {
-  queryString: '',
+  queryString: "",
   suggestions: [],
   sortBy: null,
   sortOrder: null,

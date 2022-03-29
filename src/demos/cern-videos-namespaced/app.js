@@ -1,53 +1,56 @@
-import React from 'react';
-import { CERNVideosReactSearchKit2 } from './cern-videos-2';
-import { CERNVideosReactSearchKit3 } from './cern-videos-3';
-import { Card, Grid, Image, Item } from 'semantic-ui-react';
-import { OverridableContext } from 'react-overridable';
-import _truncate from 'lodash/truncate';
+/* eslint-disable react/display-name */
+/* eslint-disable react/prop-types */
+import _truncate from "lodash/truncate";
+import React from "react";
+import { OverridableContext } from "react-overridable";
+import { Card, Grid, Image, Item } from "semantic-ui-react";
+import { CERNVideosReactSearchKit2 } from "./cern-videos-2";
+import { CERNVideosReactSearchKit3 } from "./cern-videos-3";
 
+const CERNVideosResultsListItem =
+  (imageShown) =>
+  ({ result, index }) => {
+    const metadata = result.metadata;
+    return (
+      <Item key={index} href={`#${metadata.recid}`}>
+        {imageShown && (
+          <Item.Image size="small" src={result.imageSrc || "http://placehold.it/200"} />
+        )}
+        <Item.Content>
+          <Item.Header>{metadata.title.title}</Item.Header>
+          <Item.Description>
+            {_truncate(metadata.description, { length: 200 })}
+          </Item.Description>
+        </Item.Content>
+      </Item>
+    );
+  };
 
-const CERNVideosResultsListItem = (imageShown) => ({ result, index }) => {
-  const metadata = result.metadata;
-  return (
-    <Item key={index} href={`#${metadata.recid}`}>
-      {imageShown && <Item.Image
-        size='small'
-        src={result.imageSrc || 'http://placehold.it/200'}
-      />
-      }
-      <Item.Content>
-        <Item.Header>
-          {metadata.title.title}
-        </Item.Header>
-        <Item.Description>
-          {_truncate(metadata.description, { length: 200 })}
-        </Item.Description>
-      </Item.Content>
-    </Item>
-  );
-};
-
-const CERNVideosResultsGridItem = (blueTitle) => ({ result, index }) => {
-  const metadata = result.metadata;
-  return (
-    <Card fluid key={index} href={`#${metadata.recid}`}>
-      <Image src={result.imageSrc || 'http://placehold.it/200'} />
-      <Card.Content>
-        <Card.Header style={{color: blueTitle ? 'blue' : 'black' }}>{metadata.title.title}</Card.Header>
-        <Card.Meta>{metadata.publication_date}</Card.Meta>
-        <Card.Description>
-          {_truncate(metadata.description, { length: 200 })}
-        </Card.Description>
-      </Card.Content>
-    </Card>
-  );
-};
+const CERNVideosResultsGridItem =
+  (blueTitle) =>
+  ({ result, index }) => {
+    const metadata = result.metadata;
+    return (
+      <Card fluid key={index} href={`#${metadata.recid}`}>
+        <Image src={result.imageSrc || "http://placehold.it/200"} />
+        <Card.Content>
+          <Card.Header style={{ color: blueTitle ? "blue" : "black" }}>
+            {metadata.title.title}
+          </Card.Header>
+          <Card.Meta>{metadata.publication_date}</Card.Meta>
+          <Card.Description>
+            {_truncate(metadata.description, { length: 200 })}
+          </Card.Description>
+        </Card.Content>
+      </Card>
+    );
+  };
 
 const overriddenComponents = {
-  'cernvideos2.ResultsList.item': CERNVideosResultsListItem(true),
-  'cernvideos2.ResultsGrid.item': CERNVideosResultsGridItem(false),
-  'cernvideos3.ResultsList.item': CERNVideosResultsListItem(false),
-  'cernvideos3.ResultsGrid.item': CERNVideosResultsGridItem(true),
+  "cernvideos2.ResultsList.item": CERNVideosResultsListItem(true),
+  "cernvideos2.ResultsGrid.item": CERNVideosResultsGridItem(false),
+  "cernvideos3.ResultsList.item": CERNVideosResultsListItem(false),
+  "cernvideos3.ResultsGrid.item": CERNVideosResultsGridItem(true),
 };
 
 const NamespacedExample = () => {
@@ -68,4 +71,3 @@ const NamespacedExample = () => {
 };
 
 export default NamespacedExample;
-

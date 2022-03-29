@@ -6,4 +6,4 @@
  * under the terms of the MIT License; see LICENSE file for more details.
  */
 
-export { App as ESReactSearchKit } from './App';
+export { App as ESReactSearchKit } from "./App";

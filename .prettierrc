@@ -1,4 +1,1 @@
-{
-  "singleQuote": true,
-  "trailingComma": "es5"
-}
+"@inveniosoftware/eslint-config-invenio/prettier-config"

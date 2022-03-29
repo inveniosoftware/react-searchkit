@@ -6,11 +6,8 @@
  * under the terms of the MIT License; see LICENSE file for more details.
  */
 
-import {
-  INITIAL_QUERY_STATE,
-  INITIAL_QUERY_STATE_KEYS,
-} from '../../storeConfig';
-import { updateQueryFilters, updateQueryState } from '../selectors';
+import { INITIAL_QUERY_STATE, INITIAL_QUERY_STATE_KEYS } from "../../storeConfig";
+import { updateQueryFilters, updateQueryState } from "../selectors";
 import {
   CLEAR_QUERY_SUGGESTIONS,
   RESET_QUERY,
@@ -26,7 +23,7 @@ import {
   SET_QUERY_STRING,
   SET_QUERY_SUGGESTIONS,
   SET_SUGGESTION_STRING,
-} from '../types';
+} from "../types";
 
 const queryReducer = (state = {}, action) => {
   switch (action.type) {

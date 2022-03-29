@@ -6,13 +6,13 @@
  * under the terms of the MIT License; see LICENSE file for more details.
  */
 
-import _get from 'lodash/get';
-import PropTypes from 'prop-types';
-import React, { Component, useContext } from 'react';
-import Overridable from 'react-overridable';
-import { Card } from 'semantic-ui-react';
-import { AppContext } from '../ReactSearchKit';
-import BucketAggregationValues from './BucketAggregationValues';
+import _get from "lodash/get";
+import PropTypes from "prop-types";
+import React, { Component, useContext } from "react";
+import Overridable from "react-overridable";
+import { Card } from "semantic-ui-react";
+import { AppContext } from "../ReactSearchKit";
+import BucketAggregationValues from "./BucketAggregationValues";
 
 class BucketAggregation extends Component {
   constructor(props) {
@@ -43,34 +43,28 @@ class BucketAggregation extends Component {
 
   _getSelectedFilters = (userSelectionFilters) => {
     // get selected filters for this field only
-    return userSelectionFilters.filter(
-      (filter) => filter[0] === this.agg.aggName
-    );
+    return userSelectionFilters.filter((filter) => filter[0] === this.agg.aggName);
   };
 
   _getResultBuckets = (resultsAggregations) => {
     // get buckets of this field
     const thisAggs = _get(resultsAggregations, this.agg.aggName, {});
-    if ('buckets' in thisAggs) {
-      if (!Array.isArray(thisAggs['buckets'])) {
+    if ("buckets" in thisAggs) {
+      if (!Array.isArray(thisAggs["buckets"])) {
         // buckets can be objects or arrays: convert to array if object
         // to keep it consistent
-        thisAggs['buckets'] = Object.entries(thisAggs['buckets']).map(
+        thisAggs["buckets"] = Object.entries(thisAggs["buckets"]).map(
           ([key, value]) => ({ ...value, key })
         );
       }
-      return thisAggs['buckets'];
+      return thisAggs["buckets"];
     }
     return [];
   };
 
   render() {
-    const {
-      userSelectionFilters,
-      resultsAggregations,
-      overridableId,
-      ...props
-    } = this.props;
+    const { userSelectionFilters, resultsAggregations, overridableId, ...props } =
+      this.props;
     const selectedFilters = this._getSelectedFilters(userSelectionFilters);
     const resultBuckets = this._getResultBuckets(resultsAggregations);
     const valuesCmp = resultBuckets.length
@@ -93,7 +87,7 @@ BucketAggregation.propTypes = {
     field: PropTypes.string.isRequired,
     aggName: PropTypes.string.isRequired,
     childAgg: PropTypes.object,
-  }),
+  }).isRequired,
   userSelectionFilters: PropTypes.array.isRequired,
   resultsAggregations: PropTypes.object.isRequired,
   updateQueryFilters: PropTypes.func.isRequired,
@@ -105,19 +99,15 @@ BucketAggregation.propTypes = {
 BucketAggregation.defaultProps = {
   renderValuesContainerElement: null,
   renderValueElement: null,
-  overridableId: '',
+  overridableId: "",
 };
 
-const Element = ({ overridableId, ...props }) => {
-  const { title, containerCmp } = props;
+const Element = ({ overridableId, title, containerCmp, ...props }) => {
   const { buildUID } = useContext(AppContext);
 
   return (
     containerCmp && (
-      <Overridable
-        id={buildUID('BucketAggregation.element', overridableId)}
-        {...props}
-      >
+      <Overridable id={buildUID("BucketAggregation.element", overridableId)} {...props}>
         <Card>
           <Card.Content>
             <Card.Header>{title}</Card.Header>
@@ -129,4 +119,14 @@ const Element = ({ overridableId, ...props }) => {
   );
 };
 
-export default Overridable.component('BucketAggregation', BucketAggregation);
+Element.propTypes = {
+  title: PropTypes.array.isRequired,
+  containerCmp: PropTypes.node.isRequired,
+  overridableId: PropTypes.string,
+};
+
+Element.defaultProps = {
+  overridableId: "",
+};
+
+export default Overridable.component("BucketAggregation", BucketAggregation);

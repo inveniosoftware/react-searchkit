@@ -6,11 +6,7 @@
  * under the terms of the MIT License; see LICENSE file for more details.
  */
 
-import {
-  SET_QUERY_SORTING,
-  SET_QUERY_SORT_BY,
-  SET_QUERY_SORT_ORDER,
-} from '../types';
+import { SET_QUERY_SORTING, SET_QUERY_SORT_BY, SET_QUERY_SORT_ORDER } from "../types";
 
 const appReducer = (state = {}, action) => {
   switch (action.type) {

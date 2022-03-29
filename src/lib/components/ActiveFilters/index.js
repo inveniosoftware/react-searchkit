@@ -6,9 +6,9 @@
  * under the terms of the MIT License; see LICENSE file for more details.
  */
 
-import { connect } from 'react-redux';
-import { updateQueryFilters } from '../../state/actions';
-import ActiveFiltersComponent from './ActiveFilters';
+import { connect } from "react-redux";
+import { updateQueryFilters } from "../../state/actions";
+import ActiveFiltersComponent from "./ActiveFilters";
 
 const mapDispatchToProps = (dispatch) => ({
   updateQueryFilters: (filter) => dispatch(updateQueryFilters(filter)),

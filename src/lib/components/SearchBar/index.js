@@ -6,9 +6,9 @@
  * under the terms of the MIT License; see LICENSE file for more details.
  */
 
-import { connect } from 'react-redux';
-import { updateQueryString } from '../../state/actions';
-import SearchBarComponent from './SearchBar';
+import { connect } from "react-redux";
+import { updateQueryString } from "../../state/actions";
+import SearchBarComponent from "./SearchBar";
 
 const mapDispatchToProps = (dispatch) => ({
   updateQueryString: (query) => dispatch(updateQueryString(query)),

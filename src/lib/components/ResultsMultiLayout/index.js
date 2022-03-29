@@ -6,8 +6,8 @@
  * under the terms of the MIT License; see LICENSE file for more details.
  */
 
-import { connect } from 'react-redux';
-import ResultsMultiLayoutComponent from './ResultsMultiLayout';
+import { connect } from "react-redux";
+import ResultsMultiLayoutComponent from "./ResultsMultiLayout";
 
 export const ResultsMultiLayout = connect((state) => ({
   loading: state.results.loading,

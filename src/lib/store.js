@@ -6,15 +6,15 @@
  * under the terms of the MIT License; see LICENSE file for more details.
  */
 
-import _isEmpty from 'lodash/isEmpty';
-import { applyMiddleware, createStore } from 'redux';
-import thunk from 'redux-thunk';
-import rootReducer from './state/reducers';
+import _isEmpty from "lodash/isEmpty";
+import { applyMiddleware, createStore } from "redux";
+import thunk from "redux-thunk";
+import rootReducer from "./state/reducers";
 import {
   INITIAL_APP_STATE,
   INITIAL_QUERY_STATE,
   INITIAL_RESULTS_STATE,
-} from './storeConfig';
+} from "./storeConfig";
 
 function isSortingDifferent(
   { sortBy: sortBy1, sortOrder: sortOrder1 },
@@ -37,9 +37,7 @@ function urlParamsChangedSorting(
     initialQueryState
   );
 
-  const isDefaultOnEmptyDefined = !_isEmpty(
-    appConfig.defaultSortingOnEmptyQueryString
-  );
+  const isDefaultOnEmptyDefined = !_isEmpty(appConfig.defaultSortingOnEmptyQueryString);
   let differDefaultOnEmtpy = false;
   if (isDefaultOnEmptyDefined) {
     differDefaultOnEmtpy = isSortingDifferent(

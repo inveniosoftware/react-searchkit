@@ -6,10 +6,10 @@
  * under the terms of the MIT License; see LICENSE file for more details.
  */
 
-import { combineReducers } from 'redux';
-import appReducer from './app';
-import queryReducer from './query';
-import resultsReducer from './results';
+import { combineReducers } from "redux";
+import appReducer from "./app";
+import queryReducer from "./query";
+import resultsReducer from "./results";
 
 export default combineReducers({
   app: appReducer,

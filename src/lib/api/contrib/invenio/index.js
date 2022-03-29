@@ -6,8 +6,8 @@
  * under the terms of the MIT License; see LICENSE file for more details.
  */
 
-export { InvenioRequestSerializer } from './InvenioRequestSerializer';
-export { InvenioResponseSerializer } from './InvenioResponseSerializer';
-export { InvenioSearchApi } from './InvenioSearchApi';
-export { InvenioSuggestionApi } from './InvenioSuggestionApi';
-export { InvenioRecordsResourcesRequestSerializer } from './InvenioRecordsResourcesRequestSerializer';
+export { InvenioRequestSerializer } from "./InvenioRequestSerializer";
+export { InvenioResponseSerializer } from "./InvenioResponseSerializer";
+export { InvenioSearchApi } from "./InvenioSearchApi";
+export { InvenioSuggestionApi } from "./InvenioSuggestionApi";
+export { InvenioRecordsResourcesRequestSerializer } from "./InvenioRecordsResourcesRequestSerializer";

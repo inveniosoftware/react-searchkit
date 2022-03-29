@@ -6,38 +6,33 @@
  * under the terms of the MIT License; see LICENSE file for more details.
  */
 
-import PropTypes from 'prop-types';
-import React, { useContext } from 'react';
-import Overridable from 'react-overridable';
-import { AppContext } from '../ReactSearchKit';
-import { ResultsGrid } from '../ResultsGrid';
-import { ResultsList } from '../ResultsList';
-import { ShouldRender } from '../ShouldRender';
+import PropTypes from "prop-types";
+import React, { useContext } from "react";
+import Overridable from "react-overridable";
+import { AppContext } from "../ReactSearchKit";
+import { ResultsGrid } from "../ResultsGrid";
+import { ResultsList } from "../ResultsList";
+import { ShouldRender } from "../ShouldRender";
 
-function ResultsMultiLayout({
-  loading,
-  totalResults,
-  currentLayout,
-  overridableId,
-}) {
+function ResultsMultiLayout({ loading, totalResults, currentLayout, overridableId }) {
   return (
-    <ShouldRender
-      condition={currentLayout != null && !loading && totalResults > 0}
-    >
+    <ShouldRender condition={currentLayout != null && !loading && totalResults > 0}>
       <Element layout={currentLayout} overridableId={overridableId} />
     </ShouldRender>
   );
 }
 
 ResultsMultiLayout.propTypes = {
-  totalResults: PropTypes.number.isRequired,
   currentLayout: PropTypes.string,
   overridableId: PropTypes.string,
+  /* REDUX */
+  loading: PropTypes.bool.isRequired,
+  totalResults: PropTypes.number.isRequired,
 };
 
 ResultsMultiLayout.defaultProps = {
   currentLayout: null,
-  overridableId: '',
+  overridableId: "",
 };
 
 const Element = ({ layout, overridableId }) => {
@@ -45,12 +40,12 @@ const Element = ({ layout, overridableId }) => {
 
   return (
     <Overridable
-      id={buildUID('ResultsMultiLayout.element', overridableId)}
+      id={buildUID("ResultsMultiLayout.element", overridableId)}
       layout={layout}
       ResultsList={ResultsList}
       ResultsGrid={ResultsGrid}
     >
-      {layout === 'list' ? (
+      {layout === "list" ? (
         <ResultsList overridableId={overridableId} />
       ) : (
         <ResultsGrid overridableId={overridableId} />
@@ -59,4 +54,14 @@ const Element = ({ layout, overridableId }) => {
   );
 };
 
-export default Overridable.component('ResultsMultiLayout', ResultsMultiLayout);
+Element.propTypes = {
+  layout: PropTypes.string,
+  overridableId: PropTypes.string,
+};
+
+Element.defaultProps = {
+  layout: "",
+  overridableId: "",
+};
+
+export default Overridable.component("ResultsMultiLayout", ResultsMultiLayout);

@@ -6,7 +6,7 @@
  * under the terms of the MIT License; see LICENSE file for more details.
  */
 
-import _isEmpty from 'lodash/isEmpty';
+import _isEmpty from "lodash/isEmpty";
 
 export class ESRequestSerializer {
   constructor() {
@@ -22,7 +22,7 @@ export class ESRequestSerializer {
 
     const bodyParams = {};
     if (!_isEmpty(queryString)) {
-      bodyParams['query'] = {
+      bodyParams["query"] = {
         query_string: {
           query: queryString,
         },
@@ -30,18 +30,18 @@ export class ESRequestSerializer {
     }
     if (sortBy) {
       const sortObj = {};
-      sortObj[sortBy] = sortOrder && sortOrder === 'desc' ? 'desc' : 'asc';
-      bodyParams['sort'] = sortObj;
+      sortObj[sortBy] = sortOrder && sortOrder === "desc" ? "desc" : "asc";
+      bodyParams["sort"] = sortObj;
     }
 
     if (size > 0) {
-      bodyParams['size'] = size;
+      bodyParams["size"] = size;
     }
 
     if (page > 0) {
       const s = size > 0 ? size : 0;
       const from = (page - 1) * s;
-      bodyParams['from'] = from;
+      bodyParams["from"] = from;
     }
 
     return bodyParams;

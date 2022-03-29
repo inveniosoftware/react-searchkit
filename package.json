@@ -20,7 +20,8 @@
     "watch": "NODE_ENV=development rollup --watch -c",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "lint": "eslint src/**/*.js"
+    "lint": "eslint src/ --ext .js --max-warnings=0",
+    "format": "prettier --write \"src/**/*.js\""
   },
   "peerDependencies": {
     "@babel/runtime": "^7.9.0",
@@ -39,6 +40,7 @@
   },
   "devDependencies": {
     "@babel/cli": "^7.11.0",
+    "@inveniosoftware/eslint-config-invenio": "^1.0.5",
     "@rollup/plugin-babel": "^5.2.0",
     "@rollup/plugin-commonjs": "^15.1.0",
     "@rollup/plugin-node-resolve": "^9.0.0",

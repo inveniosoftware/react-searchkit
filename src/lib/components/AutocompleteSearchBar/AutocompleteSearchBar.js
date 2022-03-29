@@ -1,3 +1,8 @@
+/* eslint-disable no-unused-vars */
+/* eslint-disable react/no-this-in-sfc */
+/* eslint-disable react/destructuring-assignment */
+/* eslint-disable react/prop-types */
+/* eslint-disable react/require-default-props */
 /*
  * This file is part of React-SearchKit.
  * Copyright (C) 2019-2022 CERN.
@@ -6,13 +11,13 @@
  * under the terms of the MIT License; see LICENSE file for more details.
  */
 
-import _ from 'lodash';
-import PropTypes from 'prop-types';
-import React, { Component, useContext } from 'react';
-import Overridable from 'react-overridable';
-import { Input } from 'semantic-ui-react';
-import { AppContext } from '../ReactSearchKit';
-import './AutocompleteSearchBar.scss';
+import _ from "lodash";
+import PropTypes from "prop-types";
+import React, { Component, useContext } from "react";
+import Overridable from "react-overridable";
+import { Input } from "semantic-ui-react";
+import { AppContext } from "../ReactSearchKit";
+import "./AutocompleteSearchBar.scss";
 
 class AutocompleteSearchBar extends Component {
   constructor(props) {
@@ -26,7 +31,7 @@ class AutocompleteSearchBar extends Component {
     this.clearSuggestions = this.props.clearSuggestions;
     this.minCharsToAutocomplete = this.props.minCharsToAutocomplete;
     this.state = {
-      currentValue: this.props.queryString || '',
+      currentValue: this.props.queryString || "",
     };
     this.handleAutocompleteChange =
       props.handleAutocompleteChange || this._handleAutocompleteChange;
@@ -80,42 +85,43 @@ AutocompleteSearchBar.propTypes = {
 
 AutocompleteSearchBar.defaultProps = {
   handleAutocompleteChange: null,
-  placeholder: 'Type something',
+  placeholder: "Type something",
   minCharsToAutocomplete: 3,
-  overridableId: '',
+  overridableId: "",
 };
 
 const AutocompleteSearchBarUncontrolled = (props) => (
   <AutocompleteSearchBar key={props.queryString} {...props} />
 );
 
-const Element = ({ overridableId, ...props }) => {
-  const {
-    placeholder,
-    queryString,
-    querySuggestions,
-    onInputChange,
-    executeSearch,
-  } = props;
+const Element = ({
+  overridableId,
+  placeholder,
+  queryString,
+  querySuggestions,
+  onInputChange,
+  executeSearch,
+  ...props
+}) => {
   const { buildUID } = useContext(AppContext);
   const onBtnSearchClick = (event, input) => {
     executeSearch();
   };
   const onKeyPress = (event, input) => {
-    if (event.key === 'Enter') {
+    if (event.key === "Enter") {
       executeSearch();
     }
   };
 
   return (
     <Overridable
-      id={buildUID('AutocompleteSearchBar.element', overridableId)}
+      id={buildUID("AutocompleteSearchBar.element", overridableId)}
       {...props}
     >
       <div className="AutoCompleteText">
         <Input
           action={{
-            content: 'Search',
+            content: "Search",
             onClick: onBtnSearchClick,
           }}
           fluid
@@ -152,7 +158,7 @@ const Suggestions = ({ overridableId, ...props }) => {
 
   return (
     <Overridable
-      id={buildUID('AutocompleteSearchBar.suggestions', overridableId)}
+      id={buildUID("AutocompleteSearchBar.suggestions", overridableId)}
       {...props}
     >
       <ul>
@@ -167,6 +173,6 @@ const Suggestions = ({ overridableId, ...props }) => {
 };
 
 export default Overridable.component(
-  'AutocompleteSearchBar',
+  "AutocompleteSearchBar",
   AutocompleteSearchBarUncontrolled
 );

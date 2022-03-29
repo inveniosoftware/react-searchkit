@@ -6,9 +6,9 @@
  * under the terms of the MIT License; see LICENSE file for more details.
  */
 
-import { connect } from 'react-redux';
-import { resetQuery } from '../../state/actions';
-import EmptyResultsComponent from './EmptyResults';
+import { connect } from "react-redux";
+import { resetQuery } from "../../state/actions";
+import EmptyResultsComponent from "./EmptyResults";
 
 const mapDispatchToProps = (dispatch) => ({
   resetQuery: () => dispatch(resetQuery()),

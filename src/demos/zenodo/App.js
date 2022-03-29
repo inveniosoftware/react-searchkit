@@ -1,24 +1,17 @@
 /*
  * This file is part of React-SearchKit.
- * Copyright (C) 2019 CERN.
+ * Copyright (C) 2019-2022 CERN.
  *
  * React-SearchKit is free software; you can redistribute it and/or modify it
  * under the terms of the MIT License; see LICENSE file for more details.
  */
 
-import _truncate from 'lodash/truncate';
-import React, { Component } from 'react';
-import { OverridableContext } from 'react-overridable';
-import {
-  Accordion,
-  Card,
-  Container,
-  Grid,
-  Image,
-  Item,
-  Menu,
-} from 'semantic-ui-react';
-import { InvenioSearchApi } from '../../lib/api/contrib/invenio';
+import _truncate from "lodash/truncate";
+import PropTypes from "prop-types";
+import React, { Component } from "react";
+import { OverridableContext } from "react-overridable";
+import { Accordion, Card, Container, Grid, Image, Item, Menu } from "semantic-ui-react";
+import { InvenioSearchApi } from "../../lib/api/contrib/invenio";
 import {
   BucketAggregation,
   EmptyResults,
@@ -27,66 +20,66 @@ import {
   ResultsLoader,
   SearchBar,
   withState,
-} from '../../lib/components';
-import { Results } from './Results';
+} from "../../lib/components";
+import { Results } from "./Results";
 
 const OnResults = withState(Results);
 
 const sortValues = [
   {
-    text: 'Most viewed',
-    sortBy: 'mostviewed',
-    sortOrder: 'asc',
+    text: "Most viewed",
+    sortBy: "mostviewed",
+    sortOrder: "asc",
   },
   {
-    text: 'Least viewed',
-    sortBy: 'mostviewed',
-    sortOrder: 'desc',
+    text: "Least viewed",
+    sortBy: "mostviewed",
+    sortOrder: "desc",
   },
   {
-    text: 'Best match',
-    sortBy: 'bestmatch',
-    sortOrder: 'asc',
+    text: "Best match",
+    sortBy: "bestmatch",
+    sortOrder: "asc",
   },
   {
-    text: 'Newest',
-    sortBy: 'mostrecent',
-    sortOrder: 'asc',
+    text: "Newest",
+    sortBy: "mostrecent",
+    sortOrder: "asc",
   },
   {
-    text: 'Oldest',
-    sortBy: 'mostrecent',
-    sortOrder: 'desc',
+    text: "Oldest",
+    sortBy: "mostrecent",
+    sortOrder: "desc",
   },
 ];
 
 const resultsPerPageValues = [
   {
-    text: '10',
+    text: "10",
     value: 10,
   },
   {
-    text: '20',
+    text: "20",
     value: 20,
   },
   {
-    text: '50',
+    text: "50",
     value: 50,
   },
 ];
 
 const searchApi = new InvenioSearchApi({
   axios: {
-    url: 'https://zenodo.org/api/records/',
+    url: "https://zenodo.org/api/records/",
     timeout: 5000,
-    headers: { Accept: 'application/vnd.zenodo.v1+json' },
+    headers: { Accept: "application/vnd.zenodo.v1+json" },
   },
 });
 
 const initialState = {
-  sortBy: 'bestmatch',
-  sortOrder: 'asc',
-  layout: 'list',
+  sortBy: "bestmatch",
+  sortOrder: "asc",
+  layout: "list",
   page: 1,
   size: 10,
 };
@@ -94,11 +87,8 @@ const initialState = {
 export const ZenodoResultsListItem = ({ result, index }) => {
   const metadata = result.metadata;
   return (
-    <Item key={index} href={`#`}>
-      <Item.Image
-        size="small"
-        src={result.imageSrc || 'http://placehold.it/200'}
-      />
+    <Item key={index} href="#">
+      <Item.Image size="small" src={result.imageSrc || "http://placehold.it/200"} />
       <Item.Content>
         <Item.Header>{metadata.title}</Item.Header>
         <Item.Description>
@@ -109,11 +99,16 @@ export const ZenodoResultsListItem = ({ result, index }) => {
   );
 };
 
+ZenodoResultsListItem.propTypes = {
+  result: PropTypes.object.isRequired,
+  index: PropTypes.string.isRequired,
+};
+
 export const ZenodoResultsGridItem = ({ result, index }) => {
   const metadata = result.metadata;
   return (
-    <Card fluid key={index} href={`#`}>
-      <Image src={result.imageSrc || 'http://placehold.it/200'} />
+    <Card fluid key={index} href="#">
+      <Image src={result.imageSrc || "http://placehold.it/200"} />
       <Card.Content>
         <Card.Header>{metadata.title}</Card.Header>
         <Card.Description>
@@ -124,9 +119,14 @@ export const ZenodoResultsGridItem = ({ result, index }) => {
   );
 };
 
+ZenodoResultsGridItem.propTypes = {
+  result: PropTypes.object.isRequired,
+  index: PropTypes.string.isRequired,
+};
+
 const overriddenComponents = {
-  'ResultsList.item.zenodo': ZenodoResultsListItem,
-  'ResultsGrid.item.zenodo': ZenodoResultsGridItem,
+  "ResultsList.item.zenodo": ZenodoResultsListItem,
+  "ResultsGrid.item.zenodo": ZenodoResultsGridItem,
 };
 
 export class App extends Component {
@@ -176,8 +176,8 @@ export class App extends Component {
           searchApi={searchApi}
           initialQueryState={initialState}
           defaultSortingOnEmptyQueryString={{
-            sortBy: 'mostrecent',
-            sortOrder: 'asc',
+            sortBy: "mostrecent",
+            sortOrder: "asc",
           }}
         >
           <Container>
@@ -190,14 +190,14 @@ export class App extends Component {
                 <Grid.Column width={3} />
               </Grid.Row>
             </Grid>
-            <Grid relaxed style={{ padding: '2em 0' }}>
+            <Grid relaxed style={{ padding: "2em 0" }}>
               <Grid.Row columns={2}>
                 <Grid.Column width={4}>
                   <BucketAggregation
                     title="File types"
                     agg={{
-                      field: 'file_type',
-                      aggName: 'file_type',
+                      field: "file_type",
+                      aggName: "file_type",
                     }}
                     overridableId="filetype"
                   />
@@ -205,19 +205,19 @@ export class App extends Component {
                   <BucketAggregation
                     title="Keywords"
                     agg={{
-                      field: 'keywords',
-                      aggName: 'keywords',
+                      field: "keywords",
+                      aggName: "keywords",
                     }}
                   />
                   <br />
                   <BucketAggregation
                     title="Types"
                     agg={{
-                      field: 'resource_type.type',
-                      aggName: 'type',
+                      field: "resource_type.type",
+                      aggName: "type",
                       childAgg: {
-                        field: 'resource_type.subtype',
-                        aggName: 'subtype',
+                        field: "resource_type.subtype",
+                        aggName: "subtype",
                       },
                     }}
                   />

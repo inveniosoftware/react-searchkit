@@ -6,13 +6,13 @@
  * under the terms of the MIT License; see LICENSE file for more details.
  */
 
-import { connect } from 'react-redux';
+import { connect } from "react-redux";
 import {
   clearSuggestions,
   updateQueryString,
   updateSuggestions,
-} from '../../state/actions';
-import AutocompleteSearchBarComponent from '../AutocompleteSearchBar/AutocompleteSearchBar';
+} from "../../state/actions";
+import AutocompleteSearchBarComponent from "../AutocompleteSearchBar/AutocompleteSearchBar";
 
 const mapDispatchToProps = (dispatch) => ({
   updateQueryString: (query) => dispatch(updateQueryString(query)),

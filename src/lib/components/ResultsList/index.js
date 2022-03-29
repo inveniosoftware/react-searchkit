@@ -6,8 +6,8 @@
  * under the terms of the MIT License; see LICENSE file for more details.
  */
 
-import { connect } from 'react-redux';
-import ResultsListComponent from './ResultsList';
+import { connect } from "react-redux";
+import ResultsListComponent from "./ResultsList";
 
 export const ResultsList = connect((state) => ({
   loading: state.results.loading,

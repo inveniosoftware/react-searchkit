@@ -6,9 +6,9 @@
  * under the terms of the MIT License; see LICENSE file for more details.
  */
 
-import { connect } from 'react-redux';
-import { updateQueryPaginationPage } from '../../state/actions';
-import PaginationComponent from './Pagination';
+import { connect } from "react-redux";
+import { updateQueryPaginationPage } from "../../state/actions";
+import PaginationComponent from "./Pagination";
 
 const mapDispatchToProps = (dispatch) => ({
   updateQueryPage: (page) => dispatch(updateQueryPaginationPage(page)),

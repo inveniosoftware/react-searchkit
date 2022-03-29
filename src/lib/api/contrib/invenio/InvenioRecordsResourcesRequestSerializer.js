@@ -6,9 +6,9 @@
  * under the terms of the MIT License; see LICENSE file for more details.
  */
 
-import Qs from 'qs';
-import _extend from 'lodash/extend';
-import _isEmpty from 'lodash/isEmpty';
+import Qs from "qs";
+import _extend from "lodash/extend";
+import _isEmpty from "lodash/isEmpty";
 
 /** Default backend request serializer for invenio-records-resources */
 export class InvenioRecordsResourcesRequestSerializer {
@@ -18,41 +18,39 @@ export class InvenioRecordsResourcesRequestSerializer {
 
   _checkFilter = (filter) => {
     if (!Array.isArray(filter)) {
-      throw new Error(
-        `Filter value "${filter}" in query state must be an array.`
-      );
+      throw new Error(`Filter value "${filter}" in query state must be an array.`);
     }
     if (!(filter.length === 2 || filter.length === 3)) {
       throw new Error(
         `Filter value "${filter}" in query state must be an array of 2 or 3 elements`
       );
     }
-  }
+  };
 
   _addFilter = (filter, filterUrlParams) => {
-    this._checkFilter(filter)
+    this._checkFilter(filter);
     const aggName = filter[0];
     const fieldValue = filter[1];
-  	const hasChild = filter.length === 3;
+    const hasChild = filter.length === 3;
     if (hasChild) {
-      this._checkFilter(filter[2])
+      this._checkFilter(filter[2]);
     }
     if (aggName in filterUrlParams) {
       if (hasChild) {
-        filterUrlParams[aggName].push(fieldValue + "::" + filter[2][1])
+        filterUrlParams[aggName].push(fieldValue + "::" + filter[2][1]);
       } else {
         filterUrlParams[aggName].push(fieldValue);
       }
     } else {
-        if (hasChild) {
-          filterUrlParams[aggName] = [fieldValue + "::" + filter[2][1]]
-        } else {
-          filterUrlParams[aggName] = [fieldValue];
-        }
+      if (hasChild) {
+        filterUrlParams[aggName] = [fieldValue + "::" + filter[2][1]];
+      } else {
+        filterUrlParams[aggName] = [fieldValue];
+      }
     }
   };
 
-  _addFilters = filters => {
+  _addFilters = (filters) => {
     if (!Array.isArray(filters)) {
       throw new Error(`Filters query state "${filters}" must be an array.`);
     }
@@ -63,7 +61,7 @@ export class InvenioRecordsResourcesRequestSerializer {
      * ]
      */
     const filterUrlParams = {};
-    filters.forEach(filter => {
+    filters.forEach((filter) => {
       this._addFilter(filter, filterUrlParams);
     });
     /**
@@ -80,24 +78,25 @@ export class InvenioRecordsResourcesRequestSerializer {
    * @param {object} stateQuery the `query` state to serialize
    */
   serialize(stateQuery) {
-    const { queryString, sortBy, sortOrder, page, size, filters, hiddenParams } = stateQuery;
+    const { queryString, sortBy, sortOrder, page, size, filters, hiddenParams } =
+      stateQuery;
 
     let getParams = {};
     if (queryString !== null) {
-      getParams['q'] = queryString;
+      getParams["q"] = queryString;
     }
     if (sortBy !== null) {
-      getParams['sort'] = sortBy;
+      getParams["sort"] = sortBy;
 
       if (sortOrder !== null) {
-        getParams['sort'] = sortOrder === 'desc' ? `-${sortBy}` : sortBy;
+        getParams["sort"] = sortOrder === "desc" ? `-${sortBy}` : sortBy;
       }
     }
     if (page > 0) {
-      getParams['page'] = page;
+      getParams["page"] = page;
     }
     if (size > 0) {
-      getParams['size'] = size;
+      getParams["size"] = size;
     }
     if (!_isEmpty(hiddenParams)) {
       _extend(getParams, this._addFilters(hiddenParams));
@@ -105,6 +104,6 @@ export class InvenioRecordsResourcesRequestSerializer {
     const filterParams = this._addFilters(filters);
     _extend(getParams, filterParams);
 
-    return Qs.stringify(getParams, { arrayFormat: 'repeat' });
+    return Qs.stringify(getParams, { arrayFormat: "repeat" });
   }
 }

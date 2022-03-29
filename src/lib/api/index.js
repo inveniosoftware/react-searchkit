@@ -6,7 +6,7 @@
  * under the terms of the MIT License; see LICENSE file for more details.
  */
 
-export * from './contrib';
-export * from './errors';
-export { UrlHandlerApi } from './UrlHandlerApi';
-export { UrlParamValidator } from './UrlParamValidator';
+export * from "./contrib";
+export * from "./errors";
+export { UrlHandlerApi } from "./UrlHandlerApi";
+export { UrlParamValidator } from "./UrlParamValidator";

@@ -39,10 +39,6 @@ By default it supports child aggregations. The user can select aggregations to f
 
   * **childAgg** `object`: a child aggregation with the same format as the `agg` prop
 
-* **renderElement** `function` *optional*
-
-  An optional function to override the default rendered component.
-
 * **renderValuesContainerElement** `function` *optional*
 
   An optional function to override the default rendered container component that wraps each value.
@@ -55,7 +51,6 @@ By default it supports child aggregations. The user can select aggregations to f
 
 ```jsx
 <BucketAggregation
-  renderElement={customAggComp}
   renderValuesContainerElement={customAggValuesContainerCmp}
   renderValueElement={customAggValueCmp}
   />
@@ -76,21 +71,6 @@ const customAggComp = (title, containerCmp) => {
 };
 ```
 
-### renderElement parameters
-
-* **title** `String`
-
-  The title passed as prop to the component.
-
-* **containerCmp** `React component`
-
-  Container component to render for the aggregation values.
-
-```jsx
-const customAggValuesContainerCmp = valuesCmp => (
-  <Menu.Menu>{valuesCmp}</Menu.Menu>
-);
-```
 ### renderValuesContainerElement parameters
 
 * **valuesCmp** `React component`

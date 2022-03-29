@@ -7,32 +7,38 @@
  * under the terms of the MIT License; see LICENSE file for more details.
  */
 
-import PropTypes from 'prop-types';
-import React, { Component, useContext } from 'react';
-import Overridable from 'react-overridable';
-import { Dropdown } from 'semantic-ui-react';
-import { AppContext } from '../ReactSearchKit';
-import { ShouldRender } from '../ShouldRender';
+import PropTypes from "prop-types";
+import React, { Component, useContext } from "react";
+import Overridable from "react-overridable";
+import { Dropdown } from "semantic-ui-react";
+import { AppContext } from "../ReactSearchKit";
+import { ShouldRender } from "../ShouldRender";
 
 class ResultsPerPage extends Component {
   constructor(props) {
     super(props);
     this.options = props.values;
-    this.updateQuerySize = this.props.updateQuerySize;
+    this.updateQuerySize = props.updateQuerySize;
   }
 
   onChange = (value) => {
-    if (value === this.props.currentSize) return;
+    const { currentSize } = this.props;
+    if (value === currentSize) return;
     this.updateQuerySize(value);
   };
 
   render() {
-    const { loading, currentSize, totalResults, label, overridableId, ariaLabel, selectOnNavigation } =
-      this.props;
+    const {
+      loading,
+      currentSize,
+      totalResults,
+      label,
+      overridableId,
+      ariaLabel,
+      selectOnNavigation,
+    } = this.props;
     return (
-      <ShouldRender
-        condition={!loading && totalResults > 0 && currentSize !== -1}
-      >
+      <ShouldRender condition={!loading && totalResults > 0 && currentSize !== -1}>
         {label(
           <Element
             currentSize={currentSize}
@@ -49,36 +55,41 @@ class ResultsPerPage extends Component {
 }
 
 ResultsPerPage.propTypes = {
-  currentSize: PropTypes.number.isRequired,
-  loading: PropTypes.bool.isRequired,
-  totalResults: PropTypes.number.isRequired,
   values: PropTypes.array.isRequired,
   updateQuerySize: PropTypes.func.isRequired,
   label: PropTypes.func,
   overridableId: PropTypes.string,
   ariaLabel: PropTypes.string,
-  selectOnNavigation: PropTypes.bool
+  selectOnNavigation: PropTypes.bool,
+  /* REDUX */
+  currentSize: PropTypes.number.isRequired,
+  loading: PropTypes.bool.isRequired,
+  totalResults: PropTypes.number.isRequired,
 };
 
 ResultsPerPage.defaultProps = {
   label: (cmp) => cmp,
-  overridableId: '',
-  ariaLabel: 'Results per page',
-  selectOnNavigation: false
+  overridableId: "",
+  ariaLabel: "Results per page",
+  selectOnNavigation: false,
 };
 
-const Element = ({ overridableId, ...props }) => {
-  const { currentSize, options, onValueChange, ariaLabel, selectOnNavigation } = props;
+const Element = ({
+  overridableId,
+  currentSize,
+  options,
+  onValueChange,
+  ariaLabel,
+  selectOnNavigation,
+  ...props
+}) => {
   const { buildUID } = useContext(AppContext);
   const _options = options.map((element, index) => {
     return { key: index, text: element.text, value: element.value };
   });
 
   return (
-    <Overridable
-      id={buildUID('ResultsPerPage.element', overridableId)}
-      {...props}
-    >
+    <Overridable id={buildUID("ResultsPerPage.element", overridableId)} {...props}>
       <Dropdown
         inline
         compact
@@ -92,4 +103,19 @@ const Element = ({ overridableId, ...props }) => {
   );
 };
 
-export default Overridable.component('ResultsPerPage', ResultsPerPage);
+Element.propTypes = {
+  currentSize: PropTypes.number.isRequired,
+  options: PropTypes.array.isRequired,
+  ariaLabel: PropTypes.string,
+  selectOnNavigation: PropTypes.bool,
+  onValueChange: PropTypes.func.isRequired,
+  overridableId: PropTypes.string,
+};
+
+Element.defaultProps = {
+  ariaLabel: "Results per page",
+  selectOnNavigation: false,
+  overridableId: "",
+};
+
+export default Overridable.component("ResultsPerPage", ResultsPerPage);

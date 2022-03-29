@@ -6,12 +6,12 @@
  * under the terms of the MIT License; see LICENSE file for more details.
  */
 
-import _isEmpty from 'lodash/isEmpty';
-import PropTypes from 'prop-types';
-import React, { useContext } from 'react';
-import Overridable from 'react-overridable';
-import { AppContext } from '../ReactSearchKit';
-import { ShouldRender } from '../ShouldRender';
+import _isEmpty from "lodash/isEmpty";
+import PropTypes from "prop-types";
+import React, { useContext } from "react";
+import Overridable from "react-overridable";
+import { AppContext } from "../ReactSearchKit";
+import { ShouldRender } from "../ShouldRender";
 
 function Error({ loading, error, overridableId }) {
   return (
@@ -28,17 +28,26 @@ Error.propTypes = {
 };
 
 Error.defaultProps = {
-  overridableId: '',
+  overridableId: "",
 };
 
 const Element = ({ error, overridableId }) => {
   const { buildUID } = useContext(AppContext);
 
   return (
-    <Overridable id={buildUID('Error.element', overridableId)} error={error}>
+    <Overridable id={buildUID("Error.element", overridableId)} error={error}>
       <div>Oops! Something went wrong while fetching results.</div>
     </Overridable>
   );
 };
 
-export default Overridable.component('Error', Error);
+Element.propTypes = {
+  error: PropTypes.object.isRequired,
+  overridableId: PropTypes.string,
+};
+
+Element.defaultProps = {
+  overridableId: "",
+};
+
+export default Overridable.component("Error", Error);

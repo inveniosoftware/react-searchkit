@@ -1,0 +1,8 @@
+extends:
+  - '@inveniosoftware/invenio'
+  - '@inveniosoftware/invenio/prettier'
+
+env:
+  browser: true
+  es6: true
+  jest: true

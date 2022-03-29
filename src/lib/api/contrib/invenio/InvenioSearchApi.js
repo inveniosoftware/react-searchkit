@@ -6,20 +6,20 @@
  * under the terms of the MIT License; see LICENSE file for more details.
  */
 
-import axios from 'axios';
-import _get from 'lodash/get';
-import _hasIn from 'lodash/hasIn';
-import _isEmpty from 'lodash/isEmpty';
-import { updateQueryState } from '../../../state/selectors';
-import { INITIAL_QUERY_STATE_KEYS } from '../../../storeConfig';
-import { RequestCancelledError } from '../../errors';
-import { InvenioRequestSerializer } from './InvenioRequestSerializer';
-import { InvenioResponseSerializer } from './InvenioResponseSerializer';
-import { InvenioRecordsResourcesRequestSerializer } from './InvenioRecordsResourcesRequestSerializer';
+import axios from "axios";
+import _get from "lodash/get";
+import _hasIn from "lodash/hasIn";
+import _isEmpty from "lodash/isEmpty";
+import { updateQueryState } from "../../../state/selectors";
+import { INITIAL_QUERY_STATE_KEYS } from "../../../storeConfig";
+import { RequestCancelledError } from "../../errors";
+import { InvenioRequestSerializer } from "./InvenioRequestSerializer";
+import { InvenioResponseSerializer } from "./InvenioResponseSerializer";
+import { InvenioRecordsResourcesRequestSerializer } from "./InvenioRecordsResourcesRequestSerializer";
 
 export class InvenioSearchApi {
   constructor(config) {
-    this.axiosConfig = _get(config, 'axios', {});
+    this.axiosConfig = _get(config, "axios", {});
     this.validateAxiosConfig();
     this.initSerializers(config);
     this.initInterceptors(config);
@@ -29,14 +29,14 @@ export class InvenioSearchApi {
   }
 
   validateAxiosConfig() {
-    if (!_hasIn(this.axiosConfig, 'url')) {
-      throw new Error('InvenioSearchApi config: `url` field is required.');
+    if (!_hasIn(this.axiosConfig, "url")) {
+      throw new Error("InvenioSearchApi config: `url` field is required.");
     }
   }
 
   initInterceptors(config) {
-    this.requestInterceptor = _get(config, 'interceptors.request', undefined);
-    this.responseInterceptor = _get(config, 'interceptors.response', undefined);
+    this.requestInterceptor = _get(config, "interceptors.request", undefined);
+    this.responseInterceptor = _get(config, "interceptors.response", undefined);
   }
 
   getSerializer(serializer) {
@@ -45,7 +45,7 @@ export class InvenioSearchApi {
         InvenioRecordsResourcesRequestSerializer,
       InvenioRequestSerializer: InvenioRequestSerializer,
     };
-    if (typeof serializer === 'string') {
+    if (typeof serializer === "string") {
       return requestSerializerMap[serializer];
     } else {
       return serializer ? serializer : InvenioRequestSerializer;
@@ -53,12 +53,10 @@ export class InvenioSearchApi {
   }
 
   initSerializers(config) {
-    const requestSerializerCls = this.getSerializer(
-      config.invenio?.requestSerializer
-    );
+    const requestSerializerCls = this.getSerializer(config.invenio?.requestSerializer);
     const responseSerializerCls = _get(
       config,
-      'invenio.responseSerializer',
+      "invenio.responseSerializer",
       InvenioResponseSerializer
     );
 

@@ -6,8 +6,8 @@
  * under the terms of the MIT License; see LICENSE file for more details.
  */
 
-import { connect } from 'react-redux';
-import ErrorComponent from './Error';
+import { connect } from "react-redux";
+import ErrorComponent from "./Error";
 
 export const Error = connect((state) => ({
   loading: state.results.loading,
