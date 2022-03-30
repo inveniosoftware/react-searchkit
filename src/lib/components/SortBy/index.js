@@ -19,7 +19,6 @@ export const SortBy = connect(
     loading: state.results.loading,
     totalResults: state.results.data.total,
     currentSortBy: state.query.sortBy,
-    currentQueryString: state.query.queryString,
   }),
   mapDispatchToProps
 )(SortByComponent);

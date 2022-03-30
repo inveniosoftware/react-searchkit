@@ -17,33 +17,48 @@ title: ResultsGrid
 
   The number of results to display in each row. Default value: `3`.
 
-* **renderElement** `function` *optional*
+* **overridableId** `String` *optional*
 
-  An optional function to override the default rendered component.
+  An optional string to define a specific overridable id.
 
-## Usage when overriding template
-
-```jsx
-<ResultsGrid resultsPerRow={5} renderElement={renderResultsGrid} />
-```
-
-The function `renderElement` is called every time the results have changed.
+## Usage when overriding
 
 ```jsx
-renderResultsGrid = (results, resultsPerRow) => {
-  return results.map((result, index) => {
-      const divider = index % resultsPerRow === 0 ? <br/> : null;
-      return <div>{divider}{result}</div>
-  });
+const MyResultsGridContainer = ({ results, resultsPerRow }) => {
+  ...
 }
+
+const MyResultsGridItem = ({ results, resultsPerRow }) => {
+  ...
+}
+
+const overriddenComponents = {
+  "ResultsGrid.container": MyResultsGridContainer
+  "ResultsGrid.item": MyResultsGridItem
+};
 ```
 
-### Parameters
+### ResultsGridContainer parameters
 
-* **results** `array`
+Component that wraps the grid of result's items.
+
+* **results** `Array`
 
   The list of results to display to the user.
 
-* **resultsPerRow** `int`
+* **resultsPerRow** `Number`
 
   The prop `resultsPerRow` defined when using the component.
+
+
+### ResultsGridItem parameters
+
+Component that will render a specicif result item.
+
+* **result** `Object`
+
+  The result object to render.
+
+* **index** `Number`
+
+  The index number of the result object.

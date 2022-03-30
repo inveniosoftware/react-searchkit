@@ -26,11 +26,12 @@ function ResultsGrid({ loading, totalResults, results, resultsPerRow, overridabl
 }
 
 ResultsGrid.propTypes = {
+  resultsPerRow: PropTypes.number,
+  overridableId: PropTypes.string,
+  /* REDUX */
   loading: PropTypes.bool.isRequired,
   totalResults: PropTypes.number.isRequired,
   results: PropTypes.array.isRequired,
-  resultsPerRow: PropTypes.number,
-  overridableId: PropTypes.string,
 };
 
 ResultsGrid.defaultProps = {
@@ -38,16 +39,12 @@ ResultsGrid.defaultProps = {
   overridableId: "",
 };
 
-const GridItem = ({ result, index, overridableId }) => {
+const GridItem = ({ result, overridableId }) => {
   const { buildUID } = useContext(AppContext);
 
   return (
-    <Overridable
-      id={buildUID("ResultsGrid.item", overridableId)}
-      result={result}
-      index={index}
-    >
-      <Card fluid key={index} href={`#${result.id}`}>
+    <Overridable id={buildUID("ResultsGrid.item", overridableId)} result={result}>
+      <Card fluid href={`#${result.id}`}>
         <Image src={result.imgSrc || "http://placehold.it/200"} />
         <Card.Content>
           <Card.Header>{result.title}</Card.Header>
@@ -60,20 +57,23 @@ const GridItem = ({ result, index, overridableId }) => {
 
 GridItem.propTypes = {
   result: PropTypes.object.isRequired,
-  index: PropTypes.string.isRequired,
   overridableId: PropTypes.string.isRequired,
 };
 
-const Element = ({ overridableId, results, resultsPerRow, ...props }) => {
+const Element = ({ overridableId, results, resultsPerRow }) => {
   const { buildUID } = useContext(AppContext);
 
   const _results = results.map((result, index) => (
     // eslint-disable-next-line react/no-array-index-key
-    <GridItem key={index} result={result} index={index} overridableId={overridableId} />
+    <GridItem key={index} result={result} overridableId={overridableId} />
   ));
 
   return (
-    <Overridable id={buildUID("ResultsGrid.container", overridableId)} {...props}>
+    <Overridable
+      id={buildUID("ResultsGrid.container", overridableId)}
+      results={results}
+      resultsPerRow={resultsPerRow}
+    >
       <Card.Group itemsPerRow={resultsPerRow}>{_results}</Card.Group>
     </Overridable>
   );

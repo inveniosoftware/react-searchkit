@@ -16,25 +16,20 @@ results is greater than 0.
 
 ## Props
 
-* **renderElement** `function` *optional*
+* **overridableId** `String` *optional*
 
-  An optional function to override the default rendered component.
+  An optional string to define a specific overridable id.
 
-## Usage when overriding template
-
-```jsx
-<EmptyResults renderElement={renderEmptyResults} />
-```
-
-The function `renderElement` is called every time the number of results changes.
+## Usage when overriding
 
 ```jsx
-renderEmptyResults = (queryString, resetQuery) => {
-  return (<div>
-    <em>No results found with query "{queryString}"</em>
-    <div><button onClick={() => resetQuery()}>Clear query</button></div>
-  </div>);
+const MyEmptyResults = ({ queryString, resetQuery, extraContent }) => {
+  ...
 }
+
+const overriddenComponents = {
+  "EmptyResults.element": MyEmptyResults
+};
 ```
 
 ### Parameters
@@ -43,6 +38,14 @@ renderEmptyResults = (queryString, resetQuery) => {
 
   The current value of the `queryString` `query` state.
 
-* **resetQuery** `function`
+* **resetQuery** `Function`
 
   A function to call to reset the current search query.
+
+* **extraContent** `React component`
+
+  Any extra React component to be rendered.
+
+* **userSelectionFilters** `Array`
+
+  List of the currently selected filters.

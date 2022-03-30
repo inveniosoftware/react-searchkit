@@ -1,6 +1,6 @@
 /*
  * This file is part of React-SearchKit.
- * Copyright (C) 2020 CERN.
+ * Copyright (C) 2020-2022 CERN.
  *
  * React-SearchKit is free software; you can redistribute it and/or modify it
  * under the terms of the MIT License; see LICENSE file for more details.
@@ -18,38 +18,34 @@ const ToggleComponent = ({
   title,
   label,
   filterValue,
-  ...props
+  updateQueryFilters,
 }) => {
   const _isChecked = (userSelectionFilters) => {
     const isFilterActive =
       userSelectionFilters.filter((filter) => filter[0] === filterValue[0]).length > 0;
     return isFilterActive;
   };
-  const onToggleClicked = () => {
-    props.updateQueryFilters(filterValue);
+  const onClick = () => {
+    updateQueryFilters(filterValue);
   };
   const { buildUID } = useContext(AppContext);
-
   const isChecked = _isChecked(userSelectionFilters);
 
   return (
     <Overridable
-      id={buildUID("SearchFilters.ToggleComponent", overridableId)}
-      isChecked={isChecked}
-      onToggleClicked={onToggleClicked}
-      {...props}
+      id={buildUID("SearchFilters.Toggle.element", overridableId)}
+      title={title}
+      label={label}
+      filterValue={filterValue}
+      userSelectionFilters={userSelectionFilters}
+      updateQueryFilters={updateQueryFilters}
     >
       <Card>
         <Card.Content>
           <Card.Header>{title}</Card.Header>
         </Card.Content>
         <Card.Content>
-          <Checkbox
-            toggle
-            label={label}
-            onClick={onToggleClicked}
-            checked={isChecked}
-          />
+          <Checkbox toggle label={label} onClick={onClick} checked={isChecked} />
         </Card.Content>
       </Card>
     </Overridable>
@@ -60,13 +56,14 @@ ToggleComponent.propTypes = {
   title: PropTypes.string.isRequired,
   label: PropTypes.string.isRequired,
   filterValue: PropTypes.array.isRequired,
+  overridableId: PropTypes.string,
+  /* REDUX */
   userSelectionFilters: PropTypes.array.isRequired,
   updateQueryFilters: PropTypes.func.isRequired,
-  overridableId: PropTypes.string,
 };
 
 ToggleComponent.defaultProps = {
   overridableId: "",
 };
 
-export default Overridable.component("SearchFilters.ToggleComponent", ToggleComponent);
+export default Overridable.component("SearchFilters.Toggle", ToggleComponent);

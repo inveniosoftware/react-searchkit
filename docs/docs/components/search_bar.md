@@ -19,22 +19,20 @@ As default behavior, the search can be triggered clicking on the button or press
 
   The placeholder value of the search box. Default value: `Type something`.
 
-* **renderElement** `function` *optional*
+* **overridableId** `String` *optional*
 
-  An optional function to override the default rendered component.
+  An optional string to define a specific overridable id.
 
-## Usage when overriding template
-
-```jsx
-<SearchBar renderElement={renderSearchBar} />
-```
-
-The function `renderElement` is called every time the query string changes.
+## Usage when overriding
 
 ```jsx
-renderSearchBar = (placeholder, currentQueryString, onInputChange, executeSearch) => {
-  return <input type="text">;
+const MySearchBar = ({ queryString, onBtnSearchClick, onInputChange, onKeyPress, placeholder, actionProps, uiProps }) => {
+  ...
 }
+
+const overriddenComponents = {
+  "SearchBar.element": MySearchBar
+};
 ```
 
 ### Parameters
@@ -43,14 +41,26 @@ renderSearchBar = (placeholder, currentQueryString, onInputChange, executeSearch
 
   The prop `placeholder` defined when using the component.
 
-* **currentQueryString** `String`
+* **queryString** `String`
 
   The current value of the `queryString` `query` state.
 
-* **onInputChange** `function`
+* **onInputChange** `Function`
 
   A function to be called every time the user changes the query string to change the `query` state. `onInputChange(queryString)`
 
-* **executeSearch** `function`
+* **onBtnSearchClick** `Function`
 
-  A function to be called to perform a search. It does not accept any parameter, as it will use the current query string to perform the search.
+  A function to be called when the user clicks on the the search button.
+
+* **onKeyPress** `Function`
+
+  A function to be called on key press to handle the Enter button pressed.
+
+* **actionProps** `Object`
+
+  Semantic-UI props for the action button.
+
+* **uiProps** `Object`
+
+  Semantic-UI props for the search bar.

@@ -50,26 +50,26 @@ class ActiveFilters extends Component {
 }
 
 ActiveFilters.propTypes = {
+  overridableId: PropTypes.string,
+  /* REDUX */
   filters: PropTypes.array.isRequired,
   updateQueryFilters: PropTypes.func.isRequired,
-  overridableId: PropTypes.string,
 };
 
 ActiveFilters.defaultProps = {
   overridableId: "",
 };
 
-const Element = ({
-  overridableId,
-  filters,
-  removeActiveFilter,
-  getLabel,
-  ...props
-}) => {
+const Element = ({ overridableId, filters, removeActiveFilter, getLabel }) => {
   const { buildUID } = useContext(AppContext);
 
   return (
-    <Overridable id={buildUID("ActiveFilters.element", overridableId)} {...props}>
+    <Overridable
+      id={buildUID("ActiveFilters.element", overridableId)}
+      filters={filters}
+      removeActiveFilter={removeActiveFilter}
+      getLabel={getLabel}
+    >
       <>
         {filters.map((filter, index) => {
           const { label, activeFilter } = getLabel(filter);

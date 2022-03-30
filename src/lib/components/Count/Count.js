@@ -25,10 +25,11 @@ class Count extends Component {
 }
 
 Count.propTypes = {
-  loading: PropTypes.bool.isRequired,
-  totalResults: PropTypes.number.isRequired,
   label: PropTypes.func,
   overridableId: PropTypes.string,
+  /* REDUX */
+  loading: PropTypes.bool.isRequired,
+  totalResults: PropTypes.number.isRequired,
 };
 
 Count.defaultProps = {

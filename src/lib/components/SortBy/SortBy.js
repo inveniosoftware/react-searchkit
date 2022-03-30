@@ -56,14 +56,15 @@ class SortBy extends Component {
 
 SortBy.propTypes = {
   values: PropTypes.array.isRequired,
-  loading: PropTypes.bool.isRequired,
-  totalResults: PropTypes.number.isRequired,
-  currentSortBy: PropTypes.string,
-  updateQuerySortBy: PropTypes.func.isRequired,
   label: PropTypes.func,
   overridableId: PropTypes.string,
   ariaLabel: PropTypes.string,
   selectOnNavigation: PropTypes.bool,
+  /* REDUX */
+  loading: PropTypes.bool.isRequired,
+  totalResults: PropTypes.number.isRequired,
+  currentSortBy: PropTypes.string,
+  updateQuerySortBy: PropTypes.func.isRequired,
 };
 
 SortBy.defaultProps = {
@@ -81,7 +82,6 @@ const Element = ({
   onValueChange,
   ariaLabel,
   selectOnNavigation,
-  ...props
 }) => {
   const { buildUID } = useContext(AppContext);
 
@@ -90,13 +90,20 @@ const Element = ({
   });
 
   return (
-    <Overridable id={buildUID("SortBy.element", overridableId)} {...props}>
+    <Overridable
+      id={buildUID("SortBy.element", overridableId)}
+      options={options}
+      currentSortBy={currentSortBy}
+      onValueChange={onValueChange}
+      ariaLabel={ariaLabel}
+      selectOnNavigation={selectOnNavigation}
+    >
       <Dropdown
         selection
         compact
         options={_options}
         value={currentSortBy}
-        onChange={(e, { value }) => onValueChange(value)}
+        onChange={(_, { value }) => onValueChange(value)}
         aria-label={ariaLabel}
         selectOnNavigation={selectOnNavigation}
       />

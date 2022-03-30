@@ -13,11 +13,11 @@ By default it supports child aggregations. The user can select aggregations to f
 <BucketAggregation
   title="Employee Types"
   agg={{
-    field: 'employee_type.type',
-    aggName: 'type_agg',
+    field: "employee_type.type",
+    aggName: "type_agg",
     childAgg: {
-      field: 'employee_type.subtype',
-      aggName: 'subtype_agg',
+      field: "employee_type.subtype",
+      aggName: "subtype_agg",
     },
   }}
 />
@@ -29,7 +29,7 @@ By default it supports child aggregations. The user can select aggregations to f
 
   The title to display for the aggregation.
 
-* **agg** `object`
+* **agg** `Object`
 
   An object that describes the aggregation to look for in the `results`:
 
@@ -37,83 +37,89 @@ By default it supports child aggregations. The user can select aggregations to f
 
   * **aggName** `String`: the aggregation name to look for in `results`
 
-  * **childAgg** `object`: a child aggregation with the same format as the `agg` prop
+  * **childAgg** `Object`: a child aggregation with the same format as the `agg` prop
 
-* **renderValuesContainerElement** `function` *optional*
+* **overridableId** `String` *optional*
 
-  An optional function to override the default rendered container component that wraps each value.
+  An optional string to define a specific overridable id.
 
-* **renderValueElement** `function` *optional*
-
-  An optional function to override the default rendered component for each of the value.
-
-## Usage when overriding template
+## Usage when overriding
 
 ```jsx
-<BucketAggregation
-  renderValuesContainerElement={customAggValuesContainerCmp}
-  renderValueElement={customAggValueCmp}
-  />
-```
-
-Each `render*` function is called every time `results` `aggregations` value changes.
-
-```jsx
-const customAggComp = (title, containerCmp) => {
-  return containerCmp ? (
+const MyBucketAggregation = ({title, containerCmp}) => {
+  return (
     <Menu vertical>
       <Menu.Item>
         <Menu.Header>{title}</Menu.Header>
         {containerCmp}
       </Menu.Item>
     </Menu>
-  ) : null;
+  );
+}
+
+const BucketAggregationContainer = ({ valuesCmp }) => {
+  ...
+}
+
+const MyBucketAggregationValues = ({ bucket, label, onFilterClicked, isSelected, childAggCmps }) => {
+  ...
+}
+
+const overriddenComponents = {
+  "BucketAggregation.element": MyBucketAggregation,
+  "BucketAggregationContainer.element": MyBucketAggregationContainer,
+  "BucketAggregationValues.element": MyBucketAggregationValues,
 };
 ```
 
-### renderValuesContainerElement parameters
+### BucketAggregation parameters
+
+Component that wraps the bucket aggregations and renders a title and the container of aggregations.
+
+* **title** `String`
+
+  The title to render.
+
+* **containerCmp** `React component`
+
+  The `BucketAggregationContainer` to render.
+
+* **agg** `Object`
+
+  Same object as in the props.
+
+* **updateQueryFilters** `Function`
+
+  A function to call to update the current selected filters.
+
+### BucketAggregationContainer parameters
+
+Component that wraps the list of aggregations.
 
 * **valuesCmp** `React component`
 
-  Component to render each of the aggregation values.
+  List of components of each aggregation value.
 
-```jsx
-const customAggValueCmp = (
-  bucket,
-  isSelected,
-  onFilterClicked,
-  getChildAggCmps
-) => {
-  const childAggCmps = getChildAggCmps(bucket);
-  return (
-    <Menu.Item
-      key={bucket.key}
-      name={bucket.key}
-      active={isSelected}
-      onClick={() => onFilterClicked(bucket.key)}
-    >
-      <Label>{bucket.doc_count}</Label>
-      {bucket.key}
-      {childAggCmps}
-    </Menu.Item>
-  );
-};
-```
+### BucketAggregationValues parameters
 
-### renderValueElement parameters
+Component that renders each of the aggregation.
 
-* **bucket** `array`
+* **bucket** `Array`
 
   The bucket to display, which by default contains the `key` field with the value and the `doc_count` number.
 
-* **isSelected** `boolean`
+* **label** `String`
+
+  The label to display.
+
+* **isSelected** `Boolean`
 
   `true` if this value is active/selected, `false` otherwise.
 
-* **onFilterClicked** `function`
+* **onFilterClicked** `Function`
 
   The function to be called when the user click on this value to activate the filter. It should be called with the `bucket.key` parameter.
 
-* **getChildAggCmps** `function`
+* **getChildAggCmps** `Function`
 
   A function to be called to render child component. It accepts the current `bucket` as parameter and it will render recursively this component. It returns a list of child components.

@@ -13,26 +13,44 @@ title: ResultsList
 
 ## Props
 
-* **renderElement** `function` *optional*
+* **overridableId** `String` *optional*
 
-  An optional function to override the default rendered component.
+  An optional string to define a specific overridable id.
 
-## Usage when overriding template
-
-```jsx
-<ResultsList renderElement={renderResultsList} />
-```
-
-The function `renderElement` is called every time the results have changed.
+## Usage when overriding
 
 ```jsx
-renderResultsList = results => {
-  return results.map(result => <div>{result}</div>);
+const MyResultsListContainer = ({ results, resultsPerRow }) => {
+  ...
 }
+
+const MyResultsListItem = ({ results, resultsPerRow }) => {
+  ...
+}
+
+const overriddenComponents = {
+  "ResultsList.container": MyResultsListContainer
+  "ResultsList.item": MyResultsListItem
+};
 ```
 
-### Parameters
+### ResultsListContainer parameters
 
-* **results** `array`
+Component that wraps the list of result's items.
+
+* **results** `Array`
 
   The list of results to display to the user.
+
+### ResultsListItem parameters
+
+Component that will render a specicif result item.
+
+* **result** `Object`
+
+  The result object to render.
+
+* **index** `Number`
+
+  The index number of the result object.
+

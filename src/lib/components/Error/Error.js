@@ -22,9 +22,10 @@ function Error({ loading, error, overridableId }) {
 }
 
 Error.propTypes = {
+  overridableId: PropTypes.string,
+  /* REDUX */
   loading: PropTypes.bool.isRequired,
   error: PropTypes.object.isRequired,
-  overridableId: PropTypes.string,
 };
 
 Error.defaultProps = {
@@ -42,8 +43,9 @@ const Element = ({ error, overridableId }) => {
 };
 
 Element.propTypes = {
-  error: PropTypes.object.isRequired,
   overridableId: PropTypes.string,
+  /* REDUX */
+  error: PropTypes.object.isRequired,
 };
 
 Element.defaultProps = {

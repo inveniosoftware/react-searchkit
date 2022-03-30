@@ -77,16 +77,17 @@ class Sort extends Component {
 
 Sort.propTypes = {
   values: PropTypes.array.isRequired,
-  currentSortBy: PropTypes.string,
-  currentSortOrder: PropTypes.string,
-  loading: PropTypes.bool.isRequired,
-  totalResults: PropTypes.number.isRequired,
-  updateQuerySorting: PropTypes.func.isRequired,
   label: PropTypes.func,
   overridableId: PropTypes.string,
   sortOrderDisabled: PropTypes.bool,
   ariaLabel: PropTypes.string,
   selectOnNavigation: PropTypes.bool,
+  /* REDUX */
+  currentSortBy: PropTypes.string,
+  currentSortOrder: PropTypes.string,
+  loading: PropTypes.bool.isRequired,
+  totalResults: PropTypes.number.isRequired,
+  updateQuerySorting: PropTypes.func.isRequired,
 };
 
 Sort.defaultProps = {
@@ -108,7 +109,6 @@ const Element = ({
   computeValue,
   ariaLabel,
   selectOnNavigation,
-  ...props
 }) => {
   const { buildUID } = useContext(AppContext);
   const selected = computeValue(currentSortBy, currentSortOrder);
@@ -120,7 +120,15 @@ const Element = ({
     };
   });
   return (
-    <Overridable id={buildUID("Sort.element", overridableId)} {...props}>
+    <Overridable
+      id={buildUID("Sort.element", overridableId)}
+      options={options}
+      currentSortBy={currentSortBy}
+      currentSortOrder={currentSortOrder}
+      onValueChange={onValueChange}
+      ariaLabel={ariaLabel}
+      selectOnNavigation={selectOnNavigation}
+    >
       <Dropdown
         selection
         options={_options}

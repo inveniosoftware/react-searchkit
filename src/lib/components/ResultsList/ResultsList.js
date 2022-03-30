@@ -22,26 +22,23 @@ function ResultsList({ loading, totalResults, results, overridableId }) {
 }
 
 ResultsList.propTypes = {
+  overridableId: PropTypes.string,
+  /* REDUX */
   loading: PropTypes.bool.isRequired,
   totalResults: PropTypes.number.isRequired,
   results: PropTypes.array.isRequired,
-  overridableId: PropTypes.string,
 };
 
 ResultsList.defaultProps = {
   overridableId: "",
 };
 
-const ListItem = ({ result, index, overridableId }) => {
+const ListItem = ({ result, overridableId }) => {
   const { buildUID } = useContext(AppContext);
 
   return (
-    <Overridable
-      id={buildUID("ResultsList.item", overridableId)}
-      result={result}
-      index={index}
-    >
-      <Item key={index} href={`#${result.id}`}>
+    <Overridable id={buildUID("ResultsList.item", overridableId)} result={result}>
+      <Item href={`#${result.id}`}>
         <Item.Image size="small" src={result.imgSrc || "http://placehold.it/200"} />
         <Item.Content>
           <Item.Header>{result.title}</Item.Header>
@@ -54,7 +51,6 @@ const ListItem = ({ result, index, overridableId }) => {
 
 ListItem.propTypes = {
   result: PropTypes.object.isRequired,
-  index: PropTypes.string.isRequired,
   overridableId: PropTypes.string.isRequired,
 };
 
@@ -63,7 +59,7 @@ const Element = ({ results, overridableId }) => {
 
   const _results = results.map((result, index) => (
     // eslint-disable-next-line react/no-array-index-key
-    <ListItem result={result} index={index} key={index} overridableId={overridableId} />
+    <ListItem result={result} key={index} overridableId={overridableId} />
   ));
 
   return (

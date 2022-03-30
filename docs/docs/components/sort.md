@@ -32,28 +32,25 @@ The component is **not** displayed while executing the search query or if there 
 
   A list of possible values, where each value has the format `{ text: "Newest", sortBy: "<field name>", sortOrder: "<value>" }`.
 
-* **renderElement** `function` *optional*
-
-  An optional function to override the default rendered component.
-
 - **label** `function` _optional_
 
   An optional function to wrap the component with a prefix and suffix string. <br />
   E.g. `label={(cmp) => <> sorted by {cmp}</>}`
 
-## Usage when overriding template
+* **overridableId** `String` *optional*
+
+  An optional string to define a specific overridable id.
+
+## Usage when overriding
 
 ```jsx
-<SortBy renderElement={renderSort} />
-```
-
-The function `renderElement` is called every time results change.
-
-```jsx
-renderSort = (currentSortBy, currentSortOrder, options, onValueChange) => {
-  const _options = options.map(option => <li onClick={(e, { value }) => onValueChange(value)}>{option.text}</li>);
-  return <ul>{this._options}</ul>;
+const MySort = ({ currentSortBy, options, onValueChange, ariaLabel, selectOnNavigation }) => {
+  ...
 }
+
+const overriddenComponents = {
+  "Sort.element": MySort
+};
 ```
 
 ### Parameters
@@ -73,3 +70,11 @@ renderSort = (currentSortBy, currentSortOrder, options, onValueChange) => {
 * **onValueChange** `function`
 
   The function to call when the user changes the sort by field value to change the `query` state. `onValueChange(newValue)`
+
+* **ariaLabel** `String`
+
+  The ARIA (Accessibility) label to add to the component.
+
+* **selectOnNavigation** `Boolean`
+
+  When using a dropdown, set if the `onValueChange` should be called when the new dropdown item is selected with arrow keys, or only on click or on enter.

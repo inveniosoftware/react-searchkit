@@ -17,27 +17,25 @@ The component is **not** displayed while executing the search query or if there 
 
 ## Props
 
-* **renderElement** `function` *optional*
-
-  An optional function to override the default rendered component.
-
-- **label** `function` _optional_
+- **label** `Function` _optional_
 
   An optional function to wrap the component with a prefix and suffix string. <br />
   E.g. `label={(cmp) => <> Found {cmp} results</>} />`
 
-## Usage when overriding template
+* **overridableId** `String` *optional*
+
+  An optional string to define a specific overridable id.
+
+## Usage when overriding
 
 ```jsx
-<Count renderElement={renderCount} />
-```
-
-The function `renderElement` is called every time the number of results changes.
-
-```jsx
-renderCount = totalResults => {
+const MyCount = ({ totalResults }) => {
   return <div>Found {totalResults} results.</div>;
 }
+
+const overriddenComponents = {
+  "Count.element": MyCount
+};
 ```
 
 ### Parameters

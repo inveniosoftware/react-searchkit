@@ -15,35 +15,32 @@ Each label has a `close` icon which can be clicked to remove the selected filter
 
 ## Props
 
-* **renderElement** `function` *optional*
+* **overridableId** `String` *optional*
 
-  An optional function to override the default rendered component.
+  An optional string to define a specific overridable id.
 
-## Usage when overriding template
-
-```jsx
-<ActiveFilters renderElement={renderActiveFilters}/>
-```
-
-The function `renderElement` is called every time `results` or `filters` in query state change.
+## Usage when overriding
 
 ```jsx
-renderActiveFilters = (filters, removeActiveFilter) => {
-  return filters.map(filter => {
-    const aggName = filter[0];
-    const value = filter[1];
-    const label = `${aggName}:${value}`;
-    return <div onClick={removeActiveFilter([aggName, value])}>{label}</div>
-  };
+const MyActiveFilters = ({ filters, removeActiveFilter, getLabel }) => {
+  ...
 }
+
+const overriddenComponents = {
+  "ActiveFilters.element": MyActiveFilters
+};
 ```
 
 ### Parameters
 
-* **filters** `array`
+* **filters** `Array`
 
   The `filters` `query` state. It contains the list of active filters selected by the user. Each element is a list `[ "<agg name>", "<value>" ]`.
 
-* **removeActiveFilter** `function`
+* **removeActiveFilter** `Function`
 
-  A function to be called with the active filter list as parameter if you want to remove one of the active filters.
+  Function to be called with the active filter list as parameter if you want to remove one of the active filters `removeActiveFilter(<active filter>)`.
+
+* **getLabel** `Function`
+
+  Function to be called to get a display label for the given active filter `getLabel(filter)`.

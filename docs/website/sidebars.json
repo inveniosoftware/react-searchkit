@@ -26,8 +26,9 @@
       "components/sort",
       "components/sort-by",
       "components/sort-order",
+      "components/toggle",
       "components/with-state"
     ],
-    "Extending": ["create-your-component", "extend-state"]
+    "Extending": ["create-your-component"]
   }
 }

@@ -28,6 +28,7 @@ class EmptyResults extends Component {
       queryString,
       extraContent,
       overridableId,
+      userSelectionFilters,
       ...props
     } = this.props;
     return (
@@ -37,6 +38,7 @@ class EmptyResults extends Component {
           queryString={queryString}
           resetQuery={this.resetQuery}
           extraContent={extraContent}
+          userSelectionFilters={userSelectionFilters}
           overridableId={overridableId}
         />
       </ShouldRender>
@@ -45,13 +47,15 @@ class EmptyResults extends Component {
 }
 
 EmptyResults.propTypes = {
+  extraContent: PropTypes.node,
+  overridableId: PropTypes.string,
+  /* REDUX */
   loading: PropTypes.bool.isRequired,
   totalResults: PropTypes.number.isRequired,
   error: PropTypes.object.isRequired,
   queryString: PropTypes.string,
   resetQuery: PropTypes.func.isRequired,
-  extraContent: PropTypes.node,
-  overridableId: PropTypes.string,
+  userSelectionFilters: PropTypes.array.isRequired,
 };
 
 EmptyResults.defaultProps = {
@@ -65,12 +69,18 @@ const Element = ({
   queryString,
   resetQuery,
   extraContent,
-  ...props
+  userSelectionFilters,
 }) => {
   const { buildUID } = useContext(AppContext);
 
   return (
-    <Overridable id={buildUID("EmptyResults.element", overridableId)} {...props}>
+    <Overridable
+      id={buildUID("EmptyResults.element", overridableId)}
+      queryString={queryString}
+      resetQuery={resetQuery}
+      extraContent={extraContent}
+      userSelectionFilters={userSelectionFilters}
+    >
       <Segment placeholder textAlign="center">
         <Header icon>
           <Icon name="search" />
@@ -92,6 +102,7 @@ Element.propTypes = {
   resetQuery: PropTypes.func.isRequired,
   extraContent: PropTypes.node,
   overridableId: PropTypes.string,
+  userSelectionFilters: PropTypes.array.isRequired,
 };
 
 Element.defaultProps = {

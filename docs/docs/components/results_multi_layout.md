@@ -16,26 +16,24 @@ By default it renders results as a list.
 
 ## Props
 
-* **renderElement** `function` *optional*
+* **overridableId** `String` *optional*
 
-  An optional function to override the default rendered component.
+  An optional string to define a specific overridable id.
 
-* **resultsListCmp** `function` *optional*
-
-  An optional function to override the default rendered `<ResultsList>`.
-
-* **resultsGridCmp** `function` *optional*
-
-  An optional function to override the default rendered `<ResultsGrid>`
-
-## Usage when overriding template
+## Usage when overriding
 
 ```jsx
-<ResultsMultiLayout
-    renderElement={renderMultiLayout}
-    resultsListCmp={renderResultsList}
-    resultsGridCmp={renderResultsGrid}
-    />
+const MyResultsMultiLayout = ({ layout }) => {
+  ...
+}
+
+const overriddenComponents = {
+  "ResultsMultiLayout.element": MyResultsMultiLayout
+};
 ```
 
-The function `renderElement` is called every time the `currentLayout` changes.
+### Parameters
+
+* **layout** `String`
+
+  The current selected layout. Possible values: `list` or `grid`.

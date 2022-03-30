@@ -13,28 +13,20 @@ The component is **not** displayed while executing the search query or if there 
 <Error />
 ```
 
-## Props
-
-* **renderElement** `function` *optional*
-
-  An optional function to override the default rendered component.
-
-## Usage when overriding template
+## Usage when overriding
 
 ```jsx
-<Error renderElement={renderError} />
-```
-
-The function `renderElement` is called every time the results error object is not empty.
-
-```jsx
-renderError = error => {
-  return <div>Error while performing the search. Message: {error.message}</div>;
+const MyError = ({ error }) => {
+  ...
 }
+
+const overriddenComponents = {
+  "Error.element": MyError
+};
 ```
 
 ### Parameters
 
-* **error** `object`
+* **error** `Object`
 
   The current value of the `error` `results` state, containing the error returned by the search API connector.

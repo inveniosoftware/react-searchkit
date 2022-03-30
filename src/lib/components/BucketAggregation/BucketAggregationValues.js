@@ -104,52 +104,6 @@ BucketAggregationValues.defaultProps = {
   overridableId: "",
 };
 
-const ValueElement = (props) => {
-  const {
-    bucket,
-    isSelected,
-    onFilterClicked,
-    getChildAggCmps,
-    overridableId,
-    keyField,
-  } = props;
-  const { buildUID } = useContext(AppContext);
-  const label = bucket.label
-    ? bucket.label
-    : `${keyField} (${bucket.doc_count.toLocaleString("en-US")})`;
-  const childAggCmps = getChildAggCmps(bucket);
-
-  return (
-    <Overridable
-      id={buildUID("BucketAggregationValues.element", overridableId)}
-      {...props}
-    >
-      <List.Item key={bucket.key}>
-        <Checkbox
-          label={label}
-          value={bucket.key}
-          onClick={() => onFilterClicked(bucket.key)}
-          checked={isSelected}
-        />
-        {childAggCmps}
-      </List.Item>
-    </Overridable>
-  );
-};
-
-ValueElement.propTypes = {
-  bucket: PropTypes.object.isRequired,
-  isSelected: PropTypes.bool.isRequired,
-  onFilterClicked: PropTypes.func.isRequired,
-  getChildAggCmps: PropTypes.func.isRequired,
-  keyField: PropTypes.array.isRequired,
-  overridableId: PropTypes.string,
-};
-
-ValueElement.defaultProps = {
-  overridableId: "",
-};
-
 const ContainerElement = ({ valuesCmp, overridableId }) => {
   const { buildUID } = useContext(AppContext);
 
@@ -169,6 +123,55 @@ ContainerElement.propTypes = {
 };
 
 ContainerElement.defaultProps = {
+  overridableId: "",
+};
+
+const ValueElement = ({
+  bucket,
+  isSelected,
+  onFilterClicked,
+  getChildAggCmps,
+  overridableId,
+  keyField,
+}) => {
+  const { buildUID } = useContext(AppContext);
+  const label = bucket.label
+    ? bucket.label
+    : `${keyField} (${bucket.doc_count.toLocaleString("en-US")})`;
+  const childAggCmps = getChildAggCmps(bucket);
+
+  return (
+    <Overridable
+      id={buildUID("BucketAggregationValues.element", overridableId)}
+      bucket={bucket}
+      label={label}
+      onFilterClicked={onFilterClicked}
+      isSelected={isSelected}
+      childAggCmps={childAggCmps}
+    >
+      <List.Item key={bucket.key}>
+        <Checkbox
+          label={label}
+          value={bucket.key}
+          onClick={() => onFilterClicked(bucket.key)}
+          checked={isSelected}
+        />
+        {childAggCmps}
+      </List.Item>
+    </Overridable>
+  );
+};
+
+ValueElement.propTypes = {
+  bucket: PropTypes.object.isRequired,
+  isSelected: PropTypes.bool.isRequired,
+  onFilterClicked: PropTypes.func.isRequired,
+  getChildAggCmps: PropTypes.func.isRequired,
+  keyField: PropTypes.string.isRequired,
+  overridableId: PropTypes.string,
+};
+
+ValueElement.defaultProps = {
   overridableId: "",
 };
 

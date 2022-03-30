@@ -88,26 +88,29 @@ BucketAggregation.propTypes = {
     aggName: PropTypes.string.isRequired,
     childAgg: PropTypes.object,
   }).isRequired,
+  overridableId: PropTypes.string,
+  /* REDUX */
   userSelectionFilters: PropTypes.array.isRequired,
   resultsAggregations: PropTypes.object.isRequired,
   updateQueryFilters: PropTypes.func.isRequired,
-  renderValuesContainerElement: PropTypes.func,
-  renderValueElement: PropTypes.func,
-  overridableId: PropTypes.string,
 };
 
 BucketAggregation.defaultProps = {
-  renderValuesContainerElement: null,
-  renderValueElement: null,
   overridableId: "",
 };
 
-const Element = ({ overridableId, title, containerCmp, ...props }) => {
+const Element = ({ overridableId, agg, title, containerCmp, updateQueryFilters }) => {
   const { buildUID } = useContext(AppContext);
 
   return (
     containerCmp && (
-      <Overridable id={buildUID("BucketAggregation.element", overridableId)} {...props}>
+      <Overridable
+        id={buildUID("BucketAggregation.element", overridableId)}
+        agg={agg}
+        title={title}
+        containerCmp={containerCmp}
+        updateQueryFilters={updateQueryFilters}
+      >
         <Card>
           <Card.Content>
             <Card.Header>{title}</Card.Header>
@@ -120,12 +123,15 @@ const Element = ({ overridableId, title, containerCmp, ...props }) => {
 };
 
 Element.propTypes = {
-  title: PropTypes.array.isRequired,
-  containerCmp: PropTypes.node.isRequired,
+  agg: PropTypes.object.isRequired,
+  title: PropTypes.string.isRequired,
+  containerCmp: PropTypes.node,
   overridableId: PropTypes.string,
+  updateQueryFilters: PropTypes.func.isRequired,
 };
 
 Element.defaultProps = {
+  containerCmp: null,
   overridableId: "",
 };
 

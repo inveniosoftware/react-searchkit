@@ -38,11 +38,12 @@ class LayoutSwitcher extends Component {
 }
 
 LayoutSwitcher.propTypes = {
+  overridableId: PropTypes.string,
+  /* REDUX */
   updateLayout: PropTypes.func.isRequired,
   loading: PropTypes.bool.isRequired,
   currentLayout: PropTypes.string,
   totalResults: PropTypes.number.isRequired,
-  overridableId: PropTypes.string,
 };
 
 LayoutSwitcher.defaultProps = {
@@ -50,19 +51,27 @@ LayoutSwitcher.defaultProps = {
   overridableId: "",
 };
 
-const Element = ({ overridableId, currentLayout, onLayoutChange, ...props }) => {
+const Element = ({ overridableId, currentLayout, onLayoutChange }) => {
   const { buildUID } = useContext(AppContext);
-  const clickHandler = (event, { name }) => {
-    onLayoutChange(name);
-  };
-
   return (
-    <Overridable id={buildUID("LayoutSwitcher.element", overridableId)} {...props}>
+    <Overridable
+      id={buildUID("LayoutSwitcher.element", overridableId)}
+      currentLayout={currentLayout}
+      onLayoutChange={onLayoutChange}
+    >
       <Menu compact icon>
-        <Menu.Item name="list" active={currentLayout === "list"} onClick={clickHandler}>
+        <Menu.Item
+          name="list"
+          active={currentLayout === "list"}
+          onClick={(_, { name }) => onLayoutChange(name)}
+        >
           <Icon name="list layout" />
         </Menu.Item>
-        <Menu.Item name="grid" active={currentLayout === "grid"} onClick={clickHandler}>
+        <Menu.Item
+          name="grid"
+          active={currentLayout === "grid"}
+          onClick={(_, { name }) => onLayoutChange(name)}
+        >
           <Icon name="grid layout" />
         </Menu.Item>
       </Menu>

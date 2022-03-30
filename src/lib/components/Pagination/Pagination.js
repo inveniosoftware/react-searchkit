@@ -60,10 +60,6 @@ class Pagination extends Component {
 }
 
 Pagination.propTypes = {
-  currentPage: PropTypes.number.isRequired,
-  currentSize: PropTypes.number.isRequired,
-  loading: PropTypes.bool.isRequired,
-  totalResults: PropTypes.number.isRequired,
   options: PropTypes.shape({
     boundaryRangeCount: PropTypes.number,
     siblingRangeCount: PropTypes.number,
@@ -74,8 +70,13 @@ Pagination.propTypes = {
     showNext: PropTypes.bool,
     size: PropTypes.oneOf(["mini", "tiny", "small", "large", "huge", "massive"]),
   }),
-  updateQueryPage: PropTypes.func.isRequired,
   overridableId: PropTypes.string,
+  /* REDUX */
+  currentPage: PropTypes.number.isRequired,
+  currentSize: PropTypes.number.isRequired,
+  loading: PropTypes.bool.isRequired,
+  totalResults: PropTypes.number.isRequired,
+  updateQueryPage: PropTypes.func.isRequired,
 };
 
 Pagination.defaultProps = {
@@ -101,17 +102,22 @@ const Element = ({
   const showPrev = options.showPrev;
   const showNext = options.showNext;
   const size = options.size;
-  const _onPageChange = (event, { activePage }) => {
-    onPageChange(activePage);
-  };
+
   const { buildUID } = useContext(AppContext);
 
   return (
-    <Overridable id={buildUID("Pagination.element", overridableId)} {...props}>
+    <Overridable
+      id={buildUID("Pagination.element", overridableId)}
+      currentPage={currentPage}
+      currentSize={currentSize}
+      totalResults={totalResults}
+      options={options}
+      onPageChange={onPageChange}
+    >
       <Paginator
         activePage={currentPage}
         totalPages={pages}
-        onPageChange={_onPageChange}
+        onPageChange={(_, { activePage }) => onPageChange(activePage)}
         boundaryRange={boundaryRangeCount}
         siblingRange={siblingRangeCount}
         ellipsisItem={showEllipsis ? undefined : null}
@@ -129,7 +135,6 @@ const Element = ({
 Element.propTypes = {
   currentPage: PropTypes.number.isRequired,
   currentSize: PropTypes.number.isRequired,
-  loading: PropTypes.bool.isRequired,
   totalResults: PropTypes.number.isRequired,
   onPageChange: PropTypes.func.isRequired,
   options: PropTypes.object,

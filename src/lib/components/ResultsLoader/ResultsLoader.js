@@ -18,8 +18,9 @@ function ResultsLoader({ children, loading, overridableId }) {
 
 ResultsLoader.propTypes = {
   children: PropTypes.node.isRequired,
-  loading: PropTypes.bool.isRequired,
   overridableId: PropTypes.string,
+  /* REDUX */
+  loading: PropTypes.bool.isRequired,
 };
 
 ResultsLoader.defaultProps = {

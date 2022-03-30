@@ -22,22 +22,20 @@ there are no results.
 
   The default layout, one of `list` or `grid`. Default value: `list`.
 
-* **renderElement** `function` *optional*
+* **overridableId** `String` *optional*
 
-  An optional function to override the default rendered component.
+  An optional string to define a specific overridable id.
 
-## Usage when overriding template
-
-```jsx
-<LayoutSwitcher renderElement={renderLayoutSwitcher} />
-```
-
-The function `renderElement` is called every time the number of results changes.
+## Usage when overriding
 
 ```jsx
-renderLayoutSwitcher = (currentLayout, onLayoutChange) => {
-  return <a onClick={() => onLayoutChange('list')}>LIST</a>/<a onClick={() => onLayoutChange('grid')}>GRID</a>;
+const MyLayoutSwitcher = ({ currentLayout, onLayoutChange }) => {
+  ...
 }
+
+const overriddenComponents = {
+  "LayoutSwitcher.element": MyLayoutSwitcher
+};
 ```
 
 ### Parameters

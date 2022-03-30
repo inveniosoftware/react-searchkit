@@ -81,9 +81,10 @@ SearchBar.propTypes = {
   onKeyPress: PropTypes.func,
   overridableId: PropTypes.string,
   placeholder: PropTypes.string,
+  uiProps: PropTypes.object,
+  /* REDUX */
   queryString: PropTypes.string,
   updateQueryString: PropTypes.func.isRequired,
-  uiProps: PropTypes.object,
 };
 
 SearchBar.defaultProps = {
@@ -136,7 +137,16 @@ class Element extends Component {
     const { buildUID } = this.context;
 
     return (
-      <Overridable id={buildUID("SearchBar.element", overridableId)} {...this.props}>
+      <Overridable
+        id={buildUID("SearchBar.element", overridableId)}
+        queryString={queryString}
+        onBtnSearchClick={onBtnSearchClick}
+        onInputChange={onInputChange}
+        onKeyPress={onKeyPress}
+        placeholder={placeholder}
+        actionProps={actionProps}
+        uiProps={uiProps}
+      >
         <Input
           action={{
             content: "Search",
@@ -146,7 +156,7 @@ class Element extends Component {
           fluid
           {...uiProps}
           placeholder={placeholder || "Type something"}
-          onChange={(event, { value }) => {
+          onChange={(_, { value }) => {
             onInputChange(value);
           }}
           value={queryString}

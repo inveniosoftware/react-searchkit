@@ -23,29 +23,27 @@ const options = { showEllipsis: false, showLastIcon: false }
 
   * **boundaryRangeCount** `Number`: Number of always visible pages at the beginning and end. Default value: `1`.
   * **siblingRangeCount** `Number`: Number of always visible pages before and after the current one. Default value: `1`.
-  * **showEllipsis** `boolean`: Show '...' for hidden pages. Default value: `true`.
-  * **showFirst** `boolean`: Show the icon to go to the first page. Default value: `true`.
-  * **showLast** `boolean`: Show the icon to go to the last page. Default value: `true`.
-  * **showPrev** `boolean`: Show the icon to go to the previous page. Default value: `true`.
-  * **showNext** `boolean`: Show the icon to go to the next page. Default value: `true`.
+  * **showEllipsis** `Boolean`: Show '...' for hidden pages. Default value: `true`.
+  * **showFirst** `Boolean`: Show the icon to go to the first page. Default value: `true`.
+  * **showLast** `Boolean`: Show the icon to go to the last page. Default value: `true`.
+  * **showPrev** `Boolean`: Show the icon to go to the previous page. Default value: `true`.
+  * **showNext** `Boolean`: Show the icon to go to the next page. Default value: `true`.
+  * **size** `String`: Component size, one of `["mini", "tiny", "small", "large", "huge", "massive"]`.
 
-* **renderElement** `function` *optional*
+* **overridableId** `String` *optional*
 
-  An optional function to override the default rendered component.
+  An optional string to define a specific overridable id.
 
-## Usage when overriding template
-
-```jsx
-<Pagination renderElement={renderPagination} />
-```
-
-The function `renderElement` is called every time the list of results changes.
+## Usage when overriding
 
 ```jsx
-renderPagination = (currentPage, currentSize, totalResults, onPageChange, options) => {
-  const pages = Math.ceil(totalResults / currentSize);
-  return <div>Page {currentPage} of {pages}.</div>;
+const MyPagination = ({ currentPage, currentSize, totalResults, onPageChange, options }) => {
+  ...
 }
+
+const overriddenComponents = {
+  "Pagination.element": MyPagination
+};
 ```
 
 ### Parameters

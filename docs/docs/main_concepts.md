@@ -22,7 +22,7 @@ You can find the list of components in the [Components](components/react_search_
 
 ### Look And Feel
 
-By default, `React-SearchKit` uses [Semantic UI for React](https://react.semantic-ui.com/) to have a nice look and feel out of the box. However, you can override each component template by using the `renderElement` prop and provide your own function to render React components or simple HTML.
+By default, `React-SearchKit` uses [Semantic UI for React](https://react.semantic-ui.com/) to have a nice look and feel out of the box. However, you can override each component template by using [react-overridable](https://github.com/indico/react-overridable).
 
 Read the [UI Customisation](ui_customisation.md) documentation for a detailed guide.
 
@@ -58,7 +58,7 @@ state = {
 }
 ```
 
-> Important: the app state is a fixed structure. Each value can be changed by the components only through the available Redux actions. If you have the need to add extra state, follow the [Extend State](extend_state.md) guide.
+> Important: the app state is a fixed structure. Each value can be changed by the components only through the available Redux actions.
 
 ### Query
 

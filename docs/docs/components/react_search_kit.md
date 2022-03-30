@@ -44,13 +44,17 @@ See the [complete guide](main_concepts.md) for detailed information.
 
 - **appName** `string` _optional_
 
-  A name to uniquely identify the application. Useful when enabling the `event listener` (read below) and when multiple ReactSearchKit apps are loaded in the same page. 
-  
+  A name to uniquely identify the application. Useful when enabling the `event listener` (read below) and when multiple ReactSearchKit apps are loaded in the same page.
+
   The `overridable-id` of each component will be prefixed by this `appName` ([see here](https://inveniosoftware.github.io/react-searchkit/docs/ui-customisation)). Default is empty string `'' ` (no namespacing).
 
 - **eventListenerEnabled** `boolean` _optional_
 
   If `true` the application listens to the `queryChanged` event else if `false` no listener is registered. When this event is emitted the application triggers a search based on the payload that is passed to the event at the emission time. Default `false`.
+
+- **overridableId** `String` *optional*
+
+  An optional string to define a specific overridable id.
 
 - **initialQueryState** `object` _optional_
 

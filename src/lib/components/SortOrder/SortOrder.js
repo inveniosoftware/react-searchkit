@@ -58,14 +58,15 @@ class SortOrder extends Component {
 
 SortOrder.propTypes = {
   values: PropTypes.array.isRequired,
-  currentSortOrder: PropTypes.string,
-  loading: PropTypes.bool.isRequired,
-  totalResults: PropTypes.number.isRequired,
-  updateQuerySortOrder: PropTypes.func.isRequired,
   label: PropTypes.func,
   overridableId: PropTypes.string,
   ariaLabel: PropTypes.string,
   selectOnNavigation: PropTypes.bool,
+  /* REDUX */
+  currentSortOrder: PropTypes.string,
+  loading: PropTypes.bool.isRequired,
+  totalResults: PropTypes.number.isRequired,
+  updateQuerySortOrder: PropTypes.func.isRequired,
 };
 
 SortOrder.defaultProps = {
@@ -83,7 +84,6 @@ const Element = ({
   onValueChange,
   ariaLabel,
   selectOnNavigation,
-  ...props
 }) => {
   const { buildUID } = useContext(AppContext);
 
@@ -92,13 +92,20 @@ const Element = ({
   });
 
   return (
-    <Overridable id={buildUID("SortOrder.element", overridableId)} {...props}>
+    <Overridable
+      id={buildUID("SortOrder.element", overridableId)}
+      options={options}
+      currentSortOrder={currentSortOrder}
+      onValueChange={onValueChange}
+      ariaLabel={ariaLabel}
+      selectOnNavigation={selectOnNavigation}
+    >
       <Dropdown
         selection
         compact
         options={_options}
         value={currentSortOrder}
-        onChange={(e, { value }) => onValueChange(value)}
+        onChange={(_, { value }) => onValueChange(value)}
         aria-label={ariaLabel}
         selectOnNavigation={selectOnNavigation}
       />

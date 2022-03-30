@@ -42,8 +42,6 @@ const Element = ({ layout, overridableId }) => {
     <Overridable
       id={buildUID("ResultsMultiLayout.element", overridableId)}
       layout={layout}
-      ResultsList={ResultsList}
-      ResultsGrid={ResultsGrid}
     >
       {layout === "list" ? (
         <ResultsList overridableId={overridableId} />

@@ -56,7 +56,6 @@ class ResultsPerPage extends Component {
 
 ResultsPerPage.propTypes = {
   values: PropTypes.array.isRequired,
-  updateQuerySize: PropTypes.func.isRequired,
   label: PropTypes.func,
   overridableId: PropTypes.string,
   ariaLabel: PropTypes.string,
@@ -65,6 +64,7 @@ ResultsPerPage.propTypes = {
   currentSize: PropTypes.number.isRequired,
   loading: PropTypes.bool.isRequired,
   totalResults: PropTypes.number.isRequired,
+  updateQuerySize: PropTypes.func.isRequired,
 };
 
 ResultsPerPage.defaultProps = {
@@ -81,7 +81,6 @@ const Element = ({
   onValueChange,
   ariaLabel,
   selectOnNavigation,
-  ...props
 }) => {
   const { buildUID } = useContext(AppContext);
   const _options = options.map((element, index) => {
@@ -89,7 +88,14 @@ const Element = ({
   });
 
   return (
-    <Overridable id={buildUID("ResultsPerPage.element", overridableId)} {...props}>
+    <Overridable
+      id={buildUID("ResultsPerPage.element", overridableId)}
+      currentSize={currentSize}
+      options={options}
+      onValueChange={onValueChange}
+      ariaLabel={ariaLabel}
+      selectOnNavigation={selectOnNavigation}
+    >
       <Dropdown
         inline
         compact

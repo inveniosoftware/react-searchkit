@@ -13,20 +13,18 @@ title: ResultsLoader
 
 ## Props
 
-* **renderElement** `function` *optional*
+* **overridableId** `String` *optional*
 
-  An optional function to override the default rendered component.
+  An optional string to define a specific overridable id.
 
-## Usage when overriding template
-
-```jsx
-<ResultsGrid renderElement={renderLoader} />
-```
-
-The function `renderElement` is called every time the loading state changes to `true`. When the state is `false`, then the component is not displayed.
+## Usage when overriding
 
 ```jsx
-renderLoader = () => {
-  return <div>Loading...</div>;
+const MyResultsLoader = () => {
+  ...
 }
+
+const overriddenComponents = {
+  "ResultsLoader.element": MyResultsLoader
+};
 ```
