@@ -1,5 +1,10 @@
 # Changes
 
+Version 1.0.1 (released 2022-03-31)
+
+* Dummy release to revert the publishing of the wrong version 1.0.0, which
+  introduced incompatible changes breaking 1.0.0-alpha-x versions.
+
 Version 1.0.0-alpha.22 (released 2022-02-11)
 
 * EmptyResults: pass userSelectionFilters filters.
