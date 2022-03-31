@@ -1,20 +1,13 @@
 # Changes
 
-Version 1.0.0 (released 2022-03-30) 🚀
-
-* Adds ARIA tags to dropdowns.
-* Fixes Toggle component by changing the overriable id to `SearchFilters.Toggle`.
-* Integrates `eslint-config-invenio` and fixes code.
-* Improves documentation.
-
 Version 1.0.0-alpha.22 (released 2022-02-11)
 
 * EmptyResults: pass userSelectionFilters filters.
-* Changes patch versions of NPM dependencies to x.x.0 to relax requirements.
+* Change patch versions of NPM dependencies to x.x.0 to relax requirements.
 
 Version 1.0.0-alpha.21 (released 2022-02-07)
 
-* Adds namespace to overrdable id to the Toggle component.
+* Add namespace to overrdable id to the Toggle component.
 * Adds docs to how to customize RSK using react-overridable.
 
 Version 1.0.0-alpha.20 (released 2022-02-02)
