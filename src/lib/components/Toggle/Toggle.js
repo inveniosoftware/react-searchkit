@@ -66,4 +66,4 @@ ToggleComponent.defaultProps = {
   overridableId: "",
 };
 
-export default Overridable.component("SearchFilters.Toggle", ToggleComponent);
+export default Overridable.component("SearchFilters.Toggle.element", ToggleComponent);
