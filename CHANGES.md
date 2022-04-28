@@ -1,5 +1,8 @@
 # Changes
 
+Version 2.0.1 (released 2022-04-28)
+* Fix Searchbar missing `queryString` prop
+
 Version 2.0.0 (released 2022-03-31) 🚀
 
 * Adds ARIA tags to dropdowns.
