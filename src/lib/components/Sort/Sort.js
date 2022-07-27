@@ -93,7 +93,10 @@ Sort.propTypes = {
 Sort.defaultProps = {
   currentSortBy: null,
   currentSortOrder: null,
-  label: (cmp) => cmp,
+  label: (cmp) => <>
+      <label className="min-width-max-content rel-mr-1">Sort by</label>
+      {cmp}
+    </>,
   overridableId: "",
   sortOrderDisabled: false,
   ariaLabel: "Sort",
