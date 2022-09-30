@@ -104,6 +104,7 @@ const Element = ({
   const size = options.size;
 
   const { buildUID } = useContext(AppContext);
+  if(currentPage > pages) onPageChange(pages);
 
   return (
     <Overridable
