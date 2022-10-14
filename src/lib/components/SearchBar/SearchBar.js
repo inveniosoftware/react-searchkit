@@ -103,9 +103,10 @@ SearchBar.defaultProps = {
 // NOTE: Adding the key prop, will recreate the SearchBar in order to update
 // state with the latest redux queryString value.
 // https://reactjs.org/blog/2018/06/07/you-probably-dont-need-derived-state.html#recommendation-fully-uncontrolled-component-with-a-key
-const SearchBarUncontrolled = ( props ) => (
-  <SearchBar key={props.queryString} {...props} />
-);
+const SearchBarUncontrolled = (props) => {
+  const { queryString } = props;
+  return <SearchBar key={queryString} {...props} />;
+};
 
 SearchBarUncontrolled.propTypes = {
   queryString: PropTypes.string,

@@ -11,7 +11,6 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "rimraf dist && NODE_ENV=production rollup -c",
-    "postinstall": "semantic-ui-css-patch",
     "edit-linked-package": "json -I -f ./dist/package.json -e 'this.module=\"esm/index.js\", this.main=\"cjs/index.js\"' ",
     "prelink-dist": "cp package.json ./dist && npm run edit-linked-package",
     "link-dist": "cd dist && npm link",
@@ -25,7 +24,6 @@
   },
   "peerDependencies": {
     "@babel/runtime": "^7.9.0",
-    "@semantic-ui-react/css-patch": "^1.0.0",
     "axios": "^0.21.0",
     "lodash": "^4.17.0",
     "qs": "^6.8.0",
@@ -35,16 +33,15 @@
     "react-redux": "^7.2.0",
     "redux": "^4.0.0",
     "redux-thunk": "^2.3.0",
-    "semantic-ui-css": "^2.4.0",
+    "semantic-ui-css": "^2.5.0",
     "semantic-ui-react": "^2.1.0"
   },
   "devDependencies": {
     "@babel/cli": "^7.11.0",
-    "@inveniosoftware/eslint-config-invenio": "^1.0.5",
+    "@inveniosoftware/eslint-config-invenio": "^1.0.11",
     "@rollup/plugin-babel": "^5.2.0",
     "@rollup/plugin-commonjs": "^15.1.0",
     "@rollup/plugin-node-resolve": "^9.0.0",
-    "@semantic-ui-react/css-patch": "^1.0.0",
     "axios": "^0.21.0",
     "axios-mock-adapter": "^1.18.0",
     "coveralls": "^3.0.0",
@@ -54,7 +51,6 @@
     "expect": "^26.5.0",
     "json": "^10.0.0",
     "lodash": "^4.17.0",
-    "node-sass": "^7.0.0",
     "qs": "^6.8.0",
     "react": "^16.13.0",
     "react-dom": "^16.13.0",
@@ -69,7 +65,8 @@
     "rollup-plugin-local-resolve": "^1.0.0",
     "rollup-plugin-peer-deps-external": "^2.2.0",
     "rollup-plugin-postcss": "^4.0.0",
-    "semantic-ui-css": "^2.4.0",
+    "sass": "^1.50.0",
+    "semantic-ui-css": "^2.5.0",
     "semantic-ui-react": "^2.1.0"
   },
   "author": {

@@ -15,7 +15,7 @@ import _ from "lodash";
 import PropTypes from "prop-types";
 import React, { Component, useContext } from "react";
 import Overridable from "react-overridable";
-import { Input } from "semantic-ui-react";
+import { Input, Button } from "semantic-ui-react";
 import { AppContext } from "../ReactSearchKit";
 import "./AutocompleteSearchBar.scss";
 
@@ -163,9 +163,9 @@ const Suggestions = ({ overridableId, ...props }) => {
     >
       <ul>
         {querySuggestions.map((text) => (
-          <li onClick={() => onSuggestionSelected(text)} key={text}>
+          <Button as="li" onClick={() => onSuggestionSelected(text)} key={text}>
             {text}
-          </li>
+          </Button>
         ))}
       </ul>
     </Overridable>
