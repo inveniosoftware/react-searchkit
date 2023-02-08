@@ -1,14 +1,14 @@
 /*
  * This file is part of React-SearchKit.
- * Copyright (C) 2018 CERN.
+ * Copyright (C) 2018-2023 CERN.
  *
  * React-SearchKit is free software; you can redistribute it and/or modify it
  * under the terms of the MIT License; see LICENSE file for more details.
  */
 
-const React = require('react');
+const React = require("react");
 
-const siteConfig = require(process.cwd() + '/siteConfig.js');
+const siteConfig = require(process.cwd() + "/siteConfig.js");
 
 class Footer extends React.Component {
   render() {
@@ -33,16 +33,9 @@ class Footer extends React.Component {
           </div>
           <div>
             <h5>More</h5>
-            <a href="https://github.com/inveniosoftware/react-searchkit">
-              GitHub
-            </a>
+            <a href="https://github.com/inveniosoftware/react-searchkit">GitHub</a>
             <a href="https://inveniosoftware.org/">Invenio Software</a>
-            <a href="https://gitter.im/inveniosoftware/invenio">
-              <img
-                src={`${siteConfig.baseUrl}img/gitter.svg`}
-                alt="Gitter chat"
-              />
-            </a>
+            <a href="https://discord.gg/8qatqBC">Chat with us!</a>
             <a href="https://twitter.com/inveniosoftware">Twitter</a>
           </div>
           <div>
