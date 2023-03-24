@@ -91,9 +91,9 @@ const Element = ({
   totalResults,
   onPageChange,
   options,
+  maxTotalResults,
   ...props
 }) => {
-  const pages = Math.ceil(totalResults / currentSize);
   const boundaryRangeCount = options.boundaryRangeCount;
   const siblingRangeCount = options.siblingRangeCount;
   const showEllipsis = options.showEllipsis;
@@ -102,6 +102,10 @@ const Element = ({
   const showPrev = options.showPrev;
   const showNext = options.showNext;
   const size = options.size;
+
+  const maxTotalPages = Math.floor(maxTotalResults / currentSize);
+  const pages = Math.ceil(totalResults / currentSize);
+  const totalDisplayedPages = Math.min(pages, maxTotalPages);
 
   const { buildUID } = useContext(AppContext);
   if (currentPage > pages) onPageChange(pages);
@@ -117,7 +121,7 @@ const Element = ({
     >
       <Paginator
         activePage={currentPage}
-        totalPages={pages}
+        totalPages={totalDisplayedPages}
         onPageChange={(_, { activePage }) => onPageChange(activePage)}
         boundaryRange={boundaryRangeCount}
         siblingRange={siblingRangeCount}
@@ -140,11 +144,13 @@ Element.propTypes = {
   onPageChange: PropTypes.func.isRequired,
   options: PropTypes.object,
   overridableId: PropTypes.string,
+  maxTotalResults: PropTypes.number,
 };
 
 Element.defaultProps = {
   options: {},
   overridableId: "",
+  maxTotalResults: 10000,
 };
 
 export default Overridable.component("Pagination", Pagination);
