@@ -1,5 +1,9 @@
 # Changes
 
+Version 2.1.0 (released 2023-03-28)
+
+- add maximum results to the pagination
+
 Version 2.0.2 (released 2022-10-19)
 
 - pagination: navigate to previous page if current page is empty
