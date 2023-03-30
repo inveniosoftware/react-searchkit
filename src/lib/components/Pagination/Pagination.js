@@ -53,6 +53,7 @@ class Pagination extends Component {
           onPageChange={this.onPageChange}
           options={this.options}
           overridableId={overridableId}
+          maxTotalResults={this.options.maxTotalResults}
         />
       </ShouldRender>
     );
@@ -69,6 +70,7 @@ Pagination.propTypes = {
     showPrev: PropTypes.bool,
     showNext: PropTypes.bool,
     size: PropTypes.oneOf(["mini", "tiny", "small", "large", "huge", "massive"]),
+    maxTotalResults: PropTypes.number,
   }),
   overridableId: PropTypes.string,
   /* REDUX */
