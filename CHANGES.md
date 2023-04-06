@@ -1,5 +1,9 @@
 # Changes
 
+Version 2.2.0 (released 2023-04-06)
+
+- control max number of results via config
+
 Version 2.1.0 (released 2023-03-28)
 
 - add maximum results to the pagination
