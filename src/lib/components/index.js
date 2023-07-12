@@ -25,4 +25,5 @@ export { SearchBar } from "./SearchBar";
 export { Sort } from "./Sort";
 export { SortBy } from "./SortBy";
 export { SortOrder } from "./SortOrder";
+export { ShouldRender } from "./ShouldRender";
 export { Toggle } from "./Toggle";

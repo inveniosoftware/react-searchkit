@@ -14,10 +14,22 @@ import { AppContext } from "../ReactSearchKit";
 import { ShouldRender } from "../ShouldRender";
 
 function ResultsList({ loading, totalResults, results, overridableId }) {
+  const { buildUID } = useContext(AppContext);
+
   return (
-    <ShouldRender condition={!loading && totalResults > 0}>
-      <Element results={results} overridableId={overridableId} />
-    </ShouldRender>
+    <Overridable
+      id={buildUID("ResultsList.ShouldRender.container", overridableId)}
+      results={results}
+      loading={loading}
+      totalResults={totalResults}
+      Element={Element}
+      overridableId={overridableId}
+    >
+      <ShouldRender condition={!loading && totalResults > 0}>
+        <Element results={results} overridableId={overridableId} />
+      </ShouldRender>
+    </Overridable>
+
   );
 }
 
