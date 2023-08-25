@@ -1,5 +1,9 @@
 # Changes
 
+Version 2.2.1 (released 2023-08-25)
+
+- bucket aggregations: render aggregation only if several buckets
+
 Version 2.2.0 (released 2023-04-06)
 
 - control max number of results via config

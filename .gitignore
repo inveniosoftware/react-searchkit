@@ -52,3 +52,5 @@ jspm_packages/
 
 # VSCode
 .history
+
+**.DS_Store
