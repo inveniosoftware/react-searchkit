@@ -67,9 +67,10 @@ class BucketAggregation extends Component {
       this.props;
     const selectedFilters = this._getSelectedFilters(userSelectionFilters);
     const resultBuckets = this._getResultBuckets(resultsAggregations);
-    const valuesCmp = resultBuckets.length > 1
-      ? this._renderValues(resultBuckets, selectedFilters)
-      : null;
+    const valuesCmp =
+      resultBuckets.length > 1
+        ? this._renderValues(resultBuckets, selectedFilters)
+        : null;
     return (
       <Element
         title={this.title}
