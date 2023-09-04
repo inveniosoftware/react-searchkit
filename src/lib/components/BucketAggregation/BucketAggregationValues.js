@@ -152,6 +152,7 @@ const ValueElement = ({
       <List.Item key={bucket.key}>
         <Checkbox
           label={label}
+          id={`${bucket.key}-agg-value-checkbox`}
           value={bucket.key}
           onClick={() => onFilterClicked(bucket.key)}
           checked={isSelected}
