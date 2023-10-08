@@ -1,5 +1,9 @@
 # Changes
 
+Version 2.2.3 (released 2023-10-08)
+
+- revert render aggregation only if several buckets
+
 Version 2.2.2 (released 2023-09-05)
 
 - bucket aggregation: add id to checkbox
