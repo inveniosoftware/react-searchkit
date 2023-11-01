@@ -120,7 +120,24 @@ describe("test InvenioRequestSerializer serializer", () => {
       ],
     };
     const strState = serializer.serialize(queryState);
-    expect(strState).toBe("q=test&type=report&subtype=pdf&category=video");
+    expect(strState).toBe("q=test&type=report%3A%3Apdf&category=video");
+  });
+
+  it("should serialize multiple nested filters", () => {
+    const queryState = {
+      queryString: "test",
+      page: 0,
+      size: 0,
+      filters: [
+        ["type", "report", ["subtype", "pdf"]],
+        ["type", "report", ["subtype", "doc"]],
+        ["category", "video"],
+      ],
+    };
+    const strState = serializer.serialize(queryState);
+    expect(strState).toBe(
+      "q=test&type=report%3A%3Apdf&type=report%3A%3Adoc&category=video"
+    );
   });
 
   it("should fail when filters have wrong format", () => {

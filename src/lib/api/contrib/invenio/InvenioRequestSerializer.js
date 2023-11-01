@@ -25,16 +25,19 @@ export class InvenioRequestSerializer {
         `Filter value "${filter}" in query state must be an array of 2 or 3 elements`
       );
     }
-    const aggName = filter[0];
-    const fieldValue = filter[1];
+    const hasChild = filter.length === 3;
+    var aggName = filter[0];
+    var fieldValue = filter[1];
+    if (hasChild) {
+      if (!Array.isArray(filter[2])) {
+        throw new Error(`Filter value "${filter[2]}" in query state must be an array.`);
+      }
+      fieldValue = fieldValue + "::" + filter[2][1];
+    }
     if (aggName in filterUrlParams) {
       filterUrlParams[aggName].push(fieldValue);
     } else {
       filterUrlParams[aggName] = [fieldValue];
-    }
-    const hasChild = filter.length === 3;
-    if (hasChild) {
-      this._addFilter(filter[2], filterUrlParams);
     }
   };
 
@@ -54,8 +57,7 @@ export class InvenioRequestSerializer {
     });
     /**
      * output: {
-     *  type_agg: 'value1'.
-     *  subtype_agg: 'a value'
+     *  type_agg: [ 'value1', 'value2::a value' ]
      * }
      */
     return filterUrlParams;
