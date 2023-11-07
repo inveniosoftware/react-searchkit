@@ -1,5 +1,10 @@
 # Changes
 
+Version 2.2.4 (released 2023-11-07)
+
+- InvenioRequestSerializer: nested filters are now sent to the backend
+  concatenated with the parent filter
+
 Version 2.2.3 (released 2023-10-08)
 
 - revert render aggregation only if several buckets
