@@ -71,7 +71,7 @@ const Element = ({ overridableId, results, resultsPerRow }) => {
   return (
     <Overridable
       id={buildUID("ResultsGrid.container", overridableId)}
-      results={results}
+      results={_results}
       resultsPerRow={resultsPerRow}
     >
       <Card.Group itemsPerRow={resultsPerRow}>{_results}</Card.Group>
