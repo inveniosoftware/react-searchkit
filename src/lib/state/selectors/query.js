@@ -18,7 +18,16 @@ import _pick from "lodash/pick";
  * @param {string} second a string
  */
 function startsWith(first, second) {
-  return first.indexOf(second) === 0;
+  /* This is a bit tricky, since the verification should distinguish between the label and the children
+  In other words:
+  * 'q=type:hello&subtype:there' (or 'q=type:hello') starts with 'q=type:hello'
+  * 'q=type:hello there' should not start with 'q=type:hello'
+  So the check verifies that both terms are the same length, or that there is an '&' as soon as the second finishes
+  */
+  return (
+    first.indexOf(second) === 0 &&
+    (first.length === second.length || first.indexOf(second + "&") === 0)
+  );
 }
 
 function toString(array) {

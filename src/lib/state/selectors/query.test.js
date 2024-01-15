@@ -72,6 +72,18 @@ describe("queries with first level filters.", () => {
       ["type", "Publication"],
     ]);
   });
+
+  test("query with terms that start with the same text", () => {
+    const state = [
+      ["file_type", "pdf"],
+      ["file_type", "pdf2"],
+    ];
+    const query = ["file_type", "pdf"];
+
+    const newState = updateQueryFilters(query, state);
+
+    expect(newState).toEqual([["file_type", "pdf2"]]);
+  });
 });
 
 describe("queries with second level filters.", () => {
@@ -141,6 +153,17 @@ describe("queries with second level filters.", () => {
       ["type", "Image"],
       ["type", "Publication"],
     ]);
+  });
+  test("query with terms that start with the same text and with children", () => {
+    const state = [
+      ["file_type", "pdf", ["sub_type", "image"]],
+      ["file_type", "pdf2"],
+    ];
+    const query = ["file_type", "pdf"];
+
+    const newState = updateQueryFilters(query, state);
+
+    expect(newState).toEqual([["file_type", "pdf2"]]);
   });
 });
 
