@@ -134,12 +134,14 @@ const ValueElement = ({
   overridableId,
   keyField,
 }) => {
-  const { buildUID } = useContext(AppContext);
+  const { buildUID, nextComponentIndex } = useContext(AppContext);
   const label = bucket.label
     ? bucket.label
     : `${keyField} (${bucket.doc_count.toLocaleString("en-US")})`;
   const childAggCmps = getChildAggCmps(bucket);
-
+  /* Note that the checkbox does not have any `id`. It used to have one, based on the value, and the issue
+     was that, if the same value appeared more than once, react didn't like having two items with the same id,
+     and clicking on the second would select the first one */
   return (
     <Overridable
       id={buildUID("BucketAggregationValues.element", overridableId)}
@@ -152,7 +154,7 @@ const ValueElement = ({
       <List.Item key={bucket.key}>
         <Checkbox
           label={label}
-          id={`${bucket.key}-agg-value-checkbox`}
+          id={nextComponentIndex()}
           value={bucket.key}
           onClick={() => onFilterClicked(bucket.key)}
           checked={isSelected}
