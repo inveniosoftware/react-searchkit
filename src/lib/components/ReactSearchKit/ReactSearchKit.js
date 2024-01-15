@@ -35,8 +35,8 @@ export class ReactSearchKit extends Component {
     this.store = createStoreWithConfig(appConfig);
     this.appName = props.appName;
     this.eventListenerEnabled = props.eventListenerEnabled;
+    this.componentIndex = 0;
   }
-
   render() {
     const { appName, children, eventListenerEnabled, overridableId, searchOnInit } =
       this.props;
@@ -44,6 +44,9 @@ export class ReactSearchKit extends Component {
     const context = {
       appName,
       buildUID: (element, overrideId) => buildUID(element, overrideId, appName),
+      /* This is an internal function that will be used to create id for the checkboxes and labels, ensuring that
+          they are unique */
+      nextComponentIndex: () => `${this.appName}_${this.componentIndex++}`,
     };
 
     const _overridableId = buildUID("ReactSearchKit.children", overridableId, appName);

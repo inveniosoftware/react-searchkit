@@ -154,6 +154,7 @@ describe("queries with second level filters.", () => {
       ["type", "Publication"],
     ]);
   });
+
   test("query with terms that start with the same text and with children", () => {
     const state = [
       ["file_type", "pdf", ["sub_type", "image"]],
@@ -164,6 +165,41 @@ describe("queries with second level filters.", () => {
     const newState = updateQueryFilters(query, state);
 
     expect(newState).toEqual([["file_type", "pdf2"]]);
+  });
+
+  test("query with `subtype: Validation` should add it to the correct type", () => {
+    const state = [
+      ["file_type", "pdf"],
+      ["type", "Documentation", ["subtype", "Validation"]],
+    ];
+
+    const query = ["type", "Publication", ["subtype", "Validation"]];
+
+    const newState = updateQueryFilters(query, state);
+
+    expect(newState).toEqual([
+      ["file_type", "pdf"],
+      ["type", "Documentation", ["subtype", "Validation"]],
+      ["type", "Publication", ["subtype", "Validation"]],
+    ]);
+  });
+
+  test("query with `subtype: Validation` should remove it from the correct type", () => {
+    const state = [
+      ["file_type", "pdf"],
+      ["type", "Documentation", ["subtype", "Validation"]],
+      ["type", "Publication", ["subtype", "Validation"]],
+    ];
+
+    const query = ["type", "Publication", ["subtype", "Validation"]];
+
+    const newState = updateQueryFilters(query, state);
+
+    expect(newState).toEqual([
+      ["file_type", "pdf"],
+      ["type", "Documentation", ["subtype", "Validation"]],
+      ["type", "Publication"],
+    ]);
   });
 });
 
