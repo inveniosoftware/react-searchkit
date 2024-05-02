@@ -46,14 +46,14 @@ class Pagination extends Component {
       currentPage,
       currentSize,
       overridableId,
-      renderBasedOnCurrentSize,
+      showWhenOnlyOnePage,
     } = this.props;
     return (
       <ShouldRender
         condition={
-          !loading && currentPage > -1 && currentSize > -1 && renderBasedOnCurrentSize
-            ? totalResults > currentSize
-            : totalResults > 0
+          !loading && currentPage > -1 && currentSize > -1 && showWhenOnlyOnePage
+            ? totalResults > 0
+            : totalResults > currentSize
         }
       >
         <Element
@@ -83,7 +83,7 @@ Pagination.propTypes = {
     maxTotalResults: PropTypes.number,
   }),
   overridableId: PropTypes.string,
-  renderBasedOnCurrentSize: PropTypes.bool,
+  showWhenOnlyOnePage: PropTypes.bool,
   /* REDUX */
   currentPage: PropTypes.number.isRequired,
   currentSize: PropTypes.number.isRequired,
@@ -95,7 +95,7 @@ Pagination.propTypes = {
 Pagination.defaultProps = {
   options: {},
   overridableId: "",
-  renderBasedOnCurrentSize: false,
+  showWhenOnlyOnePage: true,
 };
 
 const Element = ({
