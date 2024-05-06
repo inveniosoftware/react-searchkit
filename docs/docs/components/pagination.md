@@ -67,3 +67,9 @@ const overriddenComponents = {
 * **options** `object`
 
   The options prop passed to the component.
+
+* **showWhenOnlyOnePage** `Boolean`
+
+  Allows to configure whether or not the component will render when there is only one page of results available. Default value: `true`.
+
+  

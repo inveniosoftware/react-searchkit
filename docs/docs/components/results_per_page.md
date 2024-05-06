@@ -63,3 +63,7 @@ const overriddenComponents = {
 * **selectOnNavigation** `Boolean`
 
   When using a dropdown, set if the `onValueChange` should be called when the new dropdown item is selected with arrow keys, or only on click or on enter.
+
+* **showWhenOnlyOnePage** `Boolean`
+
+  Allows to configure whether or not the component will render when there is only one page of results available. Default value: `true`.

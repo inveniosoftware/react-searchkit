@@ -36,9 +36,16 @@ class ResultsPerPage extends Component {
       overridableId,
       ariaLabel,
       selectOnNavigation,
+      showWhenOnlyOnePage,
     } = this.props;
     return (
-      <ShouldRender condition={!loading && totalResults > 0 && currentSize !== -1}>
+      <ShouldRender
+        condition={
+          !loading && currentSize !== -1 && showWhenOnlyOnePage
+            ? totalResults > 0
+            : totalResults > currentSize
+        }
+      >
         {label(
           <Element
             currentSize={currentSize}
@@ -60,6 +67,7 @@ ResultsPerPage.propTypes = {
   overridableId: PropTypes.string,
   ariaLabel: PropTypes.string,
   selectOnNavigation: PropTypes.bool,
+  showWhenOnlyOnePage: PropTypes.bool,
   /* REDUX */
   currentSize: PropTypes.number.isRequired,
   loading: PropTypes.bool.isRequired,
@@ -72,6 +80,7 @@ ResultsPerPage.defaultProps = {
   overridableId: "",
   ariaLabel: "Results per page",
   selectOnNavigation: false,
+  showWhenOnlyOnePage: true,
 };
 
 const Element = ({
