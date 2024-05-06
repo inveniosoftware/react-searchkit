@@ -1,8 +1,13 @@
 # Changes
 
+Version 2.2.6 (released 2024-05-06)
+
+- Pagination/ResultsPerPage: a new prop controls if these components should be
+  displayed when the number of results pages is one.
+
 Version 2.2.5 (released 2024-01-17)
 
-- selector: Allow the same value in multiple children aggregations
+- selector: allow the same value in multiple children aggregations
 - results grid: pass correct value to results prop
 - selector: check the corner case when one value starts with the same string as another value
 
