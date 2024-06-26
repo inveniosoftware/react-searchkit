@@ -1,6 +1,7 @@
 /*
  * This file is part of React-SearchKit.
  * Copyright (C) 2018-2022 CERN.
+ * Copyright (C) 2024      KTH Royal Institute of Technology.
  *
  * React-SearchKit is free software; you can redistribute it and/or modify it
  * under the terms of the MIT License; see LICENSE file for more details.
@@ -48,6 +49,10 @@ class Pagination extends Component {
       overridableId,
       showWhenOnlyOnePage,
     } = this.props;
+
+    const validCurrentPage = currentPage > 0 ? currentPage : 1;
+    const validCurrentSize = currentSize > 0 ? currentSize : 25;
+
     return (
       <ShouldRender
         condition={
@@ -57,8 +62,8 @@ class Pagination extends Component {
         }
       >
         <Element
-          currentPage={currentPage}
-          currentSize={currentSize}
+          currentPage={validCurrentPage}
+          currentSize={validCurrentSize}
           totalResults={totalResults}
           onPageChange={this.onPageChange}
           options={this.options}
