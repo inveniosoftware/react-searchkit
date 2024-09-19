@@ -20,6 +20,10 @@ By default it renders results as a list.
 
   An optional string to define a specific overridable id.
 
+* **onResultsRendered** `func` *optional*
+
+  An optional function to define set of actions to be performed after the component is rendered. For example: render MathJax to display mathematical equations.
+
 ## Usage when overriding
 
 ```jsx

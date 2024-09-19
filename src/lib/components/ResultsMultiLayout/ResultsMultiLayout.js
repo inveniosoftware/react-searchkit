@@ -14,10 +14,10 @@ import { ResultsGrid } from "../ResultsGrid";
 import { ResultsList } from "../ResultsList";
 import { ShouldRender } from "../ShouldRender";
 
-function ResultsMultiLayout({ loading, totalResults, currentLayout, overridableId }) {
+function ResultsMultiLayout({ loading, totalResults, currentLayout, overridableId, onResultsRendered }) {
   return (
     <ShouldRender condition={currentLayout != null && !loading && totalResults > 0}>
-      <Element layout={currentLayout} overridableId={overridableId} />
+      <Element layout={currentLayout} overridableId={overridableId} onResultsRendered={onResultsRendered} />
     </ShouldRender>
   );
 }
@@ -25,6 +25,7 @@ function ResultsMultiLayout({ loading, totalResults, currentLayout, overridableI
 ResultsMultiLayout.propTypes = {
   currentLayout: PropTypes.string,
   overridableId: PropTypes.string,
+  onResultsRendered: PropTypes.func,
   /* REDUX */
   loading: PropTypes.bool.isRequired,
   totalResults: PropTypes.number.isRequired,
@@ -33,20 +34,21 @@ ResultsMultiLayout.propTypes = {
 ResultsMultiLayout.defaultProps = {
   currentLayout: null,
   overridableId: "",
+  onResultsRendered: () => {},
 };
 
-const Element = ({ layout, overridableId }) => {
+const Element = ({ layout, overridableId, onResultsRendered }) => {
   const { buildUID } = useContext(AppContext);
-
   return (
     <Overridable
       id={buildUID("ResultsMultiLayout.element", overridableId)}
       layout={layout}
+      onResultsRendered={onResultsRendered}
     >
       {layout === "list" ? (
-        <ResultsList overridableId={overridableId} />
+        <ResultsList overridableId={overridableId} onResultsRendered={onResultsRendered}/>
       ) : (
-        <ResultsGrid overridableId={overridableId} />
+        <ResultsGrid overridableId={overridableId} onResultsRendered={onResultsRendered}/>
       )}
     </Overridable>
   );
@@ -55,11 +57,13 @@ const Element = ({ layout, overridableId }) => {
 Element.propTypes = {
   layout: PropTypes.string,
   overridableId: PropTypes.string,
+  onResultsRendered: PropTypes.func,
 };
 
 Element.defaultProps = {
   layout: "",
   overridableId: "",
+  onResultsRendered: () => {},
 };
 
 export default Overridable.component("ResultsMultiLayout", ResultsMultiLayout);

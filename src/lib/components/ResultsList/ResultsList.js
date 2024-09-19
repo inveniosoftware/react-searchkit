@@ -7,13 +7,25 @@
  */
 
 import PropTypes from "prop-types";
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import Overridable from "react-overridable";
 import { Item } from "semantic-ui-react";
 import { AppContext } from "../ReactSearchKit";
 import { ShouldRender } from "../ShouldRender";
 
-function ResultsList({ loading, totalResults, results, overridableId }) {
+function ResultsList({ loading, totalResults, results, overridableId, onResultsRendered }) {
+  useEffect(() => {
+    if (onResultsRendered) {
+      onResultsRendered();
+    }
+
+    return () => {
+      if (onResultsRendered) {
+        onResultsRendered = null;
+      }
+    };
+  }, [onResultsRendered]);
+
   return (
     <ShouldRender condition={!loading && totalResults > 0}>
       <Element results={results} overridableId={overridableId} />
@@ -23,6 +35,7 @@ function ResultsList({ loading, totalResults, results, overridableId }) {
 
 ResultsList.propTypes = {
   overridableId: PropTypes.string,
+  onResultsRendered: PropTypes.func,
   /* REDUX */
   loading: PropTypes.bool.isRequired,
   totalResults: PropTypes.number.isRequired,
@@ -31,6 +44,7 @@ ResultsList.propTypes = {
 
 ResultsList.defaultProps = {
   overridableId: "",
+  onResultsRendered: () => {},
 };
 
 const ListItem = ({ result, overridableId }) => {
