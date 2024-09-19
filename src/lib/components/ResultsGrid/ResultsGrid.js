@@ -7,13 +7,26 @@
  */
 
 import PropTypes from "prop-types";
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import Overridable from "react-overridable";
 import { Card, Image } from "semantic-ui-react";
 import { AppContext } from "../ReactSearchKit";
 import { ShouldRender } from "../ShouldRender";
 
-function ResultsGrid({ loading, totalResults, results, resultsPerRow, overridableId }) {
+function ResultsGrid({ loading, totalResults, results, resultsPerRow, overridableId, onResultsRendered }) {
+
+  useEffect(() => {
+    if (onResultsRendered) {
+      onResultsRendered();
+    }
+
+    return () => {
+      if (onResultsRendered) {
+        onResultsRendered = null;
+      }
+    };
+  }, [onResultsRendered]);
+
   return (
     <ShouldRender condition={!loading && totalResults > 0}>
       <Element
@@ -28,6 +41,7 @@ function ResultsGrid({ loading, totalResults, results, resultsPerRow, overridabl
 ResultsGrid.propTypes = {
   resultsPerRow: PropTypes.number,
   overridableId: PropTypes.string,
+  onResultsRendered: PropTypes.func,
   /* REDUX */
   loading: PropTypes.bool.isRequired,
   totalResults: PropTypes.number.isRequired,
@@ -37,6 +51,7 @@ ResultsGrid.propTypes = {
 ResultsGrid.defaultProps = {
   resultsPerRow: 3,
   overridableId: "",
+  onResultsRendered: () => {},
 };
 
 const GridItem = ({ result, overridableId }) => {
