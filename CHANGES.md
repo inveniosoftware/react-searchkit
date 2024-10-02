@@ -1,5 +1,10 @@
 # Changes
 
+Version 2.3.0 (released 2024-10-02)
+
+- Results components: a new prop allows the implementation of a callback on results
+  rendered.
+
 Version 2.2.6 (released 2024-05-06)
 
 - Pagination/ResultsPerPage: a new prop controls if these components should be
