@@ -19,12 +19,6 @@ function ResultsGrid({ loading, totalResults, results, resultsPerRow, overridabl
     if (onResultsRendered) {
       onResultsRendered();
     }
-
-    return () => {
-      if (onResultsRendered) {
-        onResultsRendered = null;
-      }
-    };
   }, [onResultsRendered]);
 
   return (

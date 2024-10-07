@@ -18,12 +18,6 @@ function ResultsList({ loading, totalResults, results, overridableId, onResultsR
     if (onResultsRendered) {
       onResultsRendered();
     }
-
-    return () => {
-      if (onResultsRendered) {
-        onResultsRendered = null;
-      }
-    };
   }, [onResultsRendered]);
 
   return (
