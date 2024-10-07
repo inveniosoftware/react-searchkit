@@ -13,18 +13,18 @@ import { Card, Image } from "semantic-ui-react";
 import { AppContext } from "../ReactSearchKit";
 import { ShouldRender } from "../ShouldRender";
 
-function ResultsGrid({ loading, totalResults, results, resultsPerRow, overridableId, onResultsRendered }) {
-
+function ResultsGrid({
+  loading,
+  totalResults,
+  results,
+  resultsPerRow,
+  overridableId,
+  onResultsRendered,
+}) {
   useEffect(() => {
     if (onResultsRendered) {
       onResultsRendered();
     }
-
-    return () => {
-      if (onResultsRendered) {
-        onResultsRendered = null;
-      }
-    };
   }, [onResultsRendered]);
 
   return (
