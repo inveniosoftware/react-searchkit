@@ -14,10 +14,20 @@ import { ResultsGrid } from "../ResultsGrid";
 import { ResultsList } from "../ResultsList";
 import { ShouldRender } from "../ShouldRender";
 
-function ResultsMultiLayout({ loading, totalResults, currentLayout, overridableId, onResultsRendered }) {
+function ResultsMultiLayout({
+  loading,
+  totalResults,
+  currentLayout,
+  overridableId,
+  onResultsRendered,
+}) {
   return (
     <ShouldRender condition={currentLayout != null && !loading && totalResults > 0}>
-      <Element layout={currentLayout} overridableId={overridableId} onResultsRendered={onResultsRendered} />
+      <Element
+        layout={currentLayout}
+        overridableId={overridableId}
+        onResultsRendered={onResultsRendered}
+      />
     </ShouldRender>
   );
 }
@@ -46,9 +56,15 @@ const Element = ({ layout, overridableId, onResultsRendered }) => {
       onResultsRendered={onResultsRendered}
     >
       {layout === "list" ? (
-        <ResultsList overridableId={overridableId} onResultsRendered={onResultsRendered}/>
+        <ResultsList
+          overridableId={overridableId}
+          onResultsRendered={onResultsRendered}
+        />
       ) : (
-        <ResultsGrid overridableId={overridableId} onResultsRendered={onResultsRendered}/>
+        <ResultsGrid
+          overridableId={overridableId}
+          onResultsRendered={onResultsRendered}
+        />
       )}
     </Overridable>
   );
