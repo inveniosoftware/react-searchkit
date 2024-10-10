@@ -1,5 +1,10 @@
 # Changes
 
+Version 3.0.0 (released 2024-10-10)
+
+- deps: major bump of axios to `v1.7.x`. It is released as major so we can controllably
+  rollout the change to the `inveniosoftware` organization.
+
 Version 2.3.0 (released 2024-10-02)
 
 - Results components: a new prop allows the implementation of a callback on results
