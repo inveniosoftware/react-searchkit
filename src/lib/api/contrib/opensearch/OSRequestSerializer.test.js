@@ -6,10 +6,10 @@
  * under the terms of the MIT License; see LICENSE file for more details.
  */
 
-import { ESRequestSerializer } from ".";
+import { OSRequestSerializer } from ".";
 
-describe("test ESRequestSerializer serializer", () => {
-  const serializer = new ESRequestSerializer();
+describe("test OSRequestSerializer serializer", () => {
+  const serializer = new OSRequestSerializer();
 
   it("should serialize the query field", () => {
     const queryState = {

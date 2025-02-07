@@ -20,7 +20,7 @@ import {
   Label,
   Menu,
 } from "semantic-ui-react";
-import { ESSearchApi } from "../../lib/api/contrib/elasticsearch";
+import { OSSearchApi } from "../../lib/api/contrib/opensearch";
 import {
   BucketAggregation,
   EmptyResults,
@@ -30,18 +30,18 @@ import {
   SearchBar,
   withState,
 } from "../../lib/components";
-import { DemoESRequestSerializer } from "./DemoESRequestSerializer";
+import { DemoOSRequestSerializer } from "./DemoOSRequestSerializer";
 import { Results } from "./Results";
 
 const OnResults = withState(Results);
 
-const searchApi = new ESSearchApi({
+const searchApi = new OSSearchApi({
   axios: {
     url: "http://localhost:5000/random/_search",
     timeout: 5000,
   },
-  es: {
-    requestSerializer: DemoESRequestSerializer,
+  os: {
+    requestSerializer: DemoOSRequestSerializer,
   },
 });
 
@@ -92,10 +92,10 @@ Tags.propTypes = {
   tags: PropTypes.array.isRequired,
 };
 
-const ElasticSearchResultsListItem = ({ result, index }) => {
+const OpenSearchResultsListItem = ({ result, index }) => {
   return (
     <Item key={index} href="#">
-      <Item.Image size="small" src={result.picture || "http://placehold.it/200"} />
+      <Item.Image size="small" src={result.picture || "https://placehold.co/200"} />
       <Item.Content>
         <Item.Header>
           {result.first_name} {result.last_name}
@@ -109,15 +109,15 @@ const ElasticSearchResultsListItem = ({ result, index }) => {
   );
 };
 
-ElasticSearchResultsListItem.propTypes = {
+OpenSearchResultsListItem.propTypes = {
   result: PropTypes.object.isRequired,
   index: PropTypes.string.isRequired,
 };
 
-const ElasticSearchResultsGridItem = ({ result, index }) => {
+const OpenSearchResultsGridItem = ({ result, index }) => {
   return (
     <Card fluid key={index} href="#">
-      <Image src={result.picture || "http://placehold.it/200"} />
+      <Image src={result.picture || "https://placehold.co/200"} />
       <Card.Content>
         <Card.Header>
           {result.first_name} {result.last_name}
@@ -131,14 +131,14 @@ const ElasticSearchResultsGridItem = ({ result, index }) => {
   );
 };
 
-ElasticSearchResultsGridItem.propTypes = {
+OpenSearchResultsGridItem.propTypes = {
   result: PropTypes.object.isRequired,
   index: PropTypes.string.isRequired,
 };
 
 const overriddenComponents = {
-  "ResultsList.item.elasticsearch": ElasticSearchResultsListItem,
-  "ResultsGrid.item.elasticsearch": ElasticSearchResultsGridItem,
+  "ResultsList.item.opensearch": OpenSearchResultsListItem,
+  "ResultsGrid.item.opensearch": OpenSearchResultsGridItem,
 };
 
 export class App extends Component {

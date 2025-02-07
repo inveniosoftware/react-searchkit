@@ -3,7 +3,7 @@ id: connect-your-rest-apis
 title: Connect Your REST APIs
 ---
 
-React-SearchKit comes out of the box with a working adapter for [Elasticsearch 7](https://www.elastic.co/) and [Invenio](https://inveniosoftware.org) REST APIs. However, the library has been designed to allow the creation of custom adapters to plug in any REST API service.
+React-SearchKit comes out of the box with a working adapter for [OpenSearch 2](https://opensearch.org/) and [Invenio](https://inveniosoftware.org) REST APIs. However, the library has been designed to allow the creation of custom adapters to plug in any REST API service.
 
 There are 2 ways of connecting your REST APIs:
 
@@ -12,12 +12,12 @@ There are 2 ways of connecting your REST APIs:
 
 ## Use one of the available
 
-The `Elasticsearch` adapter can be configured by passing an object. The configuration will be injected directly in the [axios](https://github.com/axios/axios) instance used under the hood to perform network requests.
+The `OpenSearch` adapter can be configured by passing an object. The configuration will be injected directly in the [axios](https://github.com/axios/axios) instance used under the hood to perform network requests.
 
 ```jsx
-const searchApi = new ESSearchApi({
+const searchApi = new OSSearchApi({
   axios: {
-    url: 'https://my.es.backend.org/search/',
+    url: 'https://my.os.backend.org/search/',
     timeout: 5000,
   }
 });
@@ -100,12 +100,12 @@ Custom serializers can then be injected in the configuration of the adapter:
 const MyRequestSerializer = new MyRequestSerializer();
 const MyResponseSerializer = new MyResponseSerializer();
 
-const searchApi = new ESSearchAPI({
+const searchApi = new OSSearchAPI({
   axios: {
-    url: 'https://my.es.backend.org/search/',
+    url: 'https://my.os.backend.org/search/',
     timeout: 5000,
   },
-  es: {
+  os: {
     requestSerializer: MyRequestSerializer,
     responseSerializer: MyResponseSerializer,
   },

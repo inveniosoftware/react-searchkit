@@ -1,0 +1,41 @@
+services:
+  proxy:
+    build: ./nginx
+    container_name: react-searchkit-nginx
+    links:
+      - os
+    ports:
+      - "5000:5000"
+  os:
+    image: opensearchproject/opensearch:2.18.0
+    container_name: react-searchkit-os
+    restart: "always"
+    volumes:
+      - osdata01:/usr/share/opensearch/data
+    environment:
+      - bootstrap.memory_lock=true
+      - OPENSEARCH_JAVA_OPTS=-Xms512m -Xmx512m
+      - OPENSEARCH_INITIAL_ADMIN_PASSWORD=123456789
+      - DISABLE_INSTALL_DEMO_CONFIG=true
+      - DISABLE_SECURITY_PLUGIN=true
+      - discovery.type=single-node
+      - http.cors.enabled=true
+      - http.cors.allow-origin=*
+      - http.cors.allow-credentials=false
+      - http.cors.allow-methods=OPTIONS,HEAD,GET,POST,PUT,DELETE
+      - http.cors.allow-headers=X-Requested-With,X-Auth-Token,Content-Type,Content-Length
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
+      nofile:
+        soft: 65536
+        hard: 65536
+    mem_limit: 2g
+    ports:
+      - "9200:9200"
+      - "9600:9600"
+
+volumes:
+  osdata01:
+

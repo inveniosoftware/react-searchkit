@@ -10,10 +10,10 @@ import axios from "axios";
 import _get from "lodash/get";
 import _hasIn from "lodash/hasIn";
 import { RequestCancelledError } from "../../errors";
-import { ESRequestSerializer } from "./ESRequestSerializer";
-import { ESResponseSerializer } from "./ESResponseSerializer";
+import { OSRequestSerializer } from "./OSRequestSerializer";
+import { OSResponseSerializer } from "./OSResponseSerializer";
 
-export class ESSearchApi {
+export class OSSearchApi {
   constructor(config) {
     this.axiosConfig = _get(config, "axios", {});
     this.validateAxiosConfig();
@@ -26,7 +26,7 @@ export class ESSearchApi {
 
   validateAxiosConfig() {
     if (!_hasIn(this.axiosConfig, "url")) {
-      throw new Error("ESSearchApi config: `node` field is required.");
+      throw new Error("OSSearchApi config: `node` field is required.");
     }
   }
 
@@ -38,13 +38,13 @@ export class ESSearchApi {
   initSerializers(config) {
     const requestSerializerCls = _get(
       config,
-      "es.requestSerializer",
-      ESRequestSerializer
+      "os.requestSerializer",
+      OSRequestSerializer
     );
     const responseSerializerCls = _get(
       config,
-      "es.responseSerializer",
-      ESResponseSerializer
+      "os.responseSerializer",
+      OSResponseSerializer
     );
 
     this.requestSerializer = new requestSerializerCls();

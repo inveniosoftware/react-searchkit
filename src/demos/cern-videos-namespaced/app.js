@@ -14,7 +14,10 @@ const CERNVideosResultsListItem =
     return (
       <Item key={index} href={`#${metadata.recid}`}>
         {imageShown && (
-          <Item.Image size="small" src={result.imageSrc || "http://placehold.it/200"} />
+          <Item.Image
+            size="small"
+            src={result.imageSrc || "https://placehold.co/200"}
+          />
         )}
         <Item.Content>
           <Item.Header>{metadata.title.title}</Item.Header>
@@ -32,7 +35,7 @@ const CERNVideosResultsGridItem =
     const metadata = result.metadata;
     return (
       <Card fluid key={index} href={`#${metadata.recid}`}>
-        <Image src={result.imageSrc || "http://placehold.it/200"} />
+        <Image src={result.imageSrc || "https://placehold.co/200"} />
         <Card.Content>
           <Card.Header style={{ color: blueTitle ? "blue" : "black" }}>
             {metadata.title.title}

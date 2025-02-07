@@ -6,13 +6,14 @@
  * under the terms of the MIT License; see LICENSE file for more details.
  */
 
-const React = require('react');
+const React = require("react");
 
-const CompLibrary = require('../../core/CompLibrary.js');
+const CompLibrary = require("../../core/CompLibrary.js");
+
 const Container = CompLibrary.Container;
 const GridBlock = CompLibrary.GridBlock;
 
-const siteConfig = require(process.cwd() + '/siteConfig.js');
+const siteConfig = require(process.cwd() + "/siteConfig.js");
 
 class Button extends React.Component {
   render() {
@@ -27,7 +28,7 @@ class Button extends React.Component {
 }
 
 Button.defaultProps = {
-  target: '_self',
+  target: "_self",
 };
 
 class Header extends React.Component {
@@ -55,13 +56,13 @@ class Header extends React.Component {
                   </div>
                 </div>
               </div>
-              <div className="githubButton" style={{ minHeight: '20px' }}>
+              <div className="githubButton" style={{ minHeight: "20px" }}>
                 <a
                   className="github-button"
                   href={this.props.config.repoUrl}
                   data-icon="octicon-star"
                   data-count-href="/inveniosoftware/react-searchkit/stargazers"
-                  data-show-count={true}
+                  data-show-count
                   data-count-aria-label="# stargazers on GitHub"
                   aria-label="Star inveniosoftware/react-searchkit on GitHub"
                 >
@@ -82,31 +83,31 @@ class Home extends React.Component {
       <div>
         <Header config={siteConfig} />
         <div className="mainContainer">
-          <Container padding={['bottom', 'top']} background="light">
+          <Container padding={["bottom", "top"]} background="light">
             <GridBlock
               align="center"
               layout="threeColumn"
               contents={[
                 {
-                  title: 'Ready To Use',
+                  title: "Ready To Use",
                   content: `Compose your search UI choosing between any of the available components. Override the
                   default look and feel of each component and provide yours.`,
                 },
                 {
-                  title: 'Fully Configurable',
-                  content: `Use React-SearchKit with your search REST API endpoint or Elasticsearch by providing your
+                  title: "Fully Configurable",
+                  content: `Use React-SearchKit with your search REST API endpoint or OpenSearch by providing your
                   configuration or implementation. Customize deep linking and integrate with React Router.`,
                 },
                 {
-                  title: 'Extensible',
+                  title: "Extensible",
                   content:
-                    'Create new components in a simple way and plug them to the other already available ones.',
+                    "Create new components in a simple way and plug them to the other already available ones.",
                 },
               ]}
             />
           </Container>
-          <Container padding={['all']}>
-            <div style={{ textAlign: 'center' }}>
+          <Container padding={["all"]}>
+            <div style={{ textAlign: "center" }}>
               <img
                 src={`${siteConfig.baseUrl}img/screenshot.png`}
                 alt="Screenshot"

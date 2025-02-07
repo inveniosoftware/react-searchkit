@@ -78,7 +78,7 @@ class App extends Component {
 }
 ```
 
-> Note: `React-SearchKit` comes out of the box with support to ElasticSearch 7 and [Invenio](https://inveniosoftware.org) REST APIs. To connect your own REST APIs, you can override the default configuration or provide your own adapter for your backend. Follow the next steps of this guide for detailed instructions on how to do it.
+> Note: `React-SearchKit` comes out of the box with support to OpenSearch 2 and [Invenio](https://inveniosoftware.org) REST APIs. To connect your own REST APIs, you can override the default configuration or provide your own adapter for your backend. Follow the next steps of this guide for detailed instructions on how to do it.
 
 ## Add the first component
 

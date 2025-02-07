@@ -27,33 +27,33 @@ Main features:
 
 You can find a collection of examples in the `src/demos` folder:
 
-- Elasticsearch, an example on how to query Elasticsearch (see below)
+- OpenSearch, an example on how to query OpenSearch (see below)
 - Zenodo.org, an example on how to query an Invenio 3 instance
 - CERN Videos, another Invenio 3 example
 
 Install dependencies and run the React app to try them out (see steps below).
 
-### Elasticsearch
+### OpenSearch
 
-To run the Elasticsearch backend for the demo, you can use Docker. A `docker-compose` file with `ES 7` and `nginx` as reverse proxy is available and ready to use.
+To run the OpenSearch backend for the demo, you can use Docker. A `docker-compose` file with `ES 7` and `nginx` as reverse proxy is available and ready to use.
 Run the services:
 
 ```bash
-cd src/demos/elasticsearch/docker
+cd src/demos/opensearch/docker
 docker-compose up
 ```
 
 Then, init the demo data:
 
 ```bash
-curl -XPUT 'http://localhost:9200/random?pretty' -H 'Content-Type: application/json' -d @es7-mappings.json
-curl -XPOST 'http://localhost:9200/random/_bulk' -H 'Content-Type: application/json' --data-binary @es-random-data.json
+curl -XPUT 'http://localhost:9200/random?pretty' -H 'Content-Type: application/json' -d @os2-mappings.json
+curl -XPOST 'http://localhost:9200/random/_bulk' -H 'Content-Type: application/json' --data-binary @os-random-data.json
 curl -XGET 'http://localhost:9200/random/_count?pretty'
 ```
 
 Demo data have been randomly generated using <https://next.json-generator.com>.
 
-> In case you want to clear your elastic search from data you can use `curl -X DELETE 'http://localhost:9200/_all'`
+> Delete data in the cluster: `curl -X DELETE 'http://localhost:9200/_all'`
 
 ## Developer guide
 

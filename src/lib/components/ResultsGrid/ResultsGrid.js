@@ -60,7 +60,7 @@ const GridItem = ({ result, overridableId }) => {
   return (
     <Overridable id={buildUID("ResultsGrid.item", overridableId)} result={result}>
       <Card fluid href={`#${result.id}`}>
-        <Image src={result.imgSrc || "http://placehold.it/200"} />
+        <Image src={result.imgSrc || "https://placehold.co/200"} />
         <Card.Content>
           <Card.Header>{result.title}</Card.Header>
           <Card.Description>{result.description}</Card.Description>

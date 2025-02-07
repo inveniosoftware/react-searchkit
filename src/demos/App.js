@@ -10,14 +10,14 @@ import React, { Component } from "react";
 import { Button, Container, Divider, Header, Menu, Segment } from "semantic-ui-react";
 import { CERNVideosReactSearchKit } from "./cern-videos";
 import NamespacedExample from "./cern-videos-namespaced/app";
-import { ESReactSearchKit } from "./elasticsearch";
+import { OSReactSearchKit } from "./opensearch";
 import { ZenodoReactSearchKit } from "./zenodo";
 
 const demos = {
-  "es7": {
-    label: "ElasticSearch 7",
+  "os2": {
+    label: "OpenSearch 2",
     text: "You Know, for Search",
-    cmp: <ESReactSearchKit />,
+    cmp: <OSReactSearchKit />,
   },
   "zenodo": {
     label: "zenodo.org",
@@ -31,7 +31,7 @@ const demos = {
   },
   "namespaced_example": {
     label: "video.cern.ch namespaced",
-    text: "Example of multiple React-searchkit instances rendered at same time, namespaced by their appName, with different overridden components.",
+    text: "Example of multiple React-SearchKit instances rendered at same time, namespaced by their appName, with different overridden components.",
     cmp: <NamespacedExample />,
   },
 };

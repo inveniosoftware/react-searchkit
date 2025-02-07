@@ -95,7 +95,7 @@ API responses will update this part of the state. Components that are connected 
 
 The API layer is composed of:
 
-* `SearchAPI`: adapter for HTTP requests. Available in 2 flavors, for Elasticsearch and Invenio, it is responsible of serializing the `query` state to search requests for your REST APIs and serialize back responses to mutate the `results` state.
+* `SearchAPI`: adapter for HTTP requests. Available in 2 flavors, for OpenSearch and Invenio, it is responsible of serializing the `query` state to search requests for your REST APIs and serialize back responses to mutate the `results` state.
 * `UrlHandlerApi`: an object capable of serializing the `query` state to the URL query string and vice versa, very useful for deep linking.
 
 > Note: given the structure of the Redux state, responses serialization must be adapted to the `results` state structure.

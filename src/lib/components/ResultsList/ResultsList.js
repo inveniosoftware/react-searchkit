@@ -53,7 +53,7 @@ const ListItem = ({ result, overridableId }) => {
   return (
     <Overridable id={buildUID("ResultsList.item", overridableId)} result={result}>
       <Item href={`#${result.id}`}>
-        <Item.Image size="small" src={result.imgSrc || "http://placehold.it/200"} />
+        <Item.Image size="small" src={result.imgSrc || "https://placehold.co/200"} />
         <Item.Content>
           <Item.Header>{result.title}</Item.Header>
           <Item.Description>{result.description}</Item.Description>

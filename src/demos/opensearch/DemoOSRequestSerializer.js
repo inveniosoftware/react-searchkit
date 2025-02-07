@@ -9,7 +9,7 @@
 import _extend from "lodash/extend";
 import _isEmpty from "lodash/isEmpty";
 
-export class DemoESRequestSerializer {
+export class DemoOSRequestSerializer {
   getFilters = (filters) => {
     /**
      * input: [
