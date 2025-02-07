@@ -8,7 +8,7 @@
 
 import MockAdapter from "axios-mock-adapter";
 import Qs from "qs";
-import { ESSearchApi } from ".";
+import { OSSearchApi } from ".";
 
 class MockedRequestSerializer {
   serialize(params) {
@@ -22,15 +22,15 @@ class MockedResponseSerializer {
   }
 }
 
-describe("test ESSearchApi class", () => {
+describe("test OSSearchApi class", () => {
   it("should use the provided configuration", async () => {
-    const searchApi = new ESSearchApi({
+    const searchApi = new OSSearchApi({
       axios: {
         url: "https://mydomain.test.com/api/",
         timeout: 5000,
         headers: { Accept: "application/json" },
       },
-      es: {
+      os: {
         requestSerializer: MockedRequestSerializer,
         responseSerializer: MockedResponseSerializer,
       },
@@ -57,11 +57,11 @@ describe("test ESSearchApi class", () => {
   });
 
   it("should properly use relative URLs", async () => {
-    const searchApi = new ESSearchApi({
+    const searchApi = new OSSearchApi({
       axios: {
         url: "/api/records",
       },
-      es: {
+      os: {
         requestSerializer: MockedRequestSerializer,
         responseSerializer: MockedResponseSerializer,
       },

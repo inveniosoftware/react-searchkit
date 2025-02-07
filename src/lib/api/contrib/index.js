@@ -6,5 +6,5 @@
  * under the terms of the MIT License; see LICENSE file for more details.
  */
 
-export * from "./elasticsearch";
+export * from "./opensearch";
 export * from "./invenio";

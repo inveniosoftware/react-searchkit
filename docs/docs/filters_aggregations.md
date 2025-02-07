@@ -9,7 +9,7 @@ Filters allow to refine search results with exact match on specific fields. For 
 
 In React-SearchKit, the query state contains a field called `filters` which contains the list of filters selected by the user.
 
-[Filters](https://www.elastic.co/guide/en/elasticsearch/reference/current/query-filter-context.html#filter-context) and [Aggregations](https://www.elastic.co/guide/en/elasticsearch/reference/current/search-aggregations.html) are fundamental concepts of Elasticsearch.
+[Filters](https://opensearch.org/docs/latest/query-dsl/query-filter-context/) and [Aggregations](https://opensearch.org/docs/latest/aggregations/) are fundamental concepts of OpenSearch.
 However, they can be applied to any backend or REST APIs.
 
 ## Aggregations
@@ -23,11 +23,11 @@ For example, for each existing `age` value:
 * `31`: 18 results
 * etc.
 
-In Elasticsearch, there are several types of aggregations available. React-SearchKit comes out of the box with a component that implements [Bucket Terms Aggregations](https://www.elastic.co/guide/en/elasticsearch/reference/current/search-aggregations-bucket-terms-aggregation.html), but any other aggregation should be easy to implement.
+In OpenSearch, there are several types of aggregations available. React-SearchKit comes out of the box with a component that implements [Bucket Terms Aggregations](https://opensearch.org/docs/latest/aggregations/bucket/terms/), but any other aggregation should be easy to implement.
 
 ## Bucket aggregations
 
-The `<BucketAggregation>` component defines the name of the aggregation to request to the backend or Elasticsearch and the field to compute the aggregations on.
+The `<BucketAggregation>` component defines the name of the aggregation to request to the backend or OpenSearch and the field to compute the aggregations on.
 For example:
 
 ```jsx
@@ -41,7 +41,7 @@ For example:
 
 > It is your responsibility to create the search request to your backend taking into account the configured aggregations.
 
-The `results` state should then contains aggregations results in the object `aggregations`. The `<BucketAggregation>` component expects the  Elasticsearch format:
+The `results` state should then contains aggregations results in the object `aggregations`. The `<BucketAggregation>` component expects the  OpenSearch format:
 
 ```json
 {

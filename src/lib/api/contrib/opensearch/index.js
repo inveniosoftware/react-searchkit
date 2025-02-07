@@ -6,4 +6,6 @@
  * under the terms of the MIT License; see LICENSE file for more details.
  */
 
-export { App as ESReactSearchKit } from "./App";
+export { OSRequestSerializer } from "./OSRequestSerializer";
+export { OSResponseSerializer } from "./OSResponseSerializer";
+export { OSSearchApi } from "./OSSearchApi";

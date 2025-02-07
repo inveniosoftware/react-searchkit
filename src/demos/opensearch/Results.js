@@ -38,7 +38,7 @@ export class Results extends Component {
           </Grid.Column>
         </Grid>
         <Grid relaxed style={{ padding: "2em 0" }}>
-          <ResultsMultiLayout overridableId="elasticsearch" />
+          <ResultsMultiLayout overridableId="opensearch" />
         </Grid>
         <Grid relaxed verticalAlign="middle" textAlign="center">
           <Pagination />

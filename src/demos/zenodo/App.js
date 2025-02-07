@@ -88,7 +88,7 @@ export const ZenodoResultsListItem = ({ result, index }) => {
   const metadata = result.metadata;
   return (
     <Item key={index} href="#">
-      <Item.Image size="small" src={result.imageSrc || "http://placehold.it/200"} />
+      <Item.Image size="small" src={result.imageSrc || "https://placehold.co/200"} />
       <Item.Content>
         <Item.Header>{metadata.title}</Item.Header>
         <Item.Description>
@@ -108,7 +108,7 @@ export const ZenodoResultsGridItem = ({ result, index }) => {
   const metadata = result.metadata;
   return (
     <Card fluid key={index} href="#">
-      <Image src={result.imageSrc || "http://placehold.it/200"} />
+      <Image src={result.imageSrc || "https://placehold.co/200"} />
       <Card.Content>
         <Card.Header>{metadata.title}</Card.Header>
         <Card.Description>

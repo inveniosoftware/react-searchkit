@@ -8,7 +8,7 @@
 
 import _isEmpty from "lodash/isEmpty";
 
-export class ESRequestSerializer {
+export class OSRequestSerializer {
   constructor() {
     this.serialize = this.serialize.bind(this);
   }

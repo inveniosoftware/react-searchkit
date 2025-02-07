@@ -73,7 +73,7 @@ const CERNVideosResultsListItem = ({ result, index }) => {
   const metadata = result.metadata;
   return (
     <Item key={index} href={`#${metadata.recid}`}>
-      <Item.Image size="small" src={result.imageSrc || "http://placehold.it/200"} />
+      <Item.Image size="small" src={result.imageSrc || "https://placehold.co/200"} />
       <Item.Content>
         <Item.Header>{metadata.title.title}</Item.Header>
         <Item.Description>
@@ -93,7 +93,7 @@ const CERNVideosResultsGridItem = ({ result, index }) => {
   const { metadata } = result;
   return (
     <Card fluid key={index} href={`#${metadata.recid}`}>
-      <Image src={result.imageSrc || "http://placehold.it/200"} />
+      <Image src={result.imageSrc || "https://placehold.co/200"} />
       <Card.Content>
         <Card.Header>{metadata.title.title}</Card.Header>
         <Card.Meta>{metadata.publication_date}</Card.Meta>

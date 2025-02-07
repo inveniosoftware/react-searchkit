@@ -37,6 +37,9 @@
       "location": {
         "type": "geo_point"
       },
+      "date": {
+        "type": "date"
+      },
       "tags": {
         "type": "keyword"
       },

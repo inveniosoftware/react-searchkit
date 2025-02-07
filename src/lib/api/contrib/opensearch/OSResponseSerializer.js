@@ -6,7 +6,7 @@
  * under the terms of the MIT License; see LICENSE file for more details.
  */
 
-export class ESResponseSerializer {
+export class OSResponseSerializer {
   constructor() {
     this.serialize = this.serialize.bind(this);
   }
