@@ -17,7 +17,7 @@
     "postlink-dist": "cd dist && rm -rf node_modules",
     "unlink-dist": "cd dist && npm unlink && rm package*",
     "watch": "NODE_ENV=development rollup --watch -c",
-    "test": "react-scripts test",
+    "test": "react-scripts test --transformIgnorePatterns /\"node_modules/(?!axios)/\"",
     "eject": "react-scripts eject",
     "lint": "eslint src/ --ext .js --max-warnings=0",
     "format": "prettier --write \"src/**/*.js\""
@@ -43,7 +43,8 @@
     "@rollup/plugin-commonjs": "^15.1.0",
     "@rollup/plugin-node-resolve": "^9.0.0",
     "axios": "^1.8.2",
-    "axios-mock-adapter": "^2.0.0",
+    "axios-mock-adapter": "^1.18.0",
+    "cheerio": "1.0.0-rc.3",
     "coveralls": "^3.0.0",
     "enzyme": "^3.10.0",
     "enzyme-adapter-react-16": "^1.15.0",
@@ -67,7 +68,8 @@
     "rollup-plugin-postcss": "^4.0.0",
     "sass": "^1.50.0",
     "semantic-ui-css": "^2.5.0",
-    "semantic-ui-react": "^2.1.0"
+    "semantic-ui-react": "^2.1.0",
+    "util": "^0.12.5"
   },
   "author": {
     "name": "CERN",
