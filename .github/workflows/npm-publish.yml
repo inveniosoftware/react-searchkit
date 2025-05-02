@@ -1,3 +1,8 @@
+# -*- coding: utf-8 -*-
+#
+# Copyright (C) 2024 CERN.
+# Copyright (C) 2025 KTH Royal Institute of Technology.
+
 name: Publish
 
 on:
@@ -7,16 +12,16 @@ on:
 
 jobs:
   Publish:
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-24.04
 
     steps:
       - name: Checkout
-        uses: actions/checkout@v1
+        uses: actions/checkout@v4
 
       - name: Setup Node.js
-        uses: actions/setup-node@v1
+        uses: actions/setup-node@v4
         with:
-          node-version: 14
+          node-version: 22
           registry-url: 'https://registry.npmjs.org'
 
       - name: Install and Build
