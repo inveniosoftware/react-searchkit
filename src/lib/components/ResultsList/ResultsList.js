@@ -13,7 +13,13 @@ import { Item } from "semantic-ui-react";
 import { AppContext } from "../ReactSearchKit";
 import { ShouldRender } from "../ShouldRender";
 
-function ResultsList({ loading, totalResults, results, overridableId, onResultsRendered }) {
+function ResultsList({
+  loading,
+  totalResults,
+  results,
+  overridableId,
+  onResultsRendered,
+}) {
   useEffect(() => {
     if (onResultsRendered) {
       onResultsRendered();
