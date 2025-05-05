@@ -9,11 +9,11 @@ on:
   push:
     branches:
       - master
-      - maint-*
+      - maint-**
   pull_request:
     branches:
       - master
-      - maint-*
+      - maint-**
   schedule:
     # * is a special character in YAML so you have to quote this string
     - cron: '0 2 * * 5'
@@ -30,7 +30,7 @@ jobs:
 
     strategy:
       matrix:
-        node-version: [22.x, 18.x, 16.x]
+        node-version: [22.x]
 
     steps:
       - name: Checkout
