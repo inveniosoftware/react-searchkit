@@ -51,9 +51,11 @@ describe("test InvenioSearchApi class", () => {
     expect(request.url).toBe("https://mydomain.test.com/api/");
     expect(request.method).toBe("get");
     expect(request.timeout).toBe(5000);
-    expect(request.headers).toEqual({ Accept: "application/json" });
+    expect(request.headers.toJSON()).toEqual({
+      Accept: "application/json",
+    });
     expect(request.params).toEqual(requestPayload);
-    expect(request.paramsSerializer).toBe(mockedRequestSerializer.serialize);
+    expect(request.paramsSerializer.serialize).toBe(mockedRequestSerializer.serialize);
 
     expect(response).toEqual(mockedResponse);
   });

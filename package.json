@@ -1,6 +1,6 @@
 {
   "name": "react-searchkit",
-  "version": "2.3.0",
+  "version": "2.3.1",
   "description": "React components to build your search UI application",
   "main": "dist/cjs/index.js",
   "browser": "dist/cjs/index.js",
@@ -17,14 +17,14 @@
     "postlink-dist": "cd dist && rm -rf node_modules",
     "unlink-dist": "cd dist && npm unlink && rm package*",
     "watch": "NODE_ENV=development rollup --watch -c",
-    "test": "react-scripts test",
+    "test": "react-scripts test --transformIgnorePatterns /\"node_modules/(?!axios)/\"",
     "eject": "react-scripts eject",
     "lint": "eslint src/ --ext .js --max-warnings=0",
     "format": "prettier --write \"src/**/*.js\""
   },
   "peerDependencies": {
-    "@babel/runtime": "^7.9.0",
-    "axios": "^0.21.0",
+    "@babel/runtime": "^7.26.10",
+    "axios": "^1.8.2",
     "lodash": "^4.17.0",
     "qs": "^6.8.0",
     "react": "^16.13.0",
@@ -42,12 +42,14 @@
     "@rollup/plugin-babel": "^5.2.0",
     "@rollup/plugin-commonjs": "^15.1.0",
     "@rollup/plugin-node-resolve": "^9.0.0",
-    "axios": "^0.21.0",
+    "axios": "^1.8.2",
     "axios-mock-adapter": "^1.18.0",
+    "cheerio": "1.0.0-rc.3",
     "coveralls": "^3.0.0",
     "enzyme": "^3.10.0",
     "enzyme-adapter-react-16": "^1.15.0",
-    "enzyme-to-json": "^3.6.0",
+    "eslint": "^8.57.1",
+    "eslint-config-react-app": "^7.0.1",
     "expect": "^26.5.0",
     "json": "^10.0.0",
     "lodash": "^4.17.0",
@@ -67,7 +69,8 @@
     "rollup-plugin-postcss": "^4.0.0",
     "sass": "^1.50.0",
     "semantic-ui-css": "^2.5.0",
-    "semantic-ui-react": "^2.1.0"
+    "semantic-ui-react": "^2.1.0",
+    "util": "^0.12.5"
   },
   "author": {
     "name": "CERN",
@@ -107,10 +110,5 @@
   },
   "engines": {
     "node": ">=14.0.0"
-  },
-  "jest": {
-    "snapshotSerializers": [
-      "enzyme-to-json/serializer"
-    ]
   }
 }
