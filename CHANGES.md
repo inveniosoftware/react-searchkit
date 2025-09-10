@@ -1,5 +1,9 @@
 # Changes
 
+Version 3.0.1 (released 2025-09-10)
+
+- deps: minor bump of `react-overridable` to `0.0.4`, adding backwards-compatible support for devtools
+
 Version 3.0.0 (released 2024-10-10)
 
 - deps: major bump of axios to `v1.7.x`. It is released as major so we can controllably
