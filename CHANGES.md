@@ -1,5 +1,10 @@
 # Changes
 
+Version 3.0.2 (released 2025-09-10)
+
+- chore: major bump of `react-overridable` to `1.0.0`, adding backwards-compatible support for devtools.
+  The major bump will help with proper semantic versioning across invenio dependencies.
+
 Version 3.0.1 (released 2025-09-10)
 
 - deps: minor bump of `react-overridable` to `0.0.4`, adding backwards-compatible support for devtools
