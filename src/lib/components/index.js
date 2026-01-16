@@ -10,6 +10,7 @@ export { ActiveFilters } from "./ActiveFilters";
 export { AutocompleteSearchBar } from "./AutocompleteSearchBar";
 export { BucketAggregation } from "./BucketAggregation";
 export { Count } from "./Count";
+export { RangeFacet } from "./RangeFacet";
 export { EmptyResults } from "./EmptyResults";
 export { Error } from "./Error";
 export * from "./HOC";
