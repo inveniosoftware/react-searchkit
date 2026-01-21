@@ -1,0 +1,136 @@
+/*
+ * This file is part of React-SearchKit.
+ * Copyright (C) 2026 CERN.
+ *
+ * React-SearchKit is free software; you can redistribute it and/or modify it
+ * under the terms of the MIT License; see LICENSE file for more details.
+ */
+
+.searchkit-daterange-slider-container {
+  position: relative;
+  width: 100%;
+  height: 40px;
+  margin-bottom: 16px;
+}
+/* When diagonal labels are active, reserve space */
+.searchkit-daterange-slider-container:has(.searchkit-daterange-slider-label.diagonal) {
+  margin-bottom: 36px;
+}
+
+.searchkit-daterange-slider-track,
+.searchkit-daterange-slider-range {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  height: 4px;
+  border-radius: 2px;
+}
+
+.searchkit-daterange-slider-track {
+  width: 100%;
+  background-color: var(--selectedColor, #ededed);
+  z-index: 1;
+}
+
+.searchkit-daterange-slider-range {
+  background-color: var(--focusedFormBorderColor, #2185d0);
+  z-index: 2;
+  left: var(--range-left);
+  width: var(--range-width);
+}
+
+.searchkit-daterange-slider-container input[type="range"] {
+  position: absolute;
+  pointer-events: none;
+  width: 100%;
+  height: 100%;
+  -webkit-appearance: none;
+  appearance: none;
+  background: none;
+  z-index: 3;
+}
+
+.searchkit-daterange-slider-container input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  pointer-events: all;
+  width: 16px;
+  height: 16px;
+  background-color: var(--focusedFormBorderColor, #2185d0);
+  border-radius: 50%;
+  border: none;
+  cursor: pointer;
+}
+
+.searchkit-daterange-slider-container input[type="range"]::-moz-range-thumb {
+  pointer-events: all;
+  width: 16px;
+  height: 16px;
+  background-color: var(--focusedFormBorderColor, #2185d0);
+  border-radius: 50%;
+  border: none;
+  cursor: pointer;
+}
+
+.searchkit-daterange-thumb-left {
+  z-index: 5;
+}
+
+.searchkit-daterange-thumb-right {
+  z-index: 4;
+}
+
+.searchkit-daterange-slider-label {
+  position: absolute;
+  transform: translateX(-50%);
+  top: 30px;
+  padding-bottom: 20px;
+  left: var(--label-left);
+}
+
+.searchkit-daterange-slider-label.diagonal {
+  transform: rotate(-45deg) translateX(-20%);
+  transform-origin: center bottom;
+}
+
+.searchkit-daterange-histogram-bar {
+  fill: var(--selectedColor, #ededed);
+}
+
+.searchkit-daterange-histogram-bar.is-selected {
+  fill: var(--focusedFormBorderColor, #2185d0);
+}
+
+.searchkit-daterange-histogram-bar:hover {
+  fill: var(--footerLightColor, #0377cd);
+}
+
+.searchkit-daterange-custom-filter {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  column-gap: 8px;
+}
+
+.searchkit-daterange-custom-body {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 6px;
+}
+
+.searchkit-daterange-inputs,
+.searchkit-daterange-inputs-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px;
+}
+
+.searchkit-daterange-inputs.is-stacked {
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.searchkit-daterange-custom-toggle.ui.basic.button.disabled {
+  border: 0.5px solid currentColor;
+}
