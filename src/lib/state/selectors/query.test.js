@@ -6,7 +6,7 @@
  * under the terms of the MIT License; see LICENSE file for more details.
  */
 
-import { updateQueryFilters } from "./query";
+import { updateQueryFilters, updateQueryState } from "./query";
 
 /**
  * Test scenario
@@ -372,5 +372,45 @@ describe("user submits multiple filters as input", () => {
       ["type", "Image"],
       ["type", "Publication"],
     ]);
+  });
+
+  test("returns undefined when queryFilter is empty", () => {
+    const result = updateQueryFilters([], []);
+    expect(result).toBeUndefined();
+  });
+});
+
+describe("updateQueryState", () => {
+  test("picks state keys from new state", () => {
+    const oldState = { queryString: "old", page: 1 };
+    const newState = { queryString: "new", page: 2, sortBy: "date" };
+    const storeKeys = ["queryString", "page"];
+
+    const result = updateQueryState(oldState, newState, storeKeys);
+
+    expect(result).toEqual({ queryString: "new", page: 2 });
+  });
+
+  test("merges filters when both old and new have filters", () => {
+    const oldState = { filters: [["file_type", "pdf"]] };
+    const newState = { filters: ["file_type", "txt"] };
+    const storeKeys = ["filters"];
+
+    const result = updateQueryState(oldState, newState, storeKeys);
+
+    expect(result.filters).toEqual([
+      ["file_type", "pdf"],
+      ["file_type", "txt"],
+    ]);
+  });
+
+  test("does not include filters when new state has no filters", () => {
+    const oldState = { queryString: "test", filters: [["type", "Image"]] };
+    const newState = { queryString: "new" };
+    const storeKeys = ["queryString", "filters"];
+
+    const result = updateQueryState(oldState, newState, storeKeys);
+
+    expect(result).toEqual({ queryString: "new" });
   });
 });
