@@ -14,6 +14,7 @@ import { Accordion, Card, Container, Grid, Image, Item, Menu } from "semantic-ui
 import { InvenioSearchApi } from "../../lib/api/contrib/invenio";
 import {
   BucketAggregation,
+  RangeFacet,
   EmptyResults,
   Error,
   ReactSearchKit,
@@ -180,6 +181,21 @@ export class App extends Component {
             <Grid relaxed style={{ padding: "2em 0" }}>
               <Grid.Row columns={2}>
                 <Grid.Column width={4}>
+                  <RangeFacet
+                    title="Publication Year"
+                    agg={{
+                      aggName: "years",
+                    }}
+                    rangeSeparator="--"
+                    defaultRanges={[
+                      { label: "Last 1 year", type: "years", value: 1 },
+                      { label: "Last 10 years", type: "years", value: 10 },
+                    ]}
+                    enableCustomRange
+                    dateRangeToLabel="-"
+                    customDatesLabel="Choose dates"
+                  />
+                  <br />
                   <BucketAggregation
                     title="Categories"
                     agg={{

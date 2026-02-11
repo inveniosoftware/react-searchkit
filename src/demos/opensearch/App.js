@@ -23,6 +23,7 @@ import {
 import { OSSearchApi } from "../../lib/api/contrib/opensearch";
 import {
   BucketAggregation,
+  RangeFacet,
   EmptyResults,
   Error,
   ReactSearchKit,
@@ -159,6 +160,17 @@ export class App extends Component {
             <Grid relaxed style={{ padding: "2em 0" }}>
               <Grid.Row columns={2}>
                 <Grid.Column width={4}>
+                  <RangeFacet
+                    title="Year"
+                    agg={{ aggName: "years" }}
+                    rangeSeparator=".."
+                    defaultRanges={[
+                      { label: "Last 1 year", type: "years", value: 1 },
+                      { label: "Last 5 years", type: "years", value: 5 },
+                      { label: "Last 6 months", type: "months", value: 6 },
+                    ]}
+                    enableCustomRange
+                  />
                   <BucketAggregation
                     title="Tags"
                     agg={{ field: "tags", aggName: "tags_agg" }}
