@@ -86,14 +86,48 @@ export class DemoOSRequestSerializer {
         subtype_agg: "employee_type.subtype",
       };
       const aggValueObj = this.getFilters(filters);
+      const mustClauses = [];
       // conver to object
-      const terms = Object.keys(aggValueObj).map((aggName) => {
-        const obj = {};
+      Object.keys(aggValueObj).forEach((aggName) => {
+        const values = aggValueObj[aggName];
+        if (aggName === "years") {
+          const rangeValue = values[0];
+          if (!rangeValue) return;
+
+          const [fromPart, toPart] = rangeValue.split("..");
+          if (!fromPart || !toPart) return;
+
+          const fromYear = fromPart.slice(0, 4);
+          const toYear = toPart.slice(0, 4);
+
+          const gte = fromPart.length > 4 ? fromPart : `${fromYear}-01-01`;
+          const lte = toPart.length > 4 ? toPart : `${toYear}-12-31`;
+
+          mustClauses.push({
+            range: {
+              date: { gte, lte },
+            },
+          });
+
+          return;
+        }
         const fieldName = aggFieldsMapping[aggName];
-        obj[fieldName] = aggValueObj[aggName];
-        return { terms: obj };
+        if (fieldName) {
+          mustClauses.push({
+            terms: {
+              [fieldName]: values,
+            },
+          });
+        }
       });
-      bodyParams["post_filter"] = { bool: { must: terms } };
+
+      if (mustClauses.length) {
+        bodyParams.post_filter = {
+          bool: {
+            must: mustClauses,
+          },
+        };
+      }
     }
 
     // simulate a backend that defines all the possible complex aggregations per index
@@ -113,6 +147,16 @@ export class DemoOSRequestSerializer {
       },
     };
     _extend(bodyParams["aggs"], aggBucketNestedEmployeeType);
+
+    _extend(bodyParams.aggs, {
+      years: {
+        date_histogram: {
+          field: "date",
+          calendar_interval: "year",
+          format: "yyyy",
+        },
+      },
+    });
 
     return bodyParams;
   };
