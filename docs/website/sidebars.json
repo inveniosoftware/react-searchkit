@@ -12,6 +12,7 @@
       "components/react-searchkit",
       "components/active-filters",
       "components/bucket-aggregation",
+      "components/range-facet",
       "components/count",
       "components/empty-results",
       "components/error",
