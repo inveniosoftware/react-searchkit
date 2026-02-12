@@ -1,0 +1,357 @@
+<!DOCTYPE html><html lang="en"><head><meta charSet="utf-8"/><meta http-equiv="X-UA-Compatible" content="IE=edge"/><title>RangeFacet · React-SearchKit</title><meta name="viewport" content="width=device-width, initial-scale=1.0"/><meta name="generator" content="Docusaurus"/><meta name="description" content="`RangeFacet` renders a histogram, slider, and optional default/custom ranges for a numeric year range."/><meta name="docsearch:language" content="en"/><meta property="og:title" content="RangeFacet · React-SearchKit"/><meta property="og:type" content="website"/><meta property="og:url" content="https://inveniosoftware.github.io/react-searchkit/"/><meta property="og:description" content="`RangeFacet` renders a histogram, slider, and optional default/custom ranges for a numeric year range."/><meta property="og:image" content="https://inveniosoftware.github.io/react-searchkit/img/docusaurus.png"/><meta name="twitter:card" content="summary"/><meta name="twitter:image" content="https://inveniosoftware.github.io/react-searchkit/img/docusaurus.png"/><link rel="shortcut icon" href="/react-searchkit/img/favicon.png"/><link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/default.min.css"/><link rel="stylesheet" href="/react-searchkit/css/code-blocks-buttons.css"/><script type="text/javascript" src="https://buttons.github.io/buttons.js"></script><script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.0/clipboard.min.js"></script><script type="text/javascript" src="/react-searchkit/js/code-blocks-buttons.js"></script><script src="/react-searchkit/js/scrollSpy.js"></script><link rel="stylesheet" href="/react-searchkit/css/prism.css"/><link rel="stylesheet" href="/react-searchkit/css/main.css"/><script src="/react-searchkit/js/codetabs.js"></script></head><body class="sideNavVisible separateOnPageNav"><div class="fixedHeaderContainer"><div class="headerWrapper wrapper"><header><a href="/react-searchkit/"><h2 class="headerTitle">React-SearchKit</h2></a><div class="navigationWrapper navigationSlider"><nav class="slidingNav"><ul class="nav-site nav-site-internal"><li class="siteNavGroupActive"><a href="/react-searchkit/docs/getting-started" target="_self">Docs</a></li><li class="siteNavGroupActive"><a href="/react-searchkit/docs/components/react-searchkit" target="_self">Components</a></li><li class="siteNavGroupActive"><a href="/react-searchkit/docs/create-your-component" target="_self">Extending</a></li><li class=""><a href="/react-searchkit/help" target="_self">Help</a></li></ul></nav></div></header></div></div><div class="navPusher"><div class="docMainWrapper wrapper"><div class="docsNavContainer" id="docsNav"><nav class="toc"><div class="toggleNav"><section class="navWrapper wrapper"><div class="navBreadcrumb wrapper"><div class="navToggle" id="navToggler"><div class="hamburger-menu"><div class="line1"></div><div class="line2"></div><div class="line3"></div></div></div><h2><i>›</i><span>Components</span></h2><div class="tocToggler" id="tocToggler"><i class="icon-toc"></i></div></div><div class="navGroups"><div class="navGroup"><h3 class="navGroupCategoryTitle">Guide</h3><ul class=""><li class="navListItem"><a class="navItem" href="/react-searchkit/docs/getting-started">Getting Started</a></li><li class="navListItem"><a class="navItem" href="/react-searchkit/docs/main-concepts">Main Concepts</a></li><li class="navListItem"><a class="navItem" href="/react-searchkit/docs/connect-your-rest-apis">Connect Your REST APIs</a></li><li class="navListItem"><a class="navItem" href="/react-searchkit/docs/using-url-parameters">Using URL Parameters</a></li><li class="navListItem"><a class="navItem" href="/react-searchkit/docs/filters-aggregations">Filters And Aggregations</a></li><li class="navListItem"><a class="navItem" href="/react-searchkit/docs/ui-customisation">Customise The Look And Feel</a></li></ul></div><div class="navGroup"><h3 class="navGroupCategoryTitle">Components</h3><ul class=""><li class="navListItem"><a class="navItem" href="/react-searchkit/docs/components/react-searchkit">ReactSearchKit</a></li><li class="navListItem"><a class="navItem" href="/react-searchkit/docs/components/active-filters">ActiveFilters</a></li><li class="navListItem"><a class="navItem" href="/react-searchkit/docs/components/bucket-aggregation">BucketAggregation</a></li><li class="navListItem navListItemActive"><a class="navItem" href="/react-searchkit/docs/components/range-facet">RangeFacet</a></li><li class="navListItem"><a class="navItem" href="/react-searchkit/docs/components/count">Count</a></li><li class="navListItem"><a class="navItem" href="/react-searchkit/docs/components/empty-results">EmptyResults</a></li><li class="navListItem"><a class="navItem" href="/react-searchkit/docs/components/error">Error</a></li><li class="navListItem"><a class="navItem" href="/react-searchkit/docs/components/layout-switcher">LayoutSwitcher</a></li><li class="navListItem"><a class="navItem" href="/react-searchkit/docs/components/pagination">Pagination</a></li><li class="navListItem"><a class="navItem" href="/react-searchkit/docs/components/results-grid">ResultsGrid</a></li><li class="navListItem"><a class="navItem" href="/react-searchkit/docs/components/results-list">ResultsList</a></li><li class="navListItem"><a class="navItem" href="/react-searchkit/docs/components/results-loader">ResultsLoader</a></li><li class="navListItem"><a class="navItem" href="/react-searchkit/docs/components/results-multi-layout">ResultsMultiLayout</a></li><li class="navListItem"><a class="navItem" href="/react-searchkit/docs/components/results-per-page">ResultsPerPage</a></li><li class="navListItem"><a class="navItem" href="/react-searchkit/docs/components/search-bar">SearchBar</a></li><li class="navListItem"><a class="navItem" href="/react-searchkit/docs/components/sort">Sort</a></li><li class="navListItem"><a class="navItem" href="/react-searchkit/docs/components/sort-by">SortBy</a></li><li class="navListItem"><a class="navItem" href="/react-searchkit/docs/components/sort-order">SortOrder</a></li><li class="navListItem"><a class="navItem" href="/react-searchkit/docs/components/toggle">Toggle</a></li><li class="navListItem"><a class="navItem" href="/react-searchkit/docs/components/with-state">withState</a></li></ul></div><div class="navGroup"><h3 class="navGroupCategoryTitle">Extending</h3><ul class=""><li class="navListItem"><a class="navItem" href="/react-searchkit/docs/create-your-component">Create Your Component</a></li></ul></div></div></section></div><script>
+            var coll = document.getElementsByClassName('collapsible');
+            var checkActiveCategory = true;
+            for (var i = 0; i < coll.length; i++) {
+              var links = coll[i].nextElementSibling.getElementsByTagName('*');
+              if (checkActiveCategory){
+                for (var j = 0; j < links.length; j++) {
+                  if (links[j].classList.contains('navListItemActive')){
+                    coll[i].nextElementSibling.classList.toggle('hide');
+                    coll[i].childNodes[1].classList.toggle('rotate');
+                    checkActiveCategory = false;
+                    break;
+                  }
+                }
+              }
+
+              coll[i].addEventListener('click', function() {
+                var arrow = this.childNodes[1];
+                arrow.classList.toggle('rotate');
+                var content = this.nextElementSibling;
+                content.classList.toggle('hide');
+              });
+            }
+
+            document.addEventListener('DOMContentLoaded', function() {
+              createToggler('#navToggler', '#docsNav', 'docsSliderActive');
+              createToggler('#tocToggler', 'body', 'tocActive');
+
+              var headings = document.querySelector('.toc-headings');
+              headings && headings.addEventListener('click', function(event) {
+                var el = event.target;
+                while(el !== headings){
+                  if (el.tagName === 'A') {
+                    document.body.classList.remove('tocActive');
+                    break;
+                  } else{
+                    el = el.parentNode;
+                  }
+                }
+              }, false);
+
+              function createToggler(togglerSelector, targetSelector, className) {
+                var toggler = document.querySelector(togglerSelector);
+                var target = document.querySelector(targetSelector);
+
+                if (!toggler) {
+                  return;
+                }
+
+                toggler.onclick = function(event) {
+                  event.preventDefault();
+
+                  target.classList.toggle(className);
+                };
+              }
+            });
+        </script></nav></div><div class="container mainContainer docsContainer"><div class="wrapper"><div class="post"><header class="postHeader"><h1 id="__docusaurus" class="postHeaderTitle">RangeFacet</h1></header><article><div><span><p><code>RangeFacet</code> renders a histogram, slider, and optional default/custom ranges for a numeric year range.</p>
+<p>It reads buckets from the <code>results</code> aggregations and stores the selected range in the query <code>filters</code>.</p>
+<h2><a class="anchor" aria-hidden="true" id="usage"></a><a href="#usage" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Usage</h2>
+<pre><code class="hljs css language-jsx"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span><span class="token class-name">RangeFacet</span></span>
+  <span class="token attr-name">title</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>Publication Year<span class="token punctuation">"</span></span>
+  <span class="token attr-name">agg</span><span class="token script language-javascript"><span class="token script-punctuation punctuation">=</span><span class="token punctuation">{</span><span class="token punctuation">{</span> <span class="token literal-property property">aggName</span><span class="token operator">:</span> <span class="token string">"years"</span> <span class="token punctuation">}</span><span class="token punctuation">}</span></span>
+  <span class="token attr-name">rangeSeparator</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>..<span class="token punctuation">"</span></span>
+  <span class="token comment">// optional</span>
+  <span class="token attr-name">defaultRanges</span><span class="token script language-javascript"><span class="token script-punctuation punctuation">=</span><span class="token punctuation">{</span><span class="token punctuation">[</span>
+    <span class="token punctuation">{</span> <span class="token literal-property property">label</span><span class="token operator">:</span> <span class="token string">"Last 1 year"</span><span class="token punctuation">,</span> <span class="token literal-property property">type</span><span class="token operator">:</span> <span class="token string">"years"</span><span class="token punctuation">,</span> <span class="token literal-property property">value</span><span class="token operator">:</span> <span class="token number">1</span> <span class="token punctuation">}</span><span class="token punctuation">,</span>
+    <span class="token punctuation">{</span> <span class="token literal-property property">label</span><span class="token operator">:</span> <span class="token string">"Last 5 years"</span><span class="token punctuation">,</span> <span class="token literal-property property">type</span><span class="token operator">:</span> <span class="token string">"years"</span><span class="token punctuation">,</span> <span class="token literal-property property">value</span><span class="token operator">:</span> <span class="token number">5</span> <span class="token punctuation">}</span><span class="token punctuation">,</span>
+    <span class="token punctuation">{</span> <span class="token literal-property property">label</span><span class="token operator">:</span> <span class="token string">"Last 6 months"</span><span class="token punctuation">,</span> <span class="token literal-property property">type</span><span class="token operator">:</span> <span class="token string">"months"</span><span class="token punctuation">,</span> <span class="token literal-property property">value</span><span class="token operator">:</span> <span class="token number">6</span> <span class="token punctuation">}</span><span class="token punctuation">,</span>
+  <span class="token punctuation">]</span><span class="token punctuation">}</span></span>
+  <span class="token attr-name">enableCustomRange</span>
+  <span class="token comment">// customize custom-range labels and placeholders</span>
+  <span class="token attr-name">customDatesLabel</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>Pick dates<span class="token punctuation">"</span></span>
+  <span class="token attr-name">dateRangeToLabel</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>–<span class="token punctuation">"</span></span>
+  <span class="token attr-name">datePlaceholders</span><span class="token script language-javascript"><span class="token script-punctuation punctuation">=</span><span class="token punctuation">{</span><span class="token punctuation">{</span> <span class="token constant">YYYY</span><span class="token operator">:</span> <span class="token string">"Year"</span><span class="token punctuation">,</span> <span class="token constant">MM</span><span class="token operator">:</span> <span class="token string">"Mo"</span><span class="token punctuation">,</span> <span class="token constant">DD</span><span class="token operator">:</span> <span class="token string">"Day"</span> <span class="token punctuation">}</span><span class="token punctuation">}</span></span>
+<span class="token punctuation">/></span></span>
+</code></pre>
+<h2><a class="anchor" aria-hidden="true" id="aggregation-format"></a><a href="#aggregation-format" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Aggregation format</h2>
+<p>The component expects the aggregation result under <code>results.aggregations[aggName].buckets</code>
+with a numeric <code>key</code> (or <code>key_as_string</code>) and <code>doc_count</code>:</p>
+<pre><code class="hljs css language-json">{
+  <span class="hljs-attr">"years"</span>: {
+    <span class="hljs-attr">"buckets"</span>: [
+      { <span class="hljs-attr">"key"</span>: <span class="hljs-number">2021</span>, <span class="hljs-attr">"doc_count"</span>: <span class="hljs-number">12</span> },
+      { <span class="hljs-attr">"key"</span>: <span class="hljs-number">2022</span>, <span class="hljs-attr">"doc_count"</span>: <span class="hljs-number">7</span> }
+    ]
+  }
+}
+</code></pre>
+<h2><a class="anchor" aria-hidden="true" id="filters-format"></a><a href="#filters-format" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Filters format</h2>
+<p>The selected filter is stored as <code>[ &quot;&lt;aggName&gt;&quot;, &quot;&lt;from&gt;&lt;rangeSeparator&gt;&lt;to&gt;&quot; ]</code>.
+<code>&lt;from&gt;</code> and <code>&lt;to&gt;</code> can be <code>YYYY</code> or full ISO dates (<code>YYYY-MM-DD</code>) when custom ranges
+include months/days.</p>
+<h2><a class="anchor" aria-hidden="true" id="props"></a><a href="#props" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Props</h2>
+<ul>
+<li><p><strong>title</strong> <code>String</code></p>
+<p>The title rendered in the card header.</p></li>
+<li><p><strong>agg</strong> <code>Object</code></p>
+<p>An object that describes the aggregation to read from <code>results</code>:</p>
+<ul>
+<li><strong>aggName</strong> <code>String</code>: the aggregation name to look for in <code>results</code></li>
+</ul></li>
+<li><p><strong>rangeSeparator</strong> <code>String</code></p>
+<p>The separator used when building the filter value (for example <code>..</code> or <code>--</code>).</p></li>
+<li><p><strong>defaultRanges</strong> <code>Array</code> <em>optional</em></p>
+<p>Default ranges rendered as checkboxes. Each entry should have:</p>
+<ul>
+<li><strong>label</strong> <code>String</code></li>
+<li><strong>type</strong> <code>String</code>: <code>&quot;years&quot;</code> or <code>&quot;months&quot;</code></li>
+<li><strong>value</strong> <code>Number</code>: number of years/months back</li>
+</ul></li>
+<li><p><strong>enableCustomRange</strong> <code>Boolean</code> <em>optional</em></p>
+<p>When <code>true</code>, enables the custom date range checkbox with optional month/day inputs.</p></li>
+<li><p><strong>customDatesLabel</strong> <code>String</code> <em>optional</em></p>
+<p>Label for the button that expands the custom date inputs (year/month/day). Default: <code>&quot;Custom Dates&quot;</code>.</p></li>
+<li><p><strong>dateRangeToLabel</strong> <code>String</code> <em>optional</em></p>
+<p>Text shown between the &quot;from&quot; and &quot;to&quot; date inputs. Default: <code>&quot;to&quot;</code>.</p></li>
+<li><p><strong>datePlaceholders</strong> <code>Object</code> <em>optional</em></p>
+<p>Placeholder text for the date input fields. Only keys you provide are used; others keep their defaults. Keys: <code>YYYY</code>, <code>MM</code>, <code>DD</code>. Example: <code>{ YYYY: &quot;Year&quot;, MM: &quot;Mo&quot;, DD: &quot;Day&quot; }</code>. Default placeholders when not set: <code>&quot;YYYY&quot;</code>, <code>&quot;MM&quot;</code>, <code>&quot;DD&quot;</code>.</p></li>
+<li><p><strong>histogramHeight</strong> <code>Number</code> <em>optional</em></p>
+<p>Height in pixels for the histogram area.</p></li>
+<li><p><strong>overridableId</strong> <code>String</code> <em>optional</em></p>
+<p>Optional string to define a specific overridable id.</p></li>
+</ul>
+<h2><a class="anchor" aria-hidden="true" id="usage-when-overriding"></a><a href="#usage-when-overriding" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Usage when overriding</h2>
+<h3><a class="anchor" aria-hidden="true" id="overriding-full-component"></a><a href="#overriding-full-component" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Overriding full component</h3>
+<p>Use this when you want to replace the whole <code>RangeFacet</code> logic and UI.</p>
+<p>Brief flow (matches the default behavior):</p>
+<ol>
+<li>Read buckets from <code>currentResultsState.data.aggregations[agg.aggName].buckets</code>.</li>
+<li>Compute <code>min/max</code> years from bucket keys.</li>
+<li>Compute the histogram data with aggregation keys and doc counts.</li>
+<li>Store the selected range in <code>currentQueryState.filters</code> as:
+<code>[agg.aggName,</code>${from}${rangeSeparator}${to}<code>]</code>.</li>
+<li>Render your own UI (histogram/slider/etc).</li>
+</ol>
+<p>Example with only histogram and custom filter facet:</p>
+<pre><code class="hljs css language-jsx"><span class="token keyword">class</span> <span class="token class-name">MyRangeFacet</span> <span class="token keyword">extends</span> <span class="token class-name">React<span class="token punctuation">.</span>Component</span> <span class="token punctuation">{</span>
+  <span class="token function">constructor</span><span class="token punctuation">(</span><span class="token parameter">props</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">super</span><span class="token punctuation">(</span>props<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">const</span> <span class="token punctuation">{</span> min<span class="token punctuation">,</span> max <span class="token punctuation">}</span> <span class="token operator">=</span> <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">getMinMax</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">this</span><span class="token punctuation">.</span>state <span class="token operator">=</span> <span class="token punctuation">{</span> <span class="token literal-property property">range</span><span class="token operator">:</span> <span class="token punctuation">[</span>min<span class="token punctuation">,</span> max<span class="token punctuation">]</span><span class="token punctuation">,</span> <span class="token literal-property property">activeFilter</span><span class="token operator">:</span> <span class="token keyword">null</span> <span class="token punctuation">}</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+
+  <span class="token function-variable function">applyRange</span> <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token parameter">from<span class="token punctuation">,</span> to</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">{</span>
+    <span class="token comment">// Apply the filter</span>
+  <span class="token punctuation">}</span><span class="token punctuation">;</span>
+
+  <span class="token function-variable function">onBarClick</span> <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token parameter">year</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">{</span>
+    <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">applyRange</span><span class="token punctuation">(</span>year<span class="token punctuation">,</span> year<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span><span class="token punctuation">;</span>
+
+  <span class="token function-variable function">onClear</span> <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">{</span>
+    <span class="token comment">// Clear the filter</span>
+  <span class="token punctuation">}</span><span class="token punctuation">;</span>
+
+  <span class="token function-variable function">getBuckets</span> <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">{</span>
+    <span class="token keyword">const</span> <span class="token punctuation">{</span> currentResultsState<span class="token punctuation">,</span> agg <span class="token punctuation">}</span> <span class="token operator">=</span> <span class="token keyword">this</span><span class="token punctuation">.</span>props<span class="token punctuation">;</span>
+    <span class="token keyword">const</span> resultsAggregations <span class="token operator">=</span> currentResultsState<span class="token operator">?.</span>data<span class="token operator">?.</span>aggregations<span class="token punctuation">;</span>
+    <span class="token keyword">return</span> resultsAggregations<span class="token operator">?.</span><span class="token punctuation">[</span>agg<span class="token punctuation">.</span>aggName<span class="token punctuation">]</span><span class="token operator">?.</span>buckets <span class="token operator">??</span> <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span><span class="token punctuation">;</span>
+
+  <span class="token function">render</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">const</span> <span class="token punctuation">{</span> title<span class="token punctuation">,</span> agg<span class="token punctuation">,</span> rangeSeparator<span class="token punctuation">,</span> currentQueryState<span class="token punctuation">,</span> histogramHeight <span class="token punctuation">}</span> <span class="token operator">=</span>
+      <span class="token keyword">this</span><span class="token punctuation">.</span>props<span class="token punctuation">;</span>
+    <span class="token keyword">const</span> <span class="token punctuation">{</span> min<span class="token punctuation">,</span> max <span class="token punctuation">}</span> <span class="token operator">=</span> <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">getMinMax</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">const</span> hasActiveFilter<span class="token punctuation">;</span>
+    <span class="token comment">// Extract the buckets in aggregations</span>
+    <span class="token keyword">const</span> buckets <span class="token operator">=</span> <span class="token function">getBuckets</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token comment">// Active filter range: [from(year), to(year)]</span>
+    <span class="token keyword">const</span> <span class="token punctuation">{</span> range <span class="token punctuation">}</span> <span class="token operator">=</span> <span class="token keyword">this</span><span class="token punctuation">.</span>state
+
+    <span class="token keyword">const</span> containerCmp <span class="token operator">=</span> <span class="token punctuation">(</span>
+      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span></span><span class="token punctuation">></span></span><span class="token plain-text">
+        </span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span><span class="token class-name">RangeHistogram</span></span>
+          <span class="token attr-name">data</span><span class="token script language-javascript"><span class="token script-punctuation punctuation">=</span><span class="token punctuation">{</span>
+            <span class="token comment">// Extract key and doc_count from agg into a map, then fill every year with the count.</span>
+            <span class="token function">getHistogramData</span><span class="token punctuation">(</span>buckets<span class="token punctuation">,</span> min<span class="token punctuation">,</span> max<span class="token punctuation">)</span>
+          <span class="token punctuation">}</span></span>
+          <span class="token attr-name">range</span><span class="token script language-javascript"><span class="token script-punctuation punctuation">=</span><span class="token punctuation">{</span>range<span class="token punctuation">}</span></span>
+          <span class="token attr-name">height</span><span class="token script language-javascript"><span class="token script-punctuation punctuation">=</span><span class="token punctuation">{</span>histogramHeight<span class="token punctuation">}</span></span>
+          <span class="token attr-name">onBarClick</span><span class="token script language-javascript"><span class="token script-punctuation punctuation">=</span><span class="token punctuation">{</span><span class="token keyword">this</span><span class="token punctuation">.</span>onBarClick<span class="token punctuation">}</span></span>
+        <span class="token punctuation">/></span></span><span class="token plain-text">
+        </span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span><span class="token class-name">RangeCustomFilter</span></span>
+          <span class="token attr-name">min</span><span class="token script language-javascript"><span class="token script-punctuation punctuation">=</span><span class="token punctuation">{</span>min<span class="token punctuation">}</span></span>
+          <span class="token attr-name">max</span><span class="token script language-javascript"><span class="token script-punctuation punctuation">=</span><span class="token punctuation">{</span>max<span class="token punctuation">}</span></span>
+          <span class="token attr-name">value</span><span class="token script language-javascript"><span class="token script-punctuation punctuation">=</span><span class="token punctuation">{</span>range<span class="token punctuation">}</span></span>
+          <span class="token attr-name">rangeSeparator</span><span class="token script language-javascript"><span class="token script-punctuation punctuation">=</span><span class="token punctuation">{</span>rangeSeparator<span class="token punctuation">}</span></span>
+          <span class="token attr-name">activeMode</span><span class="token script language-javascript"><span class="token script-punctuation punctuation">=</span><span class="token punctuation">{</span><span class="token constant">RANGE_MODES</span><span class="token punctuation">.</span><span class="token constant">CUSTOM</span><span class="token punctuation">}</span></span>
+          <span class="token attr-name">activeFilter</span><span class="token script language-javascript"><span class="token script-punctuation punctuation">=</span><span class="token punctuation">{</span><span class="token keyword">this</span><span class="token punctuation">.</span>state<span class="token punctuation">.</span>activeFilter<span class="token punctuation">}</span></span>
+          <span class="token attr-name">onApply</span><span class="token script language-javascript"><span class="token script-punctuation punctuation">=</span><span class="token punctuation">{</span><span class="token punctuation">(</span><span class="token parameter">r<span class="token punctuation">,</span> s</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">applyRange</span><span class="token punctuation">(</span>r<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">,</span> r<span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">}</span></span>
+          <span class="token attr-name">onClear</span><span class="token script language-javascript"><span class="token script-punctuation punctuation">=</span><span class="token punctuation">{</span><span class="token keyword">this</span><span class="token punctuation">.</span>onClear<span class="token punctuation">}</span></span>
+        <span class="token punctuation">/></span></span><span class="token plain-text">
+      </span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span></span><span class="token punctuation">></span></span>
+    <span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+    <span class="token keyword">return</span> <span class="token punctuation">(</span>
+      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span><span class="token class-name">RangeFacetElement</span></span>
+        <span class="token attr-name">title</span><span class="token script language-javascript"><span class="token script-punctuation punctuation">=</span><span class="token punctuation">{</span>title<span class="token punctuation">}</span></span>
+        <span class="token attr-name">containerCmp</span><span class="token script language-javascript"><span class="token script-punctuation punctuation">=</span><span class="token punctuation">{</span>containerCmp<span class="token punctuation">}</span></span>
+        <span class="token attr-name">hasActiveFilter</span><span class="token script language-javascript"><span class="token script-punctuation punctuation">=</span><span class="token punctuation">{</span>hasActiveFilter<span class="token punctuation">}</span></span>
+        <span class="token attr-name">onClear</span><span class="token script language-javascript"><span class="token script-punctuation punctuation">=</span><span class="token punctuation">{</span><span class="token keyword">this</span><span class="token punctuation">.</span>onClear<span class="token punctuation">}</span></span>
+      <span class="token punctuation">/></span></span>
+    <span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">const</span> overriddenComponents <span class="token operator">=</span> <span class="token punctuation">{</span>
+  <span class="token literal-property property">RangeFacet</span><span class="token operator">:</span> MyRangeFacet<span class="token punctuation">,</span>
+<span class="token punctuation">}</span><span class="token punctuation">;</span>
+</code></pre>
+<h3><a class="anchor" aria-hidden="true" id="overriding-the-element"></a><a href="#overriding-the-element" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Overriding the element</h3>
+<p>Wraps the default content and lets you customize the header or layout while keeping
+the built-in histogram/slider/custom filters.</p>
+<pre><code class="hljs css language-jsx"><span class="token keyword">const</span> <span class="token function-variable function">MyRangeFacetElement</span> <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token parameter"><span class="token punctuation">{</span> title<span class="token punctuation">,</span> containerCmp<span class="token punctuation">,</span> hasActiveFilter<span class="token punctuation">,</span> onClear <span class="token punctuation">}</span></span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">{</span>
+  <span class="token keyword">return</span> <span class="token punctuation">(</span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>section</span><span class="token punctuation">></span></span><span class="token plain-text">
+      </span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>header</span><span class="token punctuation">></span></span><span class="token plain-text">
+        </span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>strong</span><span class="token punctuation">></span></span><span class="token punctuation">{</span>title<span class="token punctuation">}</span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>strong</span><span class="token punctuation">></span></span><span class="token plain-text">
+        </span><span class="token punctuation">{</span>hasActiveFilter <span class="token operator">&amp;&amp;</span> <span class="token punctuation">(</span>
+          <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>button</span> <span class="token attr-name">type</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>button<span class="token punctuation">"</span></span> <span class="token attr-name">onClick</span><span class="token script language-javascript"><span class="token script-punctuation punctuation">=</span><span class="token punctuation">{</span>onClear<span class="token punctuation">}</span></span><span class="token punctuation">></span></span><span class="token plain-text">
+            Clear
+          </span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>button</span><span class="token punctuation">></span></span>
+        <span class="token punctuation">)</span><span class="token punctuation">}</span><span class="token plain-text">
+      </span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>header</span><span class="token punctuation">></span></span><span class="token plain-text">
+      </span><span class="token punctuation">{</span>containerCmp<span class="token punctuation">}</span><span class="token plain-text">
+    </span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>section</span><span class="token punctuation">></span></span>
+  <span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span class="token punctuation">;</span>
+
+<span class="token keyword">const</span> overriddenComponents <span class="token operator">=</span> <span class="token punctuation">{</span>
+  <span class="token string-property property">"RangeFacet.element"</span><span class="token operator">:</span> MyRangeFacetElement<span class="token punctuation">,</span>
+<span class="token punctuation">}</span><span class="token punctuation">;</span>
+</code></pre>
+<h3><a class="anchor" aria-hidden="true" id="overriding-the-histogram"></a><a href="#overriding-the-histogram" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Overriding the histogram</h3>
+<p>Replace the histogram visualization. Use <code>data</code> and <code>range</code> to show counts and
+highlight the selected years. Call <code>onBarClick(year)</code> to update the range.</p>
+<pre><code class="hljs css language-jsx"><span class="token keyword">const</span> <span class="token function-variable function">MyRangeHistogram</span> <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token parameter"><span class="token punctuation">{</span> data<span class="token punctuation">,</span> range<span class="token punctuation">,</span> onBarClick <span class="token punctuation">}</span></span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">{</span>
+  <span class="token keyword">return</span> <span class="token punctuation">(</span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>ul</span><span class="token punctuation">></span></span><span class="token plain-text">
+      </span><span class="token punctuation">{</span>data<span class="token punctuation">.</span><span class="token function">map</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token parameter">item</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">{</span>
+        <span class="token operator">...</span>
+      <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">}</span><span class="token plain-text">
+    </span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>ul</span><span class="token punctuation">></span></span>
+  <span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span class="token punctuation">;</span>
+
+<span class="token keyword">const</span> overriddenComponents <span class="token operator">=</span> <span class="token punctuation">{</span>
+  <span class="token string-property property">"RangeFacet.Histogram.element"</span><span class="token operator">:</span> MyRangeHistogram<span class="token punctuation">,</span>
+<span class="token punctuation">}</span><span class="token punctuation">;</span>
+</code></pre>
+<h4><a class="anchor" aria-hidden="true" id="tooltip-override-histogram"></a><a href="#tooltip-override-histogram" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Tooltip override (histogram)</h4>
+<p>The histogram tooltip is its own overridable element. The <code>tooltip</code> value has the
+shape <code>{ year, count, x, y }</code> where <code>x/y</code> are viewport coordinates used to position
+the tooltip.</p>
+<pre><code class="hljs css language-jsx"><span class="token keyword">const</span> <span class="token function-variable function">MyHistogramTooltip</span> <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token parameter"><span class="token punctuation">{</span> tooltip <span class="token punctuation">}</span></span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">{</span>
+  <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token operator">!</span>tooltip<span class="token punctuation">)</span> <span class="token keyword">return</span> <span class="token keyword">null</span><span class="token punctuation">;</span>
+  <span class="token keyword">return</span> <span class="token punctuation">(</span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span><span class="token punctuation">></span></span><span class="token plain-text">
+      </span><span class="token punctuation">{</span>tooltip<span class="token punctuation">.</span>year<span class="token punctuation">}</span><span class="token plain-text">: </span><span class="token punctuation">{</span>tooltip<span class="token punctuation">.</span>count<span class="token punctuation">}</span><span class="token plain-text">
+    </span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">></span></span>
+  <span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span class="token punctuation">;</span>
+
+<span class="token keyword">const</span> overriddenComponents <span class="token operator">=</span> <span class="token punctuation">{</span>
+  <span class="token string-property property">"RangeFacet.Histogram.Tooltip.element"</span><span class="token operator">:</span> MyHistogramTooltip<span class="token punctuation">,</span>
+<span class="token punctuation">}</span><span class="token punctuation">;</span>
+</code></pre>
+<h3><a class="anchor" aria-hidden="true" id="overriding-the-slider"></a><a href="#overriding-the-slider" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Overriding the slider</h3>
+<p>Replace the range slider. Call <code>onChange([min, max])</code> when the selected range changes.</p>
+<pre><code class="hljs css language-jsx"><span class="token keyword">const</span> <span class="token function-variable function">MyRangeSlider</span> <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token parameter"><span class="token punctuation">{</span> min<span class="token punctuation">,</span> max<span class="token punctuation">,</span> value<span class="token punctuation">,</span> onChange <span class="token punctuation">}</span></span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">{</span>
+  <span class="token operator">...</span>
+<span class="token punctuation">}</span><span class="token punctuation">;</span>
+
+<span class="token keyword">const</span> overriddenComponents <span class="token operator">=</span> <span class="token punctuation">{</span>
+  <span class="token string-property property">"RangeFacet.Slider.element"</span><span class="token operator">:</span> MyRangeSlider<span class="token punctuation">,</span>
+<span class="token punctuation">}</span><span class="token punctuation">;</span>
+</code></pre>
+<h3><a class="anchor" aria-hidden="true" id="overriding-the-default-filters"></a><a href="#overriding-the-default-filters" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Overriding the default filters</h3>
+<p>Replace the default ranges list. Call <code>onToggle(range, checked)</code> to select or clear
+a range option.</p>
+<pre><code class="hljs css language-jsx"><span class="token keyword">const</span> <span class="token function-variable function">MyDefaultFilters</span> <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token parameter"><span class="token punctuation">{</span> ranges<span class="token punctuation">,</span> activeLabel<span class="token punctuation">,</span> onToggle <span class="token punctuation">}</span></span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">{</span>
+  <span class="token operator">...</span>
+<span class="token punctuation">}</span><span class="token punctuation">;</span>
+
+<span class="token keyword">const</span> overriddenComponents <span class="token operator">=</span> <span class="token punctuation">{</span>
+  <span class="token string-property property">"RangeFacet.DefaultFilters.element"</span><span class="token operator">:</span> MyDefaultFilters<span class="token punctuation">,</span>
+<span class="token punctuation">}</span><span class="token punctuation">;</span>
+</code></pre>
+<h3><a class="anchor" aria-hidden="true" id="overriding-the-custom-filter"></a><a href="#overriding-the-custom-filter" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Overriding the custom filter</h3>
+<p>Replace the custom range checkbox and inputs wrapper. Use <code>checked/expanded</code> to
+control layout and render <code>dateError</code> when validation fails.</p>
+<pre><code class="hljs css language-jsx"><span class="token keyword">const</span> <span class="token function-variable function">MyCustomFilter</span> <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token parameter"><span class="token punctuation">{</span> checked<span class="token punctuation">,</span> expanded<span class="token punctuation">,</span> dateError<span class="token punctuation">,</span> activeFilter<span class="token punctuation">,</span> children <span class="token punctuation">}</span></span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">{</span>
+  <span class="token operator">...</span>
+<span class="token punctuation">}</span><span class="token punctuation">;</span>
+
+<span class="token keyword">const</span> overriddenComponents <span class="token operator">=</span> <span class="token punctuation">{</span>
+  <span class="token string-property property">"RangeFacet.CustomFilter.element"</span><span class="token operator">:</span> MyCustomFilter<span class="token punctuation">,</span>
+<span class="token punctuation">}</span><span class="token punctuation">;</span>
+</code></pre>
+<h3><a class="anchor" aria-hidden="true" id="overriding-the-date-range-inputs-for-custom-filter"></a><a href="#overriding-the-date-range-inputs-for-custom-filter" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Overriding the date range inputs (for custom filter)</h3>
+<p>Replace the date input layout for the custom filter. Use <code>format</code> to decide which
+parts to render and <code>values</code> to populate them.</p>
+<pre><code class="hljs css language-jsx"><span class="token keyword">const</span> <span class="token function-variable function">MyDateRangeInputs</span> <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token parameter"><span class="token punctuation">{</span> format<span class="token punctuation">,</span> values<span class="token punctuation">,</span> disabled<span class="token punctuation">,</span> children <span class="token punctuation">}</span></span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">{</span>
+  <span class="token operator">...</span>
+<span class="token punctuation">}</span><span class="token punctuation">;</span>
+
+<span class="token keyword">const</span> overriddenComponents <span class="token operator">=</span> <span class="token punctuation">{</span>
+  <span class="token string-property property">"RangeFacet.DateInputs.Layout"</span><span class="token operator">:</span> MyDateRangeInputs<span class="token punctuation">,</span>
+<span class="token punctuation">}</span><span class="token punctuation">;</span>
+</code></pre>
+<p><code>format</code> controls the input structure:</p>
+<ul>
+<li><code>YYYY</code> renders a single row with year-only inputs.</li>
+<li><code>YYYY-MM</code> and <code>YYYY-MM-DD</code> render stacked rows for from/to values.</li>
+</ul>
+<h3><a class="anchor" aria-hidden="true" id="rangefacet-parameters"></a><a href="#rangefacet-parameters" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>RangeFacet parameters</h3>
+<p>Component that wraps the histogram, slider, and optional filters.</p>
+<ul>
+<li><p><strong>title</strong> <code>String</code></p>
+<p>The title to render.</p></li>
+<li><p><strong>containerCmp</strong> <code>React component</code></p>
+<p>The rendered content (histogram, slider, and filters).</p></li>
+<li><p><strong>hasActiveFilter</strong> <code>Boolean</code></p>
+<p><code>true</code> if a range filter is active, <code>false</code> otherwise.</p></li>
+<li><p><strong>onClear</strong> <code>Function</code></p>
+<p>Function to call to clear the active range filter.</p></li>
+</ul>
+<h2><a class="anchor" aria-hidden="true" id="callback-methods-used-by-overrides"></a><a href="#callback-methods-used-by-overrides" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Callback methods used by overrides</h2>
+<ul>
+<li><p><strong>onClear</strong> <code>Function</code></p>
+<p>Clears the active range filter and resets to the full available range.</p></li>
+<li><p><strong>onBarClick</strong> <code>Function</code></p>
+<p>Accepts a <code>year</code> and updates the range to that single year.</p></li>
+<li><p><strong>onChange</strong> <code>Function</code></p>
+<p>Accepts <code>[from, to]</code> to update the selected range (used by slider overrides).</p></li>
+<li><p><strong>onToggle</strong> <code>Function</code></p>
+<p>Accepts <code>(range, checked)</code> to select a default range or clear it.</p></li>
+</ul>
+<h2><a class="anchor" aria-hidden="true" id="utilities"></a><a href="#utilities" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Utilities</h2>
+<p>Helpers from <code>src/lib/components/RangeFacet/utils.js</code> used by <code>RangeFacet</code> and its sub-components.</p>
+<ul>
+<li><strong>extractBuckets(resultsAggregations, aggName)</strong>: read aggregation buckets safely.</li>
+<li><strong>getKey(bucket)</strong>: returns <code>key_as_string</code> when present, otherwise <code>key</code>.</li>
+<li><strong>getHistogramData(buckets, min, max)</strong>: build continuous year data with counts.</li>
+<li><strong>resolveDefaultRange(range, min, max, rangeSeparator)</strong>: compute the year range
+and optional ISO date range for a default option.</li>
+<li><strong>normalizeFilterValue(filterValue, rangeSeparator, minYear, maxYear)</strong>: sanitize
+and normalize a filter string like <code>YYYY..YYYY</code> or ISO dates.</li>
+<li><strong>parseFilterYears(filterValue, rangeSeparator)</strong>: parse years from a filter
+string (supports ISO dates).</li>
+<li><strong>findDefaultLabel(defaultRanges, filterValue, min, max, rangeSeparator)</strong>:
+match an active filter to a default range label.</li>
+<li><strong>buildDateRange({ fromYear, fromMonth, fromDay, toYear, toMonth, toDay, rangeSeparator })</strong>:
+build a <code>YYYY..YYYY</code> or ISO <code>YYYY-MM-DD..YYYY-MM-DD</code> string.</li>
+<li><strong>RANGE_MODES</strong>: enum with <code>DEFAULT</code> and <code>CUSTOM</code> used for optional default and custom filters.</li>
+</ul>
+</span></div></article></div><div class="docs-prevnext"><a class="docs-prev button" href="/react-searchkit/docs/components/bucket-aggregation"><span class="arrow-prev">← </span><span class="function-name-prevnext">BucketAggregation</span></a><a class="docs-next button" href="/react-searchkit/docs/components/count"><span>Count</span><span class="arrow-next"> →</span></a></div></div></div><nav class="onPageNav"><ul class="toc-headings"><li><a href="#usage">Usage</a></li><li><a href="#aggregation-format">Aggregation format</a></li><li><a href="#filters-format">Filters format</a></li><li><a href="#props">Props</a></li><li><a href="#usage-when-overriding">Usage when overriding</a><ul class="toc-headings"><li><a href="#overriding-full-component">Overriding full component</a></li><li><a href="#overriding-the-element">Overriding the element</a></li><li><a href="#overriding-the-histogram">Overriding the histogram</a></li><li><a href="#overriding-the-slider">Overriding the slider</a></li><li><a href="#overriding-the-default-filters">Overriding the default filters</a></li><li><a href="#overriding-the-custom-filter">Overriding the custom filter</a></li><li><a href="#overriding-the-date-range-inputs-for-custom-filter">Overriding the date range inputs (for custom filter)</a></li><li><a href="#rangefacet-parameters">RangeFacet parameters</a></li></ul></li><li><a href="#callback-methods-used-by-overrides">Callback methods used by overrides</a></li><li><a href="#utilities">Utilities</a></li></ul></nav></div><footer class="nav-footer" id="footer"><section class="sitemap"><div><h5>Made with</h5><a href="https://docusaurus.io/">Docusaurus</a><a href="https://code.facebook.com/projects/" target="_blank" rel="noreferrer noopener"><img src="/react-searchkit/img/oss_logo.png" alt="React-SearchKit" width="170" height="45"/></a></div><div><h5>More</h5><a href="https://github.com/inveniosoftware/react-searchkit">GitHub</a><a href="https://inveniosoftware.org/">Invenio Software</a><a href="https://discord.gg/8qatqBC">Chat with us!</a><a href="https://twitter.com/inveniosoftware">Twitter</a></div><div><h5>Born with ❤️ at</h5><a href="https://home.cern/" target="_blank"><img src="/react-searchkit/img/logo-cern.png" alt="CERN" width="130"/></a></div></section><section class="copyright"></section></footer></div></body></html>
