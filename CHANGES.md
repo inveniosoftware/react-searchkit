@@ -1,5 +1,10 @@
 # Changes
 
+Version 3.1.0 (released 2026-02-12)
+
+- feat: add Range Facet component (date range, histogram, slider, default/custom filters)
+- fix(ci): upgrade Node to v20 and update publish CI workflow
+
 Version 3.0.3 (released 2025-09-10)
 
 - chore: major bump of `react-overridable` to `1.0.0`, adding backwards-compatible support for devtools.
