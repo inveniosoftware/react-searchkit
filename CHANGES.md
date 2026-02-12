@@ -1,5 +1,9 @@
 # Changes
 
+Version 3.1.1 (released 2026-02-12)
+
+- fix: temporarily downgrade `luxon` to v1.x for compatibility with Invenio ecosystem
+
 Version 3.1.0 (released 2026-02-12)
 
 - feat: add Range Facet component (date range, histogram, slider, default/custom filters)
