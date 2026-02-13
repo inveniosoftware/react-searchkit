@@ -18,9 +18,22 @@
     "unlink-dist": "cd dist && npm unlink && rm package*",
     "watch": "NODE_ENV=development rollup --watch -c",
     "test": "react-scripts test --transformIgnorePatterns /\"node_modules/(?!axios)/\"",
+    "test:coverage": "CI=true react-scripts test --coverage --watchAll=false --transformIgnorePatterns /\"node_modules/(?!axios)/\"",
     "eject": "react-scripts eject",
     "lint": "eslint src/ --ext .js --max-warnings=0",
     "format": "prettier --write \"src/**/*.js\""
+  },
+  "jest": {
+    "collectCoverageFrom": [
+      "src/lib/**/*.{js,jsx}",
+      "!src/lib/**/*.d.ts",
+      "!src/demos/**/*"
+    ],
+    "coverageReporters": [
+      "text",
+      "lcov",
+      "html"
+    ]
   },
   "peerDependencies": {
     "@babel/runtime": "^7.9.0",
@@ -48,6 +61,7 @@
     "@rollup/plugin-node-resolve": "^9.0.0",
     "axios": "^1.7.7",
     "axios-mock-adapter": "^1.18.0",
+    "baseline-browser-mapping": "^2.9.19",
     "cheerio": "1.0.0-rc.3",
     "coveralls": "^3.0.0",
     "enzyme": "^3.10.0",

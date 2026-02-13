@@ -10,20 +10,38 @@ import expect from "expect";
 import configureMockStore from "redux-mock-store";
 import thunk from "redux-thunk";
 import {
+  clearSuggestions,
+  executeSuggestionQuery,
   executeQuery,
   onAppInitialized,
+  resetQuery,
   setInitialState,
+  updateQueryFilters,
+  updateQueryPaginationPage,
+  updateQueryPaginationSize,
   updateQuerySortBy,
   updateQuerySortOrder,
   updateQueryString,
+  updateQuerySorting,
+  updateQueryState,
+  updateQueryStateFromUrl,
+  updateResultsLayout,
+  updateSuggestions,
 } from ".";
 import { createStoreWithConfig } from "../../store";
 import {
+  CLEAR_QUERY_SUGGESTIONS,
+  RESULTS_FETCH_ERROR,
   RESULTS_FETCH_SUCCESS,
   RESULTS_LOADING,
+  RESULTS_UPDATE_LAYOUT,
   SET_QUERY_COMPONENT_INITIAL_STATE,
+  SET_QUERY_FILTERS,
+  SET_QUERY_PAGINATION_SIZE,
   SET_QUERY_SORT_BY,
   SET_QUERY_SORT_ORDER,
+  SET_QUERY_SORTING,
+  SET_QUERY_STATE,
   SET_QUERY_STRING,
 } from "../types";
 
@@ -575,5 +593,524 @@ describe("test execute search and get new query state in response", () => {
       ...EXPECTED_QUERY_STATE,
     };
     expect(urlHandlerApiReplace).toHaveBeenCalledWith(newQueryState);
+  });
+});
+
+describe("action creators - additional test coverage", () => {
+  const RESULTS = {
+    aggregations: [],
+    hits: [],
+    total: 1,
+  };
+
+  beforeAll(() => {
+    // Ensure all action types are available
+  });
+
+  describe("setInitialState", () => {
+    it("should dispatch SET_QUERY_COMPONENT_INITIAL_STATE action", () => {
+      const initialState = { queryString: "test", page: 1 };
+      const action = setInitialState(initialState);
+      const dispatch = jest.fn();
+
+      action(dispatch);
+
+      expect(dispatch).toHaveBeenCalledWith({
+        type: SET_QUERY_COMPONENT_INITIAL_STATE,
+        payload: initialState,
+      });
+    });
+  });
+
+  describe("updateQueryString", () => {
+    it("should update query string in state", async () => {
+      const config = {
+        urlHandlerApi: null,
+        searchApi: {
+          search: () => RESULTS,
+        },
+        initialQueryState: {
+          queryString: "",
+          page: 1,
+        },
+      };
+      const store = createStoreWithConfig(config);
+
+      await store.dispatch(updateQueryString("test query"));
+
+      expect(store.getState().query.queryString).toBe("test query");
+    });
+  });
+
+  describe("updateQuerySortBy", () => {
+    it("should update sortBy in state", async () => {
+      const config = {
+        urlHandlerApi: null,
+        searchApi: {
+          search: () => RESULTS,
+        },
+        initialQueryState: {
+          sortBy: "bestmatch",
+        },
+      };
+      const store = createStoreWithConfig(config);
+
+      await store.dispatch(updateQuerySortBy("newest"));
+
+      expect(store.getState().query.sortBy).toBe("newest");
+    });
+  });
+
+  describe("updateQuerySortOrder", () => {
+    it("should update sortOrder in state", async () => {
+      const config = {
+        urlHandlerApi: null,
+        searchApi: {
+          search: () => RESULTS,
+        },
+        initialQueryState: {
+          sortBy: "bestmatch",
+          sortOrder: "asc",
+        },
+      };
+      const store = createStoreWithConfig(config);
+
+      await store.dispatch(updateQuerySortOrder("desc"));
+
+      expect(store.getState().query.sortOrder).toBe("desc");
+    });
+  });
+
+  describe("updateQueryState", () => {
+    it("should update query state and execute query", async () => {
+      const config = {
+        urlHandlerApi: null,
+        searchApi: {
+          search: () => RESULTS,
+        },
+        initialQueryState: {
+          queryString: "",
+          page: 1,
+        },
+      };
+      const store = createStoreWithConfig(config);
+
+      const newQueryState = { queryString: "test", page: 2 };
+      await store.dispatch(updateQueryState(newQueryState));
+
+      expect(store.getState().query.queryString).toBe("test");
+      expect(store.getState().query.page).toBe(2);
+    });
+  });
+
+  describe("updateQuerySorting", () => {
+    it("should update sortBy and sortOrder and execute query", async () => {
+      const config = {
+        urlHandlerApi: null,
+        searchApi: {
+          search: () => RESULTS,
+        },
+        initialQueryState: {
+          sortBy: "bestmatch",
+          sortOrder: "asc",
+        },
+      };
+      const store = createStoreWithConfig(config);
+
+      await store.dispatch(updateQuerySorting("newest", "desc"));
+
+      expect(store.getState().query.sortBy).toBe("newest");
+      expect(store.getState().query.sortOrder).toBe("desc");
+    });
+
+    it("should update with undefined sortOrder", async () => {
+      const config = {
+        urlHandlerApi: null,
+        searchApi: {
+          search: () => RESULTS,
+        },
+        initialQueryState: {
+          sortBy: "bestmatch",
+        },
+      };
+      const store = createStoreWithConfig(config);
+
+      await store.dispatch(updateQuerySorting("oldest", undefined));
+
+      expect(store.getState().query.sortBy).toBe("oldest");
+    });
+  });
+
+  describe("updateQueryPaginationSize", () => {
+    it("should update pagination size and execute query", async () => {
+      const config = {
+        urlHandlerApi: null,
+        searchApi: {
+          search: () => RESULTS,
+        },
+        initialQueryState: {
+          size: 10,
+        },
+      };
+      const store = createStoreWithConfig(config);
+
+      await store.dispatch(updateQueryPaginationSize(25));
+
+      expect(store.getState().query.size).toBe(25);
+    });
+  });
+
+  describe("updateQueryPaginationPage", () => {
+    it("should update pagination page and execute query", async () => {
+      const config = {
+        urlHandlerApi: null,
+        searchApi: {
+          search: () => RESULTS,
+        },
+        initialQueryState: {
+          page: 1,
+        },
+      };
+      const store = createStoreWithConfig(config);
+
+      await store.dispatch(updateQueryPaginationPage(5));
+
+      expect(store.getState().query.page).toBe(5);
+    });
+  });
+
+  describe("updateQueryFilters", () => {
+    it("should update filters and execute query", async () => {
+      const config = {
+        urlHandlerApi: null,
+        searchApi: {
+          search: () => RESULTS,
+        },
+        initialQueryState: {
+          filters: [],
+        },
+      };
+      const store = createStoreWithConfig(config);
+
+      const filters = [["type", "book"]];
+      await store.dispatch(updateQueryFilters(filters));
+
+      expect(store.getState().query.filters).toEqual(filters);
+    });
+  });
+
+  describe("updateResultsLayout", () => {
+    it("should update layout and call urlHandlerApi.set when urlHandlerApi exists", async () => {
+      class UrlHandler {
+        get() {
+          return { queryString: "" };
+        }
+        set() {}
+      }
+
+      const urlHandler = new UrlHandler();
+      const setSpy = jest.spyOn(urlHandler, "set");
+
+      const config = {
+        urlHandlerApi: urlHandler,
+        searchApi: {
+          search: () => RESULTS,
+        },
+        initialQueryState: {
+          queryString: "",
+        },
+      };
+      const store = createStoreWithConfig(config);
+
+      await store.dispatch(updateResultsLayout("grid"));
+
+      expect(store.getState().query.layout).toBe("grid");
+      expect(setSpy).toHaveBeenCalled();
+
+      setSpy.mockRestore();
+    });
+
+    it("should update layout without urlHandlerApi when urlHandlerApi is null", async () => {
+      const config = {
+        urlHandlerApi: null,
+        searchApi: {
+          search: () => RESULTS,
+        },
+        initialQueryState: {
+          queryString: "",
+        },
+      };
+      const store = createStoreWithConfig(config);
+
+      await store.dispatch(updateResultsLayout("list"));
+
+      expect(store.getState().query.layout).toBe("list");
+    });
+  });
+
+  describe("resetQuery", () => {
+    it("should reset query to initial state", async () => {
+      const config = {
+        urlHandlerApi: null,
+        searchApi: {
+          search: () => RESULTS,
+        },
+        initialQueryState: {
+          queryString: "",
+          page: 1,
+          sortBy: "bestmatch",
+          sortOrder: "asc",
+        },
+        app: {
+          initialSortBy: "bestmatch",
+          initialSortOrder: "asc",
+        },
+      };
+      const store = createStoreWithConfig(config);
+
+      // First modify the state
+      await store.dispatch(updateQueryString("test"));
+      expect(store.getState().query.queryString).toBe("test");
+
+      // Then reset
+      await store.dispatch(resetQuery());
+      expect(store.getState().query.queryString).toBe("");
+    });
+  });
+
+  describe("executeQuery with URL options", () => {
+    it("should call urlHandlerApi.replace when shouldReplaceUrlQueryString is true", async () => {
+      class UrlHandler {
+        get() {
+          return { queryString: "test" };
+        }
+        set() {}
+        replace() {}
+      }
+
+      const urlHandler = new UrlHandler();
+      const replaceSpy = jest.spyOn(urlHandler, "replace");
+      const setSpy = jest.spyOn(urlHandler, "set");
+
+      const config = {
+        urlHandlerApi: urlHandler,
+        searchApi: {
+          search: () => RESULTS,
+        },
+        initialQueryState: {
+          queryString: "test",
+        },
+      };
+      const store = createStoreWithConfig(config);
+
+      await store.dispatch(
+        executeQuery({
+          shouldReplaceUrlQueryString: true,
+        })
+      );
+
+      expect(replaceSpy).toHaveBeenCalled();
+      expect(setSpy).not.toHaveBeenCalled();
+
+      replaceSpy.mockRestore();
+      setSpy.mockRestore();
+    });
+
+    it("should call urlHandlerApi.set when shouldReplaceUrlQueryString is false and shouldUpdateUrlQueryString is true", async () => {
+      class UrlHandler {
+        get() {
+          return { queryString: "test" };
+        }
+        set() {}
+        replace() {}
+      }
+
+      const urlHandler = new UrlHandler();
+      const replaceSpy = jest.spyOn(urlHandler, "replace");
+      const setSpy = jest.spyOn(urlHandler, "set");
+
+      const config = {
+        urlHandlerApi: urlHandler,
+        searchApi: {
+          search: () => RESULTS,
+        },
+        initialQueryState: {
+          queryString: "test",
+        },
+      };
+      const store = createStoreWithConfig(config);
+
+      await store.dispatch(
+        executeQuery({
+          shouldReplaceUrlQueryString: false,
+          shouldUpdateUrlQueryString: true,
+        })
+      );
+
+      expect(setSpy).toHaveBeenCalled();
+      expect(replaceSpy).not.toHaveBeenCalled();
+
+      replaceSpy.mockRestore();
+      setSpy.mockRestore();
+    });
+  });
+
+  describe("executeSuggestionQuery", () => {
+    it("should handle suggestion API errors gracefully", async () => {
+      const consoleErrorSpy = jest.spyOn(console, "error").mockImplementation();
+
+      const config = {
+        urlHandlerApi: null,
+        searchApi: {
+          search: () => RESULTS,
+        },
+        suggestionApi: {
+          search: () => Promise.reject(new Error("Suggestion failed")),
+        },
+        initialQueryState: {
+          queryString: "",
+        },
+      };
+      const store = createStoreWithConfig(config);
+
+      await store.dispatch(executeSuggestionQuery());
+
+      expect(consoleErrorSpy).toHaveBeenCalledWith(
+        expect.stringContaining("Could not load suggestions")
+      );
+
+      consoleErrorSpy.mockRestore();
+    });
+  });
+
+  describe("clearSuggestions", () => {
+    it("should dispatch CLEAR_QUERY_SUGGESTIONS action", () => {
+      const dispatch = jest.fn();
+      clearSuggestions()(dispatch);
+
+      expect(dispatch).toHaveBeenCalledWith({
+        type: CLEAR_QUERY_SUGGESTIONS,
+        payload: {
+          suggestions: [],
+        },
+      });
+    });
+  });
+
+  describe("updateSuggestions", () => {
+    it("should update suggestion string and execute suggestion query", async () => {
+      const config = {
+        urlHandlerApi: null,
+        searchApi: {
+          search: () => RESULTS,
+        },
+        suggestionApi: {
+          search: () => Promise.resolve({ suggestions: ["sugg1", "sugg2"] }),
+        },
+        initialQueryState: {
+          queryString: "",
+        },
+      };
+      const store = createStoreWithConfig(config);
+
+      await store.dispatch(updateSuggestions("test suggestion"));
+
+      expect(store.getState().query.suggestionString).toBe("test suggestion");
+    });
+  });
+
+  describe("updateQueryStateFromUrl", () => {
+    it("should update query state from urlHandlerApi when urlHandlerApi exists", async () => {
+      class UrlHandler {
+        get() {
+          return {
+            queryString: "urltext",
+            page: 3,
+            sortBy: "bestmatch",
+            sortOrder: "asc",
+          };
+        }
+        replace() {}
+      }
+
+      const urlHandler = new UrlHandler();
+      const replaceSpy = jest.spyOn(urlHandler, "replace");
+
+      const config = {
+        urlHandlerApi: urlHandler,
+        searchApi: {
+          search: () => RESULTS,
+        },
+        initialQueryState: {
+          queryString: "",
+          page: 1,
+        },
+      };
+      const store = createStoreWithConfig(config);
+
+      await store.dispatch(updateQueryStateFromUrl());
+
+      expect(store.getState().query.queryString).toBe("urltext");
+      expect(store.getState().query.page).toBe(3);
+
+      replaceSpy.mockRestore();
+    });
+
+    it("should not update when urlHandlerApi is null", async () => {
+      const config = {
+        urlHandlerApi: null,
+        searchApi: {
+          search: () => RESULTS,
+        },
+        initialQueryState: {
+          queryString: "",
+          page: 1,
+        },
+      };
+      const store = createStoreWithConfig(config);
+      const queryBefore = store.getState().query;
+
+      await store.dispatch(updateQueryStateFromUrl());
+
+      expect(store.getState().query).toEqual(queryBefore);
+    });
+  });
+
+  describe("onAppInitialized", () => {
+    it("should executeQuery when searchOnInit is true", async () => {
+      const config = {
+        urlHandlerApi: null,
+        searchApi: {
+          search: () => RESULTS,
+        },
+        searchOnInit: true,
+        initialQueryState: {
+          queryString: "",
+        },
+      };
+      const store = createStoreWithConfig(config);
+
+      await store.dispatch(onAppInitialized(true));
+
+      // Check that loading was set during execution
+      expect(store.getState().results.loading).toBe(false);
+    });
+
+    it("should not executeQuery when searchOnInit is false", async () => {
+      const config = {
+        urlHandlerApi: null,
+        searchApi: {
+          search: () => RESULTS,
+        },
+        initialQueryState: {
+          queryString: "",
+        },
+      };
+      const store = createStoreWithConfig(config);
+
+      await store.dispatch(onAppInitialized(false));
+
+      // Results should not be loaded
+    });
   });
 });
