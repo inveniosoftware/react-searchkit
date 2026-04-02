@@ -1,0 +1,40 @@
+# -*- coding: utf-8 -*-
+#
+# Copyright (C)      2021 CERN.
+# Copyright (C) 2021-2023 Graz University of Technology.
+#
+# React-Searchkit is free software; you can redistribute it and/or modify it
+# under the terms of the MIT License; see LICENSE file for more details.
+
+#
+# 1) Add a new language
+#    npm run init_catalog lang <lang>
+# 2) Extract translation keys/values
+#    $ npm run extract_messages
+# 3) Update the src/lib/translations/messages/index.js file
+#    import TRANSLATE_<lang> from './<lang>/translations.json'
+#    export const translations = {
+#      ...rest,
+#      <lang>: { translation: TRANSLATE_<lang> }
+#    }
+# 4) Install the transifex-client
+#    $ pip install transifex-client
+# 5) Push source (.pot) and translations (.po) to Transifex
+#    $ tx push -s -t
+# 6) Pull translations for a single language from Transifex
+#    $ tx pull -l <lang>
+# 7) Pull translations for all languages from Transifex
+#    $ tx pull -a
+# 8) Compile .po files for all languages
+#    $ npm run compile_catalog
+# 9) Convert .po file for a single language
+#    $ npm run compile_catalog lang <lang>
+
+[main]
+host = https://app.transifex.com
+
+[o:inveniosoftware:p:invenio:r:react-searchkit-messages-ui]
+file_filter = src/lib/translations/messages/<lang>/messages.po
+source_file = src/lib/translations/translations.pot
+source_lang = en
+type = PO
