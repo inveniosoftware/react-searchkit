@@ -73,6 +73,7 @@
     "qs": "^6.8.0",
     "react": "^16.13.0",
     "react-dom": "^16.13.0",
+    "react-i18next": "^11.11.3",
     "react-overridable": "^1.0.0",
     "react-redux": "^7.2.0",
     "redux": "^4.0.0",
@@ -86,8 +87,10 @@
   "devDependencies": {
     "@babel/cli": "^7.11.0",
     "@inveniosoftware/eslint-config-invenio": "^2.0.0",
+    "@rollup/plugin-alias": "^3.1.0",
     "@rollup/plugin-babel": "^5.2.0",
     "@rollup/plugin-commonjs": "^15.1.0",
+    "@rollup/plugin-json": "^4.1.0",
     "@rollup/plugin-node-resolve": "^9.0.0",
     "axios": "^1.7.7",
     "axios-mock-adapter": "^1.18.0",
@@ -104,6 +107,7 @@
     "qs": "^6.8.0",
     "react": "^16.13.0",
     "react-dom": "^16.13.0",
+    "react-i18next": "^11.11.3",
     "react-overridable": "^1.0.0",
     "react-redux": "^7.2.0",
     "react-scripts": "^5.0.0",
@@ -158,5 +162,10 @@
   },
   "engines": {
     "node": ">=14.0.0"
+  },
+  "jest": {
+    "moduleNameMapper": {
+      "@translations/i18next": "<rootDir>/src/lib/i18next"
+    }
   }
 }
