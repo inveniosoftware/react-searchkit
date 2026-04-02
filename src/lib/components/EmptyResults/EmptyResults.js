@@ -85,12 +85,14 @@ const Element = ({
       <Segment placeholder textAlign="center">
         <Header icon>
           <Icon name="search" />
-            { i18next.t("No results found!") }
+            {i18next.t("No results found!")}
         </Header>
-          <em>{i18next.t("Current search {{- search}}", { search: (queryString && `'${queryString}'`), })}</em>
+          <em>{i18next.t("Current search {{- search}}", {
+              search: (queryString && `'${queryString}'`),
+          })}</em>
         <br />
         <Button primary onClick={() => resetQuery()}>
-          { i18next.t("Clear query") }
+          {i18next.t("Clear query")}
         </Button>
         {extraContent}
       </Segment>
