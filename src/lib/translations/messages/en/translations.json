@@ -1,0 +1,13 @@
+{
+  "No results found!": "No results found!",
+  "Clear query": "Clear query",
+  "Type something": "Type something",
+  "Search": "Search",
+  "Current search {{- search}}": "Current search {{- search}}",
+  "Oops! Something went wrong while fetching results.": "Oops! Something went wrong while fetching results.",
+  "to": "to",
+  "Year must be 4 digits": "Year must be 4 digits",
+  "Please enter a valid date": "Please enter a valid date",
+  "Start date must be before end date": "Start date must be before end date",
+  "Custom Dates": "Custom Dates"
+}

@@ -1,0 +1,43 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: i18next-conv\n"
+"mime-version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1)\n"
+"POT-Creation-Date: 2026-04-02T14:00:55.382Z\n"
+"PO-Revision-Date: 2026-04-02T14:00:55.382Z\n"
+"Language: en\n"
+
+msgid "No results found!"
+msgstr "No results found!"
+
+msgid "Clear query"
+msgstr "Clear query"
+
+msgid "Type something"
+msgstr "Type something"
+
+msgid "Search"
+msgstr "Search"
+
+msgid "Current search {{- search}}"
+msgstr "Current search {{- search}}"
+
+msgid "Oops! Something went wrong while fetching results."
+msgstr "Oops! Something went wrong while fetching results."
+
+msgid "to"
+msgstr "to"
+
+msgid "Year must be 4 digits"
+msgstr "Year must be 4 digits"
+
+msgid "Please enter a valid date"
+msgstr "Please enter a valid date"
+
+msgid "Start date must be before end date"
+msgstr "Start date must be before end date"
+
+msgid "Custom Dates"
+msgstr "Custom Dates"
