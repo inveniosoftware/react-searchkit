@@ -12,6 +12,7 @@ import React, { useContext } from "react";
 import Overridable from "react-overridable";
 import { AppContext } from "../ReactSearchKit";
 import { ShouldRender } from "../ShouldRender";
+import { i18next } from "@translations/i18next";
 
 function Error({ loading, error, overridableId }) {
   return (
@@ -37,7 +38,7 @@ const Element = ({ error, overridableId }) => {
 
   return (
     <Overridable id={buildUID("Error.element", overridableId)} error={error}>
-      <div>Oops! Something went wrong while fetching results.</div>
+      <div>{i18next.t("Oops! Something went wrong while fetching results.")}</div>
     </Overridable>
   );
 };

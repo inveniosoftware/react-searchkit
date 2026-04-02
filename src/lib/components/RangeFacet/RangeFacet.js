@@ -28,6 +28,7 @@ import {
   getKey,
   normalizeFilterValue,
 } from "./utils";
+import { i18next } from "@translations/i18next";
 
 class RangeFacet extends React.Component {
   constructor(props) {
@@ -139,11 +140,12 @@ class RangeFacet extends React.Component {
       });
       return;
     }
-    const clampedFrom = Math.max(parsedFilter.fromYear, min);
-    const clampedTo = Math.min(parsedFilter.toYear, max);
-    // If filter is outside histogram bounds, show full range (no selection)
-    const from = clampedFrom <= clampedTo ? clampedFrom : min;
-    const to = clampedFrom <= clampedTo ? clampedTo : max;
+    const [fromPart, toPart] = normalizedFilterValue.split(rangeSeparator);
+    const hasDateDetail =
+      (fromPart && fromPart.trim().length > 4) || (toPart && toPart.trim().length > 4);
+
+    const from = Math.max(parsedFilter.fromYear, min);
+    const to = Math.min(parsedFilter.toYear, max);
 
     const defaultLabel = findDefaultLabel(
       defaultRanges,
@@ -160,11 +162,17 @@ class RangeFacet extends React.Component {
         activeFilter: normalizedFilterValue,
       });
       // Active custom filter
-    } else {
+    } else if (hasDateDetail) {
       this.setState({
         range: [from, to],
         activeMode: RANGE_MODES.CUSTOM,
         activeFilter: normalizedFilterValue,
+      });
+    } else {
+      this.setState({
+        range: [from, to],
+        activeMode: RANGE_MODES.CUSTOM,
+        activeFilter: null,
       });
     }
   };
@@ -203,14 +211,9 @@ class RangeFacet extends React.Component {
     this.setState({ activeMode, activeFilter });
     this.onRangeChange(newRange, dateRangeString);
   };
-
   onClear = () => {
     this.setState({ activeMode: null, activeFilter: null });
     this.clearRangeFilter();
-  };
-
-  onCustomActivate = () => {
-    this.setState({ activeMode: RANGE_MODES.CUSTOM, activeFilter: null });
   };
 
   render() {
@@ -223,11 +226,9 @@ class RangeFacet extends React.Component {
       agg,
       overridableId,
       histogramHeight,
+      customDatesLabel,
       dateRangeToLabel,
-      fromAriaLabel,
-      toAriaLabel,
-      applyAriaLabel,
-      customRangeAriaLabel,
+      datePlaceholders,
     } = this.props;
     const { range, activeMode, activeFilter } = this.state;
     const { min, max } = this.getMinMax();
@@ -255,41 +256,34 @@ class RangeFacet extends React.Component {
           onChange={(r) => this.onApply(null, r, null)}
           overridableId={overridableId}
         />
-        {(defaultRanges || enableCustomRange) && (
-          <List>
-            {defaultRanges && (
-              <RangeDefaultFilters
-                ranges={defaultRanges}
-                min={min}
-                max={max}
-                rangeSeparator={rangeSeparator}
-                activeFilter={activeFilter}
-                activeMode={activeMode}
-                onSelect={(r, s) => this.onApply(RANGE_MODES.DEFAULT, r, s)}
-                onClear={this.onClear}
-                overridableId={overridableId}
-              />
-            )}
-            {enableCustomRange && (
-              <RangeCustomFilter
-                min={min}
-                max={max}
-                value={range}
-                rangeSeparator={rangeSeparator}
-                activeMode={activeMode}
-                activeFilter={activeFilter}
-                onApply={(r, s) => this.onApply(RANGE_MODES.CUSTOM, r, s)}
-                onClear={this.onClear}
-                onActivate={this.onCustomActivate}
-                overridableId={overridableId}
-                dateRangeToLabel={dateRangeToLabel}
-                fromAriaLabel={fromAriaLabel}
-                toAriaLabel={toAriaLabel}
-                applyAriaLabel={applyAriaLabel}
-                customRangeAriaLabel={customRangeAriaLabel}
-              />
-            )}
-          </List>
+        {defaultRanges && (
+          <RangeDefaultFilters
+            ranges={defaultRanges}
+            min={min}
+            max={max}
+            rangeSeparator={rangeSeparator}
+            activeFilter={activeFilter}
+            activeMode={activeMode}
+            onSelect={(r, s) => this.onApply(RANGE_MODES.DEFAULT, r, s)}
+            onClear={this.onClear}
+            overridableId={overridableId}
+          />
+        )}
+        {enableCustomRange && (
+          <RangeCustomFilter
+            min={min}
+            max={max}
+            value={range}
+            rangeSeparator={rangeSeparator}
+            activeMode={activeMode}
+            activeFilter={activeFilter}
+            onApply={(r, s) => this.onApply(RANGE_MODES.CUSTOM, r, s)}
+            onClear={this.onClear}
+            overridableId={overridableId}
+            customDatesLabel={customDatesLabel}
+            dateRangeToLabel={dateRangeToLabel}
+            datePlaceholders={datePlaceholders}
+          />
         )}
       </>
     );
@@ -342,7 +336,7 @@ RangeFacet.defaultProps = {
   enableCustomRange: false,
   overridableId: "",
   histogramHeight: 100,
-  dateRangeToLabel: "to",
+  dateRangeToLabel: i18next.t("to"),
   fromAriaLabel: undefined,
   toAriaLabel: undefined,
   applyAriaLabel: undefined,

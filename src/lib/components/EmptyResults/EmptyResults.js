@@ -13,6 +13,7 @@ import Overridable from "react-overridable";
 import { Button, Header, Icon, Segment } from "semantic-ui-react";
 import { AppContext } from "../ReactSearchKit";
 import { ShouldRender } from "../ShouldRender";
+import { i18next } from "@translations/i18next";
 
 class EmptyResults extends Component {
   constructor(props) {
@@ -84,12 +85,12 @@ const Element = ({
       <Segment placeholder textAlign="center">
         <Header icon>
           <Icon name="search" />
-          No results found!
+            { i18next.t("No results found!") }
         </Header>
-        {queryString && <em>Current search "{queryString}"</em>}
+          <em>{i18next.t("Current search {{- search}}", { search: (queryString && `'${queryString}'`), })}</em>
         <br />
         <Button primary onClick={() => resetQuery()}>
-          Clear query
+          { i18next.t("Clear query") }
         </Button>
         {extraContent}
       </Segment>
