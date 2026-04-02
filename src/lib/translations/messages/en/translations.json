@@ -5,9 +5,8 @@
   "Search": "Search",
   "Current search {{- search}}": "Current search {{- search}}",
   "Oops! Something went wrong while fetching results.": "Oops! Something went wrong while fetching results.",
-  "to": "to",
   "Year must be 4 digits": "Year must be 4 digits",
   "Please enter a valid date": "Please enter a valid date",
   "Start date must be before end date": "Start date must be before end date",
-  "Custom Dates": "Custom Dates"
+  "Year must be between {{- min}} and {{- max}}": "Year must be between {{- min}} and {{- max}}"
 }

@@ -1,13 +1,12 @@
 {
-  "No results found!": "",
-  "Clear query": "",
-  "Current search {{- search}}": "",
-  "Type something": "",
-  "Search": "",
-  "Oops! Something went wrong while fetching results.": "",
-  "to": "",
-  "Year must be 4 digits": "",
-  "Please enter a valid date": "",
-  "Start date must be before end date": "",
-  "Custom Dates": ""
+  "No results found!": "Keine Ergebnisse gefunden!",
+  "Clear query": "Suchanfrage löschen",
+  "Current search {{- search}}": "Aktuelle Suche {{- search}}",
+  "Type something": "Tippen Sie etwas",
+  "Search": "Suchanfrage",
+  "Oops! Something went wrong while fetching results.": "Hoppla! Beim Abrufen der Ergebnisse ist ein Fehler aufgetreten.",
+  "Year must be 4 digits": "Jahreszahl muss aus 4 Ziffern bestehen",
+  "Please enter a valid date": "Bitte geben Sie einen gültigen Datumsbereich ein",
+  "Start date must be before end date": "Startdatum muss vor Enddatum liegen",
+  "Year must be between {{- min}} and {{- max}}": "Jahreszahl muss zwischen {{- min}} und {{- max}} liegen"
 }

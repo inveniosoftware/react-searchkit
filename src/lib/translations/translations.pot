@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2026-04-02T14:00:55.382Z\n"
-"PO-Revision-Date: 2026-04-02T14:00:55.382Z\n"
+"POT-Creation-Date: 2026-04-02T14:42:58.924Z\n"
+"PO-Revision-Date: 2026-04-02T14:42:58.924Z\n"
 "Language: en\n"
 
 msgid "No results found!"
@@ -27,9 +27,6 @@ msgstr "Current search {{- search}}"
 msgid "Oops! Something went wrong while fetching results."
 msgstr "Oops! Something went wrong while fetching results."
 
-msgid "to"
-msgstr "to"
-
 msgid "Year must be 4 digits"
 msgstr "Year must be 4 digits"
 
@@ -39,5 +36,5 @@ msgstr "Please enter a valid date"
 msgid "Start date must be before end date"
 msgstr "Start date must be before end date"
 
-msgid "Custom Dates"
-msgstr "Custom Dates"
+msgid "Year must be between {{- min}} and {{- max}}"
+msgstr "Year must be between {{- min}} and {{- max}}"
