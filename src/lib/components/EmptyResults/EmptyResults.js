@@ -87,9 +87,10 @@ const Element = ({
           <Icon name="search" />
           {i18next.t("No results found!")}
         </Header>
-        <em>{i18next.t("Current search {{- search}}", {
-          search: (queryString && `'${queryString}'`),
-        })}
+        <em>
+          {i18next.t("Current search {{- search}}", {
+            search: queryString && `'${queryString}'`,
+          })}
         </em>
         <br />
         <Button primary onClick={() => resetQuery()}>
