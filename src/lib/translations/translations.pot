@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2026-04-02T14:42:58.924Z\n"
-"PO-Revision-Date: 2026-04-02T14:42:58.924Z\n"
+"POT-Creation-Date: 2026-04-13T15:21:44.903Z\n"
+"PO-Revision-Date: 2026-04-13T15:21:44.903Z\n"
 "Language: en\n"
 
 msgid "No results found!"
@@ -30,11 +30,26 @@ msgstr "Oops! Something went wrong while fetching results."
 msgid "Year must be 4 digits"
 msgstr "Year must be 4 digits"
 
-msgid "Please enter a valid date"
-msgstr "Please enter a valid date"
+msgid "e.g. 2025 or 2025-03-15"
+msgstr "e.g. 2025 or 2025-03-15"
 
-msgid "Start date must be before end date"
-msgstr "Start date must be before end date"
+msgid "Enter at least one value"
+msgstr "Enter at least one value"
 
-msgid "Year must be between {{- min}} and {{- max}}"
-msgstr "Year must be between {{- min}} and {{- max}}"
+msgid "Invalid date"
+msgstr "Invalid date"
+
+msgid "Invalid number"
+msgstr "Invalid number"
+
+msgid "Start must be before end"
+msgstr "Start must be before end"
+
+msgid "to"
+msgstr "to"
+
+msgid "Apply custom range"
+msgstr "Apply custom range"
+
+msgid "Custom range"
+msgstr "Custom range"

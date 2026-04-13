@@ -13,6 +13,7 @@ import PropTypes from "prop-types";
 import Overridable from "react-overridable";
 import { RANGE_MODES, VALUE_TYPES } from "./utils";
 import { AppContext } from "../ReactSearchKit";
+import { i18next } from "@translations/i18next";
 
 // Masked input formatters: strip non-digits and auto-insert separators.
 // As the user types, digits are reformatted on each keystroke:
@@ -31,7 +32,7 @@ const FORMAT_FNS = {
 };
 
 const DEFAULT_HELP_TEXTS = {
-  [VALUE_TYPES.DATE]: "e.g. 2025 or 2025-03-15",
+  [VALUE_TYPES.DATE]: i18next.t("e.g. 2025 or 2025-03-15"),
   [VALUE_TYPES.INT]: null,
 };
 
@@ -180,26 +181,30 @@ class RangeCustomFilter extends React.Component {
     const isDate = valueType !== VALUE_TYPES.INT;
 
     if (!fromValue && !toValue) {
-      return this.setError("Enter at least one value");
+      return this.setError(i18next.t("Enter at least one value"));
     }
 
     if (fromValue) {
       if (isDate && fromValue.length < 4) {
-        return this.setError("Year must be 4 digits");
+        return this.setError(i18next.t("Year must be 4 digits"));
       }
       const from = this.parseValue(fromValue, true);
       if (from === null) {
-        return this.setError(isDate ? "Invalid date" : "Invalid number");
+        return this.setError(
+          isDate ? i18next.t("Invalid date") : i18next.t("Invalid number")
+        );
       }
     }
 
     if (toValue) {
       if (isDate && toValue.length < 4) {
-        return this.setError("Year must be 4 digits");
+        return this.setError(i18next.t("Year must be 4 digits"));
       }
       const to = this.parseValue(toValue, false);
       if (to === null) {
-        return this.setError(isDate ? "Invalid date" : "Invalid number");
+        return this.setError(
+          isDate ? i18next.t("Invalid date") : i18next.t("Invalid number")
+        );
       }
     }
 
@@ -207,7 +212,7 @@ class RangeCustomFilter extends React.Component {
       const from = this.parseValue(fromValue, true);
       const to = this.parseValue(toValue, false);
       if (from > to) {
-        return this.setError("Start must be before end");
+        return this.setError(i18next.t("Start must be before end"));
       }
     }
 
@@ -363,13 +368,13 @@ RangeCustomFilter.defaultProps = {
   activeMode: null,
   activeFilter: null,
   overridableId: "",
-  dateRangeToLabel: "to",
+  dateRangeToLabel: i18next.t("to"),
   valueType: VALUE_TYPES.DATE,
   helpText: undefined,
   fromAriaLabel: "From",
   toAriaLabel: "To",
-  applyAriaLabel: "Apply custom range",
-  customRangeAriaLabel: "Custom range",
+  applyAriaLabel: i18next.t("Apply custom range"),
+  customRangeAriaLabel: i18next.t("Custom range"),
 };
 
 RangeCustomFilter.contextType = AppContext;

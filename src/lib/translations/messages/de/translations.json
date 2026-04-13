@@ -6,7 +6,12 @@
   "Search": "Suchanfrage",
   "Oops! Something went wrong while fetching results.": "Hoppla! Beim Abrufen der Ergebnisse ist ein Fehler aufgetreten.",
   "Year must be 4 digits": "Jahreszahl muss aus 4 Ziffern bestehen",
-  "Please enter a valid date": "Bitte geben Sie einen gültigen Datumsbereich ein",
-  "Start date must be before end date": "Startdatum muss vor Enddatum liegen",
-  "Year must be between {{- min}} and {{- max}}": "Jahreszahl muss zwischen {{- min}} und {{- max}} liegen"
+  "e.g. 2025 or 2025-03-15": "z. B. 2025 oder 2025-03-15",
+  "Enter at least one value": "Geben Sie mindestens einen Wert ein",
+  "Invalid date": "Ungültiges Datum",
+  "Invalid number": "Ungültige Zahl",
+  "Start must be before end": "Start muss vor Ende liegen",
+  "to": "bis",
+  "Apply custom range": "Benutzerdefinierten Zeitraum anwenden",
+  "Custom range": "Benutzerdefinierter Zeitraum"
 }

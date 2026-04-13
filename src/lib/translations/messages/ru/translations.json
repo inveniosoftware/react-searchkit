@@ -6,7 +6,12 @@
   "Current search {{- search}}": "",
   "Oops! Something went wrong while fetching results.": "",
   "Year must be 4 digits": "",
-  "Please enter a valid date": "",
-  "Start date must be before end date": "",
-  "Year must be between {{- min}} and {{- max}}": ""
+  "e.g. 2025 or 2025-03-15": "",
+  "Enter at least one value": "",
+  "Invalid date": "",
+  "Invalid number": "",
+  "Start must be before end": "",
+  "to": "",
+  "Apply custom range": "",
+  "Custom range": ""
 }
