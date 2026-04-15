@@ -5,15 +5,9 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2026-04-13T15:21:44.903Z\n"
-"PO-Revision-Date: 2026-04-13T15:21:44.903Z\n"
+"POT-Creation-Date: 2026-04-15T08:48:39.717Z\n"
+"PO-Revision-Date: 2026-04-15T08:48:39.717Z\n"
 "Language: en\n"
-
-msgid "No results found!"
-msgstr "No results found!"
-
-msgid "Clear query"
-msgstr "Clear query"
 
 msgid "Type something"
 msgstr "Type something"
@@ -21,20 +15,26 @@ msgstr "Type something"
 msgid "Search"
 msgstr "Search"
 
+msgid "No results found!"
+msgstr "No results found!"
+
 msgid "Current search {{- search}}"
 msgstr "Current search {{- search}}"
 
+msgid "Clear query"
+msgstr "Clear query"
+
 msgid "Oops! Something went wrong while fetching results."
 msgstr "Oops! Something went wrong while fetching results."
-
-msgid "Year must be 4 digits"
-msgstr "Year must be 4 digits"
 
 msgid "e.g. 2025 or 2025-03-15"
 msgstr "e.g. 2025 or 2025-03-15"
 
 msgid "Enter at least one value"
 msgstr "Enter at least one value"
+
+msgid "Year must be 4 digits"
+msgstr "Year must be 4 digits"
 
 msgid "Invalid date"
 msgstr "Invalid date"
