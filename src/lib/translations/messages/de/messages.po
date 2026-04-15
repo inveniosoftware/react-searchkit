@@ -1,0 +1,55 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: i18next-conv\n"
+"mime-version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1)\n"
+"POT-Creation-Date: 2026-04-15T08:48:39.717Z\n"
+"PO-Revision-Date: 2026-04-15T08:48:39.717Z\n"
+"Language: de\n"
+
+msgid "Type something"
+msgstr "Tippen Sie etwas"
+
+msgid "Search"
+msgstr "Suchanfrage"
+
+msgid "No results found!"
+msgstr "Keine Ergebnisse gefunden!"
+
+msgid "Current search {{- search}}"
+msgstr "Aktuelle Suche {{- search}}"
+
+msgid "Clear query"
+msgstr "Suchanfrage löschen"
+
+msgid "Oops! Something went wrong while fetching results."
+msgstr "Hoppla! Beim Abrufen der Ergebnisse ist ein Fehler aufgetreten."
+
+msgid "e.g. 2025 or 2025-03-15"
+msgstr "z.B. 2025 oder 2025-03-15"
+
+msgid "Enter at least one value"
+msgstr "Geben Sie mindestens einen Wert ein"
+
+msgid "Year must be 4 digits"
+msgstr "Jahreszahl muss aus 4 Ziffern bestehen"
+
+msgid "Invalid date"
+msgstr "Ungültiges Datum"
+
+msgid "Invalid number"
+msgstr "Ungültige Zahl"
+
+msgid "Start must be before end"
+msgstr "Start muss vor Ende liegen"
+
+msgid "to"
+msgstr "bis"
+
+msgid "Apply custom range"
+msgstr "Benutzerdefinierten Zeitraum anwenden"
+
+msgid "Custom range"
+msgstr "Benutzerdefinierter Zeitraum"
