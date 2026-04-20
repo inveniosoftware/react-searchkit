@@ -13,6 +13,7 @@ import Overridable from "react-overridable";
 import { Dropdown } from "semantic-ui-react";
 import { AppContext } from "../ReactSearchKit";
 import { ShouldRender } from "../ShouldRender";
+import { i18next } from "@translations/i18next";
 
 class SortBy extends Component {
   constructor(props) {
@@ -71,7 +72,7 @@ SortBy.defaultProps = {
   currentSortBy: null,
   label: (cmp) => cmp,
   overridableId: "",
-  ariaLabel: "Sort Results By",
+  ariaLabel: i18next.t("Sort Results By"),
   selectOnNavigation: false,
 };
 
@@ -123,7 +124,7 @@ Element.propTypes = {
 Element.defaultProps = {
   currentSortBy: null,
   overridableId: "",
-  ariaLabel: "Sort Results By",
+  ariaLabel: i18next.t("Sort Results By"),
   selectOnNavigation: false,
 };
 
