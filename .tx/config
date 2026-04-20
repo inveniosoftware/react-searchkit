@@ -9,7 +9,7 @@
 
 # Translate JavaScript strings
 # 1) Navigate to the directory:
-#    cd react-searchkit/src/lib/translations/messages
+#    cd src/lib/translations/messages
 # 2) Install i18n dev dependencies
 #    npm install
 # 3) Add a new language
