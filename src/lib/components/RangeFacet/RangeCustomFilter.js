@@ -371,8 +371,8 @@ RangeCustomFilter.defaultProps = {
   dateRangeToLabel: i18next.t("to"),
   valueType: VALUE_TYPES.DATE,
   helpText: undefined,
-  fromAriaLabel: "From",
-  toAriaLabel: "To",
+  fromAriaLabel: i18next.t("From"),
+  toAriaLabel: i18next.t("To"),
   applyAriaLabel: i18next.t("Apply custom range"),
   customRangeAriaLabel: i18next.t("Custom range"),
 };
