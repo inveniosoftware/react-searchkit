@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2026-04-15T08:48:39.717Z\n"
-"PO-Revision-Date: 2026-04-15T08:48:39.717Z\n"
+"POT-Creation-Date: 2026-04-20T10:12:17.780Z\n"
+"PO-Revision-Date: 2026-04-20T10:12:17.780Z\n"
 "Language: en\n"
 
 msgid "Type something"
@@ -53,3 +53,21 @@ msgstr "Apply custom range"
 
 msgid "Custom range"
 msgstr "Custom range"
+
+msgid "Results per page"
+msgstr "Results per page"
+
+msgid "Sort"
+msgstr "Sort"
+
+msgid "Sort Results By"
+msgstr "Sort Results By"
+
+msgid "Sort Order"
+msgstr "Sort Order"
+
+msgid "From"
+msgstr "From"
+
+msgid "To"
+msgstr "To"
