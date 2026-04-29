@@ -99,7 +99,13 @@ BucketAggregation.defaultProps = {
   overridableId: "",
 };
 
-const Element = ({ overridableId, agg, title, containerCmp, updateQueryFilters }) => {
+const Element = ({
+  overridableId = "",
+  agg,
+  title,
+  containerCmp = null,
+  updateQueryFilters,
+}) => {
   const { buildUID } = useContext(AppContext);
 
   return (
@@ -128,11 +134,6 @@ Element.propTypes = {
   containerCmp: PropTypes.node,
   overridableId: PropTypes.string,
   updateQueryFilters: PropTypes.func.isRequired,
-};
-
-Element.defaultProps = {
-  containerCmp: null,
-  overridableId: "",
 };
 
 export default Overridable.component("BucketAggregation", BucketAggregation);

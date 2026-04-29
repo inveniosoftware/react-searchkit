@@ -12,7 +12,7 @@ import Overridable from "react-overridable";
 
 class ShouldRender extends Component {
   render() {
-    const { children, condition } = this.props;
+    const { children, condition = true } = this.props;
     return condition ? children : null;
   }
 }
@@ -20,10 +20,6 @@ class ShouldRender extends Component {
 ShouldRender.propTypes = {
   condition: PropTypes.bool,
   children: PropTypes.node.isRequired,
-};
-
-ShouldRender.defaultProps = {
-  condition: true,
 };
 
 export default Overridable.component("ShouldRender", ShouldRender);

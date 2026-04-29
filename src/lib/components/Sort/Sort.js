@@ -101,14 +101,14 @@ Sort.defaultProps = {
 };
 
 const Element = ({
-  overridableId,
-  currentSortBy,
-  currentSortOrder,
+  overridableId = "",
+  currentSortBy = null,
+  currentSortOrder = null,
   options,
   onValueChange,
   computeValue,
-  ariaLabel,
-  selectOnNavigation,
+  ariaLabel = "Sort",
+  selectOnNavigation = false,
 }) => {
   const { buildUID } = useContext(AppContext);
   const selected = computeValue(currentSortBy, currentSortOrder);
@@ -150,14 +150,6 @@ Element.propTypes = {
   selectOnNavigation: PropTypes.bool,
   computeValue: PropTypes.func.isRequired,
   onValueChange: PropTypes.func.isRequired,
-};
-
-Element.defaultProps = {
-  currentSortBy: null,
-  currentSortOrder: null,
-  overridableId: "",
-  ariaLabel: "Sort",
-  selectOnNavigation: false,
 };
 
 export default Overridable.component("Sort", Sort);
