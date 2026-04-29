@@ -15,7 +15,7 @@ import { ShouldRender } from "../ShouldRender";
 
 class Count extends Component {
   render() {
-    const { loading, totalResults, label, overridableId } = this.props;
+    const { loading, totalResults, label = (cmp) => cmp, overridableId = "" } = this.props;
     return (
       <ShouldRender condition={!loading && totalResults > 0}>
         {label(<Element totalResults={totalResults} overridableId={overridableId} />)}
@@ -32,12 +32,7 @@ Count.propTypes = {
   totalResults: PropTypes.number.isRequired,
 };
 
-Count.defaultProps = {
-  label: (cmp) => cmp,
-  overridableId: "",
-};
-
-const Element = ({ totalResults, overridableId }) => {
+const Element = ({ totalResults, overridableId = "" }) => {
   const { buildUID } = useContext(AppContext);
   const _overridableId = buildUID("Count.element", overridableId);
 
@@ -51,10 +46,6 @@ const Element = ({ totalResults, overridableId }) => {
 Element.propTypes = {
   totalResults: PropTypes.number.isRequired,
   overridableId: PropTypes.string,
-};
-
-Element.defaultProps = {
-  overridableId: "",
 };
 
 export default Overridable.component("Count", Count);

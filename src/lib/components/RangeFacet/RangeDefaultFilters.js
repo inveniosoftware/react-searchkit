@@ -111,9 +111,9 @@ RangeDefaultFilters.defaultProps = {
 
 const RangeDefaultFiltersElement = ({
   ranges,
-  activeLabel,
+  activeLabel = null,
   onToggle,
-  overridableId,
+  overridableId = "",
 }) => {
   const { buildUID } = useContext(AppContext);
 
@@ -150,9 +150,7 @@ RangeDefaultFiltersElement.propTypes = {
   overridableId: PropTypes.string,
 };
 
-RangeDefaultFiltersElement.defaultProps = {
-  activeLabel: null,
-  overridableId: "",
-};
-
-export default Overridable.component("RangeFacet.DefaultFilters", RangeDefaultFilters);
+export default Overridable.component(
+  "RangeFacet.DefaultFilters",
+  RangeDefaultFilters
+);

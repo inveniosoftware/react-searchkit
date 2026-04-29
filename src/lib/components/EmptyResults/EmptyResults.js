@@ -65,10 +65,10 @@ EmptyResults.defaultProps = {
 };
 
 const Element = ({
-  overridableId,
-  queryString,
+  overridableId = "",
+  queryString = "",
   resetQuery,
-  extraContent,
+  extraContent = null,
   userSelectionFilters,
 }) => {
   const { buildUID } = useContext(AppContext);
@@ -103,12 +103,6 @@ Element.propTypes = {
   extraContent: PropTypes.node,
   overridableId: PropTypes.string,
   userSelectionFilters: PropTypes.array.isRequired,
-};
-
-Element.defaultProps = {
-  queryString: "",
-  extraContent: null,
-  overridableId: "",
 };
 
 export default Overridable.component("EmptyResults", EmptyResults);

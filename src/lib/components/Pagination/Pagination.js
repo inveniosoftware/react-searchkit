@@ -99,13 +99,13 @@ Pagination.defaultProps = {
 };
 
 const Element = ({
-  overridableId,
+  overridableId = "",
   currentPage,
   currentSize,
   totalResults,
   onPageChange,
-  options,
-  maxTotalResults,
+  options = {},
+  maxTotalResults = 10000,
   ...props
 }) => {
   const boundaryRangeCount = options.boundaryRangeCount;
@@ -159,12 +159,6 @@ Element.propTypes = {
   options: PropTypes.object,
   overridableId: PropTypes.string,
   maxTotalResults: PropTypes.number,
-};
-
-Element.defaultProps = {
-  options: {},
-  overridableId: "",
-  maxTotalResults: 10000,
 };
 
 export default Overridable.component("Pagination", Pagination);

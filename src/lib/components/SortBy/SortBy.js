@@ -76,12 +76,12 @@ SortBy.defaultProps = {
 };
 
 const Element = ({
-  overridableId,
-  currentSortBy,
+  overridableId = "",
+  currentSortBy = null,
   options,
   onValueChange,
-  ariaLabel,
-  selectOnNavigation,
+  ariaLabel = "Sort Results By",
+  selectOnNavigation = false,
 }) => {
   const { buildUID } = useContext(AppContext);
 
@@ -118,13 +118,6 @@ Element.propTypes = {
   ariaLabel: PropTypes.string,
   selectOnNavigation: PropTypes.bool,
   onValueChange: PropTypes.func.isRequired,
-};
-
-Element.defaultProps = {
-  currentSortBy: null,
-  overridableId: "",
-  ariaLabel: "Sort Results By",
-  selectOnNavigation: false,
 };
 
 export default Overridable.component("SortBy", SortBy);

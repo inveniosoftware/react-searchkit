@@ -104,7 +104,7 @@ BucketAggregationValues.defaultProps = {
   overridableId: "",
 };
 
-const ContainerElement = ({ valuesCmp, overridableId }) => {
+const ContainerElement = ({ valuesCmp, overridableId = "" }) => {
   const { buildUID } = useContext(AppContext);
 
   return (
@@ -122,16 +122,12 @@ ContainerElement.propTypes = {
   overridableId: PropTypes.string,
 };
 
-ContainerElement.defaultProps = {
-  overridableId: "",
-};
-
 const ValueElement = ({
   bucket,
   isSelected,
   onFilterClicked,
   getChildAggCmps,
-  overridableId,
+  overridableId = "",
   keyField,
 }) => {
   const { buildUID, nextComponentIndex } = useContext(AppContext);
@@ -172,10 +168,6 @@ ValueElement.propTypes = {
   getChildAggCmps: PropTypes.func.isRequired,
   keyField: PropTypes.string.isRequired,
   overridableId: PropTypes.string,
-};
-
-ValueElement.defaultProps = {
-  overridableId: "",
 };
 
 export default Overridable.component(

@@ -111,12 +111,12 @@ const RangeHistogramElement = ({
   height,
   xScale,
   yScale,
-  hoveredYear,
-  tooltip,
+  hoveredYear = null,
+  tooltip = null,
   onBarClick,
   onBarHover,
   onBarLeave,
-  overridableId,
+  overridableId = "",
 }) => {
   const { buildUID } = useContext(AppContext);
 
@@ -179,13 +179,7 @@ RangeHistogramElement.propTypes = {
   overridableId: PropTypes.string,
 };
 
-RangeHistogramElement.defaultProps = {
-  hoveredYear: null,
-  tooltip: null,
-  overridableId: "",
-};
-
-const RangeHistogramTooltip = ({ tooltip, overridableId }) => {
+const RangeHistogramTooltip = ({ tooltip = null, overridableId = "" }) => {
   const { buildUID } = useContext(AppContext);
 
   return (
@@ -225,9 +219,7 @@ RangeHistogramTooltip.propTypes = {
   overridableId: PropTypes.string,
 };
 
-RangeHistogramTooltip.defaultProps = {
-  tooltip: null,
-  overridableId: "",
-};
-
-export default Overridable.component("RangeHistogram", withParentSize(RangeHistogram));
+export default Overridable.component(
+  "RangeHistogram",
+  withParentSize(RangeHistogram)
+);

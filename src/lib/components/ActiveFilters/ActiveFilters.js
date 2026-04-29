@@ -60,7 +60,12 @@ ActiveFilters.defaultProps = {
   overridableId: "",
 };
 
-const Element = ({ overridableId, filters, removeActiveFilter, getLabel }) => {
+const Element = ({
+  overridableId = "",
+  filters,
+  removeActiveFilter,
+  getLabel,
+}) => {
   const { buildUID } = useContext(AppContext);
 
   return (
@@ -91,10 +96,6 @@ Element.propTypes = {
   removeActiveFilter: PropTypes.func.isRequired,
   getLabel: PropTypes.func.isRequired,
   overridableId: PropTypes.string,
-};
-
-Element.defaultProps = {
-  overridableId: "",
 };
 
 export default Overridable.component("ActiveFilters", ActiveFilters);

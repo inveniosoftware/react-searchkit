@@ -355,10 +355,10 @@ export default Overridable.component("RangeFacet", withState(RangeFacet));
 
 const RangeFacetElement = ({
   title,
-  containerCmp,
+  containerCmp = null,
   hasActiveFilter,
   onClear,
-  overridableId,
+  overridableId = "",
 }) => {
   const { buildUID } = React.useContext(AppContext);
 
@@ -388,9 +388,4 @@ RangeFacetElement.propTypes = {
   hasActiveFilter: PropTypes.bool.isRequired,
   onClear: PropTypes.func.isRequired,
   overridableId: PropTypes.string,
-};
-
-RangeFacetElement.defaultProps = {
-  containerCmp: null,
-  overridableId: "",
 };
