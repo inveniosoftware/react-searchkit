@@ -1,47 +1,33 @@
+# SPDX-FileCopyrightText: 2020-2025 CERN.
+# SPDX-FileCopyrightText: 2026 CESNET.
+# SPDX-License-Identifier: MIT
+
 name: CI
 
 on:
   push:
     branches:
       - master
+      - "feature/*"
+      - "maint-**"
   pull_request:
     branches:
       - master
+      - "maint-**"
+      - "feature/*"
   schedule:
     # * is a special character in YAML so you have to quote this string
-    - cron: '0 2 * * 5'
+    - cron: "0 2 * * 5"
   workflow_dispatch:
     inputs:
       reason:
-        description: 'Reason'
+        description: "Reason"
         required: false
-        default: 'Manual trigger'
+        default: "Manual trigger"
 
 jobs:
-  Tests:
-    runs-on: ubuntu-latest
-
-    strategy:
-      matrix:
-        node-version: [24.x, 22.x, 18.x, 16.x]
-
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-
-      - name: Use Node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@v4
-        with:
-          node-version: ${{ matrix.node-version }}
-
-      - name: Install & Build
-        run: npm ci
-
-      - name: Lint
-        run: npm run lint
-
-      - name: Test
-        run: npm test
-
-      - name: Coverage
-        run: npm test -- --coverage
+  JS:
+    uses: inveniosoftware/workflows/.github/workflows/tests-js.yml@master
+    with:
+      js-working-directory: ./
+      node-version: '["22.x", "24.x", "26.x"]'
