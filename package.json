@@ -28,8 +28,8 @@
     "luxon": "^1.28.1",
     "lodash": "^4.17.0",
     "qs": "^6.8.0",
-    "react": "^16.13.0",
-    "react-dom": "^16.13.0",
+    "react": "^18.3.0",
+    "react-dom": "^18.3.0",
     "react-overridable": "^1.0.0",
     "react-redux": "^7.2.0",
     "redux": "^4.0.0",
@@ -42,7 +42,7 @@
   },
   "devDependencies": {
     "@babel/cli": "^7.11.0",
-    "@inveniosoftware/eslint-config-invenio": "^2.0.0",
+    "@inveniosoftware/eslint-config-invenio": "^2.1.0",
     "@rollup/plugin-babel": "^5.2.0",
     "@rollup/plugin-commonjs": "^15.1.0",
     "@rollup/plugin-node-resolve": "^9.0.0",
@@ -51,13 +51,12 @@
     "cheerio": "1.0.0-rc.3",
     "coveralls": "^3.0.0",
     "enzyme": "^3.10.0",
-    "enzyme-adapter-react-16": "^1.15.0",
-    "expect": "^26.5.0",
+    "@cfaester/enzyme-adapter-react-18": "^0.8.0",    "expect": "^26.5.0",
     "json": "^10.0.0",
     "lodash": "^4.17.0",
     "qs": "^6.8.0",
-    "react": "^16.13.0",
-    "react-dom": "^16.13.0",
+    "react": "^18.3.0",
+    "react-dom": "^18.3.0",
     "react-overridable": "^1.0.0",
     "react-redux": "^7.2.0",
     "react-scripts": "^5.0.0",
@@ -111,6 +110,23 @@
     ]
   },
   "engines": {
-    "node": ">=14.0.0"
+    "node": ">=22.0.0"
+  },
+  "overrides": {
+    "react-scripts": {
+      "svgo": "^3.3.2",
+      "resolve-url-loader": "^5.0.0",
+      "css-minimizer-webpack-plugin": "^8.0.0"
+    },
+    "underscore": "^1.13.8",
+    "@tootallnate/once": "^3.0.1",
+    "sockjs": "^0.3.24",
+    "uuid": "^14.0.0",
+    "serialize-javascript": "^7.0.5",
+    "workbox-build": "^7.3.0",
+    "@svgr/webpack": "^6.5.1",
+    "enzyme": {
+      "cheerio": "1.0.0-rc.12"
+    }
   }
 }
