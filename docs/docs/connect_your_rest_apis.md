@@ -22,14 +22,12 @@ const searchApi = new OSSearchApi({
   }
 });
 
-class App extends Component {
-  render() {
-    return (
-      <ReactSearchKit searchApi={searchApi}>
-        ...
-      </ReactSearchKit>
-    )
-  }
+function App() {
+  return (
+    <ReactSearchKit searchApi={searchApi}>
+      ...
+    </ReactSearchKit>
+  )
 }
 ```
 
@@ -46,14 +44,12 @@ const searchApi = new InvenioSearchApi({
   }
 });
 
-class App extends Component {
-  render() {
-    return (
-      <ReactSearchKit searchApi={searchApi}>
-        ...
-      </ReactSearchKit>
-    )
-  }
+function App() {
+  return (
+    <ReactSearchKit searchApi={searchApi}>
+      ...
+    </ReactSearchKit>
+  )
 }
 ```
 
@@ -97,8 +93,8 @@ class MyResponseSerializer {
 Custom serializers can then be injected in the configuration of the adapter:
 
 ```jsx
-const MyRequestSerializer = new MyRequestSerializer();
-const MyResponseSerializer = new MyResponseSerializer();
+const myRequestSerializer = new MyRequestSerializer();
+const myResponseSerializer = new MyResponseSerializer();
 
 const searchApi = new OSSearchAPI({
   axios: {
@@ -106,19 +102,17 @@ const searchApi = new OSSearchAPI({
     timeout: 5000,
   },
   os: {
-    requestSerializer: MyRequestSerializer,
-    responseSerializer: MyResponseSerializer,
+    requestSerializer: myRequestSerializer,
+    responseSerializer: myResponseSerializer,
   },
 });
 
-class App extends Component {
-  render() {
-    return (
-      <ReactSearchKit searchApi={searchApi}>
-        ...
-      </ReactSearchKit>
-    )
-  }
+function App() {
+  return (
+    <ReactSearchKit searchApi={searchApi}>
+      ...
+    </ReactSearchKit>
+  )
 }
 ```
 
@@ -152,14 +146,12 @@ The new adapter is injected as prop in the main component:
 ```jsx
 const mySearchApi = new MySearchAPI();
 
-class App extends Component {
-  render() {
-    return (
-      <ReactSearchKit searchApi={mySearchApi}>
-        ...
-      </ReactSearchKit>
-    )
-  }
+function App() {
+  return (
+    <ReactSearchKit searchApi={mySearchApi}>
+      ...
+    </ReactSearchKit>
+  )
 }
 ```
 

@@ -18,17 +18,17 @@ through its props it gains access to
 ## Usage
 
 ```jsx
-class _StateLogger extends Component {
-  render() {
-    return (
+function _StateLogger(props) {
+  return (
+    <>
       <div>
-        Current query state <pre>{JSON.stringify(this.props.currentQueryState, null, 2)}</pre>
+        Current query state <pre>{JSON.stringify(props.currentQueryState, null, 2)}</pre>
       </div>
       <div>
-        Current results state <pre>{JSON.stringify(this.props.currentResultsState, null, 2)}</pre>
+        Current results state <pre>{JSON.stringify(props.currentResultsState, null, 2)}</pre>
       </div>
-    );
-  }
+    </>
+  );
 }
 
 const StateLogger = withState(_StateLogger);
