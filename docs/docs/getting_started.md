@@ -32,25 +32,24 @@ First, import the main component `ReactSearchKit`.
 import { ReactSearchKit } from 'react-searchkit';
 ```
 
-Then, add it to the content of your `render()` method to render [ReactSearchKit](components/react_search_kit.md).
+Then, add it to your app to render [ReactSearchKit](components/react_search_kit.md).
 You should end up with something similar to:
 
 ```jsx
-import React, { Component } from 'react';
 import { ReactSearchKit } from 'react-searchkit';
 
-class App extends Component {
-  render() {
-    return (
-      <ReactSearchKit>
-        <h1>My search UI</h1>
-      </ReactSearchKit>
-    );
-  }
+function App() {
+  return (
+    <ReactSearchKit>
+      <h1>My search UI</h1>
+    </ReactSearchKit>
+  );
 }
 
 export default App;
 ```
+
+> React-SearchKit requires **React 18** or higher. Ensure your project uses compatible versions of `react` and `react-dom`.
 
 ## Connect REST API endpoint
 
@@ -58,7 +57,6 @@ Change the `ReactSearchKit` props to define the REST API endpoint. For this exam
 Import the Invenio adapter and provide the minimal configuration.
 
 ```jsx
-import React, { Component } from 'react';
 import { ReactSearchKit, InvenioSearchApi } from 'react-searchkit';
 
 const searchApi = new InvenioSearchApi({
@@ -67,14 +65,12 @@ const searchApi = new InvenioSearchApi({
   headers: { Accept: 'application/vnd.zenodo.v1+json' },
 });
 
-class App extends Component {
-  render() {
-    return (
-      <ReactSearchKit searchApi={searchApi}>
-        <h1>My search UI</h1>
-      </ReactSearchKit>
-    );
-  }
+function App() {
+  return (
+    <ReactSearchKit searchApi={searchApi}>
+      <h1>My search UI</h1>
+    </ReactSearchKit>
+  );
 }
 ```
 
@@ -91,16 +87,14 @@ import { ReactSearchKit, InvenioSearchApi, SearchBar } from 'react-searchkit';
 Then, add the component as a child of `ReactSearchKit`.
 
 ```jsx
-class App extends Component {
-  render() {
-    return (
-      <ReactSearchKit searchApi={searchApi}>
-        <div style={{ margin: '2em auto', width: '50%' }}>
-          <SearchBar />
-        </div>
-      </ReactSearchKit>
-    );
-  }
+function App() {
+  return (
+    <ReactSearchKit searchApi={searchApi}>
+      <div style={{ margin: '2em auto', width: '50%' }}>
+        <SearchBar />
+      </div>
+    </ReactSearchKit>
+  );
 }
 ```
 
@@ -122,17 +116,15 @@ import { ReactSearchKit, InvenioSearchApi, SearchBar, ResultsList } from 'react-
 Then, add the component below the search bar.
 
 ```jsx
-class App extends Component {
-  render() {
-    return (
-      <ReactSearchKit searchApi={searchApi}>
-        <div style={{ margin: '2em auto', width: '50%' }}>
-          <SearchBar />
-          <ResultsList />
-        </div>
-      </ReactSearchKit>
-    );
-  }
+function App() {
+  return (
+    <ReactSearchKit searchApi={searchApi}>
+      <div style={{ margin: '2em auto', width: '50%' }}>
+        <SearchBar />
+        <ResultsList />
+      </div>
+    </ReactSearchKit>
+  );
 }
 ```
 

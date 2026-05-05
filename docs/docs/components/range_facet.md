@@ -116,7 +116,9 @@ Brief flow (matches the default behavior):
 Example with only histogram and custom filter facet:
 
 ```jsx
-class MyRangeFacet extends React.Component {
+import { Component } from "react";
+
+class MyRangeFacet extends Component {
   constructor(props) {
     super(props);
     const { min, max } = this.getMinMax();
