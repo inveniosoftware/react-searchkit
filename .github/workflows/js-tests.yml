@@ -30,4 +30,4 @@ jobs:
     uses: inveniosoftware/workflows/.github/workflows/tests-js.yml@master
     with:
       js-working-directory: ./
-      node-version: '["22.x", "24.x", "26.x"]'
+      node-version: '["24.x", "26.x"]'
