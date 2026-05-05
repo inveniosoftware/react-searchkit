@@ -115,14 +115,12 @@ You can control the app state externally using available events in `React-Search
 > Note: By default `React-SearchKit` is not registering any event. To enable this behaviour you need to pass in the root component the below variable:
 
 ```jsx
-class MyReactSearchKit extends Component {
-  render() {
-    return (
-      <ReactSearchKit {...this.props} eventListenerEnabled={true}>
-        {this.props.children}
-      </ReactSearchKit>
-    );
-  }
+function MyReactSearchKit(props) {
+  return (
+    <ReactSearchKit {...props} eventListenerEnabled={true}>
+      {props.children}
+    </ReactSearchKit>
+  );
 }
 ```
 
@@ -132,33 +130,29 @@ In order to trigger the `queryChanged` event you can use the `onQueryChanged` em
 ```jsx
 import { onQueryChanged } from 'react-searchkit';
 
-class MyExternalApp extends Component {
-    render() {
-        return (
-        <Button onClick={() => onQueryChanged({queryString: 'search'})}>Trigger Search</Button>
-        );
-    }
+function MyExternalApp() {
+  return (
+    <Button onClick={() => onQueryChanged({queryString: 'search'})}>
+      Trigger Search
+    </Button>
+  );
 }
 
-class MyReactSearchKit extends Component {
-  render() {
-    return (
-      <ReactSearchKit {...requiredProps} searchOnInit={false} eventListenerEnabled={true}>
-        {this.props.children}
-      </ReactSearchKit>
-    );
-  }
+function MyReactSearchKit(props) {
+  return (
+    <ReactSearchKit {...props} searchOnInit={false} eventListenerEnabled={true}>
+      {props.children}
+    </ReactSearchKit>
+  );
 }
 
-class MyApp extends Component {
-    render() {
-        return (
-            <>
-                <MyExternalApp />
-                <MyReactSearchKit />
-            </>
-        )
-    }
+function MyApp() {
+  return (
+    <>
+      <MyExternalApp />
+      <MyReactSearchKit />
+    </>
+  );
 }
 ```
 
