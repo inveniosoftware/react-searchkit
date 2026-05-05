@@ -5,7 +5,7 @@
 
 import _isEmpty from "lodash/isEmpty";
 import PropTypes from "prop-types";
-import React, { Component, useContext } from "react";
+import { Component, useContext } from "react";
 import Overridable from "react-overridable";
 import { Button, Header, Icon, Segment } from "semantic-ui-react";
 import { AppContext } from "../ReactSearchKit";

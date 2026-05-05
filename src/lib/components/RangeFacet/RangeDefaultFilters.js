@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: MIT
  */
 
-import React, { Component, useContext } from "react";
+import { Component, useContext } from "react";
 import { Checkbox, List } from "semantic-ui-react";
 import PropTypes from "prop-types";
 import Overridable from "react-overridable";

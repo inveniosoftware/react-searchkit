@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: MIT
  */
 
-import React, { Component } from "react";
+import { Component } from "react";
 import { Button, Container, Divider, Header, Menu, Segment } from "semantic-ui-react";
 import { CERNVideosReactSearchKit } from "./cern-videos";
 import NamespacedExample from "./cern-videos-namespaced/app";
