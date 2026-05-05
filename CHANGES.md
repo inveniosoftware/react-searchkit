@@ -1,5 +1,21 @@
 # Changes
 
+Version v4.0.0 (released 2026-11-09)
+
+- BREAKING CHANGE: require `react` and `react-dom` ^18.3.0 (was ^16.13.0)
+- BREAKING CHANGE: require `semantic-ui-react` ^3.0.0-beta.2 (was ^2.1.0)
+- BREAKING CHANGE: add `prop-types` ^15.8.1 as a peer dependency
+- feat: replace `defaultProps` with default parameters in all components
+- feat: apply React 18 code transforms across all components
+- global: update tests and linting for React 18 compatibility
+  * Replaces `enzyme-adapter-react-16` with `@cfaester/enzyme-adapter-react-18`
+- deps: upgrade `eslint-config-invenio` to ^2.1.0
+- dependencies: remove unused dependencies
+- fix(pnpm): add enzyme cheerio override
+- ci: drop Node 22 from the test matrix
+- docs: update code examples for React 18
+- docs: migrate website to Docusaurus v3
+
 Version v3.3.2 (released 2026-11-06)
 
 - fix(pnpm): add pnpm-workspace.yaml
