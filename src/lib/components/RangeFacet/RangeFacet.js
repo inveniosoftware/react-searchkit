@@ -7,7 +7,7 @@ import "./RangeFacet.scss";
 
 import _debounce from "lodash/debounce";
 import PropTypes from "prop-types";
-import React from "react";
+import { Component, useContext } from "react";
 import Overridable from "react-overridable";
 import { Card, List } from "semantic-ui-react";
 import { withState } from "../HOC";
@@ -27,7 +27,7 @@ import {
 } from "./utils";
 import { i18next } from "@translations/i18next";
 
-class RangeFacet extends React.Component {
+class RangeFacet extends Component {
   constructor(props) {
     super(props);
 
@@ -358,7 +358,7 @@ const RangeFacetElement = ({
   onClear,
   overridableId,
 }) => {
-  const { buildUID } = React.useContext(AppContext);
+  const { buildUID } = useContext(AppContext);
 
   return (
     containerCmp && (

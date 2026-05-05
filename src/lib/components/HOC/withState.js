@@ -3,7 +3,6 @@
  * SPDX-License-Identifier: MIT
  */
 
-import React from "react";
 import { connect } from "react-redux";
 import { updateQueryState } from "../../state/actions";
 

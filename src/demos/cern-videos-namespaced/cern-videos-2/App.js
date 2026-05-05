@@ -3,7 +3,6 @@
  * SPDX-License-Identifier: MIT
  */
 
-import React from "react";
 import { InvenioSearchApi } from "../../../lib/api/contrib/invenio";
 import {
   EmptyResults,
