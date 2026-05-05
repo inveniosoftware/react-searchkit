@@ -3,7 +3,6 @@
  * SPDX-License-Identifier: MIT
  */
 import { mount } from "enzyme";
-import React from "react";
 import { AppContext } from "../ReactSearchKit/AppContext";
 import Pagination from "./Pagination";
 

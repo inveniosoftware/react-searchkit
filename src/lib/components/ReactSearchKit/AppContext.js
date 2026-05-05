@@ -3,6 +3,6 @@
  * SPDX-License-Identifier: MIT
  */
 
-import React from "react";
+import { createContext } from "react";
 
-export const AppContext = React.createContext({});
+export const AppContext = createContext({});

@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: MIT
  */
 
-import React from "react";
+import { Component } from "react";
 import { DateTime } from "luxon";
 import { Checkbox, Button, Input, Label, List } from "semantic-ui-react";
 import PropTypes from "prop-types";
@@ -33,7 +33,7 @@ const DEFAULT_HELP_TEXTS = {
   [VALUE_TYPES.INT]: null,
 };
 
-class RangeCustomFilter extends React.Component {
+class RangeCustomFilter extends Component {
   constructor(props) {
     super(props);
     const { min, max, value } = props;
