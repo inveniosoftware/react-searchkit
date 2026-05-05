@@ -6,7 +6,6 @@
  * under the terms of the MIT License; see LICENSE file for more details.
  */
 
-import expect from "expect";
 import configureMockStore from "redux-mock-store";
 import thunk from "redux-thunk";
 import {
