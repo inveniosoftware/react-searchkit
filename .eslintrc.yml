@@ -1,6 +1,6 @@
 extends:
-  - '@inveniosoftware/invenio'
-  - '@inveniosoftware/invenio/prettier'
+  - "@inveniosoftware/eslint-config-invenio/configs/react18.yaml"
+  - "@inveniosoftware/eslint-config-invenio/configs/prettier.yaml"
 
 env:
   browser: true
