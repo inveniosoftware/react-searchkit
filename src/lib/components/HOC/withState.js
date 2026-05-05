@@ -6,7 +6,6 @@
  * under the terms of the MIT License; see LICENSE file for more details.
  */
 
-import React from "react";
 import { connect } from "react-redux";
 import { updateQueryState } from "../../state/actions";
 

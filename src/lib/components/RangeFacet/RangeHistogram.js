@@ -7,7 +7,7 @@
  */
 
 import PropTypes from "prop-types";
-import React, { Component, useContext } from "react";
+import { Component, useContext } from "react";
 import Overridable from "react-overridable";
 import { Popup } from "semantic-ui-react";
 import { scaleBand, scaleLinear } from "@visx/scale";

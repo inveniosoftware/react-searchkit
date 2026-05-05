@@ -7,14 +7,11 @@
  */
 
 import PropTypes from "prop-types";
-import { Component } from "react";
 import Overridable from "react-overridable";
 
-class ShouldRender extends Component {
-  render() {
-    const { children, condition } = this.props;
-    return condition ? children : null;
-  }
+function ShouldRender(props) {
+  const { children, condition } = props;
+  return condition ? children : null;
 }
 
 ShouldRender.propTypes = {

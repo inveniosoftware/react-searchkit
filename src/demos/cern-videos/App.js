@@ -8,7 +8,7 @@
 
 import _truncate from "lodash/truncate";
 import PropTypes from "prop-types";
-import React, { Component } from "react";
+import { Component } from "react";
 import { OverridableContext } from "react-overridable";
 import { Accordion, Card, Container, Grid, Image, Item, Menu } from "semantic-ui-react";
 import { InvenioSearchApi } from "../../lib/api/contrib/invenio";

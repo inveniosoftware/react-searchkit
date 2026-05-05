@@ -7,7 +7,6 @@
  */
 
 import { shallow } from "enzyme";
-import React from "react";
 import { UrlHandlerApi } from "../../api";
 import { createStoreWithConfig } from "../../store";
 import { ReactSearchKit } from "./ReactSearchKit";

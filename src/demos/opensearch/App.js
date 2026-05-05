@@ -7,8 +7,8 @@
  */
 
 import _truncate from "lodash/truncate";
+import { Component } from "react";
 import PropTypes from "prop-types";
-import React, { Component } from "react";
 import { OverridableContext } from "react-overridable";
 import {
   Button,
@@ -142,65 +142,63 @@ const overriddenComponents = {
   "ResultsGrid.item.opensearch": OpenSearchResultsGridItem,
 };
 
-export class App extends Component {
-  render() {
-    return (
-      <OverridableContext.Provider value={overriddenComponents}>
-        <ReactSearchKit searchApi={searchApi} initialQueryState={initialState}>
-          <Container>
-            <Grid>
-              <Grid.Row>
-                <Grid.Column width={3} />
-                <Grid.Column width={10}>
-                  <SearchBar />
-                </Grid.Column>
-                <Grid.Column width={3} />
-              </Grid.Row>
-            </Grid>
-            <Grid relaxed style={{ padding: "2em 0" }}>
-              <Grid.Row columns={2}>
-                <Grid.Column width={4}>
-                  <RangeFacet
-                    title="Year"
-                    agg={{ aggName: "years" }}
-                    rangeSeparator=".."
-                    defaultRanges={[
-                      { label: "Last 1 year", type: "years", value: 1 },
-                      { label: "Last 5 years", type: "years", value: 5 },
-                      { label: "Last 6 months", type: "months", value: 6 },
-                    ]}
-                    enableCustomRange
-                  />
-                  <BucketAggregation
-                    title="Tags"
-                    agg={{ field: "tags", aggName: "tags_agg" }}
-                    renderValuesContainerElement={customAggValuesContainerCmp}
-                    renderValueElement={customAggValueCmp}
-                  />
-                  <BucketAggregation
-                    title="Employee Types"
-                    agg={{
-                      field: "employee_type.type",
-                      aggName: "type_agg",
-                      childAgg: {
-                        field: "employee_type.subtype",
-                        aggName: "subtype_agg",
-                      },
-                    }}
-                  />
-                </Grid.Column>
-                <Grid.Column width={12}>
-                  <ResultsLoader>
-                    <EmptyResults />
-                    <Error />
-                    <OnResults />
-                  </ResultsLoader>
-                </Grid.Column>
-              </Grid.Row>
-            </Grid>
-          </Container>
-        </ReactSearchKit>
-      </OverridableContext.Provider>
-    );
-  }
+export function App() {
+  return (
+    <OverridableContext.Provider value={overriddenComponents}>
+      <ReactSearchKit searchApi={searchApi} initialQueryState={initialState}>
+        <Container>
+          <Grid>
+            <Grid.Row>
+              <Grid.Column width={3} />
+              <Grid.Column width={10}>
+                <SearchBar />
+              </Grid.Column>
+              <Grid.Column width={3} />
+            </Grid.Row>
+          </Grid>
+          <Grid relaxed style={{ padding: "2em 0" }}>
+            <Grid.Row columns={2}>
+              <Grid.Column width={4}>
+                <RangeFacet
+                  title="Year"
+                  agg={{ aggName: "years" }}
+                  rangeSeparator=".."
+                  defaultRanges={[
+                    { label: "Last 1 year", type: "years", value: 1 },
+                    { label: "Last 5 years", type: "years", value: 5 },
+                    { label: "Last 6 months", type: "months", value: 6 },
+                  ]}
+                  enableCustomRange
+                />
+                <BucketAggregation
+                  title="Tags"
+                  agg={{ field: "tags", aggName: "tags_agg" }}
+                  renderValuesContainerElement={customAggValuesContainerCmp}
+                  renderValueElement={customAggValueCmp}
+                />
+                <BucketAggregation
+                  title="Employee Types"
+                  agg={{
+                    field: "employee_type.type",
+                    aggName: "type_agg",
+                    childAgg: {
+                      field: "employee_type.subtype",
+                      aggName: "subtype_agg",
+                    },
+                  }}
+                />
+              </Grid.Column>
+              <Grid.Column width={12}>
+                <ResultsLoader>
+                  <EmptyResults />
+                  <Error />
+                  <OnResults />
+                </ResultsLoader>
+              </Grid.Column>
+            </Grid.Row>
+          </Grid>
+        </Container>
+      </ReactSearchKit>
+    </OverridableContext.Provider>
+  );
 }

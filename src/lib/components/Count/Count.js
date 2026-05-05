@@ -7,21 +7,19 @@
  */
 
 import PropTypes from "prop-types";
-import React, { Component, useContext } from "react";
+import { useContext } from "react";
 import Overridable from "react-overridable";
 import { Label } from "semantic-ui-react";
 import { AppContext } from "../ReactSearchKit";
 import { ShouldRender } from "../ShouldRender";
 
-class Count extends Component {
-  render() {
-    const { loading, totalResults, label, overridableId } = this.props;
-    return (
-      <ShouldRender condition={!loading && totalResults > 0}>
-        {label(<Element totalResults={totalResults} overridableId={overridableId} />)}
-      </ShouldRender>
-    );
-  }
+function Count(props) {
+  const { loading, totalResults, label, overridableId } = props;
+  return (
+    <ShouldRender condition={!loading && totalResults > 0}>
+      {label(<Element totalResults={totalResults} overridableId={overridableId} />)}
+    </ShouldRender>
+  );
 }
 
 Count.propTypes = {

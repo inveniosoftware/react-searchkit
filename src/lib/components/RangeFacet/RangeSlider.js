@@ -6,12 +6,12 @@
  * under the terms of the MIT License; see LICENSE file for more details.
  */
 
-import React from "react";
+import { Component } from "react";
 import PropTypes from "prop-types";
 import Overridable from "react-overridable";
 import { AppContext } from "../ReactSearchKit";
 
-class RangeSlider extends React.Component {
+class RangeSlider extends Component {
   // Converts a value within [min, max] into a clamped percentage (0–100).
   // When min === max, return 50 to keep the thumb centered in single-value mode.
   getPercent = (v) => {
