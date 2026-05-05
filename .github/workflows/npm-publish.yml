@@ -40,4 +40,13 @@ jobs:
           GH_TOKEN: ${{secrets.GITHUB_TOKEN}}
 
       - name: Publish on npmjs
-        run: npm publish
+        run: |
+          VERSION=$(npm pkg get version --workspaces=false | tr -d '"')
+          PRERELEASE_TAG="${VERSION#*-}"
+          PRERELEASE_TAG="${PRERELEASE_TAG%%.*}"
+
+          if [[ -n "$PRERELEASE_TAG" ]]; then
+            npm publish --tag "$PRERELEASE_TAG"
+          else
+            npm publish
+          fi
