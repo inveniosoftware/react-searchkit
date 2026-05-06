@@ -7,7 +7,6 @@
  */
 
 import { shallow } from "enzyme";
-import React from "react";
 import configureMockStore from "redux-mock-store";
 import { withState } from "./withState";
 

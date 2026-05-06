@@ -7,7 +7,7 @@
  */
 
 import PropTypes from "prop-types";
-import React, { Component } from "react";
+import { Component } from "react";
 import Overridable from "react-overridable";
 import { Input } from "semantic-ui-react";
 import { AppContext } from "../ReactSearchKit";

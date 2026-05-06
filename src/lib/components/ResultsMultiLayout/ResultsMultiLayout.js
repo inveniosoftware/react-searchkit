@@ -7,7 +7,7 @@
  */
 
 import PropTypes from "prop-types";
-import React, { useContext } from "react";
+import { useContext } from "react";
 import Overridable from "react-overridable";
 import { AppContext } from "../ReactSearchKit";
 import { ResultsGrid } from "../ResultsGrid";

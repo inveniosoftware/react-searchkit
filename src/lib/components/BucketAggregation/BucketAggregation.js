@@ -8,7 +8,7 @@
 
 import _get from "lodash/get";
 import PropTypes from "prop-types";
-import React, { Component, useContext } from "react";
+import { Component, useContext } from "react";
 import Overridable from "react-overridable";
 import { Card } from "semantic-ui-react";
 import { AppContext } from "../ReactSearchKit";

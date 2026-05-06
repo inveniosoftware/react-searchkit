@@ -1,5 +1,15 @@
 # Changes
 
+Version 4.0.0 (released 2026-05-05)
+
+- deps: major bump of `react` and `react-dom` peer deps to ^18.3.0
+- deps: upgrade `eslint-config-invenio` to ^2.1.0
+- feat: apply React 18 code transforms across all components
+- dependencies: remove unused dependencies
+- global: update tests and linting for React 18 compatibility
+  * Replaces `enzyme-adapter-react-16` with `@cfaester/enzyme-adapter-react-18`
+- global: require Node engine >=22.0.0
+
 Version 3.2.0 (release 2026-04-13)
 
 - fix(RangeFacet): use Luxon for date validation

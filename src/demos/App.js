@@ -6,7 +6,7 @@
  * under the terms of the MIT License; see LICENSE file for more details.
  */
 
-import React, { Component } from "react";
+import { Component } from "react";
 import { Button, Container, Divider, Header, Menu, Segment } from "semantic-ui-react";
 import { CERNVideosReactSearchKit } from "./cern-videos";
 import NamespacedExample from "./cern-videos-namespaced/app";

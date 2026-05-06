@@ -7,7 +7,6 @@
  */
 
 import { mount } from "enzyme";
-import React from "react";
 import { onQueryChanged } from "../../events";
 import { AppContext } from "../ReactSearchKit/AppContext";
 import Bootstrap from "./Bootstrap";

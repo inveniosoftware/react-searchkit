@@ -1,7 +1,6 @@
 /* eslint-disable react/display-name */
 /* eslint-disable react/prop-types */
 import _truncate from "lodash/truncate";
-import React from "react";
 import { OverridableContext } from "react-overridable";
 import { Card, Grid, Image, Item } from "semantic-ui-react";
 import { CERNVideosReactSearchKit2 } from "./cern-videos-2";
