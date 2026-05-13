@@ -94,9 +94,6 @@
     "search",
     "react search"
   ],
-  "eslintConfig": {
-    "extends": "react-app"
-  },
   "browserslist": {
     "production": [
       ">0.2%",
@@ -111,6 +108,6 @@
     ]
   },
   "engines": {
-    "node": ">=14.0.0"
+    "node": ">=22.0.0"
   }
 }
