@@ -1,0 +1,33 @@
+/*
+ * This file is part of React-SearchKit.
+ * Copyright (C) 2018 CERN.
+ *
+ * React-SearchKit is free software; you can redistribute it and/or modify it
+ * under the terms of the MIT License; see LICENSE file for more details.
+ */
+
+:root {
+  --ifm-color-primary-lightest: #68b4ff;
+  --ifm-color-primary-lighter: #4899db;
+  --ifm-color-primary-light: #2185d0;
+  --ifm-color-primary: #0377cd;
+  --ifm-color-primary-dark: #026ba7;
+  --ifm-color-primary-darker: #025d91;
+  --ifm-color-primary-darkest: #014b75;
+
+  --ifm-color-secondary-lightest: #ffbfb8;
+  --ifm-color-secondary-lighter: #fd9a8f;
+  --ifm-color-secondary-light: #fc8577;
+  --ifm-color-secondary: #fb8273;
+  --ifm-color-secondary-dark: #e06b5c;
+  --ifm-color-secondary-darker: #c45a4c;
+  --ifm-color-secondary-darkest: #9c4439;
+
+  --ifm-hero-background-color: #e8f4fc;
+  --ifm-hero-text-color: #1c1e21;
+}
+
+[data-theme="dark"] {
+  --ifm-hero-background-color: #0a1a26;
+  --ifm-hero-text-color: #e3e3e3;
+}
