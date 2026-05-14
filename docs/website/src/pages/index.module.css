@@ -1,0 +1,122 @@
+/*
+ * This file is part of React-SearchKit.
+ * Copyright (C) 2018 CERN.
+ *
+ * React-SearchKit is free software; you can redistribute it and/or modify it
+ * under the terms of the MIT License; see LICENSE file for more details.
+ */
+
+:root {
+  --ifm-color-primary-lightest: #68b4ff;
+  --ifm-color-primary-lighter: #4899db;
+  --ifm-color-primary-light: #2185d0;
+  --ifm-color-primary: #0377cd;
+  --ifm-color-primary-dark: #026ba7;
+  --ifm-color-primary-darker: #025d91;
+  --ifm-color-primary-darkest: #014b75;
+}
+
+.heroBanner {
+  padding: 4rem 2rem;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+  background: linear-gradient(
+    12deg,
+    rgba(3, 119, 205, 1),
+    rgba(3, 119, 205, 1) 52.52%,
+    rgba(251, 130, 115, 0.69)
+  );
+  color: #ffffff;
+}
+
+[data-theme="dark"] .heroBanner {
+  background: linear-gradient(
+    12deg,
+    hsla(205, 99%, 30%, 0.432),
+    rgba(1, 88, 150, 0.438) 52.52%,
+    rgba(179, 93, 81, 0.329)
+  );
+}
+
+.heroBanner .hero__subtitle {
+  color: rgba(255, 255, 255, 0.6);
+}
+
+.buttons {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  margin-top: 1.5rem;
+}
+
+.buttons :global(.button),
+.buttons :global(.button--secondary) {
+  background-color: #ffffff !important;
+  color: #0377cd !important;
+  border: 1px solid #ffffff !important;
+}
+
+.buttons :global(.button):hover,
+.buttons :global(.button--secondary):hover {
+  background-color: transparent !important;
+  color: #ffffff !important;
+  border-color: #ffffff !important;
+}
+
+.githubStar {
+  margin-top: 1.5rem;
+  min-height: 20px;
+}
+
+.features {
+  padding: 2rem 0;
+  width: 100%;
+}
+
+.card {
+  background: var(--ifm-background-surface-color, #ffffff);
+  border: 1px solid var(--ifm-toc-border-color, #e6e6e6);
+  border-radius: 8px;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+  transition: box-shadow 0.2s ease, transform 0.2s ease;
+  height: 100%;
+  margin: 0.5rem;
+}
+
+.card:hover {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  transform: translateY(-2px);
+}
+
+.cardBody {
+  padding: 1.5rem;
+}
+
+.cardBody h3 {
+  color: var(--ifm-color-primary);
+  font-size: 1.25rem;
+  margin-bottom: 0.5rem;
+}
+
+[data-theme="dark"] .card {
+  background: var(--ifm-background-surface-color, #1c1e21);
+  border-color: var(--ifm-toc-border-color, #444);
+}
+
+.buttons :global(.button).buttonOutline {
+  background-color: transparent !important;
+  color: #ffffff !important;
+  border: 1px solid #ffffff !important;
+}
+
+.buttons :global(.button).buttonOutline:hover {
+  background-color: #ffffff !important;
+  color: #0377cd !important;
+  border-color: #ffffff !important;
+}
+
+.screenshot {
+  padding: 2rem 0 4rem;
+}
