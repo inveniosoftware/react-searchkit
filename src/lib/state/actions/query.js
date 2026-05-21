@@ -199,7 +199,7 @@ const updateQueryStateAfterResponse = (response, dispatch, getState, appConfig) 
     // Replace the URL args with the response new query state
     urlHandlerApi.replace(updatedQueryState);
   }
-  delete response.newStateQuery;
+  delete response.newQueryState;
   return response;
 };
 

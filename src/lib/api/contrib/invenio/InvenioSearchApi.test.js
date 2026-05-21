@@ -76,4 +76,36 @@ describe("test InvenioSearchApi class", () => {
     const request = mockedAxios.history.get[0];
     expect(request.url).toBe("/api/records");
   });
+
+  it("should register response interceptors on the response pipeline", async () => {
+    const responseResolve = jest.fn((response) => response);
+    const searchApi = new InvenioSearchApi({
+      axios: {
+        url: "/api/records",
+      },
+      invenio: {
+        requestSerializer: MockedRequestSerializer,
+        responseSerializer: MockedResponseSerializer,
+      },
+      interceptors: {
+        response: {
+          resolve: responseResolve,
+          reject: (error) => Promise.reject(error),
+        },
+      },
+    });
+    const mockedAxios = new MockAdapter(searchApi.http);
+
+    const mockedResponse = { hits: [{ result: "1" }] };
+    mockedAxios.onAny().reply(200, mockedResponse);
+    await searchApi.search({ q: "test" });
+
+    expect(responseResolve).toHaveBeenCalledTimes(1);
+    expect(responseResolve).toHaveBeenCalledWith(
+      expect.objectContaining({
+        status: 200,
+        data: mockedResponse,
+      })
+    );
+  });
 });

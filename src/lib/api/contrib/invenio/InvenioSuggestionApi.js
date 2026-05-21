@@ -58,8 +58,9 @@ class InvenioSuggestionResponseSerializer {
 
 export class InvenioSuggestionApi extends InvenioSearchApi {
   validateConfig(config) {
-    super.validateConfig(config);
-
+    // the parent `axios` config is already validated by the `InvenioSearchApi`
+    // constructor via `validateAxiosConfig`, here we only validate the
+    // suggestion-specific config
     if (!_hasIn(config, "invenio.suggestions.queryField")) {
       throw new Error(
         "InvenioSuggestionApi config: `invenio.suggestions.queryField` is required."
@@ -67,12 +68,13 @@ export class InvenioSuggestionApi extends InvenioSearchApi {
     }
     if (!_hasIn(config, "invenio.suggestions.responseField")) {
       throw new Error(
-        "InvenioSuggestionApi config: `invenio.suggestions.queryField` is responseField."
+        "InvenioSuggestionApi config: `invenio.suggestions.responseField` is required."
       );
     }
   }
 
   initSerializers(config) {
+    this.validateConfig(config);
     const requestSerializerCls = _get(
       config,
       "invenio.requestSerializer",
