@@ -1,3 +1,8 @@
+/*
+ * SPDX-FileCopyrightText: 2022-2025 CERN.
+ * SPDX-License-Identifier: MIT
+ */
+
 /* eslint-disable react/display-name */
 /* eslint-disable react/prop-types */
 import _truncate from "lodash/truncate";

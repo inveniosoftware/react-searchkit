@@ -1,10 +1,7 @@
 /*
- * This file is part of React-SearchKit.
- * Copyright (C) 2018-2022 CERN.
- * Copyright (C) 2022 NYU.
- *
- * React-SearchKit is free software; you can redistribute it and/or modify it
- * under the terms of the MIT License; see LICENSE file for more details.
+ * SPDX-FileCopyrightText: 2018-2022 CERN.
+ * SPDX-FileCopyrightText: 2022 NYU.
+ * SPDX-License-Identifier: MIT
  */
 
 import PropTypes from "prop-types";

@@ -1,15 +1,12 @@
+/*
+ * SPDX-FileCopyrightText: 2019-2022 CERN.
+ * SPDX-License-Identifier: MIT
+ */
 /* eslint-disable no-unused-vars */
 /* eslint-disable react/no-this-in-sfc */
 /* eslint-disable react/destructuring-assignment */
 /* eslint-disable react/prop-types */
 /* eslint-disable react/require-default-props */
-/*
- * This file is part of React-SearchKit.
- * Copyright (C) 2019-2022 CERN.
- *
- * React-SearchKit is free software; you can redistribute it and/or modify it
- * under the terms of the MIT License; see LICENSE file for more details.
- */
 
 import _ from "lodash";
 import PropTypes from "prop-types";

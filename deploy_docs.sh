@@ -1,4 +1,6 @@
 #!/bin/bash
+# SPDX-FileCopyrightText: 2018 CERN.
+# SPDX-License-Identifier: MIT
 
 git config --global user.name "${GH_NAME}"
 git config --global user.email "${GH_EMAIL}"
