@@ -1,5 +1,5 @@
 /*
- * SPDX-FileCopyrightText: 2018-2022 CERN.
+ * SPDX-FileCopyrightText: 2018-2026 CERN.
  * SPDX-License-Identifier: MIT
  */
 
@@ -9,6 +9,21 @@ import Overridable from "react-overridable";
 import { Pagination as Paginator } from "semantic-ui-react";
 import { AppContext } from "../ReactSearchKit";
 import { ShouldRender } from "../ShouldRender";
+
+const a11yPaginationItem = (Item, itemProps) => (
+  <Item
+    {...itemProps}
+    role="button"
+    onKeyDown={(event) => {
+      // ARIA button pattern: activate on "Space" in addition to "Enter".
+      // Mirrors the existing "Enter" handling in semantic-ui-react's PaginationItem.
+      if (event.key === " " && !itemProps.disabled) {
+        event.preventDefault(); // prevent page scroll
+        itemProps.onClick(event, itemProps);
+      }
+    }}
+  />
+);
 
 const defaultOptions = {
   boundaryRangeCount: 1,
@@ -141,6 +156,7 @@ const Element = ({
         lastItem={showLast ? undefined : null}
         prevItem={showPrev ? undefined : null}
         nextItem={showNext ? undefined : null}
+        pageItem={a11yPaginationItem}
         size={size}
         {...props}
       />
