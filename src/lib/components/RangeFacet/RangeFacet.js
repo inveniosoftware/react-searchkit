@@ -25,6 +25,7 @@ import {
   getKey,
   normalizeFilterValue,
 } from "./utils";
+import { i18next } from "@translations/i18next";
 
 class RangeFacet extends React.Component {
   constructor(props) {
@@ -339,7 +340,7 @@ RangeFacet.defaultProps = {
   enableCustomRange: false,
   overridableId: "",
   histogramHeight: 100,
-  dateRangeToLabel: "to",
+  dateRangeToLabel: i18next.t("to"),
   fromAriaLabel: undefined,
   toAriaLabel: undefined,
   applyAriaLabel: undefined,
