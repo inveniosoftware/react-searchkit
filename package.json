@@ -9,39 +9,7 @@
     "dist"
   ],
   "config": {
-    "languages": [
-      "ar",
-      "bg",
-      "ca",
-      "cs",
-      "da",
-      "de",
-      "el",
-      "en",
-      "es",
-      "et",
-      "fa",
-      "fi",
-      "fr",
-      "hr",
-      "hu",
-      "it",
-      "ja",
-      "ka",
-      "ko",
-      "lt",
-      "no",
-      "pl",
-      "pt",
-      "ro",
-      "ru",
-      "sk",
-      "sv",
-      "tr",
-      "uk",
-      "zh_CN",
-      "zh_TW"
-    ]
+    "languages": ["en"]
   },
   "scripts": {
     "start": "react-scripts start",

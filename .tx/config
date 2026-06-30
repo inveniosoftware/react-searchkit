@@ -8,26 +8,24 @@
 # under the terms of the MIT License; see LICENSE file for more details.
 
 # Translate JavaScript strings
-# 1) Navigate to the directory:
-#    cd src/lib/translations/messages
-# 2) Install i18n dev dependencies
+# 1) Install i18n dev dependencies
 #    npm install
-# 3) Add a new language
+# 2) Add a new language
 #    npm run init_catalog lang <lang>
-# 4) Extract translation keys/values
+# 3) Extract translation keys/values
 #    $ npm run extract_messages
-# 5) Install the transifex-client
+# 4) Install the transifex-client
 #    see: https://developers.transifex.com/docs/cli#transifex-client
-# 6) Push source (.pot) and translations (.po) to Transifex
+# 5) Push source (.pot) and translations (.po) to Transifex
 #    Navigate to the root of the invenio_administration repository
 #    $ tx push -s -t
-# 7) Pull translations for a single language from Transifex
+# 6) Pull translations for a single language from Transifex
 #    $ tx pull -l <lang>
-# 8) Pull translations for all languages from Transifex
+# 7) Pull translations for all languages from Transifex
 #    $ tx pull -a
-# 9) Compile .po files for all languages
+# 8) Compile .po files for all languages
 #    $ npm run compile_catalog
-# 10) Convert .po file for a single language
+# 9) Convert .po file for a single language
 #    $ npm run compile_catalog lang <lang>
 
 [main]
