@@ -10,6 +10,7 @@ import Overridable from "react-overridable";
 import { Dropdown } from "semantic-ui-react";
 import { AppContext } from "../ReactSearchKit";
 import { ShouldRender } from "../ShouldRender";
+import { i18next } from "@translations/i18next";
 
 class SortOrder extends Component {
   constructor(props) {
@@ -70,7 +71,7 @@ SortOrder.defaultProps = {
   currentSortOrder: null,
   label: (cmp) => cmp,
   overridableId: "",
-  ariaLabel: "Sort Order",
+  ariaLabel: i18next.t("Sort Order"),
   selectOnNavigation: false,
 };
 
@@ -122,7 +123,7 @@ Element.propTypes = {
 Element.defaultProps = {
   currentSortOrder: null,
   overridableId: "",
-  ariaLabel: "Sort Order",
+  ariaLabel: i18next.t("Sort Order"),
   selectOnNavigation: false,
 };
 

@@ -8,6 +8,7 @@ import React, { Component } from "react";
 import Overridable from "react-overridable";
 import { Input } from "semantic-ui-react";
 import { AppContext } from "../ReactSearchKit";
+import { i18next } from "@translations/i18next";
 
 class SearchBar extends Component {
   constructor(props) {
@@ -147,13 +148,13 @@ class Element extends Component {
       >
         <Input
           action={{
-            content: "Search",
+            content: i18next.t("Search"),
             onClick: onBtnSearchClick,
             ...actionProps,
           }}
           fluid
           {...uiProps}
-          placeholder={placeholder || "Type something"}
+          placeholder={placeholder || i18next.t("Type something")}
           onChange={(_, { value }) => {
             onInputChange(value);
           }}

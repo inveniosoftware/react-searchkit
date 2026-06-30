@@ -10,6 +10,7 @@ import Overridable from "react-overridable";
 import { Dropdown } from "semantic-ui-react";
 import { AppContext } from "../ReactSearchKit";
 import { ShouldRender } from "../ShouldRender";
+import { i18next } from "@translations/i18next";
 
 class ResultsPerPage extends Component {
   constructor(props) {
@@ -75,7 +76,7 @@ ResultsPerPage.propTypes = {
 ResultsPerPage.defaultProps = {
   label: (cmp) => cmp,
   overridableId: "",
-  ariaLabel: "Results per page",
+  ariaLabel: i18next.t("Results per page"),
   selectOnNavigation: false,
   showWhenOnlyOnePage: true,
 };
@@ -125,7 +126,7 @@ Element.propTypes = {
 };
 
 Element.defaultProps = {
-  ariaLabel: "Results per page",
+  ariaLabel: i18next.t("Results per page"),
   selectOnNavigation: false,
   overridableId: "",
 };

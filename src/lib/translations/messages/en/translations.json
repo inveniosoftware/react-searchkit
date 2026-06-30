@@ -1,0 +1,17 @@
+{
+  "Type something": "Type something",
+  "Search": "Search",
+  "No results found!": "No results found!",
+  "Current search {{- search}}": "Current search {{- search}}",
+  "Clear query": "Clear query",
+  "Oops! Something went wrong while fetching results.": "Oops! Something went wrong while fetching results.",
+  "e.g. 2025 or 2025-03-15": "e.g. 2025 or 2025-03-15",
+  "Enter at least one value": "Enter at least one value",
+  "Year must be 4 digits": "Year must be 4 digits",
+  "Invalid date": "Invalid date",
+  "Invalid number": "Invalid number",
+  "Start must be before end": "Start must be before end",
+  "to": "to",
+  "Apply custom range": "Apply custom range",
+  "Custom range": "Custom range"
+}

@@ -15,6 +15,7 @@ import Overridable from "react-overridable";
 import { Input, Button } from "semantic-ui-react";
 import { AppContext } from "../ReactSearchKit";
 import "./AutocompleteSearchBar.scss";
+import { i18next } from "@translations/i18next";
 
 class AutocompleteSearchBar extends Component {
   constructor(props) {
@@ -82,7 +83,7 @@ AutocompleteSearchBar.propTypes = {
 
 AutocompleteSearchBar.defaultProps = {
   handleAutocompleteChange: null,
-  placeholder: "Type something",
+  placeholder: i18next.t("Type something"),
   minCharsToAutocomplete: 3,
   overridableId: "",
 };
@@ -118,7 +119,7 @@ const Element = ({
       <div className="AutoCompleteText">
         <Input
           action={{
-            content: "Search",
+            content: i18next.t("Search"),
             onClick: onBtnSearchClick,
           }}
           fluid
