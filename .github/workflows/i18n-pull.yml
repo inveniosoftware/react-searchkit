@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 #
 # Copyright (C) 2023 Graz University of Technology.
+# Copyright (C) 2026 KTH Royal Institute of Technology.
 #
 # React-Searchkit is free software; you can redistribute it and/or modify it
 # under the terms of the MIT License; see LICENSE file for more details.
@@ -10,5 +11,36 @@ on: workflow_dispatch # manually trigger
 
 jobs:
   i18n-pull:
-    uses: inveniosoftware/invenio-i18n/.github/workflows/i18n-pull-base.yml@master
-    secrets: inherit
+    runs-on: ubuntu-latest
+    env:
+      NODE-VERSION: 22
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+
+      - name: Setup node
+        uses: actions/setup-node@v6
+        with:
+          node-version: ${{ env.NODE-VERSION }}
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Pull translated files using transifex client
+        uses: transifex/cli-action@v2
+        with:
+          token: ${{ secrets.TRANSIFEX_TOKEN }}
+          args: pull -a -f
+
+      - name: Compile translation catalogs
+        run: npm run compile_catalog
+
+      - name: Create Pull Request
+        uses: peter-evans/create-pull-request@v6
+        with:
+          commit-message: "i18n: pulled translations"
+          title: "i18n: pulled translations"
+          body: "i18n: pulled translations"
+          branch: 101-translations-pull
+          delete-branch: true
