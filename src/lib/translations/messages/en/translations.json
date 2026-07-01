@@ -13,5 +13,11 @@
   "Start must be before end": "Start must be before end",
   "to": "to",
   "Apply custom range": "Apply custom range",
-  "Custom range": "Custom range"
+  "Custom range": "Custom range",
+  "From": "From",
+  "To": "To",
+  "Results per page": "Results per page",
+  "Sort": "Sort",
+  "Sort Results By": "Sort Results By",
+  "Sort Order": "Sort Order"
 }
