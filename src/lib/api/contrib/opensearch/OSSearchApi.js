@@ -61,7 +61,7 @@ export class OSSearchApi {
       );
     }
     if (this.responseInterceptor) {
-      this.http.interceptors.request.use(
+      this.http.interceptors.response.use(
         this.responseInterceptor.resolve,
         this.responseInterceptor.reject
       );
