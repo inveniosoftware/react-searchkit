@@ -1,0 +1,23 @@
+{
+  "Type something": "",
+  "Search": "Otsi",
+  "No results found!": "Tulemusi ei leitud!",
+  "Current search {{- search}}": "",
+  "Clear query": "Puhasta otsinguväljad",
+  "Oops! Something went wrong while fetching results.": "",
+  "e.g. 2025 or 2025-03-15": "",
+  "Enter at least one value": "",
+  "Year must be 4 digits": "",
+  "Invalid date": "",
+  "Invalid number": "",
+  "Start must be before end": "",
+  "to": "",
+  "Apply custom range": "",
+  "Custom range": "",
+  "From": "Kohast",
+  "To": "Kohta",
+  "Results per page": "",
+  "Sort": "Sorteeri",
+  "Sort Results By": "",
+  "Sort Order": ""
+}

@@ -1,0 +1,23 @@
+{
+  "Type something": "",
+  "Search": "Keresés",
+  "No results found!": "",
+  "Current search {{- search}}": "",
+  "Clear query": "Lekérdezés törlése",
+  "Oops! Something went wrong while fetching results.": "",
+  "e.g. 2025 or 2025-03-15": "",
+  "Enter at least one value": "",
+  "Year must be 4 digits": "",
+  "Invalid date": "",
+  "Invalid number": "",
+  "Start must be before end": "",
+  "to": "",
+  "Apply custom range": "",
+  "Custom range": "",
+  "From": "-tól",
+  "To": "Címzett:",
+  "Results per page": "",
+  "Sort": "Rendezés",
+  "Sort Results By": "",
+  "Sort Order": ""
+}

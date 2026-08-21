@@ -1,0 +1,23 @@
+{
+  "Type something": "พิมพ์บางอย่าง",
+  "Search": "ค้นหา",
+  "No results found!": "ไม่พบผลลัพธ์!",
+  "Current search {{- search}}": "การค้นหาปัจจุบัน {{- search}}",
+  "Clear query": "ล้างคำค้นหา",
+  "Oops! Something went wrong while fetching results.": "อุ๊ปส์! เกิดข้อผิดพลาดขณะดึงผลลัพธ์",
+  "e.g. 2025 or 2025-03-15": "เช่น 2025 หรือ 2025-03-15",
+  "Enter at least one value": "กรุณากรอกค่าอย่างน้อยหนึ่งค่า",
+  "Year must be 4 digits": "ปีต้องมี 4 หลัก",
+  "Invalid date": "วันที่ไม่ถูกต้อง",
+  "Invalid number": "ตัวเลขไม่ถูกต้อง",
+  "Start must be before end": "วันเริ่มต้นต้องอยู่ก่อนวันสิ้นสุด",
+  "to": "ถึง",
+  "Apply custom range": "ใช้ช่วงที่กำหนดเอง",
+  "Custom range": "ช่วงที่กำหนดเอง",
+  "From": "จาก",
+  "To": "ถึง",
+  "Results per page": "ผลลัพธ์ต่อหน้า",
+  "Sort": "จัดเรียง",
+  "Sort Results By": "จัดเรียงผลลัพธ์ตาม",
+  "Sort Order": "ลำดับการจัดเรียง"
+}

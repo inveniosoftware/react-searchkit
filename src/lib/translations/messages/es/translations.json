@@ -1,0 +1,23 @@
+{
+  "Type something": "Escriba algo",
+  "Search": "Buscar",
+  "No results found!": "¡Ningún resultado encontrado!",
+  "Current search {{- search}}": "Búsqueda actual {{- búsqueda}}",
+  "Clear query": "Borrar consulta",
+  "Oops! Something went wrong while fetching results.": "¡Ups! Algo salió mal al obtener los resultados.",
+  "e.g. 2025 or 2025-03-15": "p. ej. 2025 o 15-03-2025",
+  "Enter at least one value": "Introduzca al menos un valor.",
+  "Year must be 4 digits": "El año debe tener 4 dígitos.",
+  "Invalid date": "Fecha  no válida",
+  "Invalid number": "Número no válido",
+  "Start must be before end": "El inicio debe ser antes del final.",
+  "to": "a",
+  "Apply custom range": "Aplicar rango personalizado",
+  "Custom range": "Gama personalizada",
+  "From": "Desde",
+  "To": "Hasta",
+  "Results per page": "Resultados por página",
+  "Sort": "Ordenar",
+  "Sort Results By": "Ordenar resultados por",
+  "Sort Order": "Orden de clasificación"
+}

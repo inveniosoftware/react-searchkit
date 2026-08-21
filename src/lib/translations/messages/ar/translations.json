@@ -1,0 +1,23 @@
+{
+  "Type something": "أرقن شيء",
+  "Search": "بحث",
+  "No results found!": "لا توجد نتائج!",
+  "Current search {{- search}}": "البحث الحالي {{- search}}",
+  "Clear query": "محو الطّلب",
+  "Oops! Something went wrong while fetching results.": "عفوا!  حدث خطأ أثناء جلب النتائج.",
+  "e.g. 2025 or 2025-03-15": "مثال 2025 أو 2025-03-15",
+  "Enter at least one value": " أدخل قيمة واحدة على الأقل.",
+  "Year must be 4 digits": " يجب أن تتكوّن السنة من 4 أرقام.",
+  "Invalid date": " تاريخ غير صالح.",
+  "Invalid number": " رقم غير صالح.",
+  "Start must be before end": " يجب أن يكون تاريخ البداية قبل تاريخ النهاية.",
+  "to": "إلى",
+  "Apply custom range": " تطبيق الفترة المخصّصة",
+  "Custom range": " الفترة المخصّصة",
+  "From": "من",
+  "To": "إلى",
+  "Results per page": "عدد النتائج في الصّفحة",
+  "Sort": "رتّب",
+  "Sort Results By": "رتّب نتائج البحث حسب",
+  "Sort Order": " ترتيب النتائج"
+}

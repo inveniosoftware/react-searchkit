@@ -1,0 +1,23 @@
+{
+  "Type something": "Začněte psát",
+  "Search": "Hledat",
+  "No results found!": "Nebyly nalezeny žádné výsledky",
+  "Current search {{- search}}": "Aktuální hledání {{- search}}",
+  "Clear query": "Smazat dotaz",
+  "Oops! Something went wrong while fetching results.": "Při načítání výsledků došlo k chybě.",
+  "e.g. 2025 or 2025-03-15": "např. 2025 nebo 2025-03-15",
+  "Enter at least one value": "Zadejte alespoň jednu hodnotu",
+  "Year must be 4 digits": "Rok musí mít 4 číslice",
+  "Invalid date": "Neplatné datum",
+  "Invalid number": "Neplatné číslo",
+  "Start must be before end": "Začátek musí být před koncem",
+  "to": "do",
+  "Apply custom range": "Použít vlastní rozsah",
+  "Custom range": "Vlastní rozsah",
+  "From": "Od",
+  "To": "Do",
+  "Results per page": "Výsledků na stránku",
+  "Sort": "Řazení",
+  "Sort Results By": "Řadit výsledky podle",
+  "Sort Order": "Pořadí řazení"
+}

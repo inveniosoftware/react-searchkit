@@ -1,0 +1,79 @@
+# Translators:
+# Tibor Simko <tibor.simko@cern.ch>, 2026
+# Salaheddine Ben Ali <salaheddine.benali@cnudst.tn>, 2026
+# 
+msgid ""
+msgstr ""
+"Project-Id-Version: i18next-conv\n"
+"POT-Creation-Date: 2026-07-01T11:04:12.967Z\n"
+"PO-Revision-Date: 2026-07-01 11:04+0000\n"
+"Last-Translator: Salaheddine Ben Ali <salaheddine.benali@cnudst.tn>, 2026\n"
+"Language-Team: Arabic (https://app.transifex.com/inveniosoftware/teams/23537/ar/)\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: ar\n"
+"Plural-Forms: nplurals=6; plural=n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n%100>=3 && n%100<=10 ? 3 : n%100>=11 && n%100<=99 ? 4 : 5;\n"
+"mime-version: 1.0\n"
+
+msgid "Type something"
+msgstr "أرقن شيء"
+
+msgid "Search"
+msgstr "بحث"
+
+msgid "No results found!"
+msgstr "لا توجد نتائج!"
+
+msgid "Current search {{- search}}"
+msgstr "البحث الحالي {{- search}}"
+
+msgid "Clear query"
+msgstr "محو الطّلب"
+
+msgid "Oops! Something went wrong while fetching results."
+msgstr "عفوا!  حدث خطأ أثناء جلب النتائج."
+
+msgid "e.g. 2025 or 2025-03-15"
+msgstr "مثال 2025 أو 2025-03-15"
+
+msgid "Enter at least one value"
+msgstr " أدخل قيمة واحدة على الأقل."
+
+msgid "Year must be 4 digits"
+msgstr " يجب أن تتكوّن السنة من 4 أرقام."
+
+msgid "Invalid date"
+msgstr " تاريخ غير صالح."
+
+msgid "Invalid number"
+msgstr " رقم غير صالح."
+
+msgid "Start must be before end"
+msgstr " يجب أن يكون تاريخ البداية قبل تاريخ النهاية."
+
+msgid "to"
+msgstr "إلى"
+
+msgid "Apply custom range"
+msgstr " تطبيق الفترة المخصّصة"
+
+msgid "Custom range"
+msgstr " الفترة المخصّصة"
+
+msgid "From"
+msgstr "من"
+
+msgid "To"
+msgstr "إلى"
+
+msgid "Results per page"
+msgstr "عدد النتائج في الصّفحة"
+
+msgid "Sort"
+msgstr "رتّب"
+
+msgid "Sort Results By"
+msgstr "رتّب نتائج البحث حسب"
+
+msgid "Sort Order"
+msgstr " ترتيب النتائج"

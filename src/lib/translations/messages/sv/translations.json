@@ -1,0 +1,23 @@
+{
+  "Type something": "Skriv något",
+  "Search": "Sök",
+  "No results found!": "Inga resultat hittades!",
+  "Current search {{- search}}": "Aktuell sökning {{- search}}",
+  "Clear query": "Rensa sökfråga",
+  "Oops! Something went wrong while fetching results.": "Oj! Något gick fel vid hämtning av resultat.",
+  "e.g. 2025 or 2025-03-15": "t.ex. 2025 eller 2025-03-15",
+  "Enter at least one value": "Ange minst ett värde",
+  "Year must be 4 digits": "Året måste bestå av 4 siffror",
+  "Invalid date": "Ogiltigt datum",
+  "Invalid number": "Ogiltigt nummer",
+  "Start must be before end": "Start måste vara före slut",
+  "to": "till",
+  "Apply custom range": "Tillämpa anpassat intervall",
+  "Custom range": "Anpassat intervall",
+  "From": "Från",
+  "To": "Till",
+  "Results per page": "Resultat per sida",
+  "Sort": "Sortera",
+  "Sort Results By": "Sortera resultat efter",
+  "Sort Order": "Sorteringsordning"
+}

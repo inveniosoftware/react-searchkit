@@ -1,0 +1,78 @@
+# Translators:
+# Minjae Kwon, 2026
+# 
+msgid ""
+msgstr ""
+"Project-Id-Version: i18next-conv\n"
+"POT-Creation-Date: 2026-07-01T11:04:12.967Z\n"
+"PO-Revision-Date: 2026-07-01 11:04+0000\n"
+"Last-Translator: Minjae Kwon, 2026\n"
+"Language-Team: Korean (https://app.transifex.com/inveniosoftware/teams/23537/ko/)\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: ko\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"mime-version: 1.0\n"
+
+msgid "Type something"
+msgstr "검색어를 입력하세요"
+
+msgid "Search"
+msgstr "검색"
+
+msgid "No results found!"
+msgstr "결과가 없습니다."
+
+msgid "Current search {{- search}}"
+msgstr "현재 검색 {{- search}}"
+
+msgid "Clear query"
+msgstr "쿼리 지우기"
+
+msgid "Oops! Something went wrong while fetching results."
+msgstr "결과를 가져오는 중 문제가 발생했습니다."
+
+msgid "e.g. 2025 or 2025-03-15"
+msgstr "예: 2025 또는 2025-03-15"
+
+msgid "Enter at least one value"
+msgstr "값을 최소 하나 입력하세요"
+
+msgid "Year must be 4 digits"
+msgstr "연도는 4자리여야 합니다"
+
+msgid "Invalid date"
+msgstr "잘못된 날짜"
+
+msgid "Invalid number"
+msgstr "잘못된 숫자"
+
+msgid "Start must be before end"
+msgstr "시작은 끝보다 앞서야 합니다"
+
+msgid "to"
+msgstr "~"
+
+msgid "Apply custom range"
+msgstr "사용자 지정 범위 적용"
+
+msgid "Custom range"
+msgstr "사용자 지정 범위"
+
+msgid "From"
+msgstr "시작"
+
+msgid "To"
+msgstr "끝"
+
+msgid "Results per page"
+msgstr "페이지당 결과 수"
+
+msgid "Sort"
+msgstr "정렬"
+
+msgid "Sort Results By"
+msgstr "결과 정렬 기준"
+
+msgid "Sort Order"
+msgstr "정렬 순서"

@@ -1,0 +1,80 @@
+# Translators:
+# Tibor Simko <tibor.simko@cern.ch>, 2026
+# Sam Arbid, 2026
+# Mattias Vesterlund, 2026
+# 
+msgid ""
+msgstr ""
+"Project-Id-Version: i18next-conv\n"
+"POT-Creation-Date: 2026-07-01T11:04:12.967Z\n"
+"PO-Revision-Date: 2026-07-01 11:04+0000\n"
+"Last-Translator: Mattias Vesterlund, 2026\n"
+"Language-Team: Swedish (https://app.transifex.com/inveniosoftware/teams/23537/sv/)\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: sv\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"mime-version: 1.0\n"
+
+msgid "Type something"
+msgstr "Skriv något"
+
+msgid "Search"
+msgstr "Sök"
+
+msgid "No results found!"
+msgstr "Inga resultat hittades!"
+
+msgid "Current search {{- search}}"
+msgstr "Aktuell sökning {{- search}}"
+
+msgid "Clear query"
+msgstr "Rensa sökfråga"
+
+msgid "Oops! Something went wrong while fetching results."
+msgstr "Oj! Något gick fel vid hämtning av resultat."
+
+msgid "e.g. 2025 or 2025-03-15"
+msgstr "t.ex. 2025 eller 2025-03-15"
+
+msgid "Enter at least one value"
+msgstr "Ange minst ett värde"
+
+msgid "Year must be 4 digits"
+msgstr "Året måste bestå av 4 siffror"
+
+msgid "Invalid date"
+msgstr "Ogiltigt datum"
+
+msgid "Invalid number"
+msgstr "Ogiltigt nummer"
+
+msgid "Start must be before end"
+msgstr "Start måste vara före slut"
+
+msgid "to"
+msgstr "till"
+
+msgid "Apply custom range"
+msgstr "Tillämpa anpassat intervall"
+
+msgid "Custom range"
+msgstr "Anpassat intervall"
+
+msgid "From"
+msgstr "Från"
+
+msgid "To"
+msgstr "Till"
+
+msgid "Results per page"
+msgstr "Resultat per sida"
+
+msgid "Sort"
+msgstr "Sortera"
+
+msgid "Sort Results By"
+msgstr "Sortera resultat efter"
+
+msgid "Sort Order"
+msgstr "Sorteringsordning"

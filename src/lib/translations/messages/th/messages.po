@@ -1,0 +1,78 @@
+# Translators:
+# Suthep Yonphimai <tomztt@gmail.com>, 2026
+# 
+msgid ""
+msgstr ""
+"Project-Id-Version: i18next-conv\n"
+"POT-Creation-Date: 2026-07-01T11:04:12.967Z\n"
+"PO-Revision-Date: 2026-07-01 11:04+0000\n"
+"Last-Translator: Suthep Yonphimai <tomztt@gmail.com>, 2026\n"
+"Language-Team: Thai (https://app.transifex.com/inveniosoftware/teams/23537/th/)\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: th\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"mime-version: 1.0\n"
+
+msgid "Type something"
+msgstr "พิมพ์บางอย่าง"
+
+msgid "Search"
+msgstr "ค้นหา"
+
+msgid "No results found!"
+msgstr "ไม่พบผลลัพธ์!"
+
+msgid "Current search {{- search}}"
+msgstr "การค้นหาปัจจุบัน {{- search}}"
+
+msgid "Clear query"
+msgstr "ล้างคำค้นหา"
+
+msgid "Oops! Something went wrong while fetching results."
+msgstr "อุ๊ปส์! เกิดข้อผิดพลาดขณะดึงผลลัพธ์"
+
+msgid "e.g. 2025 or 2025-03-15"
+msgstr "เช่น 2025 หรือ 2025-03-15"
+
+msgid "Enter at least one value"
+msgstr "กรุณากรอกค่าอย่างน้อยหนึ่งค่า"
+
+msgid "Year must be 4 digits"
+msgstr "ปีต้องมี 4 หลัก"
+
+msgid "Invalid date"
+msgstr "วันที่ไม่ถูกต้อง"
+
+msgid "Invalid number"
+msgstr "ตัวเลขไม่ถูกต้อง"
+
+msgid "Start must be before end"
+msgstr "วันเริ่มต้นต้องอยู่ก่อนวันสิ้นสุด"
+
+msgid "to"
+msgstr "ถึง"
+
+msgid "Apply custom range"
+msgstr "ใช้ช่วงที่กำหนดเอง"
+
+msgid "Custom range"
+msgstr "ช่วงที่กำหนดเอง"
+
+msgid "From"
+msgstr "จาก"
+
+msgid "To"
+msgstr "ถึง"
+
+msgid "Results per page"
+msgstr "ผลลัพธ์ต่อหน้า"
+
+msgid "Sort"
+msgstr "จัดเรียง"
+
+msgid "Sort Results By"
+msgstr "จัดเรียงผลลัพธ์ตาม"
+
+msgid "Sort Order"
+msgstr "ลำดับการจัดเรียง"
