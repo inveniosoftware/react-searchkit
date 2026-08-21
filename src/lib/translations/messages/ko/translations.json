@@ -1,0 +1,23 @@
+{
+  "Type something": "검색어를 입력하세요",
+  "Search": "검색",
+  "No results found!": "결과가 없습니다.",
+  "Current search {{- search}}": "현재 검색 {{- search}}",
+  "Clear query": "쿼리 지우기",
+  "Oops! Something went wrong while fetching results.": "결과를 가져오는 중 문제가 발생했습니다.",
+  "e.g. 2025 or 2025-03-15": "예: 2025 또는 2025-03-15",
+  "Enter at least one value": "값을 최소 하나 입력하세요",
+  "Year must be 4 digits": "연도는 4자리여야 합니다",
+  "Invalid date": "잘못된 날짜",
+  "Invalid number": "잘못된 숫자",
+  "Start must be before end": "시작은 끝보다 앞서야 합니다",
+  "to": "~",
+  "Apply custom range": "사용자 지정 범위 적용",
+  "Custom range": "사용자 지정 범위",
+  "From": "시작",
+  "To": "끝",
+  "Results per page": "페이지당 결과 수",
+  "Sort": "정렬",
+  "Sort Results By": "결과 정렬 기준",
+  "Sort Order": "정렬 순서"
+}

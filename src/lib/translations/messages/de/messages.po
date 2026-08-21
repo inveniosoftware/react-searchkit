@@ -1,0 +1,83 @@
+# Translators:
+# Mojib Wali <mojib.wali@tugraz.at>, 2026
+# Zacharias Zacharodimos <zacharias.zacharodimos@cern.ch>, 2026
+# David Eckhard <dabombeeer@gmail.com>, 2026
+# Tibor Simko <tibor.simko@cern.ch>, 2026
+# Sarah Wiechers, 2026
+# Adienne Karsten-Welker, 2026
+# 
+msgid ""
+msgstr ""
+"Project-Id-Version: i18next-conv\n"
+"POT-Creation-Date: 2026-07-01T11:04:12.967Z\n"
+"PO-Revision-Date: 2026-07-01 11:04+0000\n"
+"Last-Translator: Adienne Karsten-Welker, 2026\n"
+"Language-Team: German (https://app.transifex.com/inveniosoftware/teams/23537/de/)\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: de\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"mime-version: 1.0\n"
+
+msgid "Type something"
+msgstr "Etwas eingeben"
+
+msgid "Search"
+msgstr "Suchen"
+
+msgid "No results found!"
+msgstr "Keine Ergebnisse gefunden!"
+
+msgid "Current search {{- search}}"
+msgstr "Aktuelle Suche {{- search}}"
+
+msgid "Clear query"
+msgstr "Suchanfrage löschen"
+
+msgid "Oops! Something went wrong while fetching results."
+msgstr "Beim Abrufen der Ergebnisse ist ein Fehler aufgetreten."
+
+msgid "e.g. 2025 or 2025-03-15"
+msgstr "z. B. 2025 oder 2025-03-15"
+
+msgid "Enter at least one value"
+msgstr "Geben Sie mindestens einen Wert ein"
+
+msgid "Year must be 4 digits"
+msgstr "Das Jahr muss 4-stellig sein"
+
+msgid "Invalid date"
+msgstr "Ungültiges Datum"
+
+msgid "Invalid number"
+msgstr "Ungültige Zahl"
+
+msgid "Start must be before end"
+msgstr "Startdatum muss vor dem Enddatum liegen"
+
+msgid "to"
+msgstr "bis"
+
+msgid "Apply custom range"
+msgstr "Benutzerdefinierten Bereich anwenden"
+
+msgid "Custom range"
+msgstr "Benutzerdefinierter Bereich"
+
+msgid "From"
+msgstr "Von"
+
+msgid "To"
+msgstr "Zu"
+
+msgid "Results per page"
+msgstr "Ergebnisse pro Seite"
+
+msgid "Sort"
+msgstr "Sortieren"
+
+msgid "Sort Results By"
+msgstr "Ergebnisse sortieren nach"
+
+msgid "Sort Order"
+msgstr "Sortierreihenfolge"

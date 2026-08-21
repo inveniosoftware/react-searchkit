@@ -1,0 +1,80 @@
+# Translators:
+# Tibor Simko <tibor.simko@cern.ch>, 2026
+# Ondřej Ruml, 2026
+# Mirek Simek <miroslav.simek@gmail.com>, 2026
+# 
+msgid ""
+msgstr ""
+"Project-Id-Version: i18next-conv\n"
+"POT-Creation-Date: 2026-07-01T11:04:12.967Z\n"
+"PO-Revision-Date: 2026-07-01 11:04+0000\n"
+"Last-Translator: Mirek Simek <miroslav.simek@gmail.com>, 2026\n"
+"Language-Team: Czech (https://app.transifex.com/inveniosoftware/teams/23537/cs/)\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: cs\n"
+"Plural-Forms: nplurals=4; plural=(n == 1 && n % 1 == 0) ? 0 : (n >= 2 && n <= 4 && n % 1 == 0) ? 1: (n % 1 != 0 ) ? 2 : 3;\n"
+"mime-version: 1.0\n"
+
+msgid "Type something"
+msgstr "Začněte psát"
+
+msgid "Search"
+msgstr "Hledat"
+
+msgid "No results found!"
+msgstr "Nebyly nalezeny žádné výsledky"
+
+msgid "Current search {{- search}}"
+msgstr "Aktuální hledání {{- search}}"
+
+msgid "Clear query"
+msgstr "Smazat dotaz"
+
+msgid "Oops! Something went wrong while fetching results."
+msgstr "Při načítání výsledků došlo k chybě."
+
+msgid "e.g. 2025 or 2025-03-15"
+msgstr "např. 2025 nebo 2025-03-15"
+
+msgid "Enter at least one value"
+msgstr "Zadejte alespoň jednu hodnotu"
+
+msgid "Year must be 4 digits"
+msgstr "Rok musí mít 4 číslice"
+
+msgid "Invalid date"
+msgstr "Neplatné datum"
+
+msgid "Invalid number"
+msgstr "Neplatné číslo"
+
+msgid "Start must be before end"
+msgstr "Začátek musí být před koncem"
+
+msgid "to"
+msgstr "do"
+
+msgid "Apply custom range"
+msgstr "Použít vlastní rozsah"
+
+msgid "Custom range"
+msgstr "Vlastní rozsah"
+
+msgid "From"
+msgstr "Od"
+
+msgid "To"
+msgstr "Do"
+
+msgid "Results per page"
+msgstr "Výsledků na stránku"
+
+msgid "Sort"
+msgstr "Řazení"
+
+msgid "Sort Results By"
+msgstr "Řadit výsledky podle"
+
+msgid "Sort Order"
+msgstr "Pořadí řazení"

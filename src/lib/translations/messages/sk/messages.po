@@ -1,0 +1,78 @@
+# Translators:
+# Tibor Simko <tibor.simko@cern.ch>, 2026
+# 
+msgid ""
+msgstr ""
+"Project-Id-Version: i18next-conv\n"
+"POT-Creation-Date: 2026-07-01T11:04:12.967Z\n"
+"PO-Revision-Date: 2026-07-01 11:04+0000\n"
+"Last-Translator: Tibor Simko <tibor.simko@cern.ch>, 2026\n"
+"Language-Team: Slovak (https://app.transifex.com/inveniosoftware/teams/23537/sk/)\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: sk\n"
+"Plural-Forms: nplurals=4; plural=(n % 1 == 0 && n == 1 ? 0 : n % 1 == 0 && n >= 2 && n <= 4 ? 1 : n % 1 != 0 ? 2: 3);\n"
+"mime-version: 1.0\n"
+
+msgid "Type something"
+msgstr ""
+
+msgid "Search"
+msgstr "Hľadaj"
+
+msgid "No results found!"
+msgstr ""
+
+msgid "Current search {{- search}}"
+msgstr ""
+
+msgid "Clear query"
+msgstr ""
+
+msgid "Oops! Something went wrong while fetching results."
+msgstr ""
+
+msgid "e.g. 2025 or 2025-03-15"
+msgstr ""
+
+msgid "Enter at least one value"
+msgstr ""
+
+msgid "Year must be 4 digits"
+msgstr ""
+
+msgid "Invalid date"
+msgstr ""
+
+msgid "Invalid number"
+msgstr ""
+
+msgid "Start must be before end"
+msgstr ""
+
+msgid "to"
+msgstr ""
+
+msgid "Apply custom range"
+msgstr ""
+
+msgid "Custom range"
+msgstr ""
+
+msgid "From"
+msgstr ""
+
+msgid "To"
+msgstr ""
+
+msgid "Results per page"
+msgstr ""
+
+msgid "Sort"
+msgstr ""
+
+msgid "Sort Results By"
+msgstr ""
+
+msgid "Sort Order"
+msgstr ""

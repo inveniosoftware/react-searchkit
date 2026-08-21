@@ -1,0 +1,23 @@
+{
+  "Type something": "Etwas eingeben",
+  "Search": "Suchen",
+  "No results found!": "Keine Ergebnisse gefunden!",
+  "Current search {{- search}}": "Aktuelle Suche {{- search}}",
+  "Clear query": "Suchanfrage löschen",
+  "Oops! Something went wrong while fetching results.": "Beim Abrufen der Ergebnisse ist ein Fehler aufgetreten.",
+  "e.g. 2025 or 2025-03-15": "z. B. 2025 oder 2025-03-15",
+  "Enter at least one value": "Geben Sie mindestens einen Wert ein",
+  "Year must be 4 digits": "Das Jahr muss 4-stellig sein",
+  "Invalid date": "Ungültiges Datum",
+  "Invalid number": "Ungültige Zahl",
+  "Start must be before end": "Startdatum muss vor dem Enddatum liegen",
+  "to": "bis",
+  "Apply custom range": "Benutzerdefinierten Bereich anwenden",
+  "Custom range": "Benutzerdefinierter Bereich",
+  "From": "Von",
+  "To": "Zu",
+  "Results per page": "Ergebnisse pro Seite",
+  "Sort": "Sortieren",
+  "Sort Results By": "Ergebnisse sortieren nach",
+  "Sort Order": "Sortierreihenfolge"
+}

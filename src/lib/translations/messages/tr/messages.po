@@ -1,0 +1,82 @@
+# Translators:
+# Berat Aldemir <berataldemir@gmail.com>, 2026
+# BEN TERCÜME, 2026
+# Ben Translation and Interpreting Services <info@bentercume.com>, 2026
+# Furkan Kalkan <furkan.kalkan3@gmail.com>, 2026
+# Cansu SAZOĞLU, 2026
+# 
+msgid ""
+msgstr ""
+"Project-Id-Version: i18next-conv\n"
+"POT-Creation-Date: 2026-07-01T11:04:12.967Z\n"
+"PO-Revision-Date: 2026-07-01 11:04+0000\n"
+"Last-Translator: Cansu SAZOĞLU, 2026\n"
+"Language-Team: Turkish (https://app.transifex.com/inveniosoftware/teams/23537/tr/)\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: tr\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+"mime-version: 1.0\n"
+
+msgid "Type something"
+msgstr "Bir şey yazın"
+
+msgid "Search"
+msgstr "Ara"
+
+msgid "No results found!"
+msgstr "Sonuç bulunamadı!"
+
+msgid "Current search {{- search}}"
+msgstr "Mevcut arama {{- search}}"
+
+msgid "Clear query"
+msgstr "Sorguyu temizle"
+
+msgid "Oops! Something went wrong while fetching results."
+msgstr "Hata! Sonuçlar alınırken bir sorun oluştu."
+
+msgid "e.g. 2025 or 2025-03-15"
+msgstr "Örnek; 2025 veya 2025-03-15"
+
+msgid "Enter at least one value"
+msgstr "En az bir değer girin"
+
+msgid "Year must be 4 digits"
+msgstr "Yıl, 4 basamaklı olmalıdır"
+
+msgid "Invalid date"
+msgstr "Geçersiz tarih"
+
+msgid "Invalid number"
+msgstr "Geçersiz sayı"
+
+msgid "Start must be before end"
+msgstr "Başlangıç bitişten önce olmalıdır"
+
+msgid "to"
+msgstr "ila"
+
+msgid "Apply custom range"
+msgstr "Özel aralığı uygula"
+
+msgid "Custom range"
+msgstr "Özel aralık"
+
+msgid "From"
+msgstr "Ne zamandan"
+
+msgid "To"
+msgstr "Ne zamana"
+
+msgid "Results per page"
+msgstr "Sayfa başına sonuç sayısı"
+
+msgid "Sort"
+msgstr "Sırala"
+
+msgid "Sort Results By"
+msgstr "Sonuçları Sırala"
+
+msgid "Sort Order"
+msgstr "Sıralama Düzeni"

@@ -1,0 +1,23 @@
+{
+  "Type something": "Bir şey yazın",
+  "Search": "Ara",
+  "No results found!": "Sonuç bulunamadı!",
+  "Current search {{- search}}": "Mevcut arama {{- search}}",
+  "Clear query": "Sorguyu temizle",
+  "Oops! Something went wrong while fetching results.": "Hata! Sonuçlar alınırken bir sorun oluştu.",
+  "e.g. 2025 or 2025-03-15": "Örnek; 2025 veya 2025-03-15",
+  "Enter at least one value": "En az bir değer girin",
+  "Year must be 4 digits": "Yıl, 4 basamaklı olmalıdır",
+  "Invalid date": "Geçersiz tarih",
+  "Invalid number": "Geçersiz sayı",
+  "Start must be before end": "Başlangıç bitişten önce olmalıdır",
+  "to": "ila",
+  "Apply custom range": "Özel aralığı uygula",
+  "Custom range": "Özel aralık",
+  "From": "Ne zamandan",
+  "To": "Ne zamana",
+  "Results per page": "Sayfa başına sonuç sayısı",
+  "Sort": "Sırala",
+  "Sort Results By": "Sonuçları Sırala",
+  "Sort Order": "Sıralama Düzeni"
+}
