@@ -13,7 +13,7 @@ jobs:
   i18n-pull:
     runs-on: ubuntu-latest
     env:
-      NODE-VERSION: 22
+      NODE-VERSION: 24
 
     steps:
       - name: Checkout
@@ -37,7 +37,7 @@ jobs:
         run: npm run compile_catalog
 
       - name: Create Pull Request
-        uses: peter-evans/create-pull-request@v6
+        uses: peter-evans/create-pull-request@v8
         with:
           commit-message: "i18n: pulled translations"
           title: "i18n: pulled translations"

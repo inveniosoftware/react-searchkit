@@ -13,7 +13,7 @@ jobs:
   i18n-extract:
     runs-on: ubuntu-latest
     env:
-      NODE-VERSION: 22
+      NODE-VERSION: 24
 
     steps:
       - name: Checkout
