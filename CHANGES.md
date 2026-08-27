@@ -1,5 +1,9 @@
 # Changes
 
+Version v3.3.1 (released 2026-08-27)
+
+- chore: update Node.js version to 24 in npm publish workflow
+
 Version v3.3.0 (released 2026-08-27)
 
 - i18n: pulled translations
