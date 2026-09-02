@@ -60,8 +60,12 @@ class BucketAggregation extends Component {
   };
 
   render() {
-    const { userSelectionFilters, resultsAggregations, overridableId, ...props } =
-      this.props;
+    const {
+      userSelectionFilters,
+      resultsAggregations,
+      overridableId = "",
+      ...props
+    } = this.props;
     const selectedFilters = this._getSelectedFilters(userSelectionFilters);
     const resultBuckets = this._getResultBuckets(resultsAggregations);
     const valuesCmp = resultBuckets.length
@@ -92,11 +96,13 @@ BucketAggregation.propTypes = {
   updateQueryFilters: PropTypes.func.isRequired,
 };
 
-BucketAggregation.defaultProps = {
-  overridableId: "",
-};
-
-const Element = ({ overridableId, agg, title, containerCmp, updateQueryFilters }) => {
+const Element = ({
+  overridableId = "",
+  agg,
+  title,
+  containerCmp = null,
+  updateQueryFilters,
+}) => {
   const { buildUID } = useContext(AppContext);
 
   return (
@@ -125,11 +131,6 @@ Element.propTypes = {
   containerCmp: PropTypes.node,
   overridableId: PropTypes.string,
   updateQueryFilters: PropTypes.func.isRequired,
-};
-
-Element.defaultProps = {
-  containerCmp: null,
-  overridableId: "",
 };
 
 export default Overridable.component("BucketAggregation", BucketAggregation);

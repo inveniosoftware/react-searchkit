@@ -46,7 +46,7 @@ export default {
     localResolve(),
     resolve(),
     babel({
-      presets: ['react-app'],
+      presets: [['react-app', { runtime: 'automatic' }]],
       babelHelpers: 'runtime',
       exclude: 'node_modules/**',
     }),

@@ -27,7 +27,7 @@ class AutocompleteSearchBar extends Component {
         })
       : this.props.updateSuggestions;
     this.clearSuggestions = this.props.clearSuggestions;
-    this.minCharsToAutocomplete = this.props.minCharsToAutocomplete;
+    this.minCharsToAutocomplete = this.props.minCharsToAutocomplete ?? 3;
     this.state = {
       currentValue: this.props.queryString || "",
     };
@@ -54,7 +54,11 @@ class AutocompleteSearchBar extends Component {
   };
 
   render() {
-    const { placeholder, suggestions, overridableId } = this.props;
+    const {
+      placeholder = i18next.t("Type something"),
+      suggestions,
+      overridableId = "",
+    } = this.props;
     return (
       <Element
         placeholder={placeholder}
@@ -81,15 +85,8 @@ AutocompleteSearchBar.propTypes = {
   overridableId: PropTypes.string,
 };
 
-AutocompleteSearchBar.defaultProps = {
-  handleAutocompleteChange: null,
-  placeholder: i18next.t("Type something"),
-  minCharsToAutocomplete: 3,
-  overridableId: "",
-};
-
-const AutocompleteSearchBarUncontrolled = (props) => (
-  <AutocompleteSearchBar key={props.queryString} {...props} />
+const AutocompleteSearchBarUncontrolled = ({ queryString = "", ...props }) => (
+  <AutocompleteSearchBar key={queryString} queryString={queryString} {...props} />
 );
 
 const Element = ({

@@ -64,8 +64,8 @@ class RangeFacet extends Component {
     const {
       currentQueryState,
       agg,
-      defaultRanges,
-      enableCustomRange,
+      defaultRanges = [],
+      enableCustomRange = false,
       rangeSeparator,
       currentResultsState,
     } = this.props;
@@ -104,7 +104,7 @@ class RangeFacet extends Component {
   };
 
   syncStateWithFilters = () => {
-    const { agg, currentQueryState, defaultRanges, rangeSeparator } = this.props;
+    const { agg, currentQueryState, defaultRanges = [], rangeSeparator } = this.props;
     const { min, max } = this.getMinMax();
 
     const filter = (currentQueryState.filters || []).find(
@@ -214,14 +214,14 @@ class RangeFacet extends Component {
   render() {
     const {
       title,
-      defaultRanges,
-      enableCustomRange,
+      defaultRanges = [],
+      enableCustomRange = false,
       rangeSeparator,
       currentQueryState,
       agg,
-      overridableId,
-      histogramHeight,
-      dateRangeToLabel,
+      overridableId = "",
+      histogramHeight = 100,
+      dateRangeToLabel = i18next.t("to"),
       fromAriaLabel,
       toAriaLabel,
       applyAriaLabel,
@@ -335,28 +335,16 @@ RangeFacet.propTypes = {
   customRangeAriaLabel: PropTypes.string,
 };
 
-RangeFacet.defaultProps = {
-  defaultRanges: [],
-  enableCustomRange: false,
-  overridableId: "",
-  histogramHeight: 100,
-  dateRangeToLabel: i18next.t("to"),
-  fromAriaLabel: undefined,
-  toAriaLabel: undefined,
-  applyAriaLabel: undefined,
-  customRangeAriaLabel: undefined,
-};
-
 RangeFacet.contextType = AppContext;
 
 export default Overridable.component("RangeFacet", withState(RangeFacet));
 
 const RangeFacetElement = ({
   title,
-  containerCmp,
+  containerCmp = null,
   hasActiveFilter,
   onClear,
-  overridableId,
+  overridableId = "",
 }) => {
   const { buildUID } = useContext(AppContext);
 
@@ -386,9 +374,4 @@ RangeFacetElement.propTypes = {
   hasActiveFilter: PropTypes.bool.isRequired,
   onClear: PropTypes.func.isRequired,
   overridableId: PropTypes.string,
-};
-
-RangeFacetElement.defaultProps = {
-  containerCmp: null,
-  overridableId: "",
 };

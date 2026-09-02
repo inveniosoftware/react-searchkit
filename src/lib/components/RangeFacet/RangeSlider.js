@@ -28,7 +28,7 @@ class RangeSlider extends Component {
   };
 
   render() {
-    const { min, max, value, overridableId } = this.props;
+    const { min, max, value, overridableId = "" } = this.props;
     const { buildUID } = this.context;
 
     const [v1, v2] = value;
@@ -140,10 +140,6 @@ RangeSlider.propTypes = {
   value: PropTypes.arrayOf(PropTypes.number).isRequired,
   onChange: PropTypes.func.isRequired,
   overridableId: PropTypes.string,
-};
-
-RangeSlider.defaultProps = {
-  overridableId: "",
 };
 
 RangeSlider.contextType = AppContext;
