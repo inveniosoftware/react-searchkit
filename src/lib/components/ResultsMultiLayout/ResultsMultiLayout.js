@@ -14,9 +14,9 @@ import { ShouldRender } from "../ShouldRender";
 function ResultsMultiLayout({
   loading,
   totalResults,
-  currentLayout,
-  overridableId,
-  onResultsRendered,
+  currentLayout = null,
+  overridableId = "",
+  onResultsRendered = () => {},
 }) {
   return (
     <ShouldRender condition={currentLayout != null && !loading && totalResults > 0}>
@@ -38,13 +38,7 @@ ResultsMultiLayout.propTypes = {
   totalResults: PropTypes.number.isRequired,
 };
 
-ResultsMultiLayout.defaultProps = {
-  currentLayout: null,
-  overridableId: "",
-  onResultsRendered: () => {},
-};
-
-const Element = ({ layout, overridableId, onResultsRendered }) => {
+const Element = ({ layout = "", overridableId = "", onResultsRendered = () => {} }) => {
   const { buildUID } = useContext(AppContext);
   return (
     <Overridable
@@ -71,12 +65,6 @@ Element.propTypes = {
   layout: PropTypes.string,
   overridableId: PropTypes.string,
   onResultsRendered: PropTypes.func,
-};
-
-Element.defaultProps = {
-  layout: "",
-  overridableId: "",
-  onResultsRendered: () => {},
 };
 
 export default Overridable.component("ResultsMultiLayout", ResultsMultiLayout);

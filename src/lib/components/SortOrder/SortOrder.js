@@ -27,13 +27,13 @@ class SortOrder extends Component {
 
   render() {
     const {
-      currentSortOrder,
+      currentSortOrder = null,
       loading,
       totalResults,
-      label,
-      overridableId,
-      ariaLabel,
-      selectOnNavigation,
+      label = (cmp) => cmp,
+      overridableId = "",
+      ariaLabel = i18next.t("Sort Order"),
+      selectOnNavigation = false,
     } = this.props;
     return (
       <ShouldRender
@@ -67,21 +67,13 @@ SortOrder.propTypes = {
   updateQuerySortOrder: PropTypes.func.isRequired,
 };
 
-SortOrder.defaultProps = {
-  currentSortOrder: null,
-  label: (cmp) => cmp,
-  overridableId: "",
-  ariaLabel: i18next.t("Sort Order"),
-  selectOnNavigation: false,
-};
-
 const Element = ({
-  overridableId,
-  currentSortOrder,
+  overridableId = "",
+  currentSortOrder = null,
   options,
   onValueChange,
-  ariaLabel,
-  selectOnNavigation,
+  ariaLabel = i18next.t("Sort Order"),
+  selectOnNavigation = false,
 }) => {
   const { buildUID } = useContext(AppContext);
 
@@ -118,13 +110,6 @@ Element.propTypes = {
   ariaLabel: PropTypes.string,
   selectOnNavigation: PropTypes.bool,
   onValueChange: PropTypes.func.isRequired,
-};
-
-Element.defaultProps = {
-  currentSortOrder: null,
-  overridableId: "",
-  ariaLabel: i18next.t("Sort Order"),
-  selectOnNavigation: false,
 };
 
 export default Overridable.component("SortOrder", SortOrder);

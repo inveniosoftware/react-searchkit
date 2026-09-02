@@ -45,5 +45,3 @@ export function Results(props) {
 Results.propTypes = {
   currentResultsState: PropTypes.array.isRequired,
 };
-
-Results.defaultProps = {};
