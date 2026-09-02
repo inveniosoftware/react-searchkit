@@ -42,15 +42,15 @@ class SearchBar extends Component {
 
   render() {
     const {
-      actionProps,
-      autofocus,
-      executeSearch,
-      onBtnSearchClick,
-      onInputChange,
-      onKeyPress,
-      overridableId,
-      placeholder,
-      uiProps,
+      actionProps = null,
+      autofocus = false,
+      executeSearch = null,
+      onBtnSearchClick = null,
+      onInputChange = null,
+      onKeyPress = null,
+      overridableId = "",
+      placeholder = "",
+      uiProps = null,
     } = this.props;
     const { currentValue } = this.state;
     return (
@@ -85,33 +85,15 @@ SearchBar.propTypes = {
   updateQueryString: PropTypes.func.isRequired,
 };
 
-SearchBar.defaultProps = {
-  actionProps: null,
-  autofocus: false,
-  executeSearch: null,
-  onBtnSearchClick: null,
-  onInputChange: null,
-  onKeyPress: null,
-  overridableId: "",
-  placeholder: "",
-  queryString: "",
-  uiProps: null,
-};
-
 // NOTE: Adding the key prop, will recreate the SearchBar in order to update
 // state with the latest redux queryString value.
 // https://reactjs.org/blog/2018/06/07/you-probably-dont-need-derived-state.html#recommendation-fully-uncontrolled-component-with-a-key
-const SearchBarUncontrolled = (props) => {
-  const { queryString } = props;
-  return <SearchBar key={queryString} {...props} />;
+const SearchBarUncontrolled = ({ queryString = "", ...props }) => {
+  return <SearchBar key={queryString} queryString={queryString} {...props} />;
 };
 
 SearchBarUncontrolled.propTypes = {
   queryString: PropTypes.string,
-};
-
-SearchBarUncontrolled.defaultProps = {
-  queryString: "",
 };
 
 class Element extends Component {
@@ -124,14 +106,14 @@ class Element extends Component {
 
   render() {
     const {
-      actionProps,
-      onBtnSearchClick,
-      onInputChange,
-      onKeyPress,
-      overridableId,
-      placeholder,
-      queryString,
-      uiProps,
+      actionProps = null,
+      onBtnSearchClick = null,
+      onInputChange = null,
+      onKeyPress = null,
+      overridableId = "",
+      placeholder = "",
+      queryString = "",
+      uiProps = null,
     } = this.props;
     const { buildUID } = this.context;
 
@@ -179,18 +161,6 @@ Element.propTypes = {
   placeholder: PropTypes.string,
   queryString: PropTypes.string,
   uiProps: PropTypes.object,
-};
-
-Element.defaultProps = {
-  actionProps: null,
-  autofocus: false,
-  onBtnSearchClick: null,
-  onInputChange: null,
-  onKeyPress: null,
-  overridableId: "",
-  placeholder: "",
-  queryString: "",
-  uiProps: null,
 };
 
 Element.contextType = AppContext;

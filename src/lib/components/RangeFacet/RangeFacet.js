@@ -27,6 +27,8 @@ import {
 } from "./utils";
 import { i18next } from "@translations/i18next";
 
+const DEFAULT_RANGES = [];
+
 class RangeFacet extends Component {
   constructor(props) {
     super(props);
@@ -64,16 +66,18 @@ class RangeFacet extends Component {
     const {
       currentQueryState,
       agg,
-      defaultRanges,
-      enableCustomRange,
+      defaultRanges = DEFAULT_RANGES,
+      enableCustomRange = false,
       rangeSeparator,
       currentResultsState,
     } = this.props;
+    const previousDefaultRanges = prevProps.defaultRanges ?? DEFAULT_RANGES;
+    const previousEnableCustomRange = prevProps.enableCustomRange ?? false;
     if (
       prevProps.currentQueryState.filters !== currentQueryState.filters ||
       prevProps.agg.aggName !== agg.aggName ||
-      prevProps.defaultRanges !== defaultRanges ||
-      prevProps.enableCustomRange !== enableCustomRange ||
+      previousDefaultRanges !== defaultRanges ||
+      previousEnableCustomRange !== enableCustomRange ||
       prevProps.rangeSeparator !== rangeSeparator ||
       prevProps.currentResultsState !== currentResultsState
     ) {
@@ -104,7 +108,12 @@ class RangeFacet extends Component {
   };
 
   syncStateWithFilters = () => {
-    const { agg, currentQueryState, defaultRanges, rangeSeparator } = this.props;
+    const {
+      agg,
+      currentQueryState,
+      defaultRanges = DEFAULT_RANGES,
+      rangeSeparator,
+    } = this.props;
     const { min, max } = this.getMinMax();
 
     const filter = (currentQueryState.filters || []).find(
@@ -112,11 +121,18 @@ class RangeFacet extends Component {
     );
 
     if (!filter) {
-      this.setState({
-        range: [min, max],
-        activeMode: null,
-        activeFilter: null,
-      });
+      this.setState((state) =>
+        state.range[0] === min &&
+        state.range[1] === max &&
+        state.activeMode === null &&
+        state.activeFilter === null
+          ? null
+          : {
+              range: [min, max],
+              activeMode: null,
+              activeFilter: null,
+            }
+      );
       return;
     }
 
@@ -130,11 +146,18 @@ class RangeFacet extends Component {
     );
     const parsedFilter = parseFilterYears(normalizedFilterValue, rangeSeparator);
     if (!parsedFilter) {
-      this.setState({
-        range: [min, max],
-        activeMode: null,
-        activeFilter: null,
-      });
+      this.setState((state) =>
+        state.range[0] === min &&
+        state.range[1] === max &&
+        state.activeMode === null &&
+        state.activeFilter === null
+          ? null
+          : {
+              range: [min, max],
+              activeMode: null,
+              activeFilter: null,
+            }
+      );
       return;
     }
     const clampedFrom = Math.max(parsedFilter.fromYear, min);
@@ -150,21 +173,19 @@ class RangeFacet extends Component {
       max,
       rangeSeparator
     );
-    // Active default label
-    if (defaultLabel) {
-      this.setState({
-        range: [from, to],
-        activeMode: RANGE_MODES.DEFAULT,
-        activeFilter: normalizedFilterValue,
-      });
-      // Active custom filter
-    } else {
-      this.setState({
-        range: [from, to],
-        activeMode: RANGE_MODES.CUSTOM,
-        activeFilter: normalizedFilterValue,
-      });
-    }
+    const activeMode = defaultLabel ? RANGE_MODES.DEFAULT : RANGE_MODES.CUSTOM;
+    this.setState((state) =>
+      state.range[0] === from &&
+      state.range[1] === to &&
+      state.activeMode === activeMode &&
+      state.activeFilter === normalizedFilterValue
+        ? null
+        : {
+            range: [from, to],
+            activeMode,
+            activeFilter: normalizedFilterValue,
+          }
+    );
   };
 
   onRangeChange = (newRange, dateRangeString = null) => {
@@ -214,14 +235,14 @@ class RangeFacet extends Component {
   render() {
     const {
       title,
-      defaultRanges,
-      enableCustomRange,
+      defaultRanges = DEFAULT_RANGES,
+      enableCustomRange = false,
       rangeSeparator,
       currentQueryState,
       agg,
-      overridableId,
-      histogramHeight,
-      dateRangeToLabel,
+      overridableId = "",
+      histogramHeight = 100,
+      dateRangeToLabel = i18next.t("to"),
       fromAriaLabel,
       toAriaLabel,
       applyAriaLabel,
@@ -335,28 +356,16 @@ RangeFacet.propTypes = {
   customRangeAriaLabel: PropTypes.string,
 };
 
-RangeFacet.defaultProps = {
-  defaultRanges: [],
-  enableCustomRange: false,
-  overridableId: "",
-  histogramHeight: 100,
-  dateRangeToLabel: i18next.t("to"),
-  fromAriaLabel: undefined,
-  toAriaLabel: undefined,
-  applyAriaLabel: undefined,
-  customRangeAriaLabel: undefined,
-};
-
 RangeFacet.contextType = AppContext;
 
 export default Overridable.component("RangeFacet", withState(RangeFacet));
 
 const RangeFacetElement = ({
   title,
-  containerCmp,
+  containerCmp = null,
   hasActiveFilter,
   onClear,
-  overridableId,
+  overridableId = "",
 }) => {
   const { buildUID } = useContext(AppContext);
 
@@ -386,9 +395,4 @@ RangeFacetElement.propTypes = {
   hasActiveFilter: PropTypes.bool.isRequired,
   onClear: PropTypes.func.isRequired,
   overridableId: PropTypes.string,
-};
-
-RangeFacetElement.defaultProps = {
-  containerCmp: null,
-  overridableId: "",
 };

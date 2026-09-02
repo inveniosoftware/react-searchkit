@@ -14,7 +14,7 @@ class BucketAggregationValues extends Component {
     super(props);
     this.field = props.field;
     this.aggName = props.aggName;
-    this.childAgg = props.childAgg;
+    this.childAgg = props.childAgg ?? null;
     this.onFilterClicked = props.onFilterClicked;
   }
 
@@ -57,7 +57,7 @@ class BucketAggregationValues extends Component {
   };
 
   render() {
-    const { buckets, selectedFilters, overridableId } = this.props;
+    const { buckets, selectedFilters, overridableId = "" } = this.props;
     const valuesCmp = buckets.map((bucket) => {
       const keyField = bucket.key_as_string ? bucket.key_as_string : bucket.key;
       const isSelected = this._isSelected(this.aggName, keyField, selectedFilters);
@@ -96,12 +96,7 @@ BucketAggregationValues.propTypes = {
   overridableId: PropTypes.string,
 };
 
-BucketAggregationValues.defaultProps = {
-  childAgg: null,
-  overridableId: "",
-};
-
-const ContainerElement = ({ valuesCmp, overridableId }) => {
+const ContainerElement = ({ valuesCmp, overridableId = "" }) => {
   const { buildUID } = useContext(AppContext);
 
   return (
@@ -119,16 +114,12 @@ ContainerElement.propTypes = {
   overridableId: PropTypes.string,
 };
 
-ContainerElement.defaultProps = {
-  overridableId: "",
-};
-
 const ValueElement = ({
   bucket,
   isSelected,
   onFilterClicked,
   getChildAggCmps,
-  overridableId,
+  overridableId = "",
   keyField,
 }) => {
   const { buildUID, nextComponentIndex } = useContext(AppContext);
@@ -169,10 +160,6 @@ ValueElement.propTypes = {
   getChildAggCmps: PropTypes.func.isRequired,
   keyField: PropTypes.string.isRequired,
   overridableId: PropTypes.string,
-};
-
-ValueElement.defaultProps = {
-  overridableId: "",
 };
 
 export default Overridable.component(

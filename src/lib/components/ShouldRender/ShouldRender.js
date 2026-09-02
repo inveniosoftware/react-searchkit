@@ -6,18 +6,13 @@
 import PropTypes from "prop-types";
 import Overridable from "react-overridable";
 
-function ShouldRender(props) {
-  const { children, condition } = props;
+function ShouldRender({ condition = true, children }) {
   return condition ? children : null;
 }
 
 ShouldRender.propTypes = {
   condition: PropTypes.bool,
   children: PropTypes.node.isRequired,
-};
-
-ShouldRender.defaultProps = {
-  condition: true,
 };
 
 export default Overridable.component("ShouldRender", ShouldRender);

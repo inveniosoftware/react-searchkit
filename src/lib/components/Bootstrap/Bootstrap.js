@@ -11,8 +11,8 @@ import { AppContext } from "../ReactSearchKit/AppContext";
 class Bootstrap extends Component {
   constructor(props) {
     super(props);
-    this.searchOnInit = props.searchOnInit;
-    this.eventListenerEnabled = props.eventListenerEnabled;
+    this.searchOnInit = props.searchOnInit ?? true;
+    this.eventListenerEnabled = props.eventListenerEnabled ?? false;
     this.onAppInitialized = props.onAppInitialized;
     this.searchOnUrlQueryStringChanged = props.searchOnUrlQueryStringChanged;
   }
@@ -70,11 +70,6 @@ Bootstrap.propTypes = {
   onAppInitialized: PropTypes.func.isRequired,
   updateQueryState: PropTypes.func.isRequired,
   searchOnUrlQueryStringChanged: PropTypes.func.isRequired,
-};
-
-Bootstrap.defaultProps = {
-  searchOnInit: true,
-  eventListenerEnabled: false,
 };
 
 Bootstrap.contextType = AppContext;

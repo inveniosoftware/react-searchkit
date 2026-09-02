@@ -54,7 +54,14 @@ class RangeHistogram extends Component {
   };
 
   render() {
-    const { parentWidth, data, range, height, onBarClick, overridableId } = this.props;
+    const {
+      parentWidth = null,
+      data,
+      range,
+      height,
+      onBarClick,
+      overridableId = "",
+    } = this.props;
     const { hoveredYear, tooltip } = this.state;
 
     if (!parentWidth || parentWidth <= 0 || data.length === 0) {
@@ -96,11 +103,6 @@ RangeHistogram.propTypes = {
   overridableId: PropTypes.string,
 };
 
-RangeHistogram.defaultProps = {
-  parentWidth: null,
-  overridableId: "",
-};
-
 const RangeHistogramElement = ({
   data,
   range,
@@ -108,12 +110,12 @@ const RangeHistogramElement = ({
   height,
   xScale,
   yScale,
-  hoveredYear,
-  tooltip,
+  hoveredYear = null,
+  tooltip = null,
   onBarClick,
   onBarHover,
   onBarLeave,
-  overridableId,
+  overridableId = "",
 }) => {
   const { buildUID } = useContext(AppContext);
 
@@ -176,13 +178,7 @@ RangeHistogramElement.propTypes = {
   overridableId: PropTypes.string,
 };
 
-RangeHistogramElement.defaultProps = {
-  hoveredYear: null,
-  tooltip: null,
-  overridableId: "",
-};
-
-const RangeHistogramTooltip = ({ tooltip, overridableId }) => {
+const RangeHistogramTooltip = ({ tooltip = null, overridableId = "" }) => {
   const { buildUID } = useContext(AppContext);
 
   return (
@@ -220,11 +216,6 @@ RangeHistogramTooltip.propTypes = {
     y: PropTypes.number.isRequired,
   }),
   overridableId: PropTypes.string,
-};
-
-RangeHistogramTooltip.defaultProps = {
-  tooltip: null,
-  overridableId: "",
 };
 
 export default Overridable.component("RangeHistogram", withParentSize(RangeHistogram));
