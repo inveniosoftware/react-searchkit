@@ -68,5 +68,3 @@ Results.propTypes = {
   sortValues: PropTypes.array.isRequired,
   resultsPerPageValues: PropTypes.array.isRequired,
 };
-
-Results.defaultProps = {};

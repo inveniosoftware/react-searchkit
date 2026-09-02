@@ -30,11 +30,11 @@ class ResultsPerPage extends Component {
       loading,
       currentSize,
       totalResults,
-      label,
-      overridableId,
-      ariaLabel,
-      selectOnNavigation,
-      showWhenOnlyOnePage,
+      label = (cmp) => cmp,
+      overridableId = "",
+      ariaLabel = i18next.t("Results per page"),
+      selectOnNavigation = false,
+      showWhenOnlyOnePage = true,
     } = this.props;
     return (
       <ShouldRender
@@ -73,21 +73,13 @@ ResultsPerPage.propTypes = {
   updateQuerySize: PropTypes.func.isRequired,
 };
 
-ResultsPerPage.defaultProps = {
-  label: (cmp) => cmp,
-  overridableId: "",
-  ariaLabel: i18next.t("Results per page"),
-  selectOnNavigation: false,
-  showWhenOnlyOnePage: true,
-};
-
 const Element = ({
-  overridableId,
+  overridableId = "",
   currentSize,
   options,
   onValueChange,
-  ariaLabel,
-  selectOnNavigation,
+  ariaLabel = i18next.t("Results per page"),
+  selectOnNavigation = false,
 }) => {
   const { buildUID } = useContext(AppContext);
   const _options = options.map((element, index) => {
@@ -123,12 +115,6 @@ Element.propTypes = {
   selectOnNavigation: PropTypes.bool,
   onValueChange: PropTypes.func.isRequired,
   overridableId: PropTypes.string,
-};
-
-Element.defaultProps = {
-  ariaLabel: i18next.t("Results per page"),
-  selectOnNavigation: false,
-  overridableId: "",
 };
 
 export default Overridable.component("ResultsPerPage", ResultsPerPage);

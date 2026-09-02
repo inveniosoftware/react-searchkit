@@ -37,15 +37,15 @@ class Sort extends Component {
 
   render() {
     const {
-      currentSortBy,
-      currentSortOrder,
+      currentSortBy = null,
+      currentSortOrder = null,
       loading,
       totalResults,
-      label,
-      overridableId,
-      sortOrderDisabled,
-      ariaLabel,
-      selectOnNavigation,
+      label = (cmp) => cmp,
+      overridableId = "",
+      sortOrderDisabled = false,
+      ariaLabel = i18next.t("Sort"),
+      selectOnNavigation = false,
     } = this.props;
     return (
       <ShouldRender
@@ -88,25 +88,15 @@ Sort.propTypes = {
   updateQuerySorting: PropTypes.func.isRequired,
 };
 
-Sort.defaultProps = {
-  currentSortBy: null,
-  currentSortOrder: null,
-  label: (cmp) => cmp,
-  overridableId: "",
-  sortOrderDisabled: false,
-  ariaLabel: i18next.t("Sort"),
-  selectOnNavigation: false,
-};
-
 const Element = ({
-  overridableId,
-  currentSortBy,
-  currentSortOrder,
+  overridableId = "",
+  currentSortBy = null,
+  currentSortOrder = null,
   options,
   onValueChange,
   computeValue,
-  ariaLabel,
-  selectOnNavigation,
+  ariaLabel = i18next.t("Sort"),
+  selectOnNavigation = false,
 }) => {
   const { buildUID } = useContext(AppContext);
   const selected = computeValue(currentSortBy, currentSortOrder);
@@ -148,14 +138,6 @@ Element.propTypes = {
   selectOnNavigation: PropTypes.bool,
   computeValue: PropTypes.func.isRequired,
   onValueChange: PropTypes.func.isRequired,
-};
-
-Element.defaultProps = {
-  currentSortBy: null,
-  currentSortOrder: null,
-  overridableId: "",
-  ariaLabel: i18next.t("Sort"),
-  selectOnNavigation: false,
 };
 
 export default Overridable.component("Sort", Sort);
