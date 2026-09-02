@@ -23,17 +23,23 @@ class RangeDefaultFilters extends Component {
   }
 
   componentDidUpdate(prevProps) {
-    const { activeMode, activeFilter } = this.props;
-    if (
-      prevProps.activeMode !== activeMode ||
-      prevProps.activeFilter !== activeFilter
-    ) {
+    const { activeMode = null, activeFilter = null } = this.props;
+    const { activeMode: prevActiveMode = null, activeFilter: prevActiveFilter = null } =
+      prevProps;
+    if (prevActiveMode !== activeMode || prevActiveFilter !== activeFilter) {
       this.syncActiveLabel();
     }
   }
 
   syncActiveLabel = () => {
-    const { activeMode, activeFilter, ranges, min, max, rangeSeparator } = this.props;
+    const {
+      activeMode = null,
+      activeFilter = null,
+      ranges,
+      min,
+      max,
+      rangeSeparator,
+    } = this.props;
 
     if (activeMode !== RANGE_MODES.DEFAULT || !activeFilter) {
       this.setState({ activeLabel: null });
@@ -67,7 +73,7 @@ class RangeDefaultFilters extends Component {
   };
 
   render() {
-    const { ranges, overridableId } = this.props;
+    const { ranges, overridableId = "" } = this.props;
     const { activeLabel } = this.state;
 
     if (ranges.length === 0) return null;
@@ -100,17 +106,11 @@ RangeDefaultFilters.propTypes = {
   overridableId: PropTypes.string,
 };
 
-RangeDefaultFilters.defaultProps = {
-  activeMode: null,
-  activeFilter: null,
-  overridableId: "",
-};
-
 const RangeDefaultFiltersElement = ({
   ranges,
-  activeLabel,
+  activeLabel = null,
   onToggle,
-  overridableId,
+  overridableId = "",
 }) => {
   const { buildUID } = useContext(AppContext);
 
@@ -145,11 +145,6 @@ RangeDefaultFiltersElement.propTypes = {
   activeLabel: PropTypes.string,
   onToggle: PropTypes.func.isRequired,
   overridableId: PropTypes.string,
-};
-
-RangeDefaultFiltersElement.defaultProps = {
-  activeLabel: null,
-  overridableId: "",
 };
 
 export default Overridable.component("RangeFacet.DefaultFilters", RangeDefaultFilters);

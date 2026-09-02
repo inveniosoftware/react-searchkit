@@ -14,9 +14,9 @@ function ResultsGrid({
   loading,
   totalResults,
   results,
-  resultsPerRow,
-  overridableId,
-  onResultsRendered,
+  resultsPerRow = 3,
+  overridableId = "",
+  onResultsRendered = () => {},
 }) {
   useEffect(() => {
     if (onResultsRendered) {
@@ -45,12 +45,6 @@ ResultsGrid.propTypes = {
   results: PropTypes.array.isRequired,
 };
 
-ResultsGrid.defaultProps = {
-  resultsPerRow: 3,
-  overridableId: "",
-  onResultsRendered: () => {},
-};
-
 const GridItem = ({ result, overridableId }) => {
   const { buildUID } = useContext(AppContext);
 
@@ -72,7 +66,7 @@ GridItem.propTypes = {
   overridableId: PropTypes.string.isRequired,
 };
 
-const Element = ({ overridableId, results, resultsPerRow }) => {
+const Element = ({ overridableId = "", results, resultsPerRow = 3 }) => {
   const { buildUID } = useContext(AppContext);
 
   const _results = results.map((result, index) => (
@@ -95,11 +89,6 @@ Element.propTypes = {
   results: PropTypes.array.isRequired,
   resultsPerRow: PropTypes.number,
   overridableId: PropTypes.string,
-};
-
-Element.defaultProps = {
-  resultsPerRow: 3,
-  overridableId: "",
 };
 
 export default Overridable.component("ResultsGrid", ResultsGrid);

@@ -52,17 +52,16 @@ class RangeCustomFilter extends Component {
   }
 
   componentDidUpdate(prevProps, prevState) {
-    const { activeMode, activeFilter, value, min, max } = this.props;
+    const { activeMode = null, activeFilter = null, value, min, max } = this.props;
+    const { activeMode: prevActiveMode = null, activeFilter: prevActiveFilter = null } =
+      prevProps;
     const { checked } = this.state;
 
-    if (prevProps.activeMode !== activeMode) {
+    if (prevActiveMode !== activeMode) {
       this.syncActiveMode();
     }
 
-    if (
-      prevProps.activeMode !== activeMode ||
-      prevProps.activeFilter !== activeFilter
-    ) {
+    if (prevActiveMode !== activeMode || prevActiveFilter !== activeFilter) {
       this.syncActiveFilter();
     }
 
@@ -88,7 +87,7 @@ class RangeCustomFilter extends Component {
   };
 
   syncActiveMode = () => {
-    const { activeMode } = this.props;
+    const { activeMode = null } = this.props;
     const { checked } = this.state;
 
     if (activeMode !== RANGE_MODES.CUSTOM && checked) {
@@ -97,7 +96,7 @@ class RangeCustomFilter extends Component {
   };
 
   syncFromProps = () => {
-    const { value, min, max, activeMode, activeFilter } = this.props;
+    const { value, min, max, activeMode = null, activeFilter = null } = this.props;
 
     // If custom mode is active and has a filter, keep the filter values
     if (activeMode === RANGE_MODES.CUSTOM && activeFilter) return;
@@ -109,7 +108,7 @@ class RangeCustomFilter extends Component {
   };
 
   syncActiveFilter = () => {
-    const { activeMode, activeFilter, rangeSeparator } = this.props;
+    const { activeMode = null, activeFilter = null, rangeSeparator } = this.props;
     if (activeMode !== RANGE_MODES.CUSTOM || !activeFilter) return;
 
     const parts = activeFilter.split(rangeSeparator);
@@ -124,7 +123,7 @@ class RangeCustomFilter extends Component {
   };
 
   formatValue = (input) => {
-    const { valueType } = this.props;
+    const { valueType = VALUE_TYPES.DATE } = this.props;
     const fn = FORMAT_FNS[valueType] || FORMAT_FNS[VALUE_TYPES.DATE];
     return fn(input);
   };
@@ -137,7 +136,7 @@ class RangeCustomFilter extends Component {
   // Normalize a date value by zero-padding parts (e.g. "2025-3" → "2025-03")
   normalizeValue = (value) => {
     if (!value) return value;
-    const { valueType } = this.props;
+    const { valueType = VALUE_TYPES.DATE } = this.props;
     if (valueType === VALUE_TYPES.INT) return value;
     const parts = value.split("-");
     return parts
@@ -164,7 +163,7 @@ class RangeCustomFilter extends Component {
   };
 
   parseValue = (value, isStart) => {
-    const { valueType } = this.props;
+    const { valueType = VALUE_TYPES.DATE } = this.props;
     if (valueType === VALUE_TYPES.INT) {
       const n = Number(value);
       return Number.isFinite(n) ? n : null;
@@ -174,7 +173,7 @@ class RangeCustomFilter extends Component {
   };
 
   validate = (fromValue, toValue) => {
-    const { valueType } = this.props;
+    const { valueType = VALUE_TYPES.DATE } = this.props;
     const isDate = valueType !== VALUE_TYPES.INT;
 
     if (!fromValue && !toValue) {
@@ -223,7 +222,7 @@ class RangeCustomFilter extends Component {
 
   applyRange = () => {
     const { checked, fromValue, toValue } = this.state;
-    const { rangeSeparator, onApply, activeFilter } = this.props;
+    const { rangeSeparator, onApply, activeFilter = null } = this.props;
 
     if (!checked) return;
 
@@ -268,15 +267,15 @@ class RangeCustomFilter extends Component {
   render() {
     const { checked, fromValue, toValue, error } = this.state;
     const {
-      overridableId,
-      activeFilter,
-      dateRangeToLabel,
+      overridableId = "",
+      activeFilter = null,
+      dateRangeToLabel = i18next.t("to"),
       helpText,
-      valueType,
-      fromAriaLabel,
-      toAriaLabel,
-      applyAriaLabel,
-      customRangeAriaLabel,
+      valueType = VALUE_TYPES.DATE,
+      fromAriaLabel = i18next.t("From"),
+      toAriaLabel = i18next.t("To"),
+      applyAriaLabel = i18next.t("Apply custom range"),
+      customRangeAriaLabel = i18next.t("Custom range"),
     } = this.props;
     const { buildUID } = this.context;
     const resolvedHelpText = helpText ?? DEFAULT_HELP_TEXTS[valueType];
@@ -359,19 +358,6 @@ RangeCustomFilter.propTypes = {
   toAriaLabel: PropTypes.string,
   applyAriaLabel: PropTypes.string,
   customRangeAriaLabel: PropTypes.string,
-};
-
-RangeCustomFilter.defaultProps = {
-  activeMode: null,
-  activeFilter: null,
-  overridableId: "",
-  dateRangeToLabel: i18next.t("to"),
-  valueType: VALUE_TYPES.DATE,
-  helpText: undefined,
-  fromAriaLabel: i18next.t("From"),
-  toAriaLabel: i18next.t("To"),
-  applyAriaLabel: i18next.t("Apply custom range"),
-  customRangeAriaLabel: i18next.t("Custom range"),
 };
 
 RangeCustomFilter.contextType = AppContext;

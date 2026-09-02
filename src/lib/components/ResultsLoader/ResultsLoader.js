@@ -9,7 +9,7 @@ import Overridable from "react-overridable";
 import { Loader } from "semantic-ui-react";
 import { AppContext } from "../ReactSearchKit";
 
-function ResultsLoader({ children, loading, overridableId }) {
+function ResultsLoader({ children, loading, overridableId = "" }) {
   return loading ? <Element overridableId={overridableId} /> : children;
 }
 
@@ -20,11 +20,7 @@ ResultsLoader.propTypes = {
   loading: PropTypes.bool.isRequired,
 };
 
-ResultsLoader.defaultProps = {
-  overridableId: "",
-};
-
-const Element = ({ overridableId }) => {
+const Element = ({ overridableId = "" }) => {
   const { buildUID } = useContext(AppContext);
 
   return (
@@ -36,10 +32,6 @@ const Element = ({ overridableId }) => {
 
 Element.propTypes = {
   overridableId: PropTypes.string,
-};
-
-Element.defaultProps = {
-  overridableId: "",
 };
 
 export default Overridable.component("ResultsLoader", ResultsLoader);

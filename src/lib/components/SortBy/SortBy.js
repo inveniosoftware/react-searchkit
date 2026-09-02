@@ -27,13 +27,13 @@ class SortBy extends Component {
 
   render() {
     const {
-      currentSortBy,
+      currentSortBy = null,
       loading,
       totalResults,
-      label,
-      overridableId,
-      ariaLabel,
-      selectOnNavigation,
+      label = (cmp) => cmp,
+      overridableId = "",
+      ariaLabel = i18next.t("Sort Results By"),
+      selectOnNavigation = false,
     } = this.props;
     return (
       <ShouldRender condition={currentSortBy !== null && !loading && totalResults > 0}>
@@ -65,21 +65,13 @@ SortBy.propTypes = {
   updateQuerySortBy: PropTypes.func.isRequired,
 };
 
-SortBy.defaultProps = {
-  currentSortBy: null,
-  label: (cmp) => cmp,
-  overridableId: "",
-  ariaLabel: i18next.t("Sort Results By"),
-  selectOnNavigation: false,
-};
-
 const Element = ({
-  overridableId,
-  currentSortBy,
+  overridableId = "",
+  currentSortBy = null,
   options,
   onValueChange,
-  ariaLabel,
-  selectOnNavigation,
+  ariaLabel = i18next.t("Sort Results By"),
+  selectOnNavigation = false,
 }) => {
   const { buildUID } = useContext(AppContext);
 
@@ -116,13 +108,6 @@ Element.propTypes = {
   ariaLabel: PropTypes.string,
   selectOnNavigation: PropTypes.bool,
   onValueChange: PropTypes.func.isRequired,
-};
-
-Element.defaultProps = {
-  currentSortBy: null,
-  overridableId: "",
-  ariaLabel: i18next.t("Sort Results By"),
-  selectOnNavigation: false,
 };
 
 export default Overridable.component("SortBy", SortBy);
