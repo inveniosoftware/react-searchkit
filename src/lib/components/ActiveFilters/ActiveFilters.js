@@ -4,7 +4,7 @@
  */
 
 import PropTypes from "prop-types";
-import React, { Component, useContext } from "react";
+import { Component, useContext } from "react";
 import Overridable from "react-overridable";
 import { Icon, Label } from "semantic-ui-react";
 import { AppContext } from "../ReactSearchKit";
@@ -32,7 +32,7 @@ class ActiveFilters extends Component {
   };
 
   render() {
-    const { filters, overridableId } = this.props;
+    const { filters, overridableId = "" } = this.props;
     return (
       !!filters.length && (
         <Element
@@ -53,11 +53,7 @@ ActiveFilters.propTypes = {
   updateQueryFilters: PropTypes.func.isRequired,
 };
 
-ActiveFilters.defaultProps = {
-  overridableId: "",
-};
-
-const Element = ({ overridableId, filters, removeActiveFilter, getLabel }) => {
+const Element = ({ overridableId = "", filters, removeActiveFilter, getLabel }) => {
   const { buildUID } = useContext(AppContext);
 
   return (
@@ -88,10 +84,6 @@ Element.propTypes = {
   removeActiveFilter: PropTypes.func.isRequired,
   getLabel: PropTypes.func.isRequired,
   overridableId: PropTypes.string,
-};
-
-Element.defaultProps = {
-  overridableId: "",
 };
 
 export default Overridable.component("ActiveFilters", ActiveFilters);

@@ -3,12 +3,12 @@
  * SPDX-License-Identifier: MIT
  */
 
-import React from "react";
+import { Component } from "react";
 import PropTypes from "prop-types";
 import Overridable from "react-overridable";
 import { AppContext } from "../ReactSearchKit";
 
-class RangeSlider extends React.Component {
+class RangeSlider extends Component {
   // Converts a value within [min, max] into a clamped percentage (0–100).
   // When min === max, return 50 to keep the thumb centered in single-value mode.
   getPercent = (v) => {
@@ -28,7 +28,7 @@ class RangeSlider extends React.Component {
   };
 
   render() {
-    const { min, max, value, overridableId } = this.props;
+    const { min, max, value, overridableId = "" } = this.props;
     const { buildUID } = this.context;
 
     const [v1, v2] = value;
@@ -140,10 +140,6 @@ RangeSlider.propTypes = {
   value: PropTypes.arrayOf(PropTypes.number).isRequired,
   onChange: PropTypes.func.isRequired,
   overridableId: PropTypes.string,
-};
-
-RangeSlider.defaultProps = {
-  overridableId: "",
 };
 
 RangeSlider.contextType = AppContext;

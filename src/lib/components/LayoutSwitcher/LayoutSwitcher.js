@@ -4,7 +4,7 @@
  */
 
 import PropTypes from "prop-types";
-import React, { Component, useContext } from "react";
+import { Component, useContext } from "react";
 import Overridable from "react-overridable";
 import { Icon, Menu } from "semantic-ui-react";
 import { AppContext } from "../ReactSearchKit";
@@ -21,7 +21,12 @@ class LayoutSwitcher extends Component {
   };
 
   render() {
-    const { currentLayout, loading, totalResults, overridableId } = this.props;
+    const {
+      currentLayout = null,
+      loading,
+      totalResults,
+      overridableId = "",
+    } = this.props;
     return (
       <ShouldRender condition={currentLayout !== null && !loading && totalResults > 0}>
         <Element
@@ -43,12 +48,7 @@ LayoutSwitcher.propTypes = {
   totalResults: PropTypes.number.isRequired,
 };
 
-LayoutSwitcher.defaultProps = {
-  currentLayout: null,
-  overridableId: "",
-};
-
-const Element = ({ overridableId, currentLayout, onLayoutChange }) => {
+const Element = ({ overridableId = "", currentLayout = null, onLayoutChange }) => {
   const { buildUID } = useContext(AppContext);
   return (
     <Overridable
@@ -80,11 +80,6 @@ Element.propTypes = {
   currentLayout: PropTypes.string,
   onLayoutChange: PropTypes.func.isRequired,
   overridableId: PropTypes.string,
-};
-
-Element.defaultProps = {
-  currentLayout: null,
-  overridableId: "",
 };
 
 export default Overridable.component("LayoutSwitcher", LayoutSwitcher);

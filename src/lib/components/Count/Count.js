@@ -4,21 +4,18 @@
  */
 
 import PropTypes from "prop-types";
-import React, { Component, useContext } from "react";
+import { useContext } from "react";
 import Overridable from "react-overridable";
 import { Label } from "semantic-ui-react";
 import { AppContext } from "../ReactSearchKit";
 import { ShouldRender } from "../ShouldRender";
 
-class Count extends Component {
-  render() {
-    const { loading, totalResults, label, overridableId } = this.props;
-    return (
-      <ShouldRender condition={!loading && totalResults > 0}>
-        {label(<Element totalResults={totalResults} overridableId={overridableId} />)}
-      </ShouldRender>
-    );
-  }
+function Count({ loading, totalResults, label = (cmp) => cmp, overridableId = "" }) {
+  return (
+    <ShouldRender condition={!loading && totalResults > 0}>
+      {label(<Element totalResults={totalResults} overridableId={overridableId} />)}
+    </ShouldRender>
+  );
 }
 
 Count.propTypes = {
@@ -29,12 +26,7 @@ Count.propTypes = {
   totalResults: PropTypes.number.isRequired,
 };
 
-Count.defaultProps = {
-  label: (cmp) => cmp,
-  overridableId: "",
-};
-
-const Element = ({ totalResults, overridableId }) => {
+const Element = ({ totalResults, overridableId = "" }) => {
   const { buildUID } = useContext(AppContext);
   const _overridableId = buildUID("Count.element", overridableId);
 
@@ -48,10 +40,6 @@ const Element = ({ totalResults, overridableId }) => {
 Element.propTypes = {
   totalResults: PropTypes.number.isRequired,
   overridableId: PropTypes.string,
-};
-
-Element.defaultProps = {
-  overridableId: "",
 };
 
 export default Overridable.component("Count", Count);

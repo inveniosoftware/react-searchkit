@@ -4,7 +4,7 @@
  */
 
 import PropTypes from "prop-types";
-import React, { Component } from "react";
+import { Component } from "react";
 import Overridable from "react-overridable";
 import { Provider } from "react-redux";
 import { UrlHandlerApi } from "../../api";
@@ -17,26 +17,37 @@ export class ReactSearchKit extends Component {
   constructor(props) {
     super(props);
 
+    const { searchOnInit = true } = props;
+    const urlHandlerApi = props.urlHandlerApi ?? {
+      enabled: true,
+      overrideConfig: {},
+      customHandler: null,
+    };
+
     const appConfig = {
       searchApi: props.searchApi,
-      suggestionApi: props.suggestionApi,
-      urlHandlerApi: props.urlHandlerApi.enabled
-        ? props.urlHandlerApi.customHandler ||
-          new UrlHandlerApi(props.urlHandlerApi.overrideConfig)
+      suggestionApi: props.suggestionApi ?? null,
+      urlHandlerApi: urlHandlerApi.enabled
+        ? urlHandlerApi.customHandler || new UrlHandlerApi(urlHandlerApi.overrideConfig)
         : null,
-      searchOnInit: props.searchOnInit,
-      initialQueryState: props.initialQueryState,
-      defaultSortingOnEmptyQueryString: props.defaultSortingOnEmptyQueryString,
+      searchOnInit,
+      initialQueryState: props.initialQueryState ?? {},
+      defaultSortingOnEmptyQueryString: props.defaultSortingOnEmptyQueryString ?? {},
     };
 
     this.store = createStoreWithConfig(appConfig);
-    this.appName = props.appName;
-    this.eventListenerEnabled = props.eventListenerEnabled;
+    this.appName = props.appName ?? "";
+    this.eventListenerEnabled = props.eventListenerEnabled ?? false;
     this.componentIndex = 0;
   }
   render() {
-    const { appName, children, eventListenerEnabled, overridableId, searchOnInit } =
-      this.props;
+    const {
+      appName = "",
+      children,
+      eventListenerEnabled = false,
+      overridableId = "",
+      searchOnInit = true,
+    } = this.props;
 
     const context = {
       appName,
@@ -97,21 +108,6 @@ ReactSearchKit.propTypes = {
     sortOrder: PropTypes.string,
   }),
   children: PropTypes.node.isRequired,
-};
-
-ReactSearchKit.defaultProps = {
-  suggestionApi: null,
-  urlHandlerApi: {
-    enabled: true,
-    overrideConfig: {},
-    customHandler: null,
-  },
-  searchOnInit: true,
-  appName: "",
-  eventListenerEnabled: false,
-  overridableId: "",
-  initialQueryState: {},
-  defaultSortingOnEmptyQueryString: {},
 };
 
 ReactSearchKit.contextType = AppContext;

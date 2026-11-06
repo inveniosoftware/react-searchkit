@@ -5,7 +5,7 @@
 
 import _isEmpty from "lodash/isEmpty";
 import PropTypes from "prop-types";
-import React, { Component, useContext } from "react";
+import { Component, useContext } from "react";
 import Overridable from "react-overridable";
 import { Button, Header, Icon, Segment } from "semantic-ui-react";
 import { AppContext } from "../ReactSearchKit";
@@ -23,9 +23,9 @@ class EmptyResults extends Component {
       loading,
       totalResults,
       error,
-      queryString,
-      extraContent,
-      overridableId,
+      queryString = "",
+      extraContent = null,
+      overridableId = "",
       userSelectionFilters,
       ...props
     } = this.props;
@@ -56,17 +56,11 @@ EmptyResults.propTypes = {
   userSelectionFilters: PropTypes.array.isRequired,
 };
 
-EmptyResults.defaultProps = {
-  queryString: "",
-  extraContent: null,
-  overridableId: "",
-};
-
 const Element = ({
-  overridableId,
-  queryString,
+  overridableId = "",
+  queryString = "",
   resetQuery,
-  extraContent,
+  extraContent = null,
   userSelectionFilters,
 }) => {
   const { buildUID } = useContext(AppContext);
@@ -105,12 +99,6 @@ Element.propTypes = {
   extraContent: PropTypes.node,
   overridableId: PropTypes.string,
   userSelectionFilters: PropTypes.array.isRequired,
-};
-
-Element.defaultProps = {
-  queryString: "",
-  extraContent: null,
-  overridableId: "",
 };
 
 export default Overridable.component("EmptyResults", EmptyResults);

@@ -4,13 +4,13 @@
  */
 
 import PropTypes from "prop-types";
-import React, { useContext } from "react";
+import { useContext } from "react";
 import Overridable from "react-overridable";
 import { Card, Checkbox } from "semantic-ui-react";
 import { AppContext } from "../ReactSearchKit";
 
 const ToggleComponent = ({
-  overridableId,
+  overridableId = "",
   userSelectionFilters,
   title,
   label,
@@ -57,10 +57,6 @@ ToggleComponent.propTypes = {
   /* REDUX */
   userSelectionFilters: PropTypes.array.isRequired,
   updateQueryFilters: PropTypes.func.isRequired,
-};
-
-ToggleComponent.defaultProps = {
-  overridableId: "",
 };
 
 export default Overridable.component("SearchFilters.Toggle", ToggleComponent);

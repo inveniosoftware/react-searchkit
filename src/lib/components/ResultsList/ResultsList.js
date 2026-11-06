@@ -4,7 +4,7 @@
  */
 
 import PropTypes from "prop-types";
-import React, { useContext, useEffect } from "react";
+import { useContext, useEffect } from "react";
 import Overridable from "react-overridable";
 import { Item } from "semantic-ui-react";
 import { AppContext } from "../ReactSearchKit";
@@ -14,8 +14,8 @@ function ResultsList({
   loading,
   totalResults,
   results,
-  overridableId,
-  onResultsRendered,
+  overridableId = "",
+  onResultsRendered = () => {},
 }) {
   useEffect(() => {
     if (onResultsRendered) {
@@ -39,11 +39,6 @@ ResultsList.propTypes = {
   results: PropTypes.array.isRequired,
 };
 
-ResultsList.defaultProps = {
-  overridableId: "",
-  onResultsRendered: () => {},
-};
-
 const ListItem = ({ result, overridableId }) => {
   const { buildUID } = useContext(AppContext);
 
@@ -65,7 +60,7 @@ ListItem.propTypes = {
   overridableId: PropTypes.string.isRequired,
 };
 
-const Element = ({ results, overridableId }) => {
+const Element = ({ results, overridableId = "" }) => {
   const { buildUID } = useContext(AppContext);
 
   const _results = results.map((result, index) => (
@@ -88,10 +83,6 @@ const Element = ({ results, overridableId }) => {
 Element.propTypes = {
   results: PropTypes.array.isRequired,
   overridableId: PropTypes.string,
-};
-
-Element.defaultProps = {
-  overridableId: "",
 };
 
 export default Overridable.component("ResultsList", ResultsList);

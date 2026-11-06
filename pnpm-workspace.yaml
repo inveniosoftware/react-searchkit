@@ -2,3 +2,7 @@ allowBuilds:
   "@parcel/watcher": false
   core-js: false
   core-js-pure: false
+
+# mirrors the npm "overrides" in package.json, which pnpm ignores
+overrides:
+  "enzyme>cheerio": 1.0.0-rc.12
