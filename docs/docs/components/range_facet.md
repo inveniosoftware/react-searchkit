@@ -46,7 +46,7 @@ with a numeric `key` (or `key_as_string`) and `doc_count`:
 
 ## Filters format
 
-The selected filter is stored as `[ "<aggName>", "<from><rangeSeparator><to>" ]`.
+The selected filter is stored as ``[ "<aggName>", "<from><rangeSeparator><to>" ]``.
 `<from>` and `<to>` can be `YYYY` or full ISO dates (`YYYY-MM-DD`) when custom ranges
 include months/days.
 
@@ -110,13 +110,15 @@ Brief flow (matches the default behavior):
 2. Compute `min/max` years from bucket keys.
 3. Compute the histogram data with aggregation keys and doc counts.
 4. Store the selected range in `currentQueryState.filters` as:
-   `[agg.aggName, `${from}${rangeSeparator}${to}`]`.
+   ``[agg.aggName, `${from}${rangeSeparator}${to}`]``.
 5. Render your own UI (histogram/slider/etc).
 
 Example with only histogram and custom filter facet:
 
 ```jsx
-class MyRangeFacet extends React.Component {
+import { Component } from "react";
+
+class MyRangeFacet extends Component {
   constructor(props) {
     super(props);
     const { min, max } = this.getMinMax();
@@ -377,6 +379,6 @@ Helpers from `src/lib/components/RangeFacet/utils.js` used by `RangeFacet` and i
   string (supports ISO dates).
 * **findDefaultLabel(defaultRanges, filterValue, min, max, rangeSeparator)**:
   match an active filter to a default range label.
-* **buildDateRange({ fromYear, fromMonth, fromDay, toYear, toMonth, toDay, rangeSeparator })**:
+* `buildDateRange({ fromYear, fromMonth, fromDay, toYear, toMonth, toDay, rangeSeparator })`:
   build a `YYYY..YYYY` or ISO `YYYY-MM-DD..YYYY-MM-DD` string.
 * **RANGE_MODES**: enum with `DEFAULT` and `CUSTOM` used for optional default and custom filters.
