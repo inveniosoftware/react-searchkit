@@ -1,5 +1,10 @@
 # Changes
 
+Version v3.3.2 (released 2026-11-06)
+
+- fix(pnpm): add pnpm-workspace.yaml
+- ci: migrate to shared workflows
+
 Version v3.3.1 (released 2026-08-27)
 
 - chore: update Node.js version to 24 in npm publish workflow
