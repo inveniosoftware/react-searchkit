@@ -1,0 +1,28 @@
+/*
+ * SPDX-FileCopyrightText: 2018 CERN.
+ * SPDX-License-Identifier: MIT
+ */
+
+/* your custom css */
+
+@media only screen and (min-device-width: 360px) and (max-device-width: 736px) {
+}
+
+@media only screen and (min-width: 1024px) {
+    .sitemap div {
+        padding-left: 140px;
+    }
+}
+
+@media only screen and (max-width: 1023px) {
+}
+
+@media only screen and (min-width: 1400px) {
+}
+
+@media only screen and (min-width: 1500px) {
+}
+
+.sitemap div p {
+    color: rgba(255, 255, 255, 0.6)
+}

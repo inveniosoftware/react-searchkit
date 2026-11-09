@@ -1,0 +1,43 @@
+/*
+ * SPDX-FileCopyrightText: 2018 CERN.
+ * SPDX-License-Identifier: MIT
+ */
+
+/* "Copy" code block button */
+pre {
+  position: relative;
+}
+
+pre .btnIcon {
+  position: absolute;
+  z-index: 2;
+  cursor: pointer;
+  border: 1px solid transparent;
+  padding: 0.5em;
+  color: #333;
+  background-color: transparent;
+  transition: all .25s ease-out;
+}
+
+pre .btnIcon:hover {
+  text-decoration: none;
+}
+
+.btnIcon__body {
+  align-items: center;
+  display: flex;
+}
+
+.btnIcon svg {
+  fill: currentColor;
+  margin-right: .4em;
+}
+
+.btnIcon__label {
+  font-size: 12px;
+}
+
+.btnClipboard {
+  top: 0.1em;
+  right: 0.1em;
+}
