@@ -1,31 +1,27 @@
-# -*- coding: utf-8 -*-
 #
-# Copyright (C) 2019 CERN.
-# Copyright (C) 2019 Northwestern University.
-# Copyright (C) 2023 Graz University of Technology.
+# SPDX-FileCopyrightText: 2019 CERN.
+# SPDX-FileCopyrightText: 2019 Northwestern University.
+# SPDX-FileCopyrightText: 2023 Graz University of Technology.
+# SPDX-FileCopyrightText: 2026 KTH Royal Institute of Technology.
+# SPDX-License-Identifier: MIT
 #
-# React-Searchkit is free software; you can redistribute it and/or modify it
-# under the terms of the MIT License; see LICENSE file for more details.
 
-# Translate JavaScript strings
-# 1) Install i18n dev dependencies
-#    npm install
-# 2) Add a new language
-#    npm run init_catalog lang <lang>
-# 3) Extract translation keys/values
-#    $ npm run extract_messages
-# 4) Install the transifex-client
-#    see: https://developers.transifex.com/docs/cli#transifex-client
-# 5) Push source (.pot) and translations (.po) to Transifex
-#    Navigate to the root of the invenio_administration repository
-#    $ tx push -s -t
-# 6) Pull translations for a single language from Transifex
-#    $ tx pull -l <lang>
-# 7) Pull translations for all languages from Transifex
-#    $ tx pull -a
-# 8) Compile .po files for all languages
-#    $ npm run compile_catalog
-# 9) Convert .po file for a single language
+# Workflow: frontend extract, pull and compile (from repository root)
+# Requires an authenticated Transifex CLI.
+# 1) $ npm ci
+# 2) $ npm run extract_messages
+# 3) $ tx pull -a
+# 4) $ npm run compile_catalog
+
+# Optional workflow: push extracted sources (from repository root)
+# 1) $ tx push -s
+
+# Add languages in Transifex, then pull.
+# Optional: local frontend language (development only, from repository root)
+# 1) $ npm ci
+# 2) $ npm run init_catalog lang <lang>
+# 3) $ npm run extract_messages
+# 4) Translate the PO file, then compile:
 #    $ npm run compile_catalog lang <lang>
 
 [main]
