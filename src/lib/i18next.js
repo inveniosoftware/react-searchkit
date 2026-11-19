@@ -1,5 +1,6 @@
 // This file is part of React-Searchkit
 // Copyright (C) 2021 Graz University of Technology.
+// Copyright (C) 2026 KTH Royal Institute of Technology.
 //
 // React-Searchkit is free software; you can redistribute it and/or modify it
 // under the terms of the MIT License; see LICENSE file for more details.
@@ -13,7 +14,7 @@ import { Trans as ReactTrans } from "react-i18next";
 const options = {
   fallbackLng: "en", // fallback keys
   returnEmptyString: false,
-  debug: process.env.NODE_ENV === "development",
+  debug: false,
   resources: translations,
   keySeparator: false,
   nsSeparator: false,

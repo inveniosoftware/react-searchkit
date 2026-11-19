@@ -9,10 +9,12 @@
     "dist"
   ],
   "config": {
-    "languages": ["en"]
+    "languages": [
+      "en"
+    ]
   },
   "scripts": {
-    "start": "react-scripts start",
+    "start": "node scripts/reactApp.cjs start",
     "build": "rimraf dist && NODE_ENV=production rollup -c",
     "edit-linked-package": "json -I -f ./dist/package.json -e 'this.module=\"esm/index.js\", this.main=\"cjs/index.js\"' ",
     "prelink-dist": "cp package.json ./dist && npm run edit-linked-package",
@@ -20,27 +22,29 @@
     "postlink-dist": "cd dist && rm -rf node_modules",
     "unlink-dist": "cd dist && npm unlink && rm package*",
     "watch": "NODE_ENV=development rollup --watch -c",
-    "extract_messages": "i18next-scanner --config i18next-scanner.config.js 'src/**/*.{js,jsx}'",
-    "postextract_messages": "i18next-conv -l en -s ./src/lib/translations/messages/en/translations.json -t ./src/lib/translations/translations.pot",
+    "extract_messages": "i18next-scanner --config i18next-scanner.config.js 'src/**/*.{js,jsx}' '!src/**/node_modules/**'",
+    "postextract_messages": "node ./src/lib/translations/scripts/postExtractMessages.js",
     "compile_catalog": "node ./src/lib/translations/scripts/compileCatalog.js",
     "init_catalog": "node ./src/lib/translations/scripts/initCatalog",
-    "test": "react-scripts test --transformIgnorePatterns /\"node_modules/(?!axios)/\"",
-    "eject": "react-scripts eject",
+    "test": "npm run test_catalog && node scripts/reactApp.cjs test --transformIgnorePatterns /\"node_modules/(?!axios)/\"",
+    "eject": "node scripts/reactApp.cjs eject",
     "lint": "eslint src/ --ext .js --max-warnings=0",
-    "format": "prettier --write \"src/**/*.js\""
+    "format": "prettier --write \"src/**/*.js\"",
+    "test_catalog": "node --test src/lib/translations/scripts/testCatalog.cjs",
+    "prepare": "npm ci --prefix scripts/react-app-tools --ignore-scripts --no-audit --no-fund"
   },
   "peerDependencies": {
     "@babel/runtime": "^7.9.0",
     "axios": "^1.7.7",
-    "i18next": "^20.3.0",
-    "i18next-browser-languagedetector": "^6.1.0",
+    "i18next": "^27.1.1",
+    "i18next-browser-languagedetector": "^8.3.0",
     "luxon": "^1.28.1",
     "lodash": "^4.17.0",
     "prop-types": "^15.8.1",
     "qs": "^6.8.0",
-    "react": "^18.3.0",
-    "react-dom": "^18.3.0",
-    "react-i18next": "^11.11.3",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "react-i18next": "^18.0.1",
     "react-overridable": "^1.0.0",
     "react-redux": "^7.2.0",
     "redux": "^4.0.0",
@@ -63,18 +67,17 @@
     "axios-mock-adapter": "^1.18.0",
     "enzyme": "^3.10.0",
     "@cfaester/enzyme-adapter-react-18": "^0.8.0",
-    "i18next-browser-languagedetector": "^6.1.0",
-    "i18next-conv": "^10.2.0",
-    "i18next-scanner": "^3.0.0",
+    "i18next-browser-languagedetector": "^8.3.0",
+    "i18next-conv": "^17.0.0",
+    "i18next-scanner": "^4.6.0",
     "json": "^10.0.0",
     "lodash": "^4.17.0",
     "qs": "^6.8.0",
-    "react": "^18.3.0",
-    "react-dom": "^18.3.0",
-    "react-i18next": "^11.11.3",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "react-i18next": "^18.0.1",
     "react-overridable": "^1.0.0",
     "react-redux": "^7.2.0",
-    "react-scripts": "^5.0.0",
     "redux": "^4.0.0",
     "redux-mock-store": "^1.5.0",
     "redux-thunk": "^2.3.0",
@@ -86,7 +89,9 @@
     "sass": "^1.50.0",
     "semantic-ui-css": "^2.5.0",
     "semantic-ui-react": "^3.0.0-beta.2",
-    "util": "^0.12.5"
+    "util": "^0.12.5",
+    "i18next": "^27.1.1",
+    "babel-preset-react-app": "^10.0.1"
   },
   "author": {
     "name": "CERN",
@@ -122,13 +127,9 @@
     ]
   },
   "engines": {
-    "node": ">=22.0.0"
+    "node": ">=24"
   },
   "overrides": {
-    "react-scripts": {
-      "resolve-url-loader": "^5.0.0",
-      "css-minimizer-webpack-plugin": "^8.0.0"
-    },
     "underscore": "^1.13.8",
     "@tootallnate/once": "^3.0.1",
     "sockjs": "^0.3.24",
